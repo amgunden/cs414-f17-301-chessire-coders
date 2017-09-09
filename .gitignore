@@ -72,3 +72,11 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+#NETBEANS
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
