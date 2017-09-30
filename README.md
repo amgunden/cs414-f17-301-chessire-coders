@@ -5,3 +5,4 @@ Repository for the group project in CS414.
 
 ## Online Board Game: Jungle
 A 1v1 strategy game that originated in China and resembles chess.
+https://en.wikipedia.org/wiki/Jungle_(board_game)
