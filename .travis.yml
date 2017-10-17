@@ -4,4 +4,7 @@ jdk:
 env:
   - TEST_DIR=client
   - TEST_DIR=server
-script: cd $TEST_DIR
+script: 
+  - cd $TEST_DIR
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn test -B
