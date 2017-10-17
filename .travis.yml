@@ -1,0 +1,7 @@
+language: java
+jdk:
+  - oraclejdk8
+env:
+  - TEST_DIR=jungle-client
+  - TEST_DIR=jungle-server
+before_install: cd $TEST_DIR
