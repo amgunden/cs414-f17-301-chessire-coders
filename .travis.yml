@@ -6,5 +6,5 @@ env:
   - TEST_DIR=server
 before_install: 
   - cd $TEST_DIR
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - mvn test -B
+#  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+#  - mvn test -B
