@@ -1,0 +1,19 @@
+---
+
+version: '3.3'
+
+services:
+  db:
+
+    build:
+      context: 'docker/postgres/'
+
+    ports:
+      - '5432:5432'
+
+    restart: 'always'
+
+    environment:
+      POSTGRES_USER: 'jungle'
+      POSTGRES_PASSWORD: '7Dh@Z5efPChIpb24o&'
+
