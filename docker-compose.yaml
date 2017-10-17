@@ -6,8 +6,7 @@ services:
   db:
 
     build:
-      context: '.'
-      dockerfile: './Dockerfile-postgres'
+      context: 'docker/postgres/'
 
     ports:
       - '5432:5432'
@@ -16,5 +15,5 @@ services:
 
     environment:
       POSTGRES_USER: 'jungle'
-      POSTGRES_PASSWORD: 'password'
+      POSTGRES_PASSWORD: '7Dh@Z5efPChIpb24o&'
 
