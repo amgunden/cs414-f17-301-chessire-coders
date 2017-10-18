@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -31,11 +31,14 @@
                </font>
             </Label>
             <TextField promptText="email" />
-            <PasswordField promptText="password" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Login" />
-            <FlowPane alignment="TOP_CENTER" prefHeight="30.0" prefWidth="150.0">
+            <TextField promptText="nickname" />
+            <PasswordField promptText="enter password" />
+            <PasswordField layoutX="385.0" layoutY="289.0" promptText="confirm password" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="172.0" text="Register" />
+            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="6.0" prefHeight="24.0" prefWidth="172.0">
                <children>
-                  <Hyperlink fx:id="hplRegister" onMouseClicked="#registerClicked" text="Register" underline="true" />
+                  <Label text="Already Registered?" />
+                  <Hyperlink fx:id="hplLogin" onMouseClicked="#loginClicked" text="Login" underline="true" />
                </children>
             </FlowPane>
          </children>
