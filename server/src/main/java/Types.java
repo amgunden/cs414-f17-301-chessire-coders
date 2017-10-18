@@ -9,4 +9,9 @@ public class Types {
         P2_WON,
         DRAW
     }
+
+    public enum PlayerColor {
+        RED,
+        BLACK
+    }
 }
