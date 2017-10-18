@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -8,6 +9,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -23,22 +26,37 @@
         </Menu>
       </menus>
     </MenuBar>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" vgap="6.0" VBox.vgrow="ALWAYS">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Jungle">
-               <font>
-                  <Font name="Century Gothic Bold" size="30.0" />
-               </font>
-            </Label>
-            <TextField promptText="email" />
-            <TextField promptText="nickname" />
-            <PasswordField promptText="enter password" />
-            <PasswordField layoutX="385.0" layoutY="289.0" promptText="confirm password" />
-            <Button fx:id="btnRegister" onMouseClicked="#registerClicked" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="172.0" text="Register" />
-            <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="6.0" prefHeight="24.0" prefWidth="172.0">
+            <ImageView fitHeight="211.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/board_2d.png" />
+               </image>
+            </ImageView>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="250.0" prefWidth="220.0" vgap="6.0">
                <children>
-                  <Label text="Already Registered?" />
-                  <Hyperlink fx:id="hplLogin" onMouseClicked="#loginClicked" text="Login" underline="true" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Jungle">
+                     <font>
+                        <Font name="Algerian" size="30.0" />
+                     </font>
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
+                     <padding>
+                        <Insets bottom="15.0" />
+                     </padding>
+                  </Label>
+                  <TextField promptText="email" />
+                  <TextField promptText="nickname" />
+                  <PasswordField promptText="enter password" />
+                  <PasswordField layoutX="385.0" layoutY="289.0" promptText="confirm password" />
+                  <Button fx:id="btnRegister" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#registerClicked" prefHeight="25.0" prefWidth="172.0" text="Register" />
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="6.0" prefHeight="24.0" prefWidth="172.0">
+                     <children>
+                        <Label text="Already Registered?" />
+                        <Hyperlink fx:id="hplLogin" onMouseClicked="#loginClicked" text="Login" underline="true" />
+                     </children>
+                  </FlowPane>
                </children>
             </FlowPane>
          </children>
