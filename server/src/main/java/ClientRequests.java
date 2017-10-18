@@ -3,6 +3,10 @@ import com.esotericsoftware.kryonet.EndPoint;
 
 public class ClientRequests {
 
+    /**
+     *
+     * @param endPoint
+     */
     public static void register(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
         kryo.register(LoginRequest.class);
@@ -14,9 +18,13 @@ public class ClientRequests {
         kryo.register(GetPlayerRequest.class);
         kryo.register(GetUserRequest.class);
         kryo.register(GetUserGameHistoryRequest.class);
-        kryo.register(RespondToInvitationRequest.class);
+        kryo.register(UpdateInvitationRequest.class);
+        kryo.register(UpdateSessionExpirationRequest.class);
     }
 
+    /**
+     *
+     */
     static class Session {
         String accessToken;
 
@@ -25,21 +33,42 @@ public class ClientRequests {
         }
     }
 
-    public static class RenewSessionRequest {
-        public byte[] sessionToken;
+    /**
+     *
+     */
+    public static class UpdateSessionExpirationRequest {
+        String accessToken;
+
+        public UpdateSessionExpirationRequest(String accessToken) {
+            this.accessToken = accessToken;
+        }
     }
 
+    /**
+     *
+     */
     public static class LoginRequest {
         String email;
         String password;
+
+        public LoginRequest(String email, String password) {
+            this.email = email;
+            this.password = password;
+        }
     }
 
+    /**
+     *
+     */
     public static class LogoutRequest extends Session {
         public LogoutRequest(String accessToken) {
             super(accessToken);
         }
     }
 
+    /**
+     *
+     */
     public static class RegisterRequest {
         String password;
         String email;
@@ -56,6 +85,9 @@ public class ClientRequests {
         }
     }
 
+    /**
+     *
+     */
     public static class GetGameRequest extends Session {
         int gameID;
 
@@ -65,6 +97,9 @@ public class ClientRequests {
         }
     }
 
+    /**
+     *
+     */
     public static class GetPieceLocationRequest extends Session {
         int pieceID;
 
@@ -74,6 +109,9 @@ public class ClientRequests {
         }
     }
 
+    /**
+     *
+     */
     public static class UpdatePieceLocationRequest extends Session {
         int pieceID;
         int x;
@@ -87,6 +125,9 @@ public class ClientRequests {
         }
     }
 
+    /**
+     *
+     */
     public static class GetPlayerRequest extends Session {
         int playerID;
 
@@ -96,6 +137,9 @@ public class ClientRequests {
         }
     }
 
+    /**
+     *
+     */
     public static class GetUserRequest extends Session {
         int userID;
 
@@ -105,6 +149,9 @@ public class ClientRequests {
         }
     }
 
+    /**
+     *
+     */
     public static class GetUserGameHistoryRequest extends Session {
         int userID;
 
@@ -114,11 +161,14 @@ public class ClientRequests {
         }
     }
 
-    public static class RespondToInvitationRequest extends Session {
+    /**
+     *
+     */
+    public static class UpdateInvitationRequest extends Session {
         int invitationID;
         Types.InvitationResponseType responseType;
 
-        public RespondToInvitationRequest(String accessToken, int invitationID, Types.InvitationResponseType responseType) {
+        public UpdateInvitationRequest(String accessToken, int invitationID, Types.InvitationResponseType responseType) {
             super(accessToken);
             this.invitationID = invitationID;
             this.responseType = responseType;
