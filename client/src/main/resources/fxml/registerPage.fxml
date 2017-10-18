@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -33,22 +33,28 @@
                   <Image url="@../images/board_2d.png" />
                </image>
             </ImageView>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="220.0" vgap="6.0">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="250.0" prefWidth="220.0" vgap="6.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Jungle">
                      <font>
-                        <Font name="Algerian" size="35.0" />
+                        <Font name="Algerian" size="30.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
                      <padding>
                         <Insets bottom="15.0" />
                      </padding>
                   </Label>
                   <TextField promptText="email" />
-                  <PasswordField promptText="password" />
-                  <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="25.0" prefWidth="172.0" text="Login" />
-                  <FlowPane alignment="TOP_CENTER" prefHeight="30.0" prefWidth="150.0">
+                  <TextField promptText="nickname" />
+                  <PasswordField promptText="enter password" />
+                  <PasswordField layoutX="385.0" layoutY="289.0" promptText="confirm password" />
+                  <Button fx:id="btnRegister" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#registerClicked" prefHeight="25.0" prefWidth="172.0" text="Register" />
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="6.0" prefHeight="24.0" prefWidth="172.0">
                      <children>
-                        <Hyperlink fx:id="hplRegister" onMouseClicked="#registerClicked" text="Register" underline="true" />
+                        <Label text="Already Registered?" />
+                        <Hyperlink fx:id="hplLogin" onMouseClicked="#loginClicked" text="Login" underline="true" />
                      </children>
                   </FlowPane>
                </children>
