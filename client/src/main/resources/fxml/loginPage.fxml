@@ -32,7 +32,7 @@
             </Label>
             <TextField promptText="email" />
             <PasswordField promptText="password" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Login" />
+            <Button fx:id="btnLogin" onMouseClicked="#loginClicked" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Login" />
             <FlowPane alignment="TOP_CENTER" prefHeight="30.0" prefWidth="150.0">
                <children>
                   <Hyperlink fx:id="hplRegister" onMouseClicked="#registerClicked" text="Register" underline="true" />

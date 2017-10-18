@@ -6,12 +6,21 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 
 public class LoginController implements Initializable {
 
 	@FXML
 	private Hyperlink hplRegister;
+	
+	@FXML
+	private Button btnLogin;
+	
+	public void loginClicked()
+	{
+		System.out.println("btnLogin Clicked.");
+	}
 	
 	public void registerClicked()
 	{

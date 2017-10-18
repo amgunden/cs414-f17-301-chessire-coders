@@ -6,12 +6,15 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 
 public class RegisterController implements Initializable {
 
 	@FXML
 	private Hyperlink hplLogin;
+	
+	@FXML Button btnRegister;
 	
 	public void loginClicked()
 	{
@@ -20,6 +23,11 @@ public class RegisterController implements Initializable {
 		} catch (IOException e) {
 			System.err.println("ERROR: Unable to load fxml file for Login page.");
 		}
+	}
+	
+	public void registerClicked()
+	{
+		System.out.println("btnRegister Clicked.");
 	}
 	
 	public void initialize(URL location, ResourceBundle resources) {

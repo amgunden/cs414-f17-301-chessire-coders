@@ -34,7 +34,7 @@
             <TextField promptText="nickname" />
             <PasswordField promptText="enter password" />
             <PasswordField layoutX="385.0" layoutY="289.0" promptText="confirm password" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="172.0" text="Register" />
+            <Button fx:id="btnRegister" onMouseClicked="#registerClicked" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="172.0" text="Register" />
             <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="6.0" prefHeight="24.0" prefWidth="172.0">
                <children>
                   <Label text="Already Registered?" />
