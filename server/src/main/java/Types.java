@@ -14,4 +14,12 @@ public class Types {
         RED,
         BLACK
     }
+
+    public enum GameStatus {
+        WAITING,
+        IN_PROGRESS,
+        DRAW,
+        P1_WINNER,
+        P2_WINNER
+    }
 }
