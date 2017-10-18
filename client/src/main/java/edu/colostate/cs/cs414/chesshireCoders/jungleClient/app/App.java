@@ -1,9 +1,9 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ui.LoginScene;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {  
@@ -13,10 +13,10 @@ public class App extends Application {
 	     //Code for JavaFX application. 
 	     //(Stage, scene, scene graph)      
 		 //creating a Group object 
-	     StackPane pane = new StackPane(); 
+	     Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginPage.fxml"));
 	       
 	     //Creating a Scene by passing the group object, height and width   
-	     Scene scene = new LoginScene(pane ,600, 500);
+	     Scene scene = new Scene(root);
 		   
 		 //Setting the title to Stage. 
 		  primaryStage.setTitle("Jungle"); 
