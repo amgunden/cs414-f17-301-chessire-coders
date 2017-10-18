@@ -174,5 +174,4 @@ public class ClientRequests {
             this.responseType = responseType;
         }
     }
-
 }

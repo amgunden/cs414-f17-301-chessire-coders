@@ -1,11 +1,11 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-public class JungleListener extends Listener {
+public class Listeners extends Listener {
 
     private JungleServer server;
 
-    public JungleListener(JungleServer server) {
+    public Listeners(JungleServer server) {
         this.server = server;
     }
 

@@ -1,6 +1,3 @@
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.FileInputStream;
@@ -22,6 +19,10 @@ public class JungleServer {
     public JungleServer() {
         settings = new Properties();
         server = new Server();
+
+        ClientRequests.register(server);
+        Event.register(server);
+        ServerResponses.register(server);
     }
 
     public JungleServer(String configPath) throws IOException {
@@ -32,6 +33,22 @@ public class JungleServer {
     public void start() throws IOException {
         server.start();
         server.bind(serverListenPort);
+        server.addListener(new Listeners(this));
+    }
+
+    /**
+     * This will stop the server from accepting new connections, while keeping old connections alive.
+     */
+    public void stop() {
+        server.stop();
+    }
+
+    /**
+     * This closes all connections and stops the server from listening.
+     */
+    public void close() {
+        server.sendToAllTCP(new Event.ServerEvent());
+        server.close();
     }
 
     private void loadConfiguration(String configPath) throws IOException {
