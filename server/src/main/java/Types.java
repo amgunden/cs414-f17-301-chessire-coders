@@ -22,4 +22,10 @@ public class Types {
         P1_WINNER,
         P2_WINNER
     }
+
+    public enum PlayerStatus {
+        INVITED,
+        ACCEPTED,
+        REJECTED
+    }
 }
