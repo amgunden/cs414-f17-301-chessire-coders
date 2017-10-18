@@ -1,19 +1,44 @@
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.EndPoint;
+
 public class Event {
 
+    public static void register(EndPoint endPoint) {
+        Kryo kryo = endPoint.getKryo();
+        kryo.register(InvitationEvent.class);
+        kryo.register(GameEndedEvent.class);
+        kryo.register(ServerEvent.class);
+    }
+
     public static class InvitationEvent {
-        public int invitationID;
+        int invitationID;
+
+        public InvitationEvent(int invitationID) {
+            this.invitationID = invitationID;
+        }
     }
 
     public static class GameEndedEvent {
-        public int gameID;
-        public Types.GameOutcomeType outcomeType;
+        int gameID;
+        Types.GameOutcomeType outcomeType;
+
+        public GameEndedEvent(int gameID, Types.GameOutcomeType gameOutcomeType) {
+            this.gameID = gameID;
+            this.outcomeType = gameOutcomeType;
+        }
     }
 
     public static class ServerEvent {
-        public ServerEventType eventType;
+        final String message;
+        final ServerEventType eventType;
+
+        public ServerEvent(ServerEventType eventType, String message) {
+            this.eventType = eventType;
+            this.message = message;
+        }
     }
 
     public enum ServerEventType {
-        SERVER_SHUTDOWN
+        SERVER_STOP
     }
 }
