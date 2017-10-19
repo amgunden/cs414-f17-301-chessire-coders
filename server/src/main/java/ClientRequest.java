@@ -1,13 +1,13 @@
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 
-public class ClientRequests {
+public class ClientRequest {
 
     /**
      *
      * @param endPoint
      */
-    public static void register(EndPoint endPoint) {
+    public static void registerRequests(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
         kryo.register(LoginRequest.class);
         kryo.register(LogoutRequest.class);

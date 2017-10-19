@@ -3,7 +3,7 @@ import com.esotericsoftware.kryonet.EndPoint;
 
 public class Event {
 
-    public static void register(EndPoint endPoint) {
+    public static void registerEvents(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
         kryo.register(InvitationEvent.class);
         kryo.register(GameEndedEvent.class);

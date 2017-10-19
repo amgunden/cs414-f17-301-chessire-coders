@@ -1,9 +1,9 @@
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 
-public class ServerResponses {
+public class ServerResponse {
 
-    public static void register(EndPoint endPoint) {
+    public static void registerResponses(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
         kryo.register(GetGameResponse.class);
         kryo.register(GetPieceLocationResponse.class);

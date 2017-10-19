@@ -1,10 +1,11 @@
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class JungleServer {
@@ -16,16 +17,18 @@ public class JungleServer {
     private String databaseURL;
     private Properties databaseProperties;
 
-    public JungleServer() {
+    public JungleServer() throws ClassNotFoundException {
         settings = new Properties();
         server = new Server();
 
-        ClientRequests.register(server);
-        Event.register(server);
-        ServerResponses.register(server);
+        ClientRequest.registerRequests(server);
+        Event.registerEvents(server);
+        ServerResponse.registerResponses(server);
+
+        Class.forName();
     }
 
-    public JungleServer(String configPath) throws IOException {
+    public JungleServer(String configPath) throws IOException, ClassNotFoundException {
         this();
         loadConfiguration(configPath);
     }
@@ -33,7 +36,7 @@ public class JungleServer {
     public void start() throws IOException {
         server.start();
         server.bind(serverListenPort);
-        server.addListener(new Listeners(this));
+        server.addListener(new DynamicRunListener(this));
     }
 
     /**
@@ -85,6 +88,30 @@ public class JungleServer {
     private void testDatabaseConnection() throws SQLException {
         java.sql.Connection connection = DriverManager.getConnection(databaseURL, databaseProperties);
         connection.close();
+    }
+
+    public static abstract class DynamicRecievedListener<T> extends Listener {
+
+        private final Class<T> c;
+
+        public DynamicRecievedListener(Class<T> c) {
+            this.c = c;
+        }
+
+        @Override
+        public void received(Connection connection, Object object) {
+            if(c.isInstance(object)) {
+                run(connection, c.cast(object));
+            }
+        }
+
+        public abstract void run(Connection connection, T recieved);
+    }
+
+    public java.sql.Connection getDatabaseConnection() throws SQLException {
+
+        java.sql.Connection connection = DriverManager.getConnection(databaseURL, databaseProperties);
+        connection.
     }
 
     public static int main(String[] args) {
