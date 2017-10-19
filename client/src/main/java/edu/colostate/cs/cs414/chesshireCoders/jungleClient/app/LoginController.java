@@ -21,7 +21,7 @@ public class LoginController implements Initializable {
 	{
 		System.out.println("btnLogin Clicked.");
 		try {
-			App.setScene("gameBoard.fxml");
+			App.setScene("homePage.fxml");
 		} catch (IOException e) {
 			System.err.println("ERROR: Unable to load fxml file for Home page.");
 		}
