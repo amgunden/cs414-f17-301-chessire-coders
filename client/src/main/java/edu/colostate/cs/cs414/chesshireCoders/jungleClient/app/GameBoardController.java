@@ -48,14 +48,14 @@ public class GameBoardController implements Initializable {
 				from[0] = r; from[1] = c;
 				// TODO get legal moves
 				// TODO highlight legal move squares
-				//Color green = Color.rgb(0, 150, 0, 0.65);
-				//setHighlight(getSquare(r, c+1), green);
-				//setHighlight(getSquare(r, c-1), green);
+					//Color green = Color.rgb(0, 150, 0, 0.65);
+					//setHighlight(getSquare(r, c+1), green);
+					//setHighlight(getSquare(r, c-1), green);
 		}
 		// if square is highlighted
 		else
 		{
-			if (from[0] != r || from[1] != c)
+			if (r != from[0] || c != from[1])
 			{
 				//int[] to = {r,c};
 				// TODO initiate move (piece, from, to)
@@ -64,6 +64,11 @@ public class GameBoardController implements Initializable {
 		
 	}
 
+	/**
+	 * Sets the background highlight of a square in the GridPane.
+	 * @param square the Stackpane to be highlighted.
+	 * @param fill the color of the highlight. A value of null removes the highlight.
+	 */
 	private void setHighlight(StackPane square, Paint fill) {
 		int padding = (fill == null) ? 0 : 6;
 		
@@ -84,6 +89,9 @@ public class GameBoardController implements Initializable {
 		}
 	}
 
+	/**
+	 * Removes the highlight from the previously highlighted square and it's surroundings.
+	 */
 	private void removePreviousHighlights() {
 		int r = from[0]; int c = from[1];
 		setHighlight(getSquare(r, c), null);
@@ -98,7 +106,16 @@ public class GameBoardController implements Initializable {
 			setHighlight(getSquare(r, c+1), null);
 	}
 
+	/**
+	 * Returns the square located at (row, column) in the GridPane.
+	 * @param row the row index of the square to return.
+	 * @param column the column index of the square to return.
+	 * @return Stackpane located at (row, column).
+	 */
 	private StackPane getSquare(int row, int column) {
+		if ( (row < 0) || (row > 8) || (column < 0) || (column > 6) )
+			return null;
+		
 		return (StackPane) gridPane.getChildren().get(7*row + column);
 	}
 
