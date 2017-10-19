@@ -1,7 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.Game;
 
 public class JungleGame {
-
+	int GameID = 0;
+	//DateTime startDateTime = new DateTime();
+	//DateTime endDateTime = new DateTime();
+	int Status = 0;
+	//Status could be a String or an int with value of three (0,1,2) or (1,2,3) signifying each case. 
+	
 	public JungleGame() {
 	}
 
