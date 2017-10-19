@@ -32,7 +32,7 @@ public class Main {
             server.start();
 
             // Add a shutdown hook to shutdown server gracefully on SIGTERM
-            Runtime.getRuntime().addShutdownHook(new Thread(server::close));
+            Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
 
         } catch (IOException e) {
             e.printStackTrace();

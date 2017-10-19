@@ -7,6 +7,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>JungleServer</name>
 
+    <repositories>
+        <repository>
+            <id>clojars</id>
+            <url>http://clojars.org/repo/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
@@ -15,11 +22,10 @@
             <version>42.1.4</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryonet -->
         <dependency>
-            <groupId>com.esotericsoftware</groupId>
+            <groupId>kryonet</groupId>
             <artifactId>kryonet</artifactId>
-            <version>2.22.0-RC1</version>
+            <version>2.21</version>
         </dependency>
 
         <dependency>
@@ -34,6 +40,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware.kryo</groupId>
+            <artifactId>kryo</artifactId>
+            <version>2.24.0</version>
         </dependency>
 
     </dependencies>
