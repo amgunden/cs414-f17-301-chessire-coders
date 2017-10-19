@@ -5,8 +5,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
-<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.GameBoardController">
+<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.GameBoardController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,105 +29,228 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-         <image>
-            <Image url="@../images/trap.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-         <image>
-            <Image url="@../images/den.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-         <image>
-            <Image url="@../images/trap.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <image>
-            <Image url="@../images/trap.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="4">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="5">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="5">
-         <image>
-            <Image url="@../images/river.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="7">
-         <image>
-            <Image url="@../images/trap.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="8">
-         <image>
-            <Image url="@../images/trap.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="8">
-         <image>
-            <Image url="@../images/den.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="8">
-         <image>
-            <Image url="@../images/trap.png" />
-         </image>
-      </ImageView>
+      <StackPane />
+      <StackPane GridPane.columnIndex="1" />
+      <StackPane GridPane.columnIndex="2">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="3">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/den.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="4">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="5" />
+      <StackPane GridPane.columnIndex="6" />
+      <StackPane GridPane.rowIndex="1" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="1" />
+      <StackPane GridPane.rowIndex="2" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="2" />
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="2" />
+      <StackPane GridPane.rowIndex="3" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="3">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="3" />
+      <StackPane GridPane.rowIndex="4" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="4">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="4">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="4" />
+      <StackPane GridPane.rowIndex="5" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="5">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="5">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/river.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="5" />
+      <StackPane GridPane.rowIndex="6" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="6" />
+      <StackPane GridPane.rowIndex="7" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="7">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="7" />
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="7" />
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="7" />
+      <StackPane GridPane.rowIndex="8" />
+      <StackPane GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <StackPane GridPane.columnIndex="2" GridPane.rowIndex="8">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="3" GridPane.rowIndex="8">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/den.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="4" GridPane.rowIndex="8">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <StackPane GridPane.columnIndex="6" GridPane.rowIndex="8" />
    </children>
 </GridPane>
