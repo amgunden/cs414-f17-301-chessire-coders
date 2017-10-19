@@ -26,16 +26,15 @@ public class Main {
             dataSource = initializeDataSource(properties);
 
             // Create and start the server.
-            server = new JungleServer(serverListenPort);
+            server = new JungleServer();
             server.setDataSource(dataSource);
+            server.bind(serverListenPort);
             server.start();
 
             // Add a shutdown hook to shutdown server gracefully on SIGTERM
             Runtime.getRuntime().addShutdownHook(new Thread(server::close));
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (PropertyVetoException e) {
             e.printStackTrace();

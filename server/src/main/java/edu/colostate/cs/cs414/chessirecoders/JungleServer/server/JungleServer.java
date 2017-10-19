@@ -3,76 +3,40 @@ package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 import com.esotericsoftware.kryonet.Server;
 
 import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
-import java.io.IOException;
 import java.sql.SQLException;
 
-public class JungleServer {
+public class JungleServer extends Server {
 
-    private Server server;
-    private int serverListenPort;
     private DataSource dataSource;
 
     /**
      *
-     * @throws ClassNotFoundException
      */
-    public JungleServer() throws ClassNotFoundException {
-        server = new Server();
-
-        ClientRequest.registerRequests(server);
-        Event.registerEvents(server);
-        ServerResponse.registerResponses(server);
+    public JungleServer() {
+        ClientRequest.registerRequests(this);
+        Event.registerEvents(this);
+        ServerResponse.registerResponses(this);
+        NetworkListener.addListeners(this);
     }
 
     /**
+     * Gets a connection to the data source.
      *
-     * @param serverListenPort
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws PropertyVetoException
+     * @return Returns an SQL connection that can be used to connect to the Data Source
+     * @throws SQLException Will throw if the data source has not been initialized, or if failed to get a connection.
      */
-    public JungleServer(int serverListenPort) throws IOException, ClassNotFoundException, PropertyVetoException {
-        this();
-        this.serverListenPort = serverListenPort;
-        NetworkListener.addListeners(server);
+    public java.sql.Connection getDBConnection() throws SQLException {
+        if (dataSource != null) {
+            return this.dataSource.getConnection();
+        } else {
+            throw new SQLException("Data source is not initialized.");
+        }
     }
 
     /**
-     *
-     * @throws IOException
+     * Sets the data source to be used by this server.
+     * @param dataSource The datasource to hand out connections from.
      */
-    public void start() throws IOException {
-        server.start();
-        server.bind(serverListenPort);
-    }
-
-    /**
-     * This will stop the server from accepting new connections, while keeping old connections alive.
-     */
-    public void stop() {
-        server.stop();
-    }
-
-    /**
-     * This closes all connections and stops the server from listening.
-     */
-    public void close() {
-        server.sendToAllTCP(new Event.ServerEvent(Event.ServerEventType.SERVER_STOP, "Server is shutting down!"));
-        server.close();
-    }
-
-
-    public void close(String msg) {
-        server.sendToAllTCP(new Event.ServerEvent(Event.ServerEventType.SERVER_STOP, msg));
-        server.close();
-    }
-
-    java.sql.Connection getDBConnection() throws SQLException {
-        return this.dataSource.getConnection();
-    }
-
-
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
