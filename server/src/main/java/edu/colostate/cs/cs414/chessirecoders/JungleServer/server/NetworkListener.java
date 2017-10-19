@@ -1,21 +1,14 @@
-package edu.colostate.cs.cs414.chessirecoders.server;
+package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
 public class NetworkListener {
 
-    Server server;
-
-    public NetworkListener(Server server) {
-        this.server = server;
-        this.addListeners();
-    }
-
     /**
      * Creates and adds all listeners required for the server. See ClientRequests.java for more information about each object type.
      */
-    private void addListeners() {
+    public static void addListeners(Server server) {
 
         // LoginRequest Listener
         server.addListener(new FilteredListener<ClientRequest.LoginRequest>(ClientRequest.LoginRequest.class) {

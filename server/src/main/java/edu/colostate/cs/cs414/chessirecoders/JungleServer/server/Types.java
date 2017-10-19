@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.server;
+package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 public class Types {
 
