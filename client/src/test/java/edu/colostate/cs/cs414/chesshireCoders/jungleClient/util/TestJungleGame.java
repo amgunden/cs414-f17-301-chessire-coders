@@ -1,11 +1,16 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.util;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.*;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.Game.JungleGame;
+
 import org.junit.*;
 
 public class TestJungleGame {
-
-	@Test
-	public void sayHi() {
-		System.out.println("hi");
+	JungleGame theGame;
+	
+	@Before
+	public void init() {
+		theGame = new JungleGame();
 	}
-
+	
+	//Currently in development. Check back later. 
 }
