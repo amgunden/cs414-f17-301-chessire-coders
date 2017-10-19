@@ -21,7 +21,7 @@ public class GameBoardController implements Initializable {
 	private int[] from;
 	
 	@FXML
-	public GridPane gridPane;
+	private GridPane gridPane;
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
