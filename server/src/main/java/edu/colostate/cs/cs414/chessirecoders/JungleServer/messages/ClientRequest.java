@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
+package edu.colostate.cs.cs414.chessirecoders.JungleServer.messages;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;

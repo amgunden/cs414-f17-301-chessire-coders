@@ -1,6 +1,9 @@
 package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 import com.esotericsoftware.kryonet.Server;
+import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.ClientRequest;
+import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.Event;
+import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.ServerResponse;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

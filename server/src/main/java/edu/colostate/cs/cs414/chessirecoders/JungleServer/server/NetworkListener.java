@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
+import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.ClientRequest;
 
 public class NetworkListener {
 
