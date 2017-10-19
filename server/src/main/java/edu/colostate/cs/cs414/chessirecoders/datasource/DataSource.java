@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.server;
+package edu.colostate.cs.cs414.chessirecoders.datasource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -36,6 +36,6 @@ public class DataSource {
     }
 
     public Connection getConnection() throws SQLException {
-        return cpds.getConnection();
+        return this.cpds.getConnection();
     }
 }

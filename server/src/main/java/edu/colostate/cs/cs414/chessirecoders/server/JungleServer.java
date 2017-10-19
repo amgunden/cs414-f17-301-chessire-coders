@@ -1,14 +1,13 @@
 package edu.colostate.cs.cs414.chessirecoders.server;
 
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import edu.colostate.cs.cs414.chessirecoders.datasource.DataSource;
 
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class JungleServer {
@@ -77,7 +76,12 @@ public class JungleServer {
      * This closes all connections and stops the server from listening.
      */
     public void close() {
-        server.sendToAllTCP(new Event.ServerEvent());
+        server.sendToAllTCP(new Event.ServerEvent(Event.ServerEventType.SERVER_STOP, "Server is shutting down!"));
+        server.close();
+    }
+
+    public void close(String msg) {
+        server.sendToAllTCP(new Event.ServerEvent(Event.ServerEventType.SERVER_STOP, msg));
         server.close();
     }
 
@@ -117,26 +121,10 @@ public class JungleServer {
         }
     }
 
-    public static abstract class DynamicRecievedListener<T> extends Listener {
 
-        private final Class<T> c;
 
-        public DynamicRecievedListener(Class<T> c) {
-            this.c = c;
-        }
-
-        @Override
-        public void received(Connection connection, Object object) {
-            if(c.isInstance(object)) {
-                run(connection, c.cast(object));
-            }
-        }
-
-        public abstract void run(Connection connection, T recieved);
-    }
-
-    public java.sql.Connection getDatabaseConnection() throws SQLException {
-
+    java.sql.Connection getDatabaseConnection() throws SQLException {
+        return this.dataSource.getConnection();
     }
 
     public static void main(String[] args) {

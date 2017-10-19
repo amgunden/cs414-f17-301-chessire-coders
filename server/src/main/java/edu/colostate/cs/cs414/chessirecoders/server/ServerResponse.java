@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chessirecoders.server;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import edu.colostate.cs.cs414.chessirecoders.game.GameHistory;
 
 public class ServerResponse {
 

@@ -13,7 +13,7 @@ public class NetworkListener {
     }
 
     /**
-     *
+     * Creates and adds all listeners required for the server. See ClientRequests.java for more information about each object type.
      */
     private void addListeners() {
 
@@ -99,7 +99,9 @@ public class NetworkListener {
     }
 
     /**
-     * @param <T>
+     * This is a generic listener class that will only listen for objects of type T.
+     *
+     * @param <T> The object type to listen for
      */
     public static abstract class FilteredListener<T> extends com.esotericsoftware.kryonet.Listener {
 
