@@ -1,7 +1,10 @@
+package edu.colostate.cs.cs414.chessirecoders.server;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
+import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,9 +17,14 @@ public class JungleServer {
     private Properties settings;
     private int serverListenPort;
 
+    private DataSource dataSource;
     private String databaseURL;
     private Properties databaseProperties;
 
+    /**
+     *
+     * @throws ClassNotFoundException
+     */
     public JungleServer() throws ClassNotFoundException {
         settings = new Properties();
         server = new Server();
@@ -25,18 +33,37 @@ public class JungleServer {
         Event.registerEvents(server);
         ServerResponse.registerResponses(server);
 
-        Class.forName();
     }
 
-    public JungleServer(String configPath) throws IOException, ClassNotFoundException {
+    /**
+     *
+     * @param configPath
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws PropertyVetoException
+     */
+    public JungleServer(String configPath) throws IOException, ClassNotFoundException, PropertyVetoException {
         this();
         loadConfiguration(configPath);
+        initializeDataSource();
     }
 
+    /**
+     *
+     * @throws PropertyVetoException
+     */
+    private void initializeDataSource() throws PropertyVetoException {
+        dataSource = DataSource.getInstance();
+        dataSource.initialize(1, 5, 1, databaseURL, databaseProperties);
+    }
+
+    /**
+     *
+     * @throws IOException
+     */
     public void start() throws IOException {
         server.start();
         server.bind(serverListenPort);
-        server.addListener(new DynamicRunListener(this));
     }
 
     /**
@@ -54,6 +81,11 @@ public class JungleServer {
         server.close();
     }
 
+    /**
+     *
+     * @param configPath
+     * @throws IOException
+     */
     private void loadConfiguration(String configPath) throws IOException {
         FileInputStream in = null;
         try {
@@ -85,11 +117,6 @@ public class JungleServer {
         }
     }
 
-    private void testDatabaseConnection() throws SQLException {
-        java.sql.Connection connection = DriverManager.getConnection(databaseURL, databaseProperties);
-        connection.close();
-    }
-
     public static abstract class DynamicRecievedListener<T> extends Listener {
 
         private final Class<T> c;
@@ -110,15 +137,21 @@ public class JungleServer {
 
     public java.sql.Connection getDatabaseConnection() throws SQLException {
 
-        java.sql.Connection connection = DriverManager.getConnection(databaseURL, databaseProperties);
-        connection.
     }
 
-    public static int main(String[] args) {
+    public static void main(String[] args) {
 
         String configPath = args[0];
         JungleServer server;
-
-        return 0;
+        try {
+            server = new JungleServer(configPath);
+            server.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
     }
 }

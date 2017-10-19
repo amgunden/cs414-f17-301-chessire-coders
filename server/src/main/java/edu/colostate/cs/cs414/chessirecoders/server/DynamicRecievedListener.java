@@ -1,3 +1,5 @@
+package edu.colostate.cs.cs414.chessirecoders.server;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 

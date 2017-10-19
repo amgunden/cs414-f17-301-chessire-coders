@@ -1,3 +1,5 @@
+package edu.colostate.cs.cs414.chessirecoders.server;
+
 import com.esotericsoftware.kryonet.Server;
 
 public class Controller {
@@ -13,6 +15,4 @@ public class Controller {
 
         }).start();
     }
-
-    pub
 }
