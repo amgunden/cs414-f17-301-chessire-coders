@@ -16,7 +16,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
+            <groupId>edu.colostate.cs.cs414.chessireCoders</groupId>
             <artifactId>jungleNetwork</artifactId>
             <version>1.0</version>
         </dependency>
