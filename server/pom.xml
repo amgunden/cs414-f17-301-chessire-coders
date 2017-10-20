@@ -2,10 +2,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
+
+    <parent>
+        <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>JungleGame</artifactId>
+    </parent>
+
+    <packaging>jar</packaging>
+
     <artifactId>JungleServer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>JungleServer</name>
+
 
     <repositories>
         <repository>
