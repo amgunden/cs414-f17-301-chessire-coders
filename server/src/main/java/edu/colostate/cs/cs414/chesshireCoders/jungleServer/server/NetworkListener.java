@@ -1,8 +1,8 @@
-package edu.colostate.cs.cs414.chessireCoders.jungleServer.server;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chessireCoders.jungleNetwork.requests.*;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.*;
 
 public class NetworkListener {
 

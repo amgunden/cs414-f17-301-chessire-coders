@@ -6,7 +6,7 @@
 
 
     <parent>
-        <groupId>edu.colostate.cs.cs414.chessireCoders</groupId>
+        <groupId>edu.colostate.cs.cs414.chesshireCoders</groupId>
         <version>1.0</version>
         <artifactId>jungleGame</artifactId>
     </parent>
