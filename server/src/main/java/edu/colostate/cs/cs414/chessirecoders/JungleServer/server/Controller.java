@@ -2,6 +2,10 @@ package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 
+/**
+ * The following nested classes are responsible for handling incoming requests,
+ * and calling on other objects to form responses to send back to the client.
+ */
 public abstract class Controller implements Runnable {
 
     private Connection connection;
