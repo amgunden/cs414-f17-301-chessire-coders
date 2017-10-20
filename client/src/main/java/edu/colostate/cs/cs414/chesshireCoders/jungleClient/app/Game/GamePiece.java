@@ -24,8 +24,9 @@ public class GamePiece {
 	}
 	
 	//Possible Functions:
-	
+	/*
 	public boolean canCapture(GamePiece comparisonPiece) {
 		return true;
 	}
+	*/
 }
