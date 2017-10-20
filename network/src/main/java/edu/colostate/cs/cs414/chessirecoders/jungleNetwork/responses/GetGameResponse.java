@@ -1,8 +1,8 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.responses;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.responses;
 
 
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.GameStatus;
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.PlayerStatus;
+import edu.colostate.cs.cs414.chessireCoders.jungleNetwork.types.GameStatus;
+import edu.colostate.cs.cs414.chessireCoders.jungleNetwork.types.PlayerStatus;
 
 public class GetGameResponse {
     int gameID;

@@ -1,6 +1,6 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.requests;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.requests;
 
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.InvitationResponseType;
+import edu.colostate.cs.cs414.chessireCoders.jungleNetwork.types.InvitationResponseType;
 
 public class UpdateInvitationRequest extends Session {
     int invitationID;

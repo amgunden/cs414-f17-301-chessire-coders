@@ -1,6 +1,6 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.responses;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.responses;
 
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.ErrorType;
+import edu.colostate.cs.cs414.chessireCoders.jungleNetwork.types.ErrorType;
 
 public class ErrorResponse {
     ErrorType errorType;

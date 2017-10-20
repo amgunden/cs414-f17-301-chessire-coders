@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.events;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.events;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;

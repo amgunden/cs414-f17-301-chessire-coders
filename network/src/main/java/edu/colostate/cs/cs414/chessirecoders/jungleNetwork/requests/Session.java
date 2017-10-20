@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.requests;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.requests;
 
 public class Session {
     String accessToken;

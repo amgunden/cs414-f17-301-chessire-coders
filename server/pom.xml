@@ -4,14 +4,14 @@
 
 
     <parent>
-        <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
+        <groupId>edu.colostate.cs.cs414.chessireCoders</groupId>
         <version>1.0</version>
-        <artifactId>JungleGame</artifactId>
+        <artifactId>jungleGame</artifactId>
     </parent>
 
     <packaging>jar</packaging>
 
-    <artifactId>JungleServer</artifactId>
+    <artifactId>jungleServer</artifactId>
     <name>JungleServer</name>
 
     <repositories>
@@ -24,7 +24,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
+            <groupId>edu.colostate.cs.cs414.chessireCoders</groupId>
             <artifactId>jungleNetwork</artifactId>
             <version>1.0</version>
         </dependency>

@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.JungleServer.loginManager;
+package edu.colostate.cs.cs414.chessireCoders.jungleServer.loginManager;
 
 public class LoginManager {
 }

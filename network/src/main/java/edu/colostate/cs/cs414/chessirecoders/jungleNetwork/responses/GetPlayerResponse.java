@@ -1,7 +1,7 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.responses;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.responses;
 
 
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.PlayerColor;
+import edu.colostate.cs.cs414.chessireCoders.jungleNetwork.types.PlayerColor;
 
 public class GetPlayerResponse {
     int playerID;

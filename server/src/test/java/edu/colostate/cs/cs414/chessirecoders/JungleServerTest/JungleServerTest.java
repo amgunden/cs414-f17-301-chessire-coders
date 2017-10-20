@@ -1,6 +1,6 @@
-package edu.colostate.cs.cs414.chessirecoders.JungleServerTest;
+package edu.colostate.cs.cs414.chessireCoders.jungleServerTest;
 
-import edu.colostate.cs.cs414.chessirecoders.JungleServer.server.JungleServer;
+import edu.colostate.cs.cs414.chessireCoders.jungleServer.server.JungleServer;
 import org.junit.Test;
 
 import java.beans.PropertyVetoException;
