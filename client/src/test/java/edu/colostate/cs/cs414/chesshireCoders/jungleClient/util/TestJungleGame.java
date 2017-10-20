@@ -11,7 +11,7 @@ public class TestJungleGame {
 	
 	@Before
 	public void init() {
-		theGame = new JungleGame();
+		theGame = new JungleGame(0, 0);
 	}
 	
 	//Currently in development. Check back later.
