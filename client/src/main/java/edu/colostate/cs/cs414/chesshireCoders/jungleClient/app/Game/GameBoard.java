@@ -40,59 +40,75 @@ public class GameBoard {
 	private void setUpBoard() {
 		//row 1
 		boardSquares[0][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[0][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[0][2] = new BoardSquare(SquareType.Trap);
-		boardSquares[0][3] = new BoardSquare(SquareType.Den);
-		boardSquares[0][4] = new BoardSquare(SquareType.Trap);
-		boardSquares[0][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[0][6] = new BoardSquare(SquareType.Normal);
-		//row 2
 		boardSquares[1][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][6] = new BoardSquare(SquareType.Normal);
-		//row 3
-		boardSquares[2][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][6] = new BoardSquare(SquareType.Normal);
-		//row 4
-		boardSquares[3][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][6] = new BoardSquare(SquareType.Normal);
-		//row 5
-		boardSquares[4][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][6] = new BoardSquare(SquareType.Normal);
-		//row 6
+		boardSquares[2][0] = new BoardSquare(SquareType.Trap, PlayerColor.Red);
+		boardSquares[3][0] = new BoardSquare(SquareType.Den, PlayerColor.Red);
+		boardSquares[4][0] = new BoardSquare(SquareType.Trap, PlayerColor.Red);
 		boardSquares[5][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][6] = new BoardSquare(SquareType.Normal);
-		//row 7
 		boardSquares[6][0] = new BoardSquare(SquareType.Normal);
+		//row 2
+		boardSquares[0][1] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][1] = new BoardSquare(SquareType.Normal);
+		boardSquares[2][1] = new BoardSquare(SquareType.Normal);
+		boardSquares[3][1] = new BoardSquare(SquareType.Trap, PlayerColor.Red);
+		boardSquares[4][1] = new BoardSquare(SquareType.Normal);
+		boardSquares[5][1] = new BoardSquare(SquareType.Normal);
 		boardSquares[6][1] = new BoardSquare(SquareType.Normal);
+		//row 3
+		boardSquares[0][2] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][2] = new BoardSquare(SquareType.Normal);
+		boardSquares[2][2] = new BoardSquare(SquareType.Normal);
+		boardSquares[3][2] = new BoardSquare(SquareType.Normal);
+		boardSquares[4][2] = new BoardSquare(SquareType.Normal);
+		boardSquares[5][2] = new BoardSquare(SquareType.Normal);
 		boardSquares[6][2] = new BoardSquare(SquareType.Normal);
+		//row 4
+		boardSquares[0][3] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][3] = new BoardSquare(SquareType.River);
+		boardSquares[2][3] = new BoardSquare(SquareType.River);
+		boardSquares[3][3] = new BoardSquare(SquareType.Normal);
+		boardSquares[4][3] = new BoardSquare(SquareType.River);
+		boardSquares[5][3] = new BoardSquare(SquareType.River);
 		boardSquares[6][3] = new BoardSquare(SquareType.Normal);
+		//row 5
+		boardSquares[0][4] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][4] = new BoardSquare(SquareType.River);
+		boardSquares[2][4] = new BoardSquare(SquareType.River);
+		boardSquares[3][4] = new BoardSquare(SquareType.Normal);
+		boardSquares[4][4] = new BoardSquare(SquareType.River);
+		boardSquares[5][4] = new BoardSquare(SquareType.River);
 		boardSquares[6][4] = new BoardSquare(SquareType.Normal);
+		//row 6
+		boardSquares[0][5] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][5] = new BoardSquare(SquareType.River);
+		boardSquares[2][5] = new BoardSquare(SquareType.River);
+		boardSquares[3][5] = new BoardSquare(SquareType.Normal);
+		boardSquares[4][5] = new BoardSquare(SquareType.River);
+		boardSquares[5][5] = new BoardSquare(SquareType.River);
 		boardSquares[6][5] = new BoardSquare(SquareType.Normal);
+		//row 7
+		boardSquares[0][6] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][6] = new BoardSquare(SquareType.Normal);
+		boardSquares[2][6] = new BoardSquare(SquareType.Normal);
+		boardSquares[3][6] = new BoardSquare(SquareType.Normal);
+		boardSquares[4][6] = new BoardSquare(SquareType.Normal);
+		boardSquares[5][6] = new BoardSquare(SquareType.Normal);
 		boardSquares[6][6] = new BoardSquare(SquareType.Normal);
+		//row 8
+		boardSquares[0][7] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][7] = new BoardSquare(SquareType.Normal);
+		boardSquares[2][7] = new BoardSquare(SquareType.Normal);
+		boardSquares[3][7] = new BoardSquare(SquareType.Trap, PlayerColor.Black);
+		boardSquares[4][7] = new BoardSquare(SquareType.Normal);
+		boardSquares[5][7] = new BoardSquare(SquareType.Normal);
+		boardSquares[6][7] = new BoardSquare(SquareType.Normal);
+		//row 9
+		boardSquares[0][8] = new BoardSquare(SquareType.Normal);
+		boardSquares[1][8] = new BoardSquare(SquareType.Normal);
+		boardSquares[2][8] = new BoardSquare(SquareType.Trap, PlayerColor.Black);
+		boardSquares[3][8] = new BoardSquare(SquareType.Den, PlayerColor.Black);
+		boardSquares[4][8] = new BoardSquare(SquareType.Trap, PlayerColor.Black);
+		boardSquares[5][8] = new BoardSquare(SquareType.Normal);
+		boardSquares[6][8] = new BoardSquare(SquareType.Normal);
 	}
 }

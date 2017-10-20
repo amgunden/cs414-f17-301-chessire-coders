@@ -22,11 +22,4 @@ public class GamePiece {
 	public int getColumn() {
 		return column;
 	}
-	
-	//Possible Functions:
-	/*
-	public boolean canCapture(GamePiece comparisonPiece) {
-		return true;
-	}
-	*/
 }

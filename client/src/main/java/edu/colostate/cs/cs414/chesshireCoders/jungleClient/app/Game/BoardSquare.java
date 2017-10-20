@@ -6,27 +6,19 @@ public class BoardSquare {
 
 	public BoardSquare(SquareType type) {
 		typeOfSquare = type;
-		colorOfPlayer = PlayerColor.none;
+		colorOfPlayer = PlayerColor.None;
+	}
+	
+	public BoardSquare(SquareType type, PlayerColor color) {
+		typeOfSquare = type;
+		colorOfPlayer = color;
 	}
 	
 	public SquareType getSquareType() {
 		return typeOfSquare;
 	}
 	
-	//GamePiece occupyingPiece = new GamePiece(PieceType.Rat, 0, 0);
-	
-	//Possible methods
-	/*
-	public boolean setPiece(GamePiece piece) {
-		return true;
+	public PlayerColor getColor() {
+		return colorOfPlayer;
 	}
-	
-	public GamePiece getPiece() {
-		return occupyingPiece;
-	}
-	
-	public boolean canOccupy(GamePiece comparisonPiece) {
-		return true;
-	}
-	*/
 }
