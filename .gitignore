@@ -88,3 +88,6 @@ nbdist/
 
 .idea/**
 *.iml
+
+.project
+.classpath
