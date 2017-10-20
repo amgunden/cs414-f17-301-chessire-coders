@@ -8,6 +8,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Responses;
 
 import java.io.IOException;
 
+/**
+ * This class is a thin wrapper for KryoNet.Client to allow TCP communication with a server.
+ */
 public class JungleClient {
 
     private Client client;
