@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.responses;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.responses;
 
 public class LoginSuccessResponse {
     String sessionToken;

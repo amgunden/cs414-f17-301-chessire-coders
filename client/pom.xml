@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
+        <groupId>edu.colostate.cs.cs414.chessireCoders</groupId>
         <version>1.0</version>
-        <artifactId>JungleGame</artifactId>
+        <artifactId>jungleGame</artifactId>
     </parent>
 
     <packaging>jar</packaging>
 
-    <artifactId>JungleClient</artifactId>
+    <artifactId>jungleClient</artifactId>
     <name>JungleClient</name>
 
     <dependencies>

@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
+package edu.colostate.cs.cs414.chessireCoders.jungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 

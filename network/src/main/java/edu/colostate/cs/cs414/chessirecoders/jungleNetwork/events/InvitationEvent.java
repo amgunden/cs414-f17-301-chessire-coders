@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.events;
+package edu.colostate.cs.cs414.chessireCoders.jungleNetwork.events;
 
 public class InvitationEvent {
     int invitationID;
