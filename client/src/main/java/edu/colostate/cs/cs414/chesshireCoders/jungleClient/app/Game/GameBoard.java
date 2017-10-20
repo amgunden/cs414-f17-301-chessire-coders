@@ -16,19 +16,33 @@ public class GameBoard {
 		this.gamePieces = gamePieces;
 	}
 	
+	//the row and column here could be substituted for a direction, thought that would mean a minor loss of clarity.
 	public boolean movePiece(PieceType type, PlayerColor color, int row, int column) {
-		if(!checkMovement(type, color, row, column)) {
-			return false;
-		}
+		//WRITE TESTS then construct
+		//This method should check the movement with the checkMovement method
+		//Then apply the movement to the correct piece.
+		
+		/*
 		for(int i = 0; i < gamePieces.length; i++) {
 			if(gamePieces[i].getPieceType().equals(type)) {
-				if(gamePieces[i].getColor())
+				if(gamePieces[i].getColor().equals(color)) {
+					if(!checkMovement(type, color, row, column)) {
+						return false;
+					}
+				}
 			}
 		}
+		*/
 		return false;
 	}
 	
 	public boolean checkMovement(PieceType type, PlayerColor color, int row, int column) {
+		//WRITE TESTS then construct
+		//This method should find the passed piece then check if the appropriate movement is handled.
+		//That is no more than one space moved (unless noted)
+		//Not water (unless noted)
+		//None of the players pieces occupying the space.
+		//No higher power piece occupying the space. 
 		return false;		
 	}
 	
