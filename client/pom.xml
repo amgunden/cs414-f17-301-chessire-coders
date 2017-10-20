@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0</version>
         <artifactId>JungleGame</artifactId>
     </parent>
 
@@ -14,27 +14,18 @@
     <name>JungleClient</name>
 
     <dependencies>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.11.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.esotericsoftware.kryo</groupId>
             <artifactId>kryo</artifactId>
             <version>2.24.0</version>
         </dependency>
+
         <dependency>
             <groupId>kryonet</groupId>
             <artifactId>kryonet</artifactId>
             <version>2.21</version>
         </dependency>
     </dependencies>
+    
 </project>
