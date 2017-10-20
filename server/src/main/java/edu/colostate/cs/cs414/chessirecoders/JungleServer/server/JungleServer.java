@@ -1,9 +1,9 @@
 package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.ClientRequest;
-import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.Event;
-import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.ServerResponse;
+import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.events.Events;
+import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.requests.Requests;
+import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.responses.Responses;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -16,9 +16,9 @@ public class JungleServer extends Server {
      *
      */
     public JungleServer() {
-        ClientRequest.registerRequests(this);
-        Event.registerEvents(this);
-        ServerResponse.registerResponses(this);
+        Events.kryoRegisterEvents(this);
+        Responses.kryoRegisterResponses(this);
+        Requests.kryoRegisterRequests(this);
         NetworkListener.addListeners(this);
     }
 

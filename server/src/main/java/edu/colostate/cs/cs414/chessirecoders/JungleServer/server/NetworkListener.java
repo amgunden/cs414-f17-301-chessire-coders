@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chessirecoders.JungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chessirecoders.JungleServer.messages.ClientRequest;
+import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.requests.*;
 
 public class NetworkListener {
 
@@ -12,81 +12,81 @@ public class NetworkListener {
     public static void addListeners(Server server) {
 
         // LoginRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.LoginRequest>(ClientRequest.LoginRequest.class) {
+        server.addListener(new FilteredListener<LoginRequest>(LoginRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.LoginRequest received) {
+            public void run(Connection connection, LoginRequest received) {
 
             }
         });
 
         // LogoutRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.LogoutRequest>(ClientRequest.LogoutRequest.class) {
+        server.addListener(new FilteredListener<LogoutRequest>(LogoutRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.LogoutRequest received) {
+            public void run(Connection connection, LogoutRequest received) {
 
             }
         });
 
         // RegisterRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.RegisterRequest>(ClientRequest.RegisterRequest.class) {
+        server.addListener(new FilteredListener<RegisterRequest>(RegisterRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.RegisterRequest received) {
+            public void run(Connection connection, RegisterRequest received) {
 
             }
         });
 
         // GetGameRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.GetGameRequest>(ClientRequest.GetGameRequest.class) {
+        server.addListener(new FilteredListener<GetGameRequest>(GetGameRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.GetGameRequest received) {
+            public void run(Connection connection, GetGameRequest received) {
 
             }
         });
 
         // GetPieceLocationRequestListener
-        server.addListener(new FilteredListener<ClientRequest.GetPieceLocationRequest>(ClientRequest.GetPieceLocationRequest.class) {
+        server.addListener(new FilteredListener<GetPieceLocationRequest>(GetPieceLocationRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.GetPieceLocationRequest received) {
+            public void run(Connection connection, GetPieceLocationRequest received) {
 
             }
         });
 
         // UpdatePieceLocationRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.UpdatePieceLocationRequest>(ClientRequest.UpdatePieceLocationRequest.class) {
+        server.addListener(new FilteredListener<UpdatePieceLocationRequest>(UpdatePieceLocationRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.UpdatePieceLocationRequest received) {
+            public void run(Connection connection, UpdatePieceLocationRequest received) {
 
             }
         });
 
         // GetPlayerRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.GetPlayerRequest>(ClientRequest.GetPlayerRequest.class) {
+        server.addListener(new FilteredListener<GetPlayerRequest>(GetPlayerRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.GetPlayerRequest received) {
+            public void run(Connection connection, GetPlayerRequest received) {
 
             }
         });
 
         // GetUserRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.GetUserRequest>(ClientRequest.GetUserRequest.class) {
+        server.addListener(new FilteredListener<GetUserRequest>(GetUserRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.GetUserRequest received) {
+            public void run(Connection connection, GetUserRequest received) {
 
             }
         });
 
         // UpdateInvitationRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.UpdateInvitationRequest>(ClientRequest.UpdateInvitationRequest.class) {
+        server.addListener(new FilteredListener<UpdateInvitationRequest>(UpdateInvitationRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.UpdateInvitationRequest received) {
+            public void run(Connection connection, UpdateInvitationRequest received) {
 
             }
         });
 
         // UpdateSessionExpirationRequest Listener
-        server.addListener(new FilteredListener<ClientRequest.UpdateSessionExpirationRequest>(ClientRequest.UpdateSessionExpirationRequest.class) {
+        server.addListener(new FilteredListener<UpdateSessionExpirationRequest>(UpdateSessionExpirationRequest.class) {
             @Override
-            public void run(Connection connection, ClientRequest.UpdateSessionExpirationRequest received) {
+            public void run(Connection connection, UpdateSessionExpirationRequest received) {
 
             }
         });
