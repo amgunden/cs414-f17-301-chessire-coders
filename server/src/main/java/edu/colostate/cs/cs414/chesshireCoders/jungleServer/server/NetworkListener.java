@@ -1,8 +1,7 @@
-package edu.colostate.cs.cs414.chessireCoders.jungleServer.server;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.*;
 
 public class NetworkListener {
@@ -91,5 +90,28 @@ public class NetworkListener {
 
             }
         });
+    }
+
+    /**
+     * This is a generic listener class that will only listen for objects of type T.
+     *
+     * @param <T> The object type to listen for
+     */
+    public static abstract class FilteredListener<T> extends com.esotericsoftware.kryonet.Listener {
+
+        private final Class<T> c;
+
+        public FilteredListener(Class<T> c) {
+            this.c = c;
+        }
+
+        @Override
+        public void received(Connection connection, Object object) {
+            if (c.isInstance(object)) {
+                run(connection, c.cast(object));
+            }
+        }
+
+        public abstract void run(Connection connection, T received);
     }
 }
