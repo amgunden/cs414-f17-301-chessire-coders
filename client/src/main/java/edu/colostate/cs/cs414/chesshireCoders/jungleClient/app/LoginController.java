@@ -38,7 +38,7 @@ public class LoginController implements Initializable {
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-
+		App.window.setResizable(false);
 	}
 
 }

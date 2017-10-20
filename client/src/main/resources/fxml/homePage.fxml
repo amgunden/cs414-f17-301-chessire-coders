@@ -1,47 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController">
+<VBox prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
-         <children>
-            <ImageView fitHeight="508.0" fitWidth="420.0" layoutX="30.0" layoutY="34.0">
-               <image>
-                  <Image url="@../images/board_2d.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="btnPlay" accessibleRole="BUTTON" fitHeight="167.0" fitWidth="271.0" layoutX="498.0" layoutY="97.0" onMouseClicked="#playClicked" pickOnBounds="true">
-               <image>
-                  <Image url="@../images/play.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="btnViewProfile" accessibleRole="BUTTON" fitHeight="74.0" fitWidth="200.0" layoutX="534.0" layoutY="288.0" onMouseClicked="#viewProfileClicked" pickOnBounds="true">
-               <image>
-                  <Image url="@../images/view_profile.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="btnViewInvites" accessibleRole="BUTTON" fitHeight="74.0" fitWidth="200.0" layoutX="534.0" layoutY="374.0" onMouseClicked="#viewInvitesClicked" pickOnBounds="true">
-               <image>
-                  <Image url="@../images/view_invites.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
+      <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+         <right>
+            <FlowPane alignment="TOP_CENTER" prefWidth="223.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="Active Games" underline="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ListView prefWidth="200.0" />
+               </children>
+            </FlowPane>
+         </right>
+         <top>
+            <GridPane prefHeight="80.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="547.0" minWidth="10.0" prefWidth="537.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="463.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <FlowPane hgap="10.0">
+                     <children>
+                        <ImageView fitHeight="52.0" fitWidth="61.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/user_icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Nickname">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnPlay" mnemonicParsing="false" onMouseClicked="#playClicked" text="Start New Game" />
+                        <Button fx:id="btnViewGameHistory" mnemonicParsing="false" onMouseClicked="#viewGameHistoryClicked" text="View Game History" />
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onMouseClicked="#logoutClicked" text="Log Out" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </FlowPane>
+                  <FlowPane alignment="TOP_RIGHT" hgap="10.0" GridPane.columnIndex="1">
+                     <children>
+                        <ImageView fx:id="btnViewInvites" fitHeight="65.0" fitWidth="67.0" onMouseClicked="#viewInvitesClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/envelope_badged.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="btnSettings" fitHeight="41.0" fitWidth="43.0" onMouseClicked="#settingsClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/cog.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </FlowPane>
+               </children>
+            </GridPane>
+         </top>
+         <center>
+            <Pane prefHeight="621.0" prefWidth="871.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
   </children>
 </VBox>
