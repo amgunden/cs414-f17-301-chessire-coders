@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Cameron/.m2/repository/com/esotericsoftware/kryo/kryo/2.24.0/kryo-2.24.0.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.esotericsoftware.kryo"/>
+			<attribute name="maven.artifactId" value="kryo"/>
+			<attribute name="maven.version" value="2.24.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Cameron/.m2/repository/kryonet/kryonet/2.21/kryonet-2.21.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="kryonet"/>
+			<attribute name="maven.artifactId" value="kryonet"/>
+			<attribute name="maven.version" value="2.21"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target"/>
+</classpath>

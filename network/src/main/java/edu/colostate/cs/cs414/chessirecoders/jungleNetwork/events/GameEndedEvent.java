@@ -1,12 +1,12 @@
 package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.events;
 
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.Types;
+import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.GameOutcomeType;
 
 public class GameEndedEvent {
     int gameID;
-    Types.GameOutcomeType outcomeType;
+    GameOutcomeType outcomeType;
 
-    public GameEndedEvent(int gameID, Types.GameOutcomeType gameOutcomeType) {
+    public GameEndedEvent(int gameID, GameOutcomeType gameOutcomeType) {
         this.gameID = gameID;
         this.outcomeType = gameOutcomeType;
     }

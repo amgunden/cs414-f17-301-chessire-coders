@@ -1,12 +1,12 @@
 package edu.colostate.cs.cs414.chessirecoders.jungleNetwork.events;
 
-import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.Types;
+import edu.colostate.cs.cs414.chessirecoders.jungleNetwork.types.ServerEventType;
 
 public class ServerEvent {
     String message;
-    Types.ServerEventType eventType;
+    ServerEventType eventType;
 
-    public ServerEvent(Types.ServerEventType eventType, String message) {
+    public ServerEvent(ServerEventType eventType, String message) {
         this.eventType = eventType;
         this.message = message;
     }
