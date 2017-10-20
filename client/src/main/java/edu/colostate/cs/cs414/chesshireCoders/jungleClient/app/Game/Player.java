@@ -6,7 +6,6 @@ public class Player {
 	int userID = 0;
 
 	public Player() {
-		
 	}
 
 }
