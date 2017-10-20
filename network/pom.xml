@@ -26,11 +26,6 @@
             <artifactId>kryonet</artifactId>
             <version>2.21</version>
         </dependency>
-        <dependency>
-            <groupId>edu.colostate.cs.cs414.chessirecoders</groupId>
-            <artifactId>JungleServer</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>
