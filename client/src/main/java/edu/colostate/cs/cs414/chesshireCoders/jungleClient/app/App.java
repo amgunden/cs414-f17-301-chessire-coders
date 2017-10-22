@@ -40,32 +40,39 @@ public class App extends Application {
     }
 
     public static void main(String args[]) {
-        String propertiesFile = args[0];
-        Properties properties;
-        JungleClient client = null;
-
-        properties = new Properties();
-        try {
-            FileInputStream in = new FileInputStream(propertiesFile);
-            properties.load(in);
-
-            String serverHostname = properties.getProperty("server-hostname", "localhost");
-            int serverListenPort = Integer.parseInt(properties.getProperty("server-listenport", "9898"));
-
-            client = new JungleClient();
-            client.start();
-            client.connect(5000, serverHostname, serverListenPort);
-
-            launch(args);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (client != null) {
-                client.stop();
-            }
-        }
+        if (args.length == 0)
+    	{
+    		System.out.println("Launching in client only mode...");
+    		launch(args);
+    	} else {
+    	
+	        String propertiesFile = args[0];
+	        Properties properties;
+	        JungleClient client = null;
+	
+	        properties = new Properties();
+	        try {
+	            FileInputStream in = new FileInputStream(propertiesFile);
+	            properties.load(in);
+	
+	            String serverHostname = properties.getProperty("server-hostname", "localhost");
+	            int serverListenPort = Integer.parseInt(properties.getProperty("server-listenport", "9898"));
+	
+	            client = new JungleClient();
+	            client.start();
+	            client.connect(5000, serverHostname, serverListenPort);
+	
+	            launch(args);
+	
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            if (client != null) {
+	                client.stop();
+	            }
+	        }
+    	}
     }
 }
