@@ -6,9 +6,9 @@ public class AccountHandler {
 		//from here call server actions
 		return true;
 	}
-	public boolean validateLogin(String email, String pw){
+	public int validateLogin(String email, String pw){
 		//from here call server actions
-		return true;
+		return 1;
 		
 	}
 }
