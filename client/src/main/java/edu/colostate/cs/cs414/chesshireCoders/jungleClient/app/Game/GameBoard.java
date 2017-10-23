@@ -39,6 +39,7 @@ public class GameBoard {
 	
 	public boolean checkMove(int color, int piece, int row, int column) {
 		//This is a basic system for understanding. 
+		
 		//finding the piece is dependent on what the UI/group wants. 
 		GamePiece gamePiece = gamePieces[color][piece];
 		int pieceColumn = gamePiece.getColumn();
@@ -69,24 +70,42 @@ public class GameBoard {
 		//check if it can land on the space. 
 		//if it's normal, trap, or den anything can be on it.
 		BoardSquare boardSquare = boardSquares[column][row];
-		if(!((boardSquare.getSquareType().equals(SquareType.Normal)) || (boardSquare.getSquareType().equals(SquareType.Trap))|| (boardSquare.getSquareType().equals(SquareType.Den)))) {
+		boolean enemyBanned = false;
+		if(boardSquare.getSquareType().equals(SquareType.River)) {
 			//If it's not a normal, trap, or den it must be a river. Only rats can go on river. So if it's not a rat return false.
 			if(!(gamePiece.getPieceType().equals(PieceType.Rat))) {
 				return false;
 			}
+			//if is a rat and the rat is not already in the river their can not be a piece there.
+			BoardSquare ratSquare = boardSquares[gamePiece.getColumn()][gamePiece.getRow()];
+			if(ratSquare.getSquareType().equals(SquareType.River)) {
+				enemyBanned = true;
+			}
 		}	
 		
 		//Check if their is a creature on it with a higher power
-				
+		//if any of the player's pieces are on the space return false;
+		for(int i = 0; i < 8; i++) {
+			if((gamePieces[color][i].getRow() == row) && (gamePieces[0][i].getRow() == column)) {
+				return false;
+			}
+		}
 		
+		//establish the opposite player;
+		int oppositePlayer = 0;
+		if(color == 0) {
+			oppositePlayer = 1;
+		}
+		//if the opposite player's piece is on the square check if the power is higher, if so return false
+		for(int i = 0; i < 8; i++) {
+			if((gamePieces[oppositePlayer][i].getRow() == row) && (gamePieces[0][i].getRow() == column)) {
+				if((i > piece)||(enemyBanned)) {
+					return false;
+				}
+			}
+		}
 		
-		//WRITE TESTS then construct
-		//This method should find the passed piece then check if the appropriate movement is handled.
-		//That is no more than one space moved (unless noted)
-		//Not water (unless noted)
-		//None of the players pieces occupying the space.
-		//No higher power piece occupying the space. 
-		return false;		
+		return true;		
 	}
 	
 	//Board Setup Functions
