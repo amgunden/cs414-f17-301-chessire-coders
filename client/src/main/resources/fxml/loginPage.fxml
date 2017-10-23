@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -33,8 +33,13 @@
                   <Image url="@../images/board_2d.png" />
                </image>
             </ImageView>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="220.0" vgap="6.0">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="238.0" prefWidth="220.0" vgap="6.0">
                <children>
+                  <Label fx:id="loginErrorMsg" prefHeight="36.0" prefWidth="127.0" text="Login Failed. Please try again." textAlignment="CENTER" textFill="#f50505" visible="false" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Jungle">
                      <font>
                         <Font name="Algerian" size="35.0" />
@@ -43,8 +48,8 @@
                         <Insets bottom="15.0" />
                      </padding>
                   </Label>
-                  <TextField promptText="email" />
-                  <PasswordField promptText="password" />
+                  <TextField fx:id="emailField" promptText="email" />
+                  <PasswordField fx:id="passwordField" promptText="password" />
                   <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#loginClicked" prefHeight="25.0" prefWidth="172.0" text="Login" />
                   <FlowPane alignment="TOP_CENTER" prefHeight="30.0" prefWidth="150.0">
                      <children>

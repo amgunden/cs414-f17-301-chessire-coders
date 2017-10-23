@@ -6,9 +6,11 @@ public class AccountHandler {
 		//from here call server actions
 		return true;
 	}
-	public boolean validateLogin(String email, String pw){
+	
+	// Thinking this method could return the User's ID if the login is successful
+	public int validateLogin(String email, String pw){
 		//from here call server actions
-		return true;
+		return 1;
 		
 	}
 }
