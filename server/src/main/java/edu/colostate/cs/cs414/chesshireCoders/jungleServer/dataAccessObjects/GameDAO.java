@@ -90,11 +90,11 @@ public class GameDAO {
                 + "(\"gameStartDateTime\", \"gameEndDateTime\", \"PlayerOneID\", \"PlayerTwoID\", \"GameStatus\")"
                 + "VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setTimestamp(2, game.getGameStart());
-        statement.setTimestamp(3, game.getGameEnd());
-        statement.setInt(4, game.getPlayerOneID());
-        statement.setInt(5, game.getPlayerTwoID());
-        statement.setString(6, game.getGameStatus().name().toLowerCase());
+        statement.setTimestamp(1, game.getGameStart());
+        statement.setTimestamp(2, game.getGameEnd());
+        statement.setInt(3, game.getPlayerOneID());
+        statement.setInt(4, game.getPlayerTwoID());
+        statement.setString(5, game.getGameStatus().name().toLowerCase());
 
         statement.executeUpdate();
     }
