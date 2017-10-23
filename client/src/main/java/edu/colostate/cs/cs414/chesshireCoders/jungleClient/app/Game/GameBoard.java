@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.Game;
 
 public class GameBoard {
 	//Set up Pieces
-	GamePiece[] gamePieces = new GamePiece[16];
+	GamePiece[][] gamePieces = new GamePiece[2][8];
 	
 	//Set up Squares
 	BoardSquare[][] boardSquares = new BoardSquare[7][9];
@@ -12,7 +12,7 @@ public class GameBoard {
 		setUpPieces();
 	}
 	
-	public GameBoard(GamePiece[] gamePieces) {
+	public GameBoard(GamePiece[][] gamePieces) {
 		this.gamePieces = gamePieces;
 	}
 	
@@ -36,7 +36,72 @@ public class GameBoard {
 		return false;
 	}
 	
-	public boolean checkMovement(PieceType type, PlayerColor color, int row, int column) {
+	public boolean checkMove(int color, int piece, int row, int column) {
+		//This is a basic system for understanding. 
+		//finding the piece is dependent on what the UI/group wants. 
+		int pieceRow = gamePieces[color][piece].getRow();
+		int pieceColumn = gamePieces[color][piece].getColumn();
+		
+		//Only the row or column can change, one must change.
+		if(((row == pieceRow) && (column == pieceColumn))||((row != pieceRow) && (column != pieceColumn))){
+			return false;
+		}
+		
+		//The only time the row or column will increase by more than one is if the tiger or leopard is jumping the river
+		//Check if it increases by more than one
+		if(!(((pieceRow+1 == row)||(pieceRow-1 == row))||((pieceColumn+1 == column)||(pieceColumn-1 == column)))){
+			//check if it is jumping the river, which is 3 high and 2 wide.
+			if((piece == 4)||(piece == 5)) {
+				if((pieceRow == 2) && (row == 6)) {
+					
+				}
+				if((pieceRow == 6) && (row == 2)) {
+					
+				}
+				if((pieceColumn == 0) && (column == 3)) {
+					
+				}
+				if((pieceColumn == 3) && (column == 0)) {
+					
+				}
+				
+				
+				if((((pieceRow == 2)||(pieceRow == 6))||((pieceColumn+3 == column)||(pieceColumn-3 == column)))){
+				if((((pieceRow == row)||(pieceRow-4 == row))||((pieceColumn+3 == column)||(pieceColumn-3 == column)))){
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//If the piece is Tiger or Leopard they can jump water
+		if(piece != 4 || piece != 5) {
+			if([])
+		}
+			//Check if row or column was increased by 1
+			//If anything else return false
+			if (!((row + 1 == pieceRow && column == pieceColumn) || (row - 1 == pieceRow && column == pieceColumn) || (row == pieceRow && column + 1 == pieceColumn) || (row == pieceRow && column + 1 == pieceColumn))){
+				return false;
+			}
+		}
+		
+		
 		//WRITE TESTS then construct
 		//This method should find the passed piece then check if the appropriate movement is handled.
 		//That is no more than one space moved (unless noted)
@@ -50,23 +115,23 @@ public class GameBoard {
 	
 	private void setUpPieces() {
 		//Player 1
-		gamePieces[0] = new GamePiece(PieceType.Rat, 0, 2, PlayerColor.Red);
-		gamePieces[1] = new GamePiece(PieceType.Cat, 5, 1, PlayerColor.Red);
-		gamePieces[2] = new GamePiece(PieceType.Dog, 1, 1, PlayerColor.Red);
-		gamePieces[3] = new GamePiece(PieceType.Wolf, 4, 2, PlayerColor.Red);
-		gamePieces[4] = new GamePiece(PieceType.Leopard, 2, 2, PlayerColor.Red);
-		gamePieces[5] = new GamePiece(PieceType.Tiger, 6, 0, PlayerColor.Red);
-		gamePieces[6] = new GamePiece(PieceType.Lion, 0, 0, PlayerColor.Red);
-		gamePieces[7] = new GamePiece(PieceType.Elephant, 6, 2, PlayerColor.Red);		
+		gamePieces[0][0] = new GamePiece(PieceType.Rat, 0, 2, PlayerColor.Red);
+		gamePieces[0][1] = new GamePiece(PieceType.Cat, 5, 1, PlayerColor.Red);
+		gamePieces[0][2] = new GamePiece(PieceType.Dog, 1, 1, PlayerColor.Red);
+		gamePieces[0][3] = new GamePiece(PieceType.Wolf, 4, 2, PlayerColor.Red);
+		gamePieces[0][4] = new GamePiece(PieceType.Leopard, 2, 2, PlayerColor.Red);
+		gamePieces[0][5] = new GamePiece(PieceType.Tiger, 6, 0, PlayerColor.Red);
+		gamePieces[0][6] = new GamePiece(PieceType.Lion, 0, 0, PlayerColor.Red);
+		gamePieces[0][7] = new GamePiece(PieceType.Elephant, 6, 2, PlayerColor.Red);		
 		//Player 2
-		gamePieces[8] = new GamePiece(PieceType.Rat, 6, 6, PlayerColor.Black);
-		gamePieces[9] = new GamePiece(PieceType.Cat, 1, 7, PlayerColor.Black);
-		gamePieces[10] = new GamePiece(PieceType.Dog, 5, 7, PlayerColor.Black);
-		gamePieces[11] = new GamePiece(PieceType.Wolf, 2, 6, PlayerColor.Black);
-		gamePieces[12] = new GamePiece(PieceType.Leopard, 4, 6, PlayerColor.Black);
-		gamePieces[13] = new GamePiece(PieceType.Tiger, 0, 8, PlayerColor.Black);
-		gamePieces[14] = new GamePiece(PieceType.Lion, 6, 8, PlayerColor.Black);
-		gamePieces[15] = new GamePiece(PieceType.Elephant, 0, 6, PlayerColor.Black);
+		gamePieces[1][0] = new GamePiece(PieceType.Rat, 6, 6, PlayerColor.Black);
+		gamePieces[1][1] = new GamePiece(PieceType.Cat, 1, 7, PlayerColor.Black);
+		gamePieces[1][2] = new GamePiece(PieceType.Dog, 5, 7, PlayerColor.Black);
+		gamePieces[1][3] = new GamePiece(PieceType.Wolf, 2, 6, PlayerColor.Black);
+		gamePieces[1][4] = new GamePiece(PieceType.Leopard, 4, 6, PlayerColor.Black);
+		gamePieces[1][5] = new GamePiece(PieceType.Tiger, 0, 8, PlayerColor.Black);
+		gamePieces[1][6] = new GamePiece(PieceType.Lion, 6, 8, PlayerColor.Black);
+		gamePieces[1][7] = new GamePiece(PieceType.Elephant, 0, 6, PlayerColor.Black);
 	}
 	
 	private void setUpBoard() {
