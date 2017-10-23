@@ -45,6 +45,11 @@ public class GameBoard {
 		int pieceColumn = gamePiece.getColumn();
 		int pieceRow = gamePiece.getRow();
 		
+		//Check the piece is not dead
+		if((pieceColumn == -1) || (pieceRow == -1)) {
+			return false;
+		}
+		
 		//Only the row or column can change, one must change.
 		if(((column == pieceColumn) && (row == pieceRow))||((column != pieceColumn) && (row != pieceRow))){
 			return false;
@@ -70,6 +75,7 @@ public class GameBoard {
 		//check if it can land on the space. 
 		//if it's normal, trap, or den anything can be on it.
 		BoardSquare boardSquare = boardSquares[column][row];
+		BoardSquare pieceSquare = boardSquares[gamePiece.getColumn()][gamePiece.getRow()];
 		boolean enemyBanned = false;
 		if(boardSquare.getSquareType().equals(SquareType.River)) {
 			//If it's not a normal, trap, or den it must be a river. Only rats can go on river. So if it's not a rat return false.
@@ -77,8 +83,7 @@ public class GameBoard {
 				return false;
 			}
 			//if is a rat and the rat is not already in the river their can not be a piece there.
-			BoardSquare ratSquare = boardSquares[gamePiece.getColumn()][gamePiece.getRow()];
-			if(ratSquare.getSquareType().equals(SquareType.River)) {
+			if(pieceSquare.getSquareType().equals(SquareType.River)) {
 				enemyBanned = true;
 			}
 		}	
@@ -89,6 +94,19 @@ public class GameBoard {
 			if((gamePieces[color][i].getRow() == row) && (gamePieces[0][i].getRow() == column)) {
 				return false;
 			}
+		}
+		
+		//if the space the piece is moved to is a FRIENDLY trap, any enemy will be consumed so just return true;
+		//is it a trap?
+		if (boardSquare.getSquareType().equals(SquareType.Trap)){
+			//is the trap color equal to the piece color
+			if((boardSquare.getColor().equals(PlayerColor.Red)) && (color == 0)){
+				return true;
+			}
+			if((boardSquare.getColor().equals(PlayerColor.Black)) && (color == 1)){
+				return true;
+			}
+			
 		}
 		
 		//establish the opposite player;
