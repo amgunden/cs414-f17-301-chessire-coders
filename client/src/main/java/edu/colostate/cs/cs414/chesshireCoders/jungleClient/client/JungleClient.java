@@ -5,6 +5,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.OneTimeRunnableListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Responses;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.Types;
 
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class JungleClient {
         Events.kryoRegisterEvents(client);
         Requests.kryoRegisterRequests(client);
         Responses.kryoRegisterResponses(client);
+        Types.registerTypes(client);
     }
 
     /**
