@@ -37,16 +37,15 @@ public class GameBoard {
 		return false;
 	}
 	
-	public boolean checkMove(int color, int piece, int row, int column) {
-		//This is a basic system for understanding. 
-		
+	//CheckMove will check that the move player's piece is allowed to move to the designated location.
+	public boolean checkMove(int color, int piece, int row, int column) {		
 		//finding the piece is dependent on what the UI/group wants. 
 		GamePiece gamePiece = gamePieces[color][piece];
 		int pieceColumn = gamePiece.getColumn();
 		int pieceRow = gamePiece.getRow();
 		
 		//Check the piece is not dead
-		if((pieceColumn == -1) || (pieceRow == -1)) {
+		if(gamePieces[color][piece] == null){
 			return false;
 		}
 		
