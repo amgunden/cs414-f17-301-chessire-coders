@@ -6,7 +6,7 @@ public class GamePiece {
 	int column = 0;
 	PlayerColor color;
 	
-	public GamePiece(PieceType typeOfPiece, int row, int column, PlayerColor color) {
+	public GamePiece(PieceType typeOfPiece, int column, int row, PlayerColor color) {
 		this.typeOfPiece = typeOfPiece;
 		this.row = row;
 		this.column = column;

@@ -38,7 +38,7 @@ public class GameBoard {
 	}
 	
 	//CheckMove will check that the move player's piece is allowed to move to the designated location.
-	public boolean checkMove(int color, int piece, int row, int column) {		
+	public boolean checkMove(int color, int piece, int column, int row) {		
 		//finding the piece is dependent on what the UI/group wants. 
 		GamePiece gamePiece = gamePieces[color][piece];
 		int pieceColumn = gamePiece.getColumn();
