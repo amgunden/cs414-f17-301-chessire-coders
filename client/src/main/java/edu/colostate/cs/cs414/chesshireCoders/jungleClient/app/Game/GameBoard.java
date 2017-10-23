@@ -13,6 +13,7 @@ public class GameBoard {
 	}
 	
 	public GameBoard(GamePiece[][] gamePieces) {
+		setUpBoard();
 		this.gamePieces = gamePieces;
 	}
 	
@@ -39,67 +40,44 @@ public class GameBoard {
 	public boolean checkMove(int color, int piece, int row, int column) {
 		//This is a basic system for understanding. 
 		//finding the piece is dependent on what the UI/group wants. 
-		int pieceRow = gamePieces[color][piece].getRow();
-		int pieceColumn = gamePieces[color][piece].getColumn();
+		GamePiece gamePiece = gamePieces[color][piece];
+		int pieceColumn = gamePiece.getColumn();
+		int pieceRow = gamePiece.getRow();
 		
 		//Only the row or column can change, one must change.
-		if(((row == pieceRow) && (column == pieceColumn))||((row != pieceRow) && (column != pieceColumn))){
+		if(((column == pieceColumn) && (row == pieceRow))||((column != pieceColumn) && (row != pieceRow))){
 			return false;
 		}
 		
 		//The only time the row or column will increase by more than one is if the tiger or leopard is jumping the river
 		//Check if it increases by more than one
-		if(!(((pieceRow+1 == row)||(pieceRow-1 == row))||((pieceColumn+1 == column)||(pieceColumn-1 == column)))){
-			//check if it is jumping the river, which is 3 high and 2 wide.
-			if((piece == 4)||(piece == 5)) {
-				if((pieceRow == 2) && (row == 6)) {
-					
-				}
-				if((pieceRow == 6) && (row == 2)) {
-					
-				}
-				if((pieceColumn == 0) && (column == 3)) {
-					
-				}
-				if((pieceColumn == 3) && (column == 0)) {
-					
-				}
-				
-				
-				if((((pieceRow == 2)||(pieceRow == 6))||((pieceColumn+3 == column)||(pieceColumn-3 == column)))){
-				if((((pieceRow == row)||(pieceRow-4 == row))||((pieceColumn+3 == column)||(pieceColumn-3 == column)))){
+		if(!(((pieceColumn+1 == column)||(pieceColumn-1 == column))||((pieceRow+1 == row)||(pieceRow-1 == row)))){
+			//if it is not a tiger or a leopard return false
+			if(!((piece == 4)||(piece == 5))) {
+				return false;
+			}
+			//if it is not jumping the left river it must jump right.
+			if(!(((pieceColumn == 0) && (column == 3)) || ((pieceColumn == 3) && (column == 0)) || ((pieceRow == 2) && (row == 6)) || ((pieceRow == 6) && (row == 2)))) {
+				//if it is not jumping the right river return false;
+				if(!(((pieceColumn == 3) && (column == 6)) || ((pieceColumn == 6) && (column == 3)) || ((pieceRow == 2) && (row == 6)) || ((pieceRow == 6) && (row == 2)))) {
 					return false;
 				}
-			} else {
-				return false;
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//If the piece is Tiger or Leopard they can jump water
-		if(piece != 4 || piece != 5) {
-			if([])
-		}
-			//Check if row or column was increased by 1
-			//If anything else return false
-			if (!((row + 1 == pieceRow && column == pieceColumn) || (row - 1 == pieceRow && column == pieceColumn) || (row == pieceRow && column + 1 == pieceColumn) || (row == pieceRow && column + 1 == pieceColumn))){
+		//At this point the piece is either moving 1 space or it's a tiger/leopard jumping a river
+		//check if it can land on the space. 
+		//if it's normal, trap, or den anything can be on it.
+		BoardSquare boardSquare = boardSquares[column][row];
+		if(!((boardSquare.getSquareType().equals(SquareType.Normal)) || (boardSquare.getSquareType().equals(SquareType.Trap))|| (boardSquare.getSquareType().equals(SquareType.Den)))) {
+			//If it's not a normal, trap, or den it must be a river. Only rats can go on river. So if it's not a rat return false.
+			if(!(gamePiece.getPieceType().equals(PieceType.Rat))) {
 				return false;
 			}
-		}
+		}	
+		
+		//Check if their is a creature on it with a higher power
+				
 		
 		
 		//WRITE TESTS then construct
@@ -134,7 +112,7 @@ public class GameBoard {
 		gamePieces[1][7] = new GamePiece(PieceType.Elephant, 0, 6, PlayerColor.Black);
 	}
 	
-	private void setUpBoard() {
+	private void setUpBoard() {		
 		//row 1
 		boardSquares[0][0] = new BoardSquare(SquareType.Normal);
 		boardSquares[1][0] = new BoardSquare(SquareType.Normal);
