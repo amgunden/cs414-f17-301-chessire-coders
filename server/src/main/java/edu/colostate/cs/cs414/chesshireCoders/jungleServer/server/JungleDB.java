@@ -11,7 +11,12 @@ public class JungleDB {
     private PGSimpleDataSource dataSource;
 
     private static JungleDB db = null;
-    private static Properties connectionDetails = null;
+    private static String hostname;
+    private static String databaseName;
+    private static int port;
+    private static String username;
+    private static String password;
+
 
     private JungleDB(String hostname, String dbName, int port, String username, String password) {
         dataSource = new PGSimpleDataSource();
@@ -25,19 +30,25 @@ public class JungleDB {
 
     public static JungleDB getInstance() {
         if (db == null) {
-            db = new JungleDB(
-                    connectionDetails.getProperty("hostname"),
-                    connectionDetails.getProperty("dbName"),
-                    Integer.parseInt(connectionDetails.getProperty("port")),
-                    connectionDetails.getProperty("username"),
-                    connectionDetails.getProperty("password")
-            );
+            db = new JungleDB(hostname, databaseName, port, username, password);
         }
         return db;
     }
 
     public static void setConnectionDetails(Properties properties) {
-        connectionDetails = properties;
+        hostname = properties.getProperty("hostname");
+        databaseName = properties.getProperty("dbName");
+        port = Integer.parseInt(properties.getProperty("port"));
+        username = properties.getProperty("username");
+        password = properties.getProperty("password");
+    }
+
+    public static void setConnectionDetails(String hostname, String dbName, int port, String username, String password) {
+        JungleDB.hostname = hostname;
+        JungleDB.databaseName = dbName;
+        JungleDB.port = port;
+        JungleDB.username = username;
+        JungleDB.password = password;
     }
 
     /**
