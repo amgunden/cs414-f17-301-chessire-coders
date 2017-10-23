@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Responses;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.Types;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class JungleServer extends Server {
         Responses.kryoRegisterResponses(this);
         Requests.kryoRegisterRequests(this);
         NetworkListener.addListeners(this);
+        Types.registerTypes(this);
     }
 
     /**
