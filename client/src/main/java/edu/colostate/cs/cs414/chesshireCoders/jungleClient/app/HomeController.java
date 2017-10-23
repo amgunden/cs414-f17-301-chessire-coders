@@ -32,21 +32,9 @@ public class HomeController implements Initializable {
 	@FXML
 	private Button btnViewGameHistory;
 	
-	public void playClicked()
-	{
-		System.out.println("Play Clicked.");
-		Node board;
-		try {
-			board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));
-			borderPane.setCenter(board);
-		} catch (IOException e) {
-			System.err.println("ERROR: Unable to load fxml file for Game Board.");
-		}
-	}
-	
-	public void viewGameHistoryClicked()
-	{
-		System.out.println("View Game History Clicked.");
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		App.window.setResizable(false);
 	}
 	
 	public void logoutClicked()
@@ -59,9 +47,16 @@ public class HomeController implements Initializable {
 		}
 	}
 	
-	public void viewInvitesClicked()
+	public void playClicked()
 	{
-		System.out.println("View Invites Clicked.");
+		System.out.println("Play Clicked.");
+		Node board;
+		try {
+			board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));
+			borderPane.setCenter(board);
+		} catch (IOException e) {
+			System.err.println("ERROR: Unable to load fxml file for Game Board.");
+		}
 	}
 	
 	public void settingsClicked()
@@ -69,9 +64,19 @@ public class HomeController implements Initializable {
 		System.out.println("Settings Clicked.");
 	}
 	
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		App.window.setResizable(false);
+	public void unregisterClicked()
+	{
+		System.out.println("Unregister Clicked.");
+	}
+	
+	public void viewGameHistoryClicked()
+	{
+		System.out.println("View Game History Clicked.");
+	}
+	
+	public void viewInvitesClicked()
+	{
+		System.out.println("View Invites Clicked.");
 	}
 
 }

@@ -3,6 +3,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 
+import java.util.ArrayList;
+
 public class Responses {
 
     public static void kryoRegisterResponses(EndPoint endPoint) {
@@ -12,7 +14,8 @@ public class Responses {
         kryo.register(GetPlayerResponse.class);
         kryo.register(GetUserGameHistoryResponse.class);
         kryo.register(GetInvitationResponse.class);
-        kryo.register(LoginSuccessResponse.class);
+        kryo.register(LoginResponse.class);
         kryo.register(ErrorResponse.class);
+        kryo.register(ArrayList.class);
     }
 }

@@ -5,6 +5,7 @@ version: '3.3'
 services:
   db:
 
+    image: 'jungledb:latest'
     build:
       context: 'docker/postgres/'
 
