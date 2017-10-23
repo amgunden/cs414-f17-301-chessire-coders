@@ -99,7 +99,7 @@ public class GameBoard {
 		//if the space the piece is moved to is a FRIENDLY trap, any enemy will be consumed so just return true;
 		//is it a trap?
 		if (boardSquare.getSquareType().equals(SquareType.Trap)){
-			//is the trap color equal to the piece color
+			//if the trap color equals the piece color it can consume anything so return true.
 			if((boardSquare.getColor().equals(PlayerColor.Red)) && (color == 0)){
 				return true;
 			}
