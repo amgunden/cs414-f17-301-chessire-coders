@@ -1,33 +1,48 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
-import org.postgresql.ds.PGSimpleDataSource;
-
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Main {
 
+    private static Logger logger;
+
     public static void main(String[] args) {
+
+        logger = Logger.getLogger(Main.class.getSimpleName());
+        logger.log(Level.FINE, "Program arguments are '{0}'", args);
 
         String configPath = args[0];
         JungleServer server;
-        DataSource dataSource;
         Properties properties;
         int serverListenPort;
 
-        // load and parse properties
         try {
+
+            // load and parse properties
             properties = loadServerProperties(configPath);
+            logger.log(Level.FINE, "Loaded server properties from {0}.", configPath);
+
+            // if a log path was specified, add a log
+            String logPath = properties.getProperty("log-path");
+            if (logPath != null) {
+                logger.addHandler(new FileHandler(logPath));
+                logger.log(Level.FINE, "log-path property set, logging to file '{0}'");
+            }
+
             serverListenPort = Integer.parseInt(properties.getProperty("listen-port", "9898"));
-            dataSource = initializeDataSource(properties);
+
+            JungleDB.setConnectionDetails(getJungleDBProperties(properties));
 
             // Create and start the server.
             server = new JungleServer();
-            server.setDataSource(dataSource);
             server.bind(serverListenPort);
             server.start();
 
@@ -35,8 +50,6 @@ public class Main {
             Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
     }
@@ -53,35 +66,34 @@ public class Main {
         return properties;
     }
 
-    private static DataSource initializeDataSource(Properties properties) throws PropertyVetoException {
+    private static Properties getJungleDBProperties(Properties properties) {
 
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-
-        // server host name/ip address
-        dataSource.setServerName(
+        Properties dbProperties = new Properties();
+        dbProperties.setProperty(
+                "hostname",
                 properties.getProperty("database-host", "localhost")
         );
 
-        // database name
-        dataSource.setDatabaseName(
+        dbProperties.setProperty(
+                "dbName",
                 properties.getProperty("database-name", "jungle")
         );
 
-        // port number
-        dataSource.setPortNumber(
-                Integer.parseInt(properties.getProperty("database-port", "5432"))
+        dbProperties.setProperty(
+                "port",
+                properties.getProperty("database-port", "5432")
         );
 
-        // default username
-        dataSource.setUser(
+        dbProperties.setProperty(
+                "username",
                 properties.getProperty("database-user", "jungle")
         );
 
-        // default password
-        dataSource.setPassword(
+        dbProperties.setProperty(
+                "password",
                 properties.getProperty("database-password", "jungle")
         );
 
-        return dataSource;
+        return dbProperties;
     }
 }
