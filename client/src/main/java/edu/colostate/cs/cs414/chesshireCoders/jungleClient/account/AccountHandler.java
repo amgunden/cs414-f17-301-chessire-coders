@@ -6,6 +6,8 @@ public class AccountHandler {
 		//from here call server actions
 		return true;
 	}
+	
+	// Thinking this method could return the User's ID if the login is successful
 	public int validateLogin(String email, String pw){
 		//from here call server actions
 		return 1;
