@@ -7,6 +7,13 @@ public class Login {
     private String salt;
     private int userID;
 
+    public Login(String username, String hashedPass, String salt, int userID) {
+        this.username = username;
+        this.hashedPass = hashedPass;
+        this.salt = salt;
+        this.userID = userID;
+    }
+
     public String getUsername() {
         return username;
     }

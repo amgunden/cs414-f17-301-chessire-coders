@@ -7,6 +7,24 @@ public class User {
     private String nameLast;
     private String nickName;
 
+    public User(int userId, String nameFirst, String nameLast, String nickName) {
+        this.userId = userId;
+        this.nameFirst = nameFirst;
+        this.nameLast = nameLast;
+        this.nickName = nickName;
+    }
+
+    public User(String nameFirst, String nameLast, String nickName) {
+        this.nameFirst = nameFirst;
+        this.nameLast = nameLast;
+        this.nickName = nickName;
+    }
+
+    public User(String nameFirst, String nickName) {
+        this.nameFirst = nameFirst;
+        this.nickName = nickName;
+    }
+
     public int getUserId() {
         return userId;
     }

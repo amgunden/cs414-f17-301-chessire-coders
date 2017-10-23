@@ -15,6 +15,32 @@ public class Game {
     private PlayerStatus playerTwoStatus;
     private GameStatus gameStatus;
 
+    public Game(int gameID, Timestamp gameStart, Timestamp gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
+        this.gameID = gameID;
+        this.gameStart = gameStart;
+        this.gameEnd = gameEnd;
+        this.playerOneID = playerOneID;
+        this.playerTwoID = playerTwoID;
+        this.playerTwoStatus = playerTwoStatus;
+        this.gameStatus = gameStatus;
+    }
+
+    public Game(Timestamp gameStart, Timestamp gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
+        this.gameStart = gameStart;
+        this.gameEnd = gameEnd;
+        this.playerOneID = playerOneID;
+        this.playerTwoID = playerTwoID;
+        this.playerTwoStatus = playerTwoStatus;
+        this.gameStatus = gameStatus;
+    }
+
+    public Game(Timestamp gameStart, Timestamp gameEnd, int playerOneID, GameStatus gameStatus) {
+        this.gameStart = gameStart;
+        this.gameEnd = gameEnd;
+        this.playerOneID = playerOneID;
+        this.gameStatus = gameStatus;
+    }
+
     public int getGameID() {
         return gameID;
     }

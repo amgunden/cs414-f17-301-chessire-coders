@@ -6,6 +6,17 @@ public class Invitation {
     private int senderId;
     private int recipientId;
 
+    public Invitation(int invitationId, int senderId, int recipientId) {
+        this.invitationId = invitationId;
+        this.senderId = senderId;
+        this.recipientId = recipientId;
+    }
+
+    public Invitation(int senderId, int recipientId) {
+        this.senderId = senderId;
+        this.recipientId = recipientId;
+    }
+
     public int getInvitationId() {
         return invitationId;
     }

@@ -11,6 +11,22 @@ public class GamePiece {
     private int row;
     private int gameId;
 
+    public GamePiece(int pieceId, int playerId, PieceType pieceType, int column, int row, int gameId) {
+        this.pieceId = pieceId;
+        this.playerId = playerId;
+        this.pieceType = pieceType;
+        this.column = column;
+        this.row = row;
+        this.gameId = gameId;
+    }
+
+    public GamePiece(int playerId, PieceType pieceType, int column, int row, int gameId) {
+        this.playerId = playerId;
+        this.pieceType = pieceType;
+        this.column = column;
+        this.row = row;
+        this.gameId = gameId;
+    }
 
     public int getPieceId() {
         return pieceId;
