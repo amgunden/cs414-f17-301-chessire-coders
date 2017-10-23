@@ -18,6 +18,9 @@ public class TestGameBoard {
 	//Currently in development. Check back later.
 	@Test
 	public void testCheckMove() {
+		//check that every piece can be moved by 1;
+		
+		
 		//test you can move by one
 		assertTrue(testBoard.checkMove(0, 1, 0, 1));
 		//test you cannot move by 2

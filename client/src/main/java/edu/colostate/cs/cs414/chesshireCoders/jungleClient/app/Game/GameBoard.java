@@ -47,17 +47,17 @@ public class GameBoard {
 		piece -= 1;		
 		if (piece < 0) {
 			return false;
+		}		
+
+		//Check the piece is not dead
+		if(gamePieces[color][piece] == null){
+			return false;
 		}
 		
 		//finding the piece is dependent on what the UI/group wants. 
 		GamePiece gamePiece = gamePieces[color][piece];
 		int pieceColumn = gamePiece.getColumn();
 		int pieceRow = gamePiece.getRow();
-		
-		//Check the piece is not dead
-		if(gamePieces[color][piece] == null){
-			return false;
-		}
 		
 		//Only the row or column can change, one must change.
 		if(((column == pieceColumn) && (row == pieceRow))||((column != pieceColumn) && (row != pieceRow))){
