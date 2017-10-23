@@ -67,10 +67,9 @@ public class GameDAO {
 
     public void insert(Game game) throws SQLException {
         String insertStr = "INSERT INTO public.\"Game\""
-                + "(\"GameID\", \"gameStartDateTime\", \"gameEndDateTime\", \"PlayerOneID\", \"PlayerTwoID\", \"GameStatus\")"
-                + "VALUES (?,?,?,?,?,?)";
+                + "(\"gameStartDateTime\", \"gameEndDateTime\", \"PlayerOneID\", \"PlayerTwoID\", \"GameStatus\")"
+                + "VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setInt(1, game.getGameID());
         statement.setTimestamp(2, game.getGameStart());
         statement.setTimestamp(3, game.getGameEnd());
         statement.setInt(4, game.getPlayerOneID());
