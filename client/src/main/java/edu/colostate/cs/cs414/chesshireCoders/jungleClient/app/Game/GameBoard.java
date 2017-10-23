@@ -69,6 +69,46 @@ public class GameBoard {
 					return false;
 				}
 			}
+			
+			//If the tiger or leopard is jumping the river there can not be a rat in the way.
+			//We first need to check where the animal is starting
+			int startingColumn = -1;
+			int startingRow = -1; 
+			if(pieceColumn < column) {
+				startingColumn = pieceColumn;
+			}
+			if(pieceColumn > column) {
+				startingColumn = column;
+			}
+			if(pieceRow < row) {
+				startingRow = row;				
+			}
+			if(pieceRow > row) {
+				startingRow = row;				
+			}	
+			
+			//Implement through the squares the animal travels to check if the rat occupies the same space.
+			if(startingColumn < 0) {
+				while(startingColumn < startingColumn+3) {
+					if((gamePieces[0][1].getColumn() == startingColumn)	&& (gamePieces[0][1].getRow()==row)) {
+						return false;
+					}
+					if((gamePieces[1][1].getColumn() == startingColumn)	&& (gamePieces[1][1].getRow()==row)) {
+						return false;
+					}
+					startingColumn++;
+				}
+			} else {
+				while(startingRow < startingRow+4) {
+					if((gamePieces[0][1].getColumn() == column)	&& (gamePieces[0][1].getRow() == startingRow)) {
+						return false;
+					}
+					if((gamePieces[1][1].getColumn() == column)	&& (gamePieces[1][1].getRow( )== startingRow)) {
+						return false;
+					}
+					startingRow++;
+				}
+			}
 		}
 		
 		//At this point the piece is either moving 1 space or it's a tiger/leopard jumping a river
