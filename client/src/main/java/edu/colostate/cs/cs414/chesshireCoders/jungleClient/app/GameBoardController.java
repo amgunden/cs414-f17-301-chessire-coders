@@ -3,9 +3,11 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -19,13 +21,68 @@ import javafx.scene.paint.Paint;
 public class GameBoardController implements Initializable {
 
 	private int[] from;
+	private ImageView[] blackPieces;
+	private ImageView[] redPieces;
 	
 	@FXML
 	private GridPane gridPane;
 	
+	@FXML
+	private ImageView blackPiece1;
+	@FXML
+	private ImageView blackPiece2;
+	@FXML
+	private ImageView blackPiece3;
+	@FXML
+	private ImageView blackPiece4;
+	@FXML
+	private ImageView blackPiece5;
+	@FXML
+	private ImageView blackPiece6;
+	@FXML
+	private ImageView blackPiece7;
+	@FXML
+	private ImageView blackPiece8;
+	
+	@FXML
+	private ImageView redPiece1;
+	@FXML
+	private ImageView redPiece2;
+	@FXML
+	private ImageView redPiece3;
+	@FXML
+	private ImageView redPiece4;
+	@FXML
+	private ImageView redPiece5;
+	@FXML
+	private ImageView redPiece6;
+	@FXML
+	private ImageView redPiece7;
+	@FXML
+	private ImageView redPiece8;
+	
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		from = new int[2];
+		initializeBlackArray();
+		initializeRedArray();
+	}
+	
+	public void initializeBlackArray()
+	{
+
+		blackPieces = new ImageView[]{
+				blackPiece1, blackPiece2, blackPiece3, blackPiece4,
+				blackPiece5, blackPiece6, blackPiece7, blackPiece8
+		};
+	}
+	
+	public void initializeRedArray()
+	{
+		redPieces = new ImageView[]{
+				redPiece1, redPiece2, redPiece3, redPiece4,
+				redPiece5, redPiece6, redPiece7, redPiece8
+		};
 	}
 	
 	@FXML
@@ -42,23 +99,32 @@ public class GameBoardController implements Initializable {
 		{
 			// remove highlight from "from"
 			removePreviousHighlights();
-			// TODO if square contains piece that belongs to player
+			// if square contains piece TODO that belongs to player
+			if (square.getChildren().size()>1)
+			{
+				ImageView piece = (ImageView) square.getChildren().get(1);
 				Color yellow = Color.rgb(150, 150, 0, 0.65);
 				setHighlight(square, yellow);
 				from[0] = r; from[1] = c;
 				// TODO get legal moves
 				// TODO highlight legal move squares
-					//Color green = Color.rgb(0, 150, 0, 0.65);
+					Color green = Color.rgb(0, 150, 0, 0.65);
 					//setHighlight(getSquare(r, c+1), green);
-					//setHighlight(getSquare(r, c-1), green);
+					setHighlight(getSquare(r, c-1), green);
+			}
 		}
 		// if square is highlighted
 		else
 		{
 			if (r != from[0] || c != from[1])
 			{
-				//int[] to = {r,c};
-				// TODO initiate move (piece, from, to)
+				StackPane fromSquare = getSquare(from[0], from[1]);
+				StackPane toSquare = getSquare(r,c);
+				ObservableList<Node> imageViews = fromSquare.getChildren();
+				ImageView piece = (ImageView) imageViews.remove(imageViews.size()-1);
+				toSquare.getChildren().add(piece);
+				removePreviousHighlights();
+				// TODO push move to server
 			}
 		}
 		
@@ -70,11 +136,13 @@ public class GameBoardController implements Initializable {
 	 * @param fill the color of the highlight. A value of null removes the highlight.
 	 */
 	private void setHighlight(StackPane square, Paint fill) {
+		if (square == null) return;
+		
 		int padding = (fill == null) ? 0 : 6;
 		
-		if (square.getChildren().size() > 0)
+		for (Node n : square.getChildren())
 		{
-			ImageView image = (ImageView) square.getChildren().get(0);
+			ImageView image = (ImageView) n;
 			image.setFitWidth(80-2*padding); image.setFitHeight(80-2*padding);
 		}
 		square.setPadding(new Insets(padding));

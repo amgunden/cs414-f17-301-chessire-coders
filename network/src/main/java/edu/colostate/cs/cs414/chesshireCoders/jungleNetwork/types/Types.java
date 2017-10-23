@@ -11,8 +11,9 @@ public class Types {
         kryo.register(GameOutcomeType.class);
         kryo.register(GameStatus.class);
         kryo.register(InvitationResponseType.class);
-        kryo.register(PlayerStatus.class);
+        kryo.register(LoginStatus.class);
         kryo.register(PlayerColor.class);
+        kryo.register(PlayerStatus.class);
         kryo.register(ServerEventType.class);
     }
 }
