@@ -6,6 +6,9 @@ public class Invitation {
     private int senderId;
     private int recipientId;
 
+    public Invitation() {
+    }
+
     public Invitation(int invitationId, int senderId, int recipientId) {
         this.invitationId = invitationId;
         this.senderId = senderId;

@@ -11,6 +11,9 @@ public class GamePiece {
     private int row;
     private int gameId;
 
+    public GamePiece() {
+    }
+
     public GamePiece(int pieceId, int playerId, PieceType pieceType, int column, int row, int gameId) {
         this.pieceId = pieceId;
         this.playerId = playerId;

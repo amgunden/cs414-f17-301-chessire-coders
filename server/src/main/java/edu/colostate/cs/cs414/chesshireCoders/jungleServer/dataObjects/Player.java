@@ -10,6 +10,9 @@ public class Player {
     private PlayerColor color;
     private GameOutcomeType outcomeType;
 
+    public Player() {
+    }
+
     public Player(int gameId, int userId, PlayerColor color, GameOutcomeType outcomeType) {
         this.gameId = gameId;
         this.userId = userId;

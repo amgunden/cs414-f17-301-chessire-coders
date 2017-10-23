@@ -7,6 +7,9 @@ public class User {
     private String nameLast;
     private String nickName;
 
+    public User() {
+    }
+
     public User(int userId, String nameFirst, String nameLast, String nickName) {
         this.userId = userId;
         this.nameFirst = nameFirst;

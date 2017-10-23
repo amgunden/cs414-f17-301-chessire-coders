@@ -15,6 +15,8 @@ public class Game {
     private PlayerStatus playerTwoStatus;
     private GameStatus gameStatus;
 
+    public Game() {}
+
     public Game(int gameID, Timestamp gameStart, Timestamp gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
         this.gameID = gameID;
         this.gameStart = gameStart;
