@@ -81,6 +81,47 @@ public class GamePieceDAO {
         return constructListFromResultSet(rs);
     }
 
+    public void insert(GamePiece piece) throws SQLException {
+        String insertStr = "INSERT INTO public.\"GamePiece\""
+                + "(\"PieceID\", \"PlayerID\", \"PieceType\", \"CoordY\", \"CoordX\", \"GameID\")"
+                + "VALUES (?,?,?,?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(insertStr);
+        statement.setInt(1, piece.getPieceId());
+        statement.setInt(2, piece.getPlayerId());
+        statement.setString(3, piece.getPieceType().name().toLowerCase());
+        statement.setInt(4, piece.getColumn());
+        statement.setInt(5, piece.getRow());
+        statement.setInt(6, piece.getGameId());
+
+        statement.executeUpdate();
+    }
+
+    public void update(GamePiece piece) throws SQLException {
+        String insertStr = "UPDATE public.\"GamePiece\" SET"
+                + "\"PlayerID\" = ?,"
+                + "\"PieceType\" = ?,"
+                + "\"CoordY\" = ?,"
+                + "\"CoordX\" = ?,"
+                + "\"GameID\" = ?"
+                + "WHERE \"PieceID\" = ?";
+        PreparedStatement statement = connection.prepareStatement(insertStr);
+        statement.setInt(1, piece.getPlayerId());
+        statement.setString(2, piece.getPieceType().name().toLowerCase());
+        statement.setInt(3, piece.getColumn());
+        statement.setInt(4, piece.getRow());
+        statement.setInt(5, piece.getGameId());
+        statement.setInt(6, piece.getPieceId());
+
+        statement.executeUpdate();
+    }
+
+    public void delete(GamePiece piece) throws SQLException {
+        String deleteStr = "DELETE FROM public.\"GamePiece\" WHERE \"PieceID\" = ?";
+        PreparedStatement statement = connection.prepareStatement(deleteStr);
+        statement.setInt(1, piece.getPieceId());
+        statement.executeUpdate();
+    }
+
     private List<GamePiece> constructListFromResultSet(ResultSet rs) throws SQLException {
         ArrayList<GamePiece> pieces = new ArrayList<>();
         while (rs.next()) {

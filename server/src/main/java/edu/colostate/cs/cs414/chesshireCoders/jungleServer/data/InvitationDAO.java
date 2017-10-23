@@ -69,6 +69,38 @@ public class InvitationDAO {
         return constructListFromResultSet(rs);
     }
 
+    public void insert(Invitation invitation) throws SQLException {
+        String insertStr = "INSERT INTO public.\"GameInvitation\""
+                + "(\"InvitationID\", \"Sender\", \"Recipient\")"
+                + "VALUES (?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(insertStr);
+        statement.setInt(1, invitation.getInvitationId());
+        statement.setInt(2, invitation.getSenderId());
+        statement.setInt(3, invitation.getRecipientId());
+
+        statement.executeUpdate();
+    }
+
+    public void update(Invitation invitation) throws SQLException {
+        String insertStr = "UPDATE public.\"GameInvitation\" SET"
+                + "\"Sender\" = ?,"
+                + "\"Recipient\" = ?"
+                + "WHERE \"InvitationID\" = ?";
+        PreparedStatement statement = connection.prepareStatement(insertStr);
+        statement.setInt(1, invitation.getSenderId());
+        statement.setInt(2, invitation.getRecipientId());
+        statement.setInt(3, invitation.getInvitationId());
+
+        statement.executeUpdate();
+    }
+
+    public void delete(Invitation invitation) throws SQLException {
+        String deleteStr = "DELETE FROM public.\"GameInvitation\" WHERE \"InvitationID\" = ?";
+        PreparedStatement statement = connection.prepareStatement(deleteStr);
+        statement.setInt(1, invitation.getInvitationId());
+        statement.executeUpdate();
+    }
+
     private List<Invitation> constructListFromResultSet(ResultSet rs) throws SQLException {
         ArrayList<Invitation> invitations = new ArrayList<>();
         while(rs.next()) {
