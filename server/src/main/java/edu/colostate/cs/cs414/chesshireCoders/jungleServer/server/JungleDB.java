@@ -41,10 +41,10 @@ public class JungleDB {
     }
 
     /**
-     * Gets a connection to the data source.
+     * Gets a connection to the dataObjects source.
      *
      * @return Returns an SQL connection that can be used to connect to the Data Source
-     * @throws SQLException Will throw if the data source has not been initialized, or if failed to get a connection.
+     * @throws SQLException Will throw if the dataObjects source has not been initialized, or if failed to get a connection.
      */
     public Connection getConnection() throws SQLException {
         if (dataSource != null) {
