@@ -19,7 +19,7 @@ public class TestGameBoard {
 	@Test
 	public void testCheckMove() {
 		//test you can move by one
-		assertTrue(testBoard.checkMove(0, 0, 0, 1));
+		assertTrue(testBoard.checkMove(0, 1, 0, 1));
 		//test you cannot move by 2
 		assertFalse(testBoard.checkMove(0, 1, 0, 2));
 	}

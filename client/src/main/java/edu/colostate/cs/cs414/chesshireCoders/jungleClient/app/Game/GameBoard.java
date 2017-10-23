@@ -38,7 +38,17 @@ public class GameBoard {
 	}
 	
 	//CheckMove will check that the move player's piece is allowed to move to the designated location.
+	//color must be 0 (red) or 1 (black)
+	//piece must be the powerlevel of the piece (aka Rat = 1 NOT 0)
+	//column = X axis location
+	//row = Y Axis Location
 	public boolean checkMove(int color, int piece, int column, int row) {		
+		//Assume piece given is in power level not array value
+		piece -= 1;		
+		if (piece < 0) {
+			return false;
+		}
+		
 		//finding the piece is dependent on what the UI/group wants. 
 		GamePiece gamePiece = gamePieces[color][piece];
 		int pieceColumn = gamePiece.getColumn();
