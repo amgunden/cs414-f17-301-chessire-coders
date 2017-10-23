@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for pushing/pulling information about User's to/from the database.
+ */
 public class UserDAO {
     private JungleDB jungleDB = null;
     private Connection connection = null;
@@ -26,7 +29,13 @@ public class UserDAO {
         connection.close();
     }
 
-    public List<User> getUserByUserId(int userId) throws SQLException {
+    /**
+     * Gets the User object associated with a given userID
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    public User getUserByUserId(int userId) throws SQLException {
         String queryString = "SELECT * FROM public.\"User\""
                 + "WHERE \"User\".\"UserID\" = ?";
         PreparedStatement statement = connection.prepareStatement(queryString);
@@ -34,10 +43,23 @@ public class UserDAO {
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-        return constructListFromResultSet(rs);
+
+        User user = new User();
+        user.setUserId(rs.getInt("UserID"));
+        user.setNameFirst(rs.getString("NameFirst"));
+        user.setNameLast(rs.getString("NameLast"));
+        user.setNickName(rs.getString("NickName"));
+        return user;
     }
 
-    public List<User> getUserByNickName(String nickName) throws SQLException {
+    /**
+     * Gets the user object associated with a given nickname.
+     *
+     * @param nickName
+     * @return
+     * @throws SQLException
+     */
+    public User getUserByNickName(String nickName) throws SQLException {
         String queryString = "SELECT * FROM public.\"User\""
                 + "WHERE \"User\".\"NickName\" = ?";
         PreparedStatement statement = connection.prepareStatement(queryString);
@@ -45,22 +67,38 @@ public class UserDAO {
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-        return constructListFromResultSet(rs);
+        User user = new User();
+        user.setUserId(rs.getInt("UserID"));
+        user.setNameFirst(rs.getString("NameFirst"));
+        user.setNameLast(rs.getString("NameLast"));
+        user.setNickName(rs.getString("NickName"));
+        return user;
     }
 
+    /**
+     * Inserts a new User object into the database.
+     *
+     * @param user The user to insert
+     * @throws SQLException
+     */
     public void insert(User user) throws SQLException {
         String insertStr = "INSERT INTO public.\"User\""
-                + "(\"UserID\", \"NameFirst\", \"NameLast\",\"NickName\")"
-                + "VALUES (?,?,?,?)";
+                + "(\"NameFirst\", \"NameLast\",\"NickName\")"
+                + "VALUES (?,?,?)";
         PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setInt(1, user.getUserId());
-        statement.setString(2, user.getNameFirst());
-        statement.setString(3, user.getNameLast());
-        statement.setString(4, user.getNickName());
+        statement.setString(1, user.getNameFirst());
+        statement.setString(2, user.getNameLast()); // TODO: possibly provide handling for null value? (should be handled already)
+        statement.setString(3, user.getNickName());
 
         statement.executeUpdate();
     }
 
+    /**
+     * Updates an existing user in the database.
+     *
+     * @param user The user to update (Must have ID set)
+     * @throws SQLException
+     */
     public void update(User user) throws SQLException {
         String insertStr = "UPDATE public.\"User\" SET"
                 + "\"NameFirst\" = ?,"
@@ -76,6 +114,12 @@ public class UserDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Deletes an existing user from the database.
+     *
+     * @param user The user to delete (must have ID set)
+     * @throws SQLException
+     */
     public void delete(User user) throws SQLException {
         String deleteStr = "DELETE FROM public.\"User\" WHERE \"UserID\" = ?";
         PreparedStatement statement = connection.prepareStatement(deleteStr);

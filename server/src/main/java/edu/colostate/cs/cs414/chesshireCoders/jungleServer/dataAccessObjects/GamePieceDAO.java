@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for pushing/pulling data about GamePiece's to/from the database.
+ */
 public class GamePieceDAO {
 
     private JungleDB jungleDB = null;
@@ -28,6 +31,13 @@ public class GamePieceDAO {
         connection.close();
     }
 
+    /**
+     * Retrieves the information about the game piece with an ID of 'id'
+     *
+     * @param id The ID of the game piece to retrieve.
+     * @return An instance of GamePiece
+     * @throws SQLException
+     */
     public GamePiece getGamePiece(int id) throws SQLException {
 
         String queryString = "SELECT * FROM public.\"GamePiece\" WHERE \"GamePiece\".\"PieceID\" = ?";
@@ -49,6 +59,13 @@ public class GamePieceDAO {
         return piece;
     }
 
+    /**
+     * Retrieves the list of GamePieces associated with a particular game.
+     *
+     * @param gameId The gameID
+     * @return Returns a list of GamePieces
+     * @throws SQLException
+     */
     public List<GamePiece> getPiecesByGameID(int gameId) throws SQLException {
         String queryString = "SELECT * FROM public.\"GamePiece\" WHERE \"GamePiece\".\"GameID\" = ?";
         PreparedStatement statement = connection.prepareStatement(queryString);
@@ -59,6 +76,13 @@ public class GamePieceDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Retrieves a list of GamePiece's associated with a particular player ID.
+     *
+     * @param playerId
+     * @return
+     * @throws SQLException
+     */
     public List<GamePiece> getPiecesByPlayerID(int playerId) throws SQLException {
         String queryString = "SELECT * FROM public.\"GamePiece\" WHERE \"GamePiece\".\"PlayerID\" = ?";
         PreparedStatement statement = connection.prepareStatement(queryString);
@@ -69,6 +93,14 @@ public class GamePieceDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Returns the list of GamePiece's associated with both a given playerID and gameID
+     *
+     * @param playerId
+     * @param gameId
+     * @return
+     * @throws SQLException
+     */
     public List<GamePiece> getPiecesByPlayerGameId(int playerId, int gameId) throws SQLException {
         String queryString = "SELECT * FROM public.\"GamePiece\""
                 + "WHERE \"GamePiece\".\"PlayerID\" = ?"
@@ -82,6 +114,12 @@ public class GamePieceDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Inserts a new GamePiece into the Database.
+     *
+     * @param piece
+     * @throws SQLException
+     */
     public void insert(GamePiece piece) throws SQLException {
         String insertStr = "INSERT INTO public.\"GamePiece\""
                 + "(\"PieceID\", \"PlayerID\", \"PieceType\", \"CoordY\", \"CoordX\", \"GameID\")"
@@ -97,6 +135,12 @@ public class GamePieceDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Updates an existing GamePiece row in the database.
+     *
+     * @param piece
+     * @throws SQLException
+     */
     public void update(GamePiece piece) throws SQLException {
         String insertStr = "UPDATE public.\"GamePiece\" SET"
                 + "\"PlayerID\" = ?,"
@@ -116,6 +160,12 @@ public class GamePieceDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Deletes a GamePiece row from the database.
+     *
+     * @param piece
+     * @throws SQLException
+     */
     public void delete(GamePiece piece) throws SQLException {
         String deleteStr = "DELETE FROM public.\"GamePiece\" WHERE \"PieceID\" = ?";
         PreparedStatement statement = connection.prepareStatement(deleteStr);
@@ -123,6 +173,13 @@ public class GamePieceDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * utility method to generate a list of GamePieces from a ResultSet.
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private List<GamePiece> constructListFromResultSet(ResultSet rs) throws SQLException {
         ArrayList<GamePiece> pieces = new ArrayList<>();
         while (rs.next()) {

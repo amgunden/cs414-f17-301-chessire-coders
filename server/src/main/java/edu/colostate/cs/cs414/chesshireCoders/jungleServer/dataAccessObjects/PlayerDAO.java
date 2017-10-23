@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for pushing/pulling information about Players to/from the database.
+ */
 public class PlayerDAO {
     private JungleDB jungleDB = null;
     private Connection connection = null;
@@ -28,6 +31,13 @@ public class PlayerDAO {
         connection.close();
     }
 
+    /**
+     * Gets the list of players associated with a given game.
+     *
+     * @param gameId
+     * @return
+     * @throws SQLException
+     */
     public List<Player> getPlayersByGameId(int gameId) throws SQLException {
         String queryString = "SELECT * FROM public.\"Player\""
                 + "WHERE \"Player\".\"GameID\" = ?";
@@ -39,6 +49,13 @@ public class PlayerDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Gets the list of players associated with a user.
+     *
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
     public List<Player> getPlayersByUserId(int userId) throws SQLException {
         String queryString = "SELECT * FROM public.\"Player\""
                 + "WHERE \"Player\".\"UserID\" = ?";
@@ -50,6 +67,12 @@ public class PlayerDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Inserts a new player into the database.
+     *
+     * @param player
+     * @throws SQLException
+     */
     public void insert(Player player) throws SQLException {
         String insertStr = "INSERT INTO public.\"Player\""
                 + "(\"UserID\", \"PlayerColor\", \"Outcome\",\"GameID\")"
@@ -63,6 +86,12 @@ public class PlayerDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Updates an existing player in the database.
+     *
+     * @param player
+     * @throws SQLException
+     */
     public void update(Player player) throws SQLException {
         String insertStr = "UPDATE public.\"Player\" SET"
                 + "\"Outcome\" = ?,"
@@ -77,6 +106,12 @@ public class PlayerDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Deletes an existing player from the database.
+     *
+     * @param player
+     * @throws SQLException
+     */
     public void delete(Player player) throws SQLException {
         String deleteStr = "DELETE FROM public.\"Player\" WHERE \"UserID\" = ? AND \"GameID\" = ?";
         PreparedStatement statement = connection.prepareStatement(deleteStr);

@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for pushing/pulling Invitation data to/from the database.
+ */
 public class InvitationDAO {
 
     private JungleDB jungleDB = null;
@@ -27,6 +30,12 @@ public class InvitationDAO {
         connection.close();
     }
 
+    /**
+     * Retrieves an invitation from the database corresponding to the given ID.
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public Invitation getInvitation(int id) throws SQLException {
         String queryString = "SELECT * FROM public.\"GameInvitation\""
                 + "WHERE \"GameInvitation\".\"InvitationID\" = ?";
@@ -45,6 +54,13 @@ public class InvitationDAO {
         return invitation;
     }
 
+    /**
+     * Gets a list of invitations associated with a single sending user.
+     *
+     * @param senderId
+     * @return
+     * @throws SQLException
+     */
     public List<Invitation> getInvitesBySender(int senderId) throws SQLException {
         String queryString = "SELECT * FROM public.\"GameInvitation\""
                 + "WHERE \"GameInvitation\".\"Sender\" = ?";
@@ -56,6 +72,13 @@ public class InvitationDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Gets a list of invitations associated with a single recipient user.
+     * @param senderId
+     * @param recipientId
+     * @return
+     * @throws SQLException
+     */
     public List<Invitation> getInvitesBySenderRecipient(int senderId, int recipientId) throws SQLException {
         String queryString = "SELECT * FROM public.\"GameInvitation\""
                 + "WHERE \"GameInvitation\".\"Sender\" = ?"
@@ -69,18 +92,29 @@ public class InvitationDAO {
         return constructListFromResultSet(rs);
     }
 
+    /**
+     * Inserts a new Invitation object into the database.
+     * @param invitation
+     * @throws SQLException
+     */
     public void insert(Invitation invitation) throws SQLException {
         String insertStr = "INSERT INTO public.\"GameInvitation\""
                 + "(\"InvitationID\", \"Sender\", \"Recipient\")"
                 + "VALUES (?,?,?)";
         PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setInt(1, invitation.getInvitationId());
+        statement.setInt(1, invitation.getInvitationId()); // TODO: remove this, invitation ID is auto generated
         statement.setInt(2, invitation.getSenderId());
         statement.setInt(3, invitation.getRecipientId());
 
         statement.executeUpdate();
     }
 
+    /**
+     * Updates an existing invitation object in the database.
+     *
+     * @param invitation
+     * @throws SQLException
+     */
     public void update(Invitation invitation) throws SQLException {
         String insertStr = "UPDATE public.\"GameInvitation\" SET"
                 + "\"Sender\" = ?,"
@@ -94,7 +128,13 @@ public class InvitationDAO {
         statement.executeUpdate();
     }
 
-    public void delete(Invitation invitation) throws SQLException {
+    /**
+     * Deletes an invitation from the database.
+     *
+     * @param invitation
+     * @throws SQLException
+     */
+    public void delete(Invitation invitation) throws SQLException { // TODO: Change so that only ID is needed, or overload method.
         String deleteStr = "DELETE FROM public.\"GameInvitation\" WHERE \"InvitationID\" = ?";
         PreparedStatement statement = connection.prepareStatement(deleteStr);
         statement.setInt(1, invitation.getInvitationId());

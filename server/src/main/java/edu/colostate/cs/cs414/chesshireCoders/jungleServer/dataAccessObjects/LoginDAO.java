@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for pushing/pulling information about Login's from the database.
+ */
 public class LoginDAO {
     private JungleDB jungleDB = null;
     private Connection connection = null;
@@ -27,6 +30,13 @@ public class LoginDAO {
         connection.close();
     }
 
+    /**
+     * Get the login info. associated with a userID.
+     *
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
     public Login getLoginByUserId(int userId) throws SQLException {
         String queryString = "SELECT * FROM public.\"Login\""
                 + "WHERE \"Login\".\"UserID\" = ?";
@@ -43,6 +53,12 @@ public class LoginDAO {
         return login;
     }
 
+    /**
+     * Gets the Login information associated with an email address from the database.
+     * @param email
+     * @return
+     * @throws SQLException
+     */
     public Login getLoginByEmail(String email) throws SQLException {
         String queryString = "SELECT * FROM public.\"Login\""
                 + "WHERE \"Login\".\"Username\" = ?";
@@ -59,6 +75,12 @@ public class LoginDAO {
         return login;
     }
 
+    /**
+     * Add a new login object to the database
+     *
+     * @param login
+     * @throws SQLException
+     */
     public void insert(Login login) throws SQLException {
         String insertStr = "INSERT INTO public.\"Login\""
                 + "(\"Username\", \"HashedPass\", \"Salt\",\"UserID\")"
@@ -72,6 +94,12 @@ public class LoginDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Updates an existing login row in the database
+     *
+     * @param login
+     * @throws SQLException
+     */
     public void update(Login login) throws SQLException {
         String insertStr = "UPDATE public.\"Login\" SET"
                 + "\"HashedPass\" = ?,"
@@ -85,6 +113,12 @@ public class LoginDAO {
         statement.executeUpdate();
     }
 
+    /**
+     * Deletes an existing row from the database.
+     *
+     * @param login
+     * @throws SQLException
+     */
     public void delete(Login login) throws SQLException {
         String deleteStr = "DELETE FROM public.\"Login\" WHERE \"Username\" = ?";
         PreparedStatement statement = connection.prepareStatement(deleteStr);
