@@ -63,4 +63,45 @@ public class GameDAO {
 
         return games;
     }
+
+    public void insert(Game game) throws SQLException {
+        String insertStr = "INSERT INTO public.\"Game\""
+                + "(\"GameID\", \"gameStartDateTime\", \"gameEndDateTime\", \"PlayerOneID\", \"PlayerTwoID\", \"GameStatus\")"
+                + "VALUES (?,?,?,?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(insertStr);
+        statement.setInt(1, game.getGameID());
+        statement.setTimestamp(2, game.getGameStart());
+        statement.setTimestamp(3, game.getGameEnd());
+        statement.setInt(4, game.getPlayerOneID());
+        statement.setInt(5, game.getPlayerTwoID());
+        statement.setString(6, game.getGameStatus().name().toLowerCase());
+
+        statement.executeUpdate();
+    }
+
+    public void update(Game game) throws SQLException {
+        String updateStr = "UPDATE public.\"Game\""
+                        + "SET \"gameStartDateTime\" = ?,"
+                        + "\"gameEndDateTime\" = ?,"
+                        + "\"PlayerOneID\" = ?,"
+                        + "\"PlayerTwoID\" = ?,"
+                        + "\"GameStatus\" = ?"
+                        + "WHERE \"GameID\" = ?";
+        PreparedStatement statement = connection.prepareStatement(updateStr);
+        statement.setTimestamp(1, game.getGameStart());
+        statement.setTimestamp(2, game.getGameEnd());
+        statement.setInt(3, game.getPlayerOneID());
+        statement.setInt(4, game.getPlayerTwoID());
+        statement.setString(5, game.getGameStatus().name().toLowerCase());
+        statement.setInt(6, game.getGameID());
+
+        statement.executeUpdate();
+    }
+
+    public void delete(Game game) throws SQLException {
+        String deleteStr = "DELETE FROM public.\"Game\" WHERE \"GameID\" = ?";
+        PreparedStatement statement = connection.prepareStatement(deleteStr);
+        statement.setInt(1, game.getGameID());
+        statement.executeUpdate();
+    }
 }
