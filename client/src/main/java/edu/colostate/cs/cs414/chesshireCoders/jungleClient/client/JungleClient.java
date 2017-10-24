@@ -1,8 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.OneTimeRunnableListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Responses;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.Types;
@@ -72,7 +72,7 @@ public class JungleClient {
      * @param o
      * @param listener
      */
-    public void sendMessageExpectsResponse(Object o, OneTimeRunnableListener<?> listener) {
+    public void sendMessageExpectsResponse(Object o, Listener listener) {
         client.addListener(listener);
         client.sendTCP(o);
     }
