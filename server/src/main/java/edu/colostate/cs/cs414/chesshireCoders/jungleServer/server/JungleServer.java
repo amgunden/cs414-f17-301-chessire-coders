@@ -7,12 +7,11 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Responses;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.ServerEventType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.Types;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.IRequestHandler;
 
 import javax.sql.DataSource;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,6 @@ public class JungleServer extends Server {
         Events.kryoRegisterEvents(this);
         Responses.kryoRegisterResponses(this);
         Requests.kryoRegisterRequests(this);
-        NetworkListener.addListeners(this);
 
         logger.log(Level.FINER, "Registered all network message objects");
 
@@ -110,5 +108,9 @@ public class JungleServer extends Server {
                 new Object[]{o.getClass().getSimpleName(), connectionID}
         );
         super.sendToTCP(connectionID, o);
+    }
+
+    public void addRequestHandler(IRequestHandler handler) {
+        handler.addListeners(this);
     }
 }
