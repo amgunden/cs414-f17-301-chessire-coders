@@ -14,6 +14,10 @@ public class GetGameResponse extends Response {
     public GetGameResponse() {
     }
 
+    public GetGameResponse(int statusCode, String message) {
+        super(statusCode, message);
+    }
+
     public int getGameID() {
         return gameID;
     }
