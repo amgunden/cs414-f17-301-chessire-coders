@@ -46,6 +46,9 @@ public class GameBoard {
 	//column = X axis location
 	//row = Y Axis Location
 	public boolean isValidMove(int color, int piece, int column, int row) {	
+		//Assume piece given is in power level not array value
+		piece -= 1;
+		
 		if(!(isValidPiece(color, piece)))
 			return false;
 
@@ -54,15 +57,12 @@ public class GameBoard {
 
 		if(!(isPieceAllowedOnSquare(color, piece, column, row)))
 			return false;
-
-		if(!(isPieceAllowedOnSquare(color, piece, column, row)))
-			return false;
-
+		
 		if(isFriendlyOccupying(color, column, row)){
 			return false;
 		}		
 
-		if(isPowerfulEnemyOccupying(color, piece, column, row)){
+		if(isEnemyBlocking(color, piece, column, row)){
 			return false;
 		}
 
@@ -72,8 +72,6 @@ public class GameBoard {
 
 	//isValidMove Support Functions ------------------------------------------------------
 	private boolean isValidPiece(int color, int piece) {
-		//Assume piece given is in power level not array value
-		piece -= 1;		
 		if (piece < 0) {
 			return false;
 		}		
@@ -99,7 +97,7 @@ public class GameBoard {
 		//The only time the row or column will increase by more than one is if the tiger or leopard is jumping the river
 		//Check if it increases by more than one
 		if(!(((pieceColumn+1 == column)||(pieceColumn-1 == column))||((pieceRow+1 == row)||(pieceRow-1 == row)))){
-			//if it is not a tiger or a leopard return false
+			//if it is not a tiger or a leopard return false]
 			if(!((piece == 4)||(piece == 5))) {
 				return false;
 			}
@@ -162,7 +160,7 @@ public class GameBoard {
 		//check if it can land on the space. 
 		//if it's normal, trap, or den anything can be on it.
 		BoardSquare pieceSquare = boardSquares[gamePiece.getColumn()][gamePiece.getRow()];
-		isAttackingAllowed = false;
+		isAttackingAllowed = true;
 		if(boardSquare.getSquareType().equals(SquareType.River)) {
 			//If it's not a normal, trap, or den it must be a river. Only rats can go on river. So if it's not a rat return false.
 			if(!(gamePiece.getPieceType().equals(PieceType.Rat))) {
@@ -170,7 +168,7 @@ public class GameBoard {
 			}
 			//if is a rat and the rat is not already in the river their can not be a piece there.
 			if(pieceSquare.getSquareType().equals(SquareType.River)) {
-				isAttackingAllowed = true;
+				isAttackingAllowed = false;
 			}
 		}	
 
@@ -180,15 +178,15 @@ public class GameBoard {
 	private boolean isFriendlyOccupying(int color, int column, int row) {
 		//if any of the player's pieces are on the space return false;
 		for(int i = 0; i < 8; i++) {
-			if((gamePieces[color][i].getRow() == row) && (gamePieces[0][i].getRow() == column)) {
-				return false;
+			if((gamePieces[color][i].getRow() == row) && (gamePieces[color][i].getColumn() == column)) {
+				return true;
 			}
 		}		
 
-		return true;
+		return false;
 	}
 
-	private boolean isPowerfulEnemyOccupying(int color, int piece, int column, int row) {
+	private boolean isEnemyBlocking(int color, int piece, int column, int row) {
 		GamePiece gamePiece = gamePieces[color][piece];
 		BoardSquare boardSquare = boardSquares[column][row];
 		//Check if their is a creature on it with a higher power
@@ -197,10 +195,10 @@ public class GameBoard {
 		if (boardSquare.getSquareType().equals(SquareType.Trap)){
 			//if the trap color equals the piece color it can consume anything so return true.
 			if((boardSquare.getColor().equals(PlayerColor.Red)) && (color == 0)){
-				return true;
+				return false;
 			}
 			if((boardSquare.getColor().equals(PlayerColor.Black)) && (color == 1)){
-				return true;
+				return false;
 			}
 
 		}
@@ -214,12 +212,12 @@ public class GameBoard {
 		for(int i = 0; i < 8; i++) {
 			if((gamePieces[oppositePlayer][i].getRow() == row) && (gamePieces[0][i].getRow() == column)) {
 				if((i > piece)||(!(isAttackingAllowed))) {
-					return false;
+					return true;
 				}
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	//Board Setup Functions -----------------------------------------------------------
