@@ -7,6 +7,33 @@ public class LeopardPiece extends GamePiece {
 		setPowerDefault();
 	}
 
+
+	@Override
+	public boolean canOccupy(BoardSquare square) {
+		if (square == null)
+			return false;
+		
+		if (!square.isEmpty())
+		{
+			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
+				return false;
+			}
+			if (square.getPiece().getColor() == this.getColor()) {
+				return false;
+			}
+		}
+		
+		if (square instanceof RiverSquare) {
+			return false;
+		}
+		
+		if (square instanceof DenSquare && square.getColor()==this.getColor()) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public void setPowerDefault() {
 		setPowerLevel(5);

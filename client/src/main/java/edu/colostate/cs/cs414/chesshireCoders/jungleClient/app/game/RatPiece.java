@@ -14,9 +14,15 @@ public class RatPiece extends GamePiece {
 	
 	@Override
 	public boolean canOccupy(BoardSquare square) {
+		if (square == null)
+			return false;
+		
 		if (!square.isEmpty())
 		{
-			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
+			if ( (square.getPiece().getPowerLevel() != 8) && (square.getPiece().getPowerLevel() > this.getPowerLevel()) ) {
+				return false;
+			}
+			if (square.getPiece().getColor() == this.getColor()) {
 				return false;
 			}
 		}

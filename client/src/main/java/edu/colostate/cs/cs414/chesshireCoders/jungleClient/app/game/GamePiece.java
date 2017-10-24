@@ -42,14 +42,28 @@ public abstract class GamePiece {
 	public abstract void setPowerDefault();
 
 	public boolean canOccupy(BoardSquare square) {
+		if (square == null)
+			return false;
+		
 		if (!square.isEmpty())
 		{
 			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
 				return false;
 			}
+			if (square.getPiece().getColor() == this.getColor()) {
+				return false;
+			}
 		}
 		
-		if (square.getSquareType() == SquareType.River) {
+		if (Math.abs(square.getColumn() - this.column) > 1 || Math.abs(square.getRow() - this.row) > 1) {
+			return false;
+		}
+		
+		if (square instanceof RiverSquare) {
+			return false;
+		}
+		
+		if (square instanceof DenSquare && square.getColor()==this.getColor()) {
 			return false;
 		}
 		
@@ -62,5 +76,13 @@ public abstract class GamePiece {
 	
 	public int getColumn() {
 		return column;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setColumn(int column) {
+		this.column = column;
 	}
 }
