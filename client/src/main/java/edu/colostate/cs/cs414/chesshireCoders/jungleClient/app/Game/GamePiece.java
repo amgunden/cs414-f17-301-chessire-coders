@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.Game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 public class GamePiece {
 	PieceType typeOfPiece = PieceType.Rat;
