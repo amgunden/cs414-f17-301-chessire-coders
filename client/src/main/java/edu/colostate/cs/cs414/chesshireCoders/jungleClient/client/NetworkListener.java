@@ -6,10 +6,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.GameEndedEven
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.OneTimeRunnableListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UnRegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.RegisterResponse;
+
+import static com.esotericsoftware.kryonet.Listener.ThreadedListener;
 
 public class NetworkListener {
 
@@ -21,46 +19,27 @@ public class NetworkListener {
     public static void addEventListeners(Client client) {
 
         // Server Event Listener
-        client.addListener(new FilteredListener<ServerEvent>(ServerEvent.class) {
+        client.addListener(new ThreadedListener(new FilteredListener<ServerEvent>(ServerEvent.class) {
             @Override
             public void run(Connection connection, ServerEvent received) {
 
             }
-        });
+        }));
 
         // Game Ended Event Listener
-        client.addListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
+        client.addListener(new ThreadedListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
             @Override
             public void run(Connection connection, GameEndedEvent received) {
 
             }
-        });
+        }));
 
-        client.addListener(new FilteredListener<InvitationEvent>(InvitationEvent.class) {
+        // Invitation Event
+        client.addListener(new ThreadedListener(new FilteredListener<InvitationEvent>(InvitationEvent.class) {
             @Override
             public void run(Connection connection, InvitationEvent received) {
 
             }
-        });
-        client.addListener(new FilteredListener<RegisterRequest>(RegisterRequest.class) {
-            @Override
-            public void run(Connection connection, RegisterRequest received) {
-
-            }
-        });
-        
-        client.addListener(new FilteredListener<RegisterRequest>(RegisterRequest.class) {
-            @Override
-            public void run(Connection connection, RegisterRequest received) {
-
-            }
-        });
-        client.addListener(new FilteredListener<UnRegisterRequest>(UnRegisterRequest.class) {
-            @Override
-            public void run(Connection connection, UnRegisterRequest received) {
-
-            }
-        });
-        
+        }));
     }
 }
