@@ -6,6 +6,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.GameEndedEven
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.OneTimeRunnableListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.RegisterResponse;
 
 public class NetworkListener {
 
@@ -38,5 +41,19 @@ public class NetworkListener {
 
             }
         });
+        client.addListener(new FilteredListener<RegisterRequest>(RegisterRequest.class) {
+            @Override
+            public void run(Connection connection, RegisterRequest received) {
+
+            }
+        });
+        
+        client.addListener(new OneTimeRunnableListener<RegisterResponse>(RegisterResponse.class, client, () -> {
+            
+            
+
+        }));
+        
+        
     }
 }
