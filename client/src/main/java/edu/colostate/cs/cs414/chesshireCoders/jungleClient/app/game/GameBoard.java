@@ -22,12 +22,62 @@ public class GameBoard {
 	}
 
 	//the row and column here could be substituted for a direction, thought that would mean a minor loss of clarity.
-	public boolean movePiece(int color, int piece, int column, int row) {
-		//Assume piece given is in power level not array value
-		piece -= 1;
+	public void movePiece(int[] from, int[] to) {
+		BoardSquare fromSquare = getSquareAt(from[1],from[0]);
+		BoardSquare toSquare = getSquareAt(to[1],to[0]);
 		
+		toSquare.setPiece( fromSquare.getPiece() );
+		fromSquare.clearPiece();
+	}
+
+	public GamePiece getPieceAt(int col, int row) {
+		return getSquareAt(col, row).getPiece();
+	}
+	
+	/**
+	 * Gets the valid moves for the piece located at (row, column) in the array.
+	 * @param row the row location of the piece on the board.
+	 * @param column the column location of the piece on the  board.
+	 * @return an array of integers specifying the distance of each valid move in each direction [L,U,R,D].
+	 */
+	public int[] getValidMoves(int row, int column) {
+		int[] validMoves = new int[4];
 		
-		return false;
+		GamePiece piece = getSquareAt(column, row).getPiece();
+		
+		validMoves[0] = getValidMove(piece, -1, 0); // left
+		validMoves[1] = getValidMove(piece, 0, -1); // up
+		validMoves[2] = getValidMove(piece, 1, 0); // right
+		validMoves[3] = getValidMove(piece, 0, 1); // down
+		
+		return validMoves;
+	}
+	
+	private int getValidMove(GamePiece piece, int columnDirection, int rowDirection) {
+		if (Math.abs(columnDirection) > 1 )
+			rowDirection /= Math.abs(columnDirection);
+		if (Math.abs(rowDirection) > 1 )
+			rowDirection /= Math.abs(rowDirection);
+		
+		int columnOffset = columnDirection;
+		int rowOffset = rowDirection;
+		
+		BoardSquare square = boardSquares[piece.getColumn()+columnOffset][piece.getRow()+rowOffset];
+		// if piece.canMoveTo(square)
+			//return columnOffset;
+		// else if square is river and river is clear
+			// find columnOffset of nearest dry land square
+			// square = boardSquares[piece.getRow()][piece.getColumn()+columnOffset];
+			// if piece.canMoveTo(square)
+				// return columnOffset;
+		return 0;
+	}
+	
+	private BoardSquare getSquareAt(int col, int row) {
+		if ( (col < 0) || (col > 8) || (row < 0) || (row > 6) )
+			return null;
+		
+		return boardSquares[col][row];
 	}
 
 	//isValidMove will check that the move player's piece is allowed to move to the designated location.
@@ -241,76 +291,76 @@ public class GameBoard {
 
 	private void setUpBoard() {		
 		//row 1
-		boardSquares[0][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][0] = new BoardSquare(SquareType.Trap, PlayerColor.Red);
-		boardSquares[3][0] = new BoardSquare(SquareType.Den, PlayerColor.Red);
-		boardSquares[4][0] = new BoardSquare(SquareType.Trap, PlayerColor.Red);
-		boardSquares[5][0] = new BoardSquare(SquareType.Normal);
-		boardSquares[6][0] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][0] = new BoardSquare(new LionPiece(0, 0, PlayerColor.Red));
+		boardSquares[1][0] = new BoardSquare(null);
+		boardSquares[2][0] = new TrapSquare(null, PlayerColor.Red);
+		boardSquares[3][0] = new DenSquare(null, PlayerColor.Red);
+		boardSquares[4][0] = new TrapSquare(null, PlayerColor.Red);
+		boardSquares[5][0] = new BoardSquare(null);
+		boardSquares[6][0] = new BoardSquare(new TigerPiece(6, 0, PlayerColor.Red));
 		//row 2
-		boardSquares[0][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][1] = new BoardSquare(SquareType.Trap, PlayerColor.Red);
-		boardSquares[4][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][1] = new BoardSquare(SquareType.Normal);
-		boardSquares[6][1] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][1] = new BoardSquare(null);
+		boardSquares[1][1] = new BoardSquare(new FoxPiece(1, 1, PlayerColor.Red));
+		boardSquares[2][1] = new BoardSquare(null);
+		boardSquares[3][1] = new BoardSquare(null, PlayerColor.Red);
+		boardSquares[4][1] = new BoardSquare(null);
+		boardSquares[5][1] = new BoardSquare(new CatPiece(5, 1, PlayerColor.Red));
+		boardSquares[6][1] = new BoardSquare(null);
 		//row 3
-		boardSquares[0][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][2] = new BoardSquare(SquareType.Normal);
-		boardSquares[6][2] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][2] = new BoardSquare(new RatPiece(0, 2, PlayerColor.Red));
+		boardSquares[1][2] = new BoardSquare(null);
+		boardSquares[2][2] = new BoardSquare(new LeopardPiece(2, 2, PlayerColor.Red));
+		boardSquares[3][2] = new BoardSquare(null);
+		boardSquares[4][2] = new BoardSquare(new DogPiece(4, 2, PlayerColor.Red));
+		boardSquares[5][2] = new BoardSquare(null);
+		boardSquares[6][2] = new BoardSquare(new ElephantPiece(6, 2, PlayerColor.Red));
 		//row 4
-		boardSquares[0][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][3] = new BoardSquare(SquareType.River);
-		boardSquares[2][3] = new BoardSquare(SquareType.River);
-		boardSquares[3][3] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][3] = new BoardSquare(SquareType.River);
-		boardSquares[5][3] = new BoardSquare(SquareType.River);
-		boardSquares[6][3] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][3] = new BoardSquare(null);
+		boardSquares[1][3] = new BoardSquare(null);
+		boardSquares[2][3] = new BoardSquare(null);
+		boardSquares[3][3] = new BoardSquare(null);
+		boardSquares[4][3] = new BoardSquare(null);
+		boardSquares[5][3] = new BoardSquare(null);
+		boardSquares[6][3] = new BoardSquare(null);
 		//row 5
-		boardSquares[0][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][4] = new BoardSquare(SquareType.River);
-		boardSquares[2][4] = new BoardSquare(SquareType.River);
-		boardSquares[3][4] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][4] = new BoardSquare(SquareType.River);
-		boardSquares[5][4] = new BoardSquare(SquareType.River);
-		boardSquares[6][4] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][4] = new BoardSquare(null);
+		boardSquares[1][4] = new BoardSquare(null);
+		boardSquares[2][4] = new BoardSquare(null);
+		boardSquares[3][4] = new BoardSquare(null);
+		boardSquares[4][4] = new BoardSquare(null);
+		boardSquares[5][4] = new BoardSquare(null);
+		boardSquares[6][4] = new BoardSquare(null);
 		//row 6
-		boardSquares[0][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][5] = new BoardSquare(SquareType.River);
-		boardSquares[2][5] = new BoardSquare(SquareType.River);
-		boardSquares[3][5] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][5] = new BoardSquare(SquareType.River);
-		boardSquares[5][5] = new BoardSquare(SquareType.River);
-		boardSquares[6][5] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][5] = new BoardSquare(null);
+		boardSquares[1][5] = new BoardSquare(null);
+		boardSquares[2][5] = new BoardSquare(null);
+		boardSquares[3][5] = new BoardSquare(null);
+		boardSquares[4][5] = new BoardSquare(null);
+		boardSquares[5][5] = new BoardSquare(null);
+		boardSquares[6][5] = new BoardSquare(null);
 		//row 7
-		boardSquares[0][6] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][6] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][6] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][6] = new BoardSquare(SquareType.Normal);
-		boardSquares[4][6] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][6] = new BoardSquare(SquareType.Normal);
-		boardSquares[6][6] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][6] = new BoardSquare(new ElephantPiece(0, 6, PlayerColor.Black));
+		boardSquares[1][6] = new BoardSquare(null);
+		boardSquares[2][6] = new BoardSquare(new DogPiece(2, 6, PlayerColor.Black));
+		boardSquares[3][6] = new BoardSquare(null);
+		boardSquares[4][6] = new BoardSquare(new LeopardPiece(4, 6, PlayerColor.Black));
+		boardSquares[5][6] = new BoardSquare(null);
+		boardSquares[6][6] = new BoardSquare(new RatPiece(6, 6, PlayerColor.Black));
 		//row 8
-		boardSquares[0][7] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][7] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][7] = new BoardSquare(SquareType.Normal);
-		boardSquares[3][7] = new BoardSquare(SquareType.Trap, PlayerColor.Black);
-		boardSquares[4][7] = new BoardSquare(SquareType.Normal);
-		boardSquares[5][7] = new BoardSquare(SquareType.Normal);
-		boardSquares[6][7] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][7] = new BoardSquare(null);
+		boardSquares[1][7] = new BoardSquare(new CatPiece(1, 7, PlayerColor.Black));
+		boardSquares[2][7] = new BoardSquare(null);
+		boardSquares[3][7] = new BoardSquare(null, PlayerColor.Black);
+		boardSquares[4][7] = new BoardSquare(null);
+		boardSquares[5][7] = new BoardSquare(new FoxPiece(5, 7, PlayerColor.Black));
+		boardSquares[6][7] = new BoardSquare(null);
 		//row 9
-		boardSquares[0][8] = new BoardSquare(SquareType.Normal);
-		boardSquares[1][8] = new BoardSquare(SquareType.Normal);
-		boardSquares[2][8] = new BoardSquare(SquareType.Trap, PlayerColor.Black);
-		boardSquares[3][8] = new BoardSquare(SquareType.Den, PlayerColor.Black);
-		boardSquares[4][8] = new BoardSquare(SquareType.Trap, PlayerColor.Black);
-		boardSquares[5][8] = new BoardSquare(SquareType.Normal);
-		boardSquares[6][8] = new BoardSquare(SquareType.Normal);
+		boardSquares[0][8] = new BoardSquare(new TigerPiece(0, 8, PlayerColor.Black));
+		boardSquares[1][8] = new BoardSquare(null);
+		boardSquares[2][8] = new BoardSquare(null, PlayerColor.Black);
+		boardSquares[3][8] = new BoardSquare(null, PlayerColor.Black);
+		boardSquares[4][8] = new BoardSquare(null, PlayerColor.Black);
+		boardSquares[5][8] = new BoardSquare(null);
+		boardSquares[6][8] = new BoardSquare(new LionPiece(6, 8, PlayerColor.Black));
 	}
 }

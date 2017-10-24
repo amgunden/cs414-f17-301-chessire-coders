@@ -13,6 +13,12 @@ public abstract class GamePiece {
 		this.color = color;
 	}
 	
+	public GamePiece(GamePiece piece) {
+		this.row = piece.getRow();
+		this.column = piece.getColumn();
+		this.color = piece.getColor();
+	}
+	
 	
 	public void changeLocation(int row, int column) {
 		this.row = row;
@@ -29,20 +35,27 @@ public abstract class GamePiece {
 	}
 	
 	public void setPowerLevel(int power) {
-		powerLevel = Math.max(power, 1);
+		powerLevel = Math.max(power, 0);
 		powerLevel = Math.min(power, 8);
-	}
-	
-	public void setTrapped(boolean val)
-	{
-		if (val)
-			setPowerLevel(1);
-		else
-			setPowerDefault();
 	}
 	
 	public abstract void setPowerDefault();
 
+	public boolean canOccupy(BoardSquare square) {
+		if (!square.isEmpty())
+		{
+			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
+				return false;
+			}
+		}
+		
+		if (square.getSquareType() == SquareType.River) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public int getRow() {
 		return row;
 	}

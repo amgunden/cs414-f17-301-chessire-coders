@@ -4,14 +4,29 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 public class BoardSquare {
 	SquareType typeOfSquare = SquareType.Normal;
 	PlayerColor colorOfPlayer;
+	protected GamePiece piece;
 
-	public BoardSquare(SquareType type) {
-		typeOfSquare = type;
+	public GamePiece getPiece() {
+		return piece;
+	}
+
+	public void clearPiece() {
+		this.piece = new RatPiece(0, 0, colorOfPlayer);
+		piece = null;
+	}
+	
+	public void setPiece(GamePiece piece) {
+		piece.setPowerDefault();
+		this.piece = piece;
+	}
+
+	public BoardSquare(GamePiece piece) {
+		setPiece(piece);
 		colorOfPlayer = PlayerColor.None;
 	}
 	
-	public BoardSquare(SquareType type, PlayerColor color) {
-		typeOfSquare = type;
+	public BoardSquare(GamePiece piece, PlayerColor color) {
+		setPiece(piece);
 		colorOfPlayer = color;
 	}
 	
@@ -21,5 +36,10 @@ public class BoardSquare {
 	
 	public PlayerColor getColor() {
 		return colorOfPlayer;
+	}
+	
+	public boolean isEmpty()
+	{
+		return (piece == null);
 	}
 }

@@ -11,5 +11,17 @@ public class RatPiece extends GamePiece {
 	public void setPowerDefault() {
 		setPowerLevel(1);
 	}
+	
+	@Override
+	public boolean canOccupy(BoardSquare square) {
+		if (!square.isEmpty())
+		{
+			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 }
