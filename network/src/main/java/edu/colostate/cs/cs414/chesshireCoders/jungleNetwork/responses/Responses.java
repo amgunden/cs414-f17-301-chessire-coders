@@ -17,5 +17,6 @@ public class Responses {
         kryo.register(LoginResponse.class);
         kryo.register(ErrorResponse.class);
         kryo.register(ArrayList.class);
+        kryo.register(String.class);
     }
 }

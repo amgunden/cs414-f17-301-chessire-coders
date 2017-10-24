@@ -1,10 +1,18 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests;
 
 public class GetGameRequest extends Session {
-    int gameID;
+    private int gameID;
 
     public GetGameRequest(String accessToken, int gameID) {
         super(accessToken);
+        this.gameID = gameID;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
         this.gameID = gameID;
     }
 }
