@@ -73,8 +73,8 @@ public class JungleClient {
      * @param listener
      */
     public void sendMessageExpectsResponse(Object o, Listener listener) {
-        client.addListener(listener);
-        client.sendTCP(o);
+        this.addListener(listener);
+        this.sendTCP(o);
     }
 
     /**
@@ -83,6 +83,18 @@ public class JungleClient {
      * @param o
      */
     public void sendMessage(Object o) {
+        client.sendTCP(o);
+    }
+
+    public void addListener(Listener listener) {
+        client.addListener(listener);
+    }
+
+    public void removeListener(Listener listener) {
+        client.removeListener(listener);
+    }
+
+    private void sendTCP(Object o) {
         client.sendTCP(o);
     }
 }
