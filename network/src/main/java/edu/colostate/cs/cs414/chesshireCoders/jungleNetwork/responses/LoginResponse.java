@@ -7,6 +7,11 @@ public class LoginResponse {
     private LoginStatus loginStatus;
     private String sessionToken;
     private long expiresOn;         // Expressed as milliseconds since Epoch
+    private Boolean loginSuccess;
+    
+    public Boolean isLoginSuccess() {
+    	return loginSuccess;
+    }
 
     public LoginStatus getLoginStatus() {
         return loginStatus;
@@ -32,9 +37,10 @@ public class LoginResponse {
         this.expiresOn = expiresOn;
     }
 
-    public LoginResponse(LoginStatus loginStatus, String sessionToken, long expiresOn) {
+    public LoginResponse(LoginStatus loginStatus, String sessionToken, long expiresOn, Boolean loginSuccess) {
         this.loginStatus = loginStatus;
         this.sessionToken = sessionToken;
         this.expiresOn = expiresOn;
+        this.loginSuccess = loginSuccess;
     }
 }

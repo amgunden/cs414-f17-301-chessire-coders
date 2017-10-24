@@ -1,34 +1,122 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.account;
 
+import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Connection;
+
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UnRegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.LoginResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.RegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.UnRegisterResponse;
 
 public class AccountHandler {
 	
-	public boolean registerUser(String email, String nickname, String pw, String pwReentered) {
-		boolean registrationStatus=false;
-		String message="";
-		RegisterRequest request = new RegisterRequest(pw, email, nickname, "nameFirst", "nameLast");
-		RegisterResponse response = new RegisterResponse(registrationStatus, message );
+	private JungleClient client;
 
-		return registrationStatus;
+    private Listener registerResponseListener;
+    private Listener loginResponseListener;
+    private Listener unregisterResponseListener;
+    private Listener logoutResponseListener;
+    
+    private RegisterController registerController;
+    private LoginController loginController;
+    private HomeController homeController;
+
+    public AccountHandler() {
+        this.client = App.getJungleClient();
+    }
+    
+    public void registerUser(String email, String nickname, String pw, String pwReentered, RegisterController regController) {
+    	registerController = regController;
+
+        //String message = "";
+        RegisterRequest request = new RegisterRequest(pw, email, nickname, "nameFirst", "nameLast");
+
+        registerResponseListener = new Listener.ThreadedListener(new FilteredListener<RegisterResponse>(RegisterResponse.class) {
+            @Override
+            public void run(Connection connection, RegisterResponse received) {
+               
+                client.removeListener(registerResponseListener);
+
+                if (received.isRegistrationSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
+                    registerController.registrationSuccess();
+                } else {
+                    registerController.registrationFailure();
+                }
+
+            }
+        });
+        
+        client.sendMessageExpectsResponse(request, registerResponseListener);
+
+    }
+    
+    
+    
+	public void unregisterUser(String email, String pw, HomeController homeCont) {
+		//homeController = homeCont;
+
+		UnRegisterRequest request = new UnRegisterRequest(pw, email);
+		
+		unregisterResponseListener = new Listener.ThreadedListener(new FilteredListener<UnRegisterResponse>(UnRegisterResponse.class) {
+            @Override
+            public void run(Connection connection, UnRegisterResponse received) {
+               
+                client.removeListener(registerResponseListener);
+
+                if (received.isUnregisterSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
+                    registerController.registrationSuccess();
+                } else {
+                    registerController.registrationFailure();
+                }
+
+            }
+        });
+	
+		client.sendMessageExpectsResponse(request, unregisterResponseListener);
+		
 	}
+	
+	
 	
 	
 	// Thinking this method could return the User's ID if the login is successful
-	public int validateLogin(String email, String pw){
-		//from here call server actions
-		return 1;
+	public void validateLogin(String email, String pw, LoginController loginCont){
+		loginController = loginCont;
+		
+		LoginRequest loginRequest = new LoginRequest(email, pw);
+		
+		loginResponseListener = new Listener.ThreadedListener(new FilteredListener<LoginResponse>(LoginResponse.class) {
+            @Override
+            public void run(Connection connection, LoginResponse received) {
+               
+                client.removeListener(loginResponseListener);
+
+                if (received.isLoginSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
+                    loginController.loginSuccess();
+                } else {
+                    loginController.loginFailure();
+                }
+
+            }
+        });
+		
+		client.sendMessageExpectsResponse(loginRequest, loginResponseListener);
 		
 	}
-	public boolean unregisterUser(String email, String pw) {
-		boolean registrationStatus=false;
-		String message="";
-		UnRegisterRequest request = new UnRegisterRequest(pw, email);
-		UnRegisterResponse response = new UnRegisterResponse(registrationStatus, message );
+	
+	public void logout(String accessToken) {
 
-		return registrationStatus;
+		
 	}
+	
+	
+
 }
