@@ -47,28 +47,32 @@ public class RegisterController implements Initializable {
 	
 	public void registerClicked()
 	{
-		AccountHandler accountHandler =new AccountHandler(); 
+		AccountHandler accountHandler = new AccountHandler();
 
 		System.out.println("btnRegistered Clicked.");
 		
 		System.out.println("Email: " + emailField.getText());
 		System.out.println("Password: " + passwordField.getText());
 		
-		boolean registrationSucces = accountHandler.registerUser(emailField.getText(), nickNameField.getText(),passwordField.getText(), passwordReenterField.getText());
+		// Commenting out register validation so UI can be run
 		
-		if ( registrationSucces ) {
-			try {
-				App.setScene("homePage.fxml");
-			} catch (IOException e) {
-				System.err.println("ERROR: Unable to load fxml file for Home page.");
-			} 
-		}
-		else {
-			alreadyRegistered.setVisible(true);
-		}
-		
-		
+		// accountHandler.registerUser(emailField.getText(), nickNameField.getText(),passwordField.getText(), passwordReenterField.getText(), this);
+				
+		registrationSuccess();
 		//System.out.println("btnRegister Clicked.");
+	}
+	
+	public void registrationSuccess() {
+		try {
+			App.setScene("homePage.fxml");
+		} catch (IOException e) {
+			System.err.println("ERROR: Unable to load fxml file for Home page.");
+		} 
+	}
+	
+	public void registrationFailure()
+	{
+		alreadyRegistered.setVisible(true);
 	}
 	
 	public void initialize(URL location, ResourceBundle resources) {

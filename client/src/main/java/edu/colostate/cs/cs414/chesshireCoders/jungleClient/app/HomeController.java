@@ -72,20 +72,20 @@ public class HomeController implements Initializable {
 
 		System.out.println("btnUnRegistered Clicked.");
 		
+		accountHandler.unregisterUser("email", "pw", this);
+
+	}
+	
+	public void unregisterSuccess() {
+		try {
+			App.setScene("loginPage.fxml");
+		} catch (IOException e) {
+			System.err.println("ERROR: Unable to load fxml file for Home page.");
+		} 
+	}
+	
+	public void unregisterFailure() {
 		
-		boolean unRegistrationSucces = accountHandler.unregisterUser("email", "pw");
-		unRegistrationSucces=true;
-		
-		if ( unRegistrationSucces ) {
-			try {
-				App.setScene("loginPage.fxml");
-			} catch (IOException e) {
-				System.err.println("ERROR: Unable to load fxml file for Home page.");
-			} 
-		}
-		
-			
-			//System.out.println("btnRegister Clicked.");
 	}
 	
 	
