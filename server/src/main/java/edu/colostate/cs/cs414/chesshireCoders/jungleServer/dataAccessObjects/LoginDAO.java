@@ -4,10 +4,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,17 +78,21 @@ public class LoginDAO {
      * @param login
      * @throws SQLException
      */
-    public void insert(Login login) throws SQLException {
+    public String insert(Login login) throws SQLException {
         String insertStr = "INSERT INTO public.\"Login\""
                 + "(\"Username\", \"HashedPass\", \"Salt\",\"UserID\")"
                 + "VALUES (?,?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(insertStr);
+        PreparedStatement statement = connection.prepareStatement(insertStr, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, login.getUsername());
         statement.setString(2, login.getHashedPass());
         statement.setString(3, login.getSalt());
         statement.setInt(4, login.getUserID());
 
         statement.executeUpdate();
+        ResultSet set = statement.getGeneratedKeys();
+        if (set.next()) {
+            return set.getString("Username");
+        } else return null;
     }
 
     /**
@@ -100,7 +101,7 @@ public class LoginDAO {
      * @param login
      * @throws SQLException
      */
-    public void update(Login login) throws SQLException {
+    public String update(Login login) throws SQLException {
         String insertStr = "UPDATE public.\"Login\" SET"
                 + "\"HashedPass\" = ?,"
                 + "\"Salt\" = ?"
@@ -111,6 +112,10 @@ public class LoginDAO {
         statement.setString(3, login.getUsername());
 
         statement.executeUpdate();
+        ResultSet set = statement.getGeneratedKeys();
+        if (set.next()) {
+            return set.getString("Username");
+        } else return null;
     }
 
     /**

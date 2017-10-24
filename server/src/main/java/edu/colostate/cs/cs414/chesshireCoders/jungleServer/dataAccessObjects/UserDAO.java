@@ -81,7 +81,7 @@ public class UserDAO {
      * @param user The user to insert
      * @throws SQLException
      */
-    public void insert(User user) throws SQLException {
+    public int insert(User user) throws SQLException {
         String insertStr = "INSERT INTO public.\"User\""
                 + "(\"NameFirst\", \"NameLast\",\"NickName\")"
                 + "VALUES (?,?,?)";
@@ -91,6 +91,10 @@ public class UserDAO {
         statement.setString(3, user.getNickName());
 
         statement.executeUpdate();
+        ResultSet set = statement.getGeneratedKeys();
+        if (set.next()) {
+            return set.getInt("UserID");
+        } else return -1;
     }
 
     /**
@@ -99,7 +103,7 @@ public class UserDAO {
      * @param user The user to update (Must have ID set)
      * @throws SQLException
      */
-    public void update(User user) throws SQLException {
+    public int update(User user) throws SQLException {
         String insertStr = "UPDATE public.\"User\" SET"
                 + "\"NameFirst\" = ?,"
                 + "\"NameLast\" = ?,"
@@ -112,6 +116,10 @@ public class UserDAO {
         statement.setInt(4, user.getUserId());
 
         statement.executeUpdate();
+        ResultSet set = statement.getGeneratedKeys();
+        if (set.next()) {
+            return set.getInt("UserID");
+        } else return -1;
     }
 
     /**
