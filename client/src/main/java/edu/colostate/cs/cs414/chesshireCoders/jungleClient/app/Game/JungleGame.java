@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
+
 import java.util.Date;
 
 public class JungleGame {

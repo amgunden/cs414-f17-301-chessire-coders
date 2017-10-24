@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
+
 public class BoardSquare {
 	SquareType typeOfSquare = SquareType.Normal;
 	PlayerColor colorOfPlayer;

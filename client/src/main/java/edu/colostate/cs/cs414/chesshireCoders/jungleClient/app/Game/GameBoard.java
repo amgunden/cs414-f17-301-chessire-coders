@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
+
 public class GameBoard {
 	//Set up Pieces
 	GamePiece[][] gamePieces = new GamePiece[2][8];

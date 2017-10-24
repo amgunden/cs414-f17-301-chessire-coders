@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
+
 public class GamePiece {
 	PieceType typeOfPiece = PieceType.Rat;
 	int row = 0;
