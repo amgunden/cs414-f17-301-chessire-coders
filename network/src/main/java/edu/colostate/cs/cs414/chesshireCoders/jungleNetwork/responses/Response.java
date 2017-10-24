@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Response {
 
-    private int statusCode;
+    private int statusCode = ResponseStatusCodes.SUCCESS;
     private String errMsg;
 
     public Response() {
