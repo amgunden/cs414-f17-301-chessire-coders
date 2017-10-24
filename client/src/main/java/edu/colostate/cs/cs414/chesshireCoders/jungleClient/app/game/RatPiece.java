@@ -17,17 +17,22 @@ public class RatPiece extends GamePiece {
 		if (square == null)
 			return false;
 		
+		boolean result = true;
+		
 		if (!square.isEmpty())
 		{
 			if ( (square.getPiece().getPowerLevel() != 8) && (square.getPiece().getPowerLevel() > this.getPowerLevel()) ) {
-				return false;
+				result = false;
 			}
 			if (square.getPiece().getColor() == this.getColor()) {
-				return false;
+				result = false;
 			}
 		}
 		
-		return true;
+		result = result && squareIsAdjacent(square);
+		result = result && !isFriendlyDen(square);
+		
+		return result;
 	}
 
 }

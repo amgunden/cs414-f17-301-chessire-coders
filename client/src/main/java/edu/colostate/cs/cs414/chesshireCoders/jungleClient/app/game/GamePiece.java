@@ -43,6 +43,25 @@ public abstract class GamePiece {
 		if (square == null)
 			return false;
 		
+		boolean result = true;
+		
+		result = result && canCapture(square);
+		result = result && squareIsAdjacent(square);
+		result = result && !(square instanceof RiverSquare);
+		result = result && !isFriendlyDen(square);
+		
+		return result;
+	}
+
+	protected boolean isFriendlyDen(BoardSquare square) {
+		return square instanceof DenSquare && square.getColor()==this.getColor();
+	}
+
+	protected boolean squareIsAdjacent(BoardSquare square) {
+		return Math.abs(square.getColumn() - this.column) <= 1 && Math.abs(square.getRow() - this.row) <= 1;
+	}
+
+	protected boolean canCapture(BoardSquare square) {
 		if (!square.isEmpty())
 		{
 			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
@@ -51,18 +70,6 @@ public abstract class GamePiece {
 			if (square.getPiece().getColor() == this.getColor()) {
 				return false;
 			}
-		}
-		
-		if (Math.abs(square.getColumn() - this.column) > 1 || Math.abs(square.getRow() - this.row) > 1) {
-			return false;
-		}
-		
-		if (square instanceof RiverSquare) {
-			return false;
-		}
-		
-		if (square instanceof DenSquare && square.getColor()==this.getColor()) {
-			return false;
 		}
 		
 		return true;
