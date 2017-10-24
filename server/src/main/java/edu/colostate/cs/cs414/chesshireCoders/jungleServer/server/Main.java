@@ -1,5 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -97,6 +99,6 @@ public class Main {
     }
 
     private static void addRequestHandlers(JungleServer server) {
-
+        server.addRequestHandler(new RegistrationHandler());
     }
 }
