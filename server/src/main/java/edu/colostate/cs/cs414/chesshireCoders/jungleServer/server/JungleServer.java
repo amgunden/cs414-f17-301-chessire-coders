@@ -33,7 +33,6 @@ public class JungleServer extends Server {
         Events.kryoRegisterEvents(this);
         Responses.kryoRegisterResponses(this);
         Requests.kryoRegisterRequests(this);
-        NetworkListener.addListeners(this);
 
         logger.log(Level.FINER, "Registered all network message objects");
 
