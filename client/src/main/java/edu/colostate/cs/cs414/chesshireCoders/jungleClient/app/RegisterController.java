@@ -76,6 +76,7 @@ public class RegisterController implements Initializable {
 	}
 	
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		// TODO Auto-generated method stub
 
 	}

@@ -31,7 +31,6 @@ public class LoginController implements Initializable {
 	@FXML
 	private TextField emailField;
 	
-	private AccountHandler accountHandler;
 	
 	public void loginClicked()
 	{
@@ -39,6 +38,8 @@ public class LoginController implements Initializable {
 		
 		System.out.println("Email: " + emailField.getText());
 		System.out.println("Password: " + passwordField.getText());
+		
+		AccountHandler accountHandler = new AccountHandler();
 		
 		// Commenting out login validation so UI can be run
 		// accountHandler.validateLogin(emailField.getText(), passwordField.getText(), this);
@@ -70,7 +71,6 @@ public class LoginController implements Initializable {
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		accountHandler = new AccountHandler();
 		App.window.setResizable(false);
 	}
 

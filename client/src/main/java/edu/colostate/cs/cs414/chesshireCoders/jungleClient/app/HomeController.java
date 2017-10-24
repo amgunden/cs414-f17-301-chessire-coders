@@ -10,8 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class HomeController implements Initializable {
 
@@ -32,6 +37,12 @@ public class HomeController implements Initializable {
 	
 	@FXML
 	private Button btnViewGameHistory;
+	
+	@FXML
+	private VBox mainVBox;
+	
+	@FXML
+	private StackPane unregSuccess;
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -68,24 +79,39 @@ public class HomeController implements Initializable {
 	public void unregisterClicked()
 	{
 		
-		AccountHandler accountHandler =new AccountHandler(); 
-
-		System.out.println("btnUnRegistered Clicked.");
+//		Commenting 	out so UI can still be run
 		
-		accountHandler.unregisterUser("email", "pw", this);
+//		AccountHandler accountHandler =new AccountHandler(); 
+//
+//		System.out.println("btnUnRegistered Clicked.");
+
+
+//		accountHandler.unregisterUser("email", "pw", this);
+		
+		unregisterSuccess();
 
 	}
 	
 	public void unregisterSuccess() {
+		
+		mainVBox.setEffect(new GaussianBlur());
+		unregSuccess.setVisible(true);
+		
+	}
+	
+	public void unregisterFailure() {
+		
+	}
+	
+	public void UnregSuccessReturnClicked() {
+		
+		System.out.println("btnUnregSuccessReturn Clicked.");
+		
 		try {
 			App.setScene("loginPage.fxml");
 		} catch (IOException e) {
 			System.err.println("ERROR: Unable to load fxml file for Home page.");
 		} 
-	}
-	
-	public void unregisterFailure() {
-		
 	}
 	
 	
