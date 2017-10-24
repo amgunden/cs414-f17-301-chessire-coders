@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
@@ -15,14 +16,11 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
 
 import java.sql.SQLException;
 
-public class RegistrationHandler extends AbstractHandler {
-    public RegistrationHandler(Server server) {
-        super(server);
-    }
+public class RegistrationHandler implements IRequestHandler {
 
     @Override
-    public void initializeListeners() {
-        listeners.add(new Listener.ThreadedListener(
+    public void addListeners(EndPoint endPoint) {
+        endPoint.addListener(new Listener.ThreadedListener(
                 new FilteredListener<RegisterRequest>(RegisterRequest.class) {
                     @Override
                     public void run(Connection connection, RegisterRequest received) {
@@ -31,7 +29,7 @@ public class RegistrationHandler extends AbstractHandler {
                 }
         ));
 
-        listeners.add(new Listener.ThreadedListener(
+        endPoint.addListener(new Listener.ThreadedListener(
                 new FilteredListener<UnRegisterRequest>(UnRegisterRequest.class) {
                     @Override
                     public void run(Connection connection, UnRegisterRequest received) {
