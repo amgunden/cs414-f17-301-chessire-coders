@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
+import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
@@ -110,7 +111,25 @@ public class JungleServer extends Server {
         super.sendToTCP(connectionID, o);
     }
 
+    @Override
+    public Connection newConnection() {
+        return new SessionConnection();
+    }
+
     public void addRequestHandler(IRequestHandler handler) {
         handler.addListeners(this);
+    }
+
+    public class SessionConnection extends Connection {
+
+        private String sessionToken = null;
+
+        public String getSessionToken() {
+            return sessionToken;
+        }
+
+        public void setSessionToken(String sessionToken) {
+
+        }
     }
 }
