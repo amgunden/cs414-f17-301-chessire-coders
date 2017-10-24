@@ -1,7 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
-import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -44,6 +42,7 @@ public class Main {
             // Create and start the server.
             server = new JungleServer();
             server.bind(serverListenPort);
+            addRequestHandlers(server);
             server.start();
 
             // Add a shutdown hook to shutdown server gracefully on SIGTERM
@@ -95,5 +94,9 @@ public class Main {
         );
 
         return dbProperties;
+    }
+
+    private static void addRequestHandlers(JungleServer server) {
+
     }
 }
