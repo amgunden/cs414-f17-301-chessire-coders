@@ -1,6 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
-public class UnRegisterResponse {
+public class UnRegisterResponse extends Response {
 
     private boolean unregisterSuccess;
     private String msg;

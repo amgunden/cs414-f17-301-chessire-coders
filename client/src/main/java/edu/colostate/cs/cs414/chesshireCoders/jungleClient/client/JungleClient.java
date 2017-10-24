@@ -4,7 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Responses;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.Types;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class JungleClient {
         client = new Client();
         Events.kryoRegisterEvents(client);
         Requests.kryoRegisterRequests(client);
-        Responses.kryoRegisterResponses(client);
+        Response.kryoRegisterResponses(client);
         Types.registerTypes(client);
     }
 

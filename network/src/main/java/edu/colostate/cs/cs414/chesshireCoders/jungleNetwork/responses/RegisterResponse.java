@@ -1,6 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
-public class RegisterResponse {
+public class RegisterResponse extends Response {
     private boolean registrationSuccess;
     private String msg; // Or RegistrationStatus status;
 

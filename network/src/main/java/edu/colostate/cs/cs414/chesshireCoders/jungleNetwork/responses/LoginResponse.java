@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.LoginStatus;
 
-public class LoginResponse {
+public class LoginResponse extends Response {
 
     private LoginStatus loginStatus;
     private String sessionToken;
