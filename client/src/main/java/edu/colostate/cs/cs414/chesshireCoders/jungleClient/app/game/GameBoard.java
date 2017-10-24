@@ -159,7 +159,7 @@ public class GameBoard {
 		isAttackingAllowed = true;
 		if(boardSquare.getSquareType().equals(SquareType.River)) {
 			//If it's not a normal, trap, or den it must be a river. Only rats can go on river. So if it's not a rat return false.
-			if(!(gamePiece.getPieceType().equals(PieceType.Rat))) {
+			if(!(gamePiece.getClass().equals(RatPiece.class))) {
 				return false;
 			}
 			//if is a rat and the rat is not already in the river their can not be a piece there.
@@ -220,23 +220,23 @@ public class GameBoard {
 
 	private void setUpPieces() {
 		//Player 1
-		gamePieces[0][0] = new GamePiece(PieceType.Rat, 0, 2, PlayerColor.Red);
-		gamePieces[0][1] = new GamePiece(PieceType.Cat, 5, 1, PlayerColor.Red);
-		gamePieces[0][2] = new GamePiece(PieceType.Dog, 1, 1, PlayerColor.Red);
-		gamePieces[0][3] = new GamePiece(PieceType.Wolf, 4, 2, PlayerColor.Red);
-		gamePieces[0][4] = new GamePiece(PieceType.Leopard, 2, 2, PlayerColor.Red);
-		gamePieces[0][5] = new GamePiece(PieceType.Tiger, 6, 0, PlayerColor.Red);
-		gamePieces[0][6] = new GamePiece(PieceType.Lion, 0, 0, PlayerColor.Red);
-		gamePieces[0][7] = new GamePiece(PieceType.Elephant, 6, 2, PlayerColor.Red);		
+		gamePieces[0][0] = new RatPiece(0, 2, PlayerColor.Red);
+		gamePieces[0][1] = new CatPiece(5, 1, PlayerColor.Red);
+		gamePieces[0][2] = new FoxPiece(1, 1, PlayerColor.Red);
+		gamePieces[0][3] = new DogPiece(4, 2, PlayerColor.Red);
+		gamePieces[0][4] = new LeopardPiece(2, 2, PlayerColor.Red);
+		gamePieces[0][5] = new TigerPiece(6, 0, PlayerColor.Red);
+		gamePieces[0][6] = new LionPiece(0, 0, PlayerColor.Red);
+		gamePieces[0][7] = new ElephantPiece(6, 2, PlayerColor.Red);		
 		//Player 2
-		gamePieces[1][0] = new GamePiece(PieceType.Rat, 6, 6, PlayerColor.Black);
-		gamePieces[1][1] = new GamePiece(PieceType.Cat, 1, 7, PlayerColor.Black);
-		gamePieces[1][2] = new GamePiece(PieceType.Dog, 5, 7, PlayerColor.Black);
-		gamePieces[1][3] = new GamePiece(PieceType.Wolf, 2, 6, PlayerColor.Black);
-		gamePieces[1][4] = new GamePiece(PieceType.Leopard, 4, 6, PlayerColor.Black);
-		gamePieces[1][5] = new GamePiece(PieceType.Tiger, 0, 8, PlayerColor.Black);
-		gamePieces[1][6] = new GamePiece(PieceType.Lion, 6, 8, PlayerColor.Black);
-		gamePieces[1][7] = new GamePiece(PieceType.Elephant, 0, 6, PlayerColor.Black);
+		gamePieces[1][0] = new RatPiece(6, 6, PlayerColor.Black);
+		gamePieces[1][1] = new CatPiece(1, 7, PlayerColor.Black);
+		gamePieces[1][2] = new FoxPiece(5, 7, PlayerColor.Black);
+		gamePieces[1][3] = new DogPiece(2, 6, PlayerColor.Black);
+		gamePieces[1][4] = new LeopardPiece(4, 6, PlayerColor.Black);
+		gamePieces[1][5] = new TigerPiece(0, 8, PlayerColor.Black);
+		gamePieces[1][6] = new LionPiece(6, 8, PlayerColor.Black);
+		gamePieces[1][7] = new ElephantPiece(0, 6, PlayerColor.Black);
 	}
 
 	private void setUpBoard() {		
