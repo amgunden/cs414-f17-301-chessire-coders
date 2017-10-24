@@ -1,7 +1,15 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests;
 
 public class Session {
-    String accessToken;
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    private String accessToken;
 
     protected Session(String accessToken) {
         this.accessToken = accessToken;

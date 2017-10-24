@@ -1,9 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-
 public class GameBoard {
-	//Set up Pieces
-	GamePiece[][] gamePieces = new GamePiece[2][8];
 
 	//Set up Squares
 	BoardSquare[][] boardSquares = new BoardSquare[7][9];
@@ -13,12 +10,6 @@ public class GameBoard {
 
 	public GameBoard() {
 		setUpBoard();
-		//setUpPieces();
-	}
-
-	public GameBoard(GamePiece[][] gamePieces) {
-		setUpBoard();
-		this.gamePieces = gamePieces;
 	}
 
 	public GamePiece getPieceAt(int col, int row) {
@@ -196,5 +187,6 @@ public class GameBoard {
 		boardSquares[4][8] = new TrapSquare(4, 8, null, PlayerColor.Red);
 		boardSquares[5][8] = new BoardSquare(5, 8, null);
 		boardSquares[6][8] = new BoardSquare(6, 8, new LionPiece(6, 8, PlayerColor.Red));
+
 	}
 }

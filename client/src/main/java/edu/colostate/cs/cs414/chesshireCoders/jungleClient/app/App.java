@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,12 @@ import java.util.Properties;
 
 public class App extends Application {
     static Stage window;
+    
+    static JungleClient client;
+    
+    public static JungleClient getJungleClient() {
+    	return client;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -61,7 +68,8 @@ public class App extends Application {
 	            client = new JungleClient();
 	            client.start();
 	            client.connect(5000, serverHostname, serverListenPort);
-	
+	            
+
 	            launch(args);
 	
 	        } catch (FileNotFoundException e) {

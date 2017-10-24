@@ -1,9 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-
 public class BoardSquare {
-
-	int[] location;
+	private int[] location;
 	PlayerColor colorOfPlayer;
 	protected GamePiece piece;
 
@@ -21,6 +19,7 @@ public class BoardSquare {
 		colorOfPlayer = color;
 	}
 	
+  // Remove a piece from the square.
 	public void clearPiece() {
 		this.piece = new RatPiece(0, 0, colorOfPlayer);
 		piece = null;

@@ -1,17 +1,11 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests;
 
-public class RegisterRequest {
+public class UnRegisterRequest {
     private String password;
     private String email;
     private String nickName;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String nameFirst;
+    private String nameLast;
 
     public String getEmail() {
         return email;
@@ -45,10 +39,16 @@ public class RegisterRequest {
         this.nameLast = nameLast;
     }
 
-    String nameFirst;
-    String nameLast;
+    public String getPassword() {
 
-    public RegisterRequest(String password, String email, String nickName, String nameFirst, String nameLast) {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UnRegisterRequest(String password, String email) {
         this.password = password;
         this.email = email;
         this.nickName = nickName;

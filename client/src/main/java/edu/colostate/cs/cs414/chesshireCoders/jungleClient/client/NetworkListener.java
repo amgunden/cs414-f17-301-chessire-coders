@@ -7,6 +7,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.InvitationEve
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
 
+import static com.esotericsoftware.kryonet.Listener.ThreadedListener;
+
 public class NetworkListener {
 
     /**
@@ -17,26 +19,27 @@ public class NetworkListener {
     public static void addEventListeners(Client client) {
 
         // Server Event Listener
-        client.addListener(new FilteredListener<ServerEvent>(ServerEvent.class) {
+        client.addListener(new ThreadedListener(new FilteredListener<ServerEvent>(ServerEvent.class) {
             @Override
             public void run(Connection connection, ServerEvent received) {
 
             }
-        });
+        }));
 
         // Game Ended Event Listener
-        client.addListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
+        client.addListener(new ThreadedListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
             @Override
             public void run(Connection connection, GameEndedEvent received) {
 
             }
-        });
+        }));
 
-        client.addListener(new FilteredListener<InvitationEvent>(InvitationEvent.class) {
+        // Invitation Event
+        client.addListener(new ThreadedListener(new FilteredListener<InvitationEvent>(InvitationEvent.class) {
             @Override
             public void run(Connection connection, InvitationEvent received) {
 
             }
-        });
+        }));
     }
 }

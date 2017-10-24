@@ -1,6 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-
 public abstract class GamePiece {
 	private int powerLevel = 0;
 	int row = 0;
@@ -18,8 +17,7 @@ public abstract class GamePiece {
 		this.column = piece.getColumn();
 		this.color = piece.getColor();
 	}
-	
-	
+  
 	public void changeLocation(int row, int column) {
 		this.row = row;
 		this.column = column;

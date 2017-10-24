@@ -40,18 +40,23 @@ public class LoginController implements Initializable {
 		System.out.println("Email: " + emailField.getText());
 		System.out.println("Password: " + passwordField.getText());
 		
-		int userID = accountHandler.validateLogin(emailField.getText(), passwordField.getText());
+		// Commenting out login validation so UI can be run
+		// accountHandler.validateLogin(emailField.getText(), passwordField.getText(), this);
 		
-		if ( userID > 0) {
-			try {
-				App.setScene("homePage.fxml");
-			} catch (IOException e) {
-				System.err.println("ERROR: Unable to load fxml file for Home page.");
-			} 
-		}
-		else {
-			loginErrorMsg.setVisible(true);
-		}
+		loginSuccess();
+		
+	}
+	
+	public void loginSuccess() {
+		try {
+			App.setScene("homePage.fxml");
+		} catch (IOException e) {
+			System.err.println("ERROR: Unable to load fxml file for Home page.");
+		} 
+	}
+	
+	public void loginFailure() {
+		loginErrorMsg.setVisible(true);
 	}
 	
 	public void registerClicked()
