@@ -13,25 +13,13 @@ public class LeopardPiece extends GamePiece {
 		if (square == null)
 			return false;
 		
-		if (!square.isEmpty())
-		{
-			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
-				return false;
-			}
-			if (square.getPiece().getColor() == this.getColor()) {
-				return false;
-			}
-		}
+		boolean result = true;
 		
-		if (square instanceof RiverSquare) {
-			return false;
-		}
+		result = result && canCapture(square);
+		result = result && !(square instanceof RiverSquare);
+		result = result && !isFriendlyDen(square);
 		
-		if (square instanceof DenSquare && square.getColor()==this.getColor()) {
-			return false;
-		}
-		
-		return true;
+		return result;
 	}
 	
 	@Override

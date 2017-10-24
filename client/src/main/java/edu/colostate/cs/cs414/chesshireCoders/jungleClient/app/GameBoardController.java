@@ -23,73 +23,87 @@ import javafx.scene.paint.Paint;
 
 public class GameBoardController implements Initializable {
 
-	private int[] from;
+	private int[] start;
 	private GameBoard board;
 	
 	@FXML
 	private GridPane gridPane;
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		board = new GameBoard();
-		from = new int[2];
+		start = new int[2];
 	}
-	
 	
 	
 	@FXML
 	public void squareClicked(MouseEvent event)
 	{
 		StackPane square = (StackPane) event.getSource();
-		int c = GridPane.getColumnIndex(square);
-		int r = GridPane.getRowIndex(square);
+		int clickColumn = GridPane.getColumnIndex(square);
+		int clickRow = GridPane.getRowIndex(square);
 
-		System.out.println("Square ("+r+","+c+") Clicked.");
+		System.out.println("Square ("+clickRow+","+clickColumn+") Clicked.");
 		
 		// if square is not highlighted
 		if (square.getBackground() == null)
 		{
-			// remove highlight from "from"
 			removePreviousHighlights();
-			// if square contains piece TODO that belongs to player
-			GamePiece piece = board.getPieceAt(c, r);
+			GamePiece piece = board.getPieceAt(clickColumn, clickRow);
+			
 			if (piece != null && piece.getColor() == PlayerColor.Red)
 			{
-				Color yellow = Color.rgb(150, 150, 0, 0.65);
-				setHighlight(square, yellow);
-				from[0] = r; from[1] = c;
-				// get legal moves
-				int[] moves = board.getValidMoves(r, c);
-				
-				Color green = Color.rgb(0, 150, 0, 0.65);
-				if (moves[0]!=0) setHighlight(getSquare(r, c+moves[0]), green);
-				if (moves[1]!=0) setHighlight(getSquare(r+moves[1], c), green);
-				if (moves[2]!=0) setHighlight(getSquare(r, c+moves[2]), green);
-				if (moves[3]!=0) setHighlight(getSquare(r+moves[3], c), green);
+				highlightStartSquare(square, clickColumn, clickRow);
+				highlightMoves(clickColumn, clickRow);
 			}
 		}
 		// if square is highlighted
 		else
 		{
-			if (r != from[0] || c != from[1])
+			if (clickRow != start[0] || clickColumn != start[1])
 			{
-				StackPane fromSquare = getSquare(from[0], from[1]);
-				StackPane toSquare = getSquare(r,c);
-				ObservableList<Node> imageViews1 = fromSquare.getChildren();
-				ObservableList<Node> imageViews2 = toSquare.getChildren();
-				ImageView piece = (ImageView) imageViews1.remove(imageViews1.size()-1);
-				
-				if (imageViews2.size() > 1) {
-					imageViews2.remove(imageViews2.size()-1);
-				}
-				
-					toSquare.getChildren().add(piece);
-				
+				movePiece(clickColumn, clickRow);
 				removePreviousHighlights();
-				board.movePiece(from, new int[]{r, c});
 			}
 		}
 		
+	}
+
+
+
+	private void highlightStartSquare(StackPane square, int c, int r) {
+		start[0] = r; start[1] = c;
+		
+		Color yellow = Color.rgb(150, 150, 0, 0.65);
+		setHighlight(square, yellow);
+	}
+
+
+
+	private void highlightMoves(int c, int r) {
+		int[] moves = board.getValidMoves(r, c);
+		
+		Color green = Color.rgb(0, 150, 0, 0.65);
+		if (moves[0]!=0) setHighlight(getSquare(r, c+moves[0]), green);
+		if (moves[1]!=0) setHighlight(getSquare(r+moves[1], c), green);
+		if (moves[2]!=0) setHighlight(getSquare(r, c+moves[2]), green);
+		if (moves[3]!=0) setHighlight(getSquare(r+moves[3], c), green);
+	}
+
+
+
+	private void movePiece(int c, int r) {
+		StackPane fromSquare = getSquare(start[0], start[1]);
+		StackPane toSquare = getSquare(r,c);
+		ObservableList<Node> imageViews1 = fromSquare.getChildren();
+		ObservableList<Node> imageViews2 = toSquare.getChildren();
+		ImageView piece = (ImageView) imageViews1.remove(imageViews1.size()-1);
+		
+		if (imageViews2.size() > 1) {
+			imageViews2.remove(imageViews2.size()-1);
+		}
+		
+		toSquare.getChildren().add(piece);
+		board.movePiece(start, new int[]{r, c});
 	}
 
 	/**
