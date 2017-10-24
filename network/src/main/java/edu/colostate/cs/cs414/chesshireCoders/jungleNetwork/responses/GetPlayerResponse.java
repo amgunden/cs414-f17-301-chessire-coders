@@ -3,7 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.PlayerColor;
 
-public class GetPlayerResponse {
+public class GetPlayerResponse extends Response {
     private int playerID;
     private String playerName;
     private PlayerColor playerColor;

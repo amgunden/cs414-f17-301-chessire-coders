@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
 import java.util.ArrayList;
 
-public class GetUserGameHistoryResponse {
+public class GetUserGameHistoryResponse extends Response {
     private int playerID;
     private ArrayList<GetGameResponse> history;
 

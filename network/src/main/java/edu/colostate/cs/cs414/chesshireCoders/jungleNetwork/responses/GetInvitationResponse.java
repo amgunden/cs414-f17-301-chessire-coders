@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
-public class GetInvitationResponse {
+public class GetInvitationResponse extends Response {
+
     private int invitationID;
     private int playerFromID;
     private int playerToID;

@@ -1,6 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
-public class GetPieceLocationResponse {
+public class GetPieceLocationResponse extends Response {
     private int pieceID;
     private int column;
     private int row;

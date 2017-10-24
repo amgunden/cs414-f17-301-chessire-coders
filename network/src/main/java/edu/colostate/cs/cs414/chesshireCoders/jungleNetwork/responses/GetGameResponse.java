@@ -4,12 +4,19 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.PlayerStatus;
 
-public class GetGameResponse {
+public class GetGameResponse extends Response {
     private int gameID;
     private int playerOneID;
     private int playerTwoID;
     private PlayerStatus playerTwoStatus;
     private GameStatus status;
+
+    public GetGameResponse() {
+    }
+
+    public GetGameResponse(int statusCode, String message) {
+        super(statusCode, message);
+    }
 
     public int getGameID() {
         return gameID;
