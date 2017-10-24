@@ -21,26 +21,15 @@ public class GameBoard {
 	}
 
 	//the row and column here could be substituted for a direction, thought that would mean a minor loss of clarity.
-	public boolean movePiece(PieceType type, PlayerColor color, int row, int column) {
-		//WRITE TESTS then construct
-		//This method should check the movement with the checkMovement method
-		//Then apply the movement to the correct piece.
-
-		/*
-		for(int i = 0; i < gamePieces.length; i++) {
-			if(gamePieces[i].getPieceType().equals(type)) {
-				if(gamePieces[i].getColor().equals(color)) {
-					if(!checkMovement(type, color, row, column)) {
-						return false;
-					}
-				}
-			}
-		}
-		 */
+	public boolean movePiece(int color, int piece, int column, int row) {
+		//Assume piece given is in power level not array value
+		piece -= 1;
+		
+		
 		return false;
 	}
 
-	//CheckMove will check that the move player's piece is allowed to move to the designated location.
+	//isValidMove will check that the move player's piece is allowed to move to the designated location.
 	//color must be 0 (red) or 1 (black)
 	//piece must be the powerlevel of the piece (aka Rat = 1 NOT 0)
 	//column = X axis location
@@ -88,11 +77,17 @@ public class GameBoard {
 		//finding the piece is dependent on what the UI/group wants. 
 		int pieceColumn = gamePieces[color][piece].getColumn();
 		int pieceRow = gamePieces[color][piece].getRow();
-
+		
 		//Only the row or column can change, one must change.
 		if(((column == pieceColumn) && (row == pieceRow))||((column != pieceColumn) && (row != pieceRow))){
 			return false;
 		}
+		
+		//it cannot leave the board
+		if((column < 0)||(column > 6))
+			return false;
+		if((row < 0) || (row > 8))
+			return false;
 
 		//The only time the row or column will increase by more than one is if the tiger or leopard is jumping the river
 		//Check if it increases by more than one
