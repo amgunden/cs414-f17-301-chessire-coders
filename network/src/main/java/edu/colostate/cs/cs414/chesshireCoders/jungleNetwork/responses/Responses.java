@@ -15,6 +15,7 @@ public class Responses {
         kryo.register(GetUserGameHistoryResponse.class);
         kryo.register(GetInvitationResponse.class);
         kryo.register(LoginResponse.class);
+        kryo.register(LogoutResponse.class);
         kryo.register(ErrorResponse.class);
         kryo.register(ArrayList.class);
         kryo.register(String.class);
