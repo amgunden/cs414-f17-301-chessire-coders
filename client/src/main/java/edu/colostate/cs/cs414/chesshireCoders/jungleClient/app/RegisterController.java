@@ -56,8 +56,8 @@ public class RegisterController implements Initializable {
 		
 		// Commenting out register validation so UI can be run
 		
-		// accountHandler.registerUser(emailField.getText(), nickNameField.getText(),passwordField.getText(), passwordReenterField.getText(), this);
-				
+		//accountHandler.registerUser(emailField.getText(), nickNameField.getText(),passwordField.getText(), passwordReenterField.getText(), this);
+		
 		registrationSuccess();
 		//System.out.println("btnRegister Clicked.");
 	}

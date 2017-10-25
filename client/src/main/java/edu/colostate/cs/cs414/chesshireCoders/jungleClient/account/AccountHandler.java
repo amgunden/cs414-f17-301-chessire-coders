@@ -38,15 +38,18 @@ public class AccountHandler {
 
         //String message = "";
         RegisterRequest request = new RegisterRequest(pw, email, nickname, "nameFirst", "nameLast");
+		System.out.println("Registration succ1: " );
 
         registerResponseListener = new Listener.ThreadedListener(new FilteredListener<RegisterResponse>(RegisterResponse.class) {
             @Override
             public void run(Connection connection, RegisterResponse received) {
-               
+        		System.out.println("Registration succ2: " );
+
                 client.removeListener(registerResponseListener);
 
                 if (received.isRegistrationSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
                     registerController.registrationSuccess();
+            		System.out.println("Registration succ: " );
                 } else {
                     registerController.registrationFailure();
                 }
