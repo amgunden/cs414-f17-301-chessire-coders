@@ -4,6 +4,9 @@ public class GameBoard {
 
 	//Set up Squares
 	BoardSquare[][] boardSquares = new BoardSquare[9][7];
+	int p1Pieces = 8;
+	int p2Pieces = 0;
+	boolean gameOver = false;
 
 	public GameBoard() {
 		setUpBoard();
@@ -46,9 +49,29 @@ public class GameBoard {
 	public void movePiece(int[] from, int[] to) {
 		BoardSquare fromSquare = getSquareAt(from[0],from[1]);
 		BoardSquare toSquare = getSquareAt(to[0],to[1]);
+				
+		//if a player has no remaining pieces the game is over
+		if(toSquare.getPiece()!=null) {
+			if(toSquare.getPiece().getColor().equals(PlayerColor.Red)){
+				p1Pieces -= 1;
+			} else {
+				p2Pieces -= 1;
+			}
+			
+			if((p1Pieces == 0) || (p2Pieces == 0)){
+				gameOver = true;
+			}
+		}
 		
 		toSquare.setPiece( fromSquare.getPiece() );
 		fromSquare.clearPiece();
+		
+		//if the piece is in a den the game is over
+		if(from[1] == 3) {
+			if(from[0] == 0 || from[0] == 7) {
+				gameOver = true;
+			}
+		}
 	}
 	
 	private int getValidMoveHorizontal(GamePiece piece, int direction) {
@@ -111,7 +134,35 @@ public class GameBoard {
 		return 0;
 	}
 
-
+	//These are holder functions until JungleGame.java is set up. 
+	public boolean isGameOver() {
+		return gameOver;
+	}
+	
+	public PlayerColor getWinner() {
+		//No winner with ongoing game
+		if(!(gameOver)) {
+			return null;
+		}
+		//if p1 is out of pieces p2 wins
+		if(p1Pieces == 0) {
+			return PlayerColor.Black;
+		}
+		//or if p2 is in p1's den p2 wins
+		if(getPieceAt(0, 3) != null) {
+			return PlayerColor.Black;
+		}
+		
+		//if p2 is out of pieces p1 wins
+		if(p2Pieces == 0) {
+			return PlayerColor.Red;
+		}
+		//or if p1 is in p2's den p1 wins
+		if(getPieceAt(7, 3) != null) {
+			return PlayerColor.Red;
+		}
+	}
+	
 	//Board Setup Functions -----------------------------------------------------------
 
 	private void setUpBoard() {		
