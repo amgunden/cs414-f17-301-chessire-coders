@@ -5,15 +5,15 @@ public class BoardSquare {
 	PlayerColor colorOfPlayer;
 	protected GamePiece piece;
 
-	public BoardSquare(int col, int row, GamePiece piece) {
-		location = new int[]{col, row};
+	public BoardSquare(int row, int col, GamePiece piece) {
+		location = new int[]{row, col};
 		if (piece != null)
 			setPiece(piece);
 		colorOfPlayer = PlayerColor.None;
 	}
 
-	public BoardSquare(int col, int row, GamePiece piece, PlayerColor color) {
-		location = new int[]{col, row};
+	public BoardSquare(int row, int col, GamePiece piece, PlayerColor color) {
+		location = new int[]{row, col};
 		if (piece != null)
 			setPiece(piece);
 		colorOfPlayer = color;
@@ -30,7 +30,7 @@ public class BoardSquare {
 	}
 	
 	public int getColumn() {
-		return location[0];
+		return location[1];
 	}
 	
 	public GamePiece getPiece() {
@@ -38,7 +38,7 @@ public class BoardSquare {
 	}
 	
 	public int getRow() {
-		return location[1];
+		return location[0];
 	}
 	
 	public boolean isEmpty()
