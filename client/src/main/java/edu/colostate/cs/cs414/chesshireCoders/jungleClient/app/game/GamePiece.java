@@ -6,7 +6,7 @@ public abstract class GamePiece {
 	int column = 0;
 	PlayerColor color;
 	
-	public GamePiece(int column, int row, PlayerColor color) {
+	public GamePiece(int row, int column, PlayerColor color) {
 		this.row = row;
 		this.column = column;
 		this.color = color;

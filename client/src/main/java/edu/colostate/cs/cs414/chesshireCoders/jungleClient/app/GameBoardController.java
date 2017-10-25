@@ -48,12 +48,12 @@ public class GameBoardController implements Initializable {
 		if (square.getBackground() == null)
 		{
 			removePreviousHighlights();
-			GamePiece piece = board.getPieceAt(clickColumn, clickRow);
+			GamePiece piece = board.getPieceAt(clickRow, clickColumn);
 			
 			if (piece != null && piece.getColor() == PlayerColor.Red)
 			{
-				highlightStartSquare(square, clickColumn, clickRow);
-				highlightMoves(clickColumn, clickRow);
+				highlightStartSquare(square, clickRow, clickColumn);
+				highlightMoves(clickRow, clickColumn);
 			}
 		}
 		// if square is highlighted
@@ -61,7 +61,7 @@ public class GameBoardController implements Initializable {
 		{
 			if (clickRow != start[0] || clickColumn != start[1])
 			{
-				movePiece(clickColumn, clickRow);
+				movePiece(clickRow, clickColumn);
 				removePreviousHighlights();
 			}
 		}
@@ -70,7 +70,7 @@ public class GameBoardController implements Initializable {
 
 
 
-	private void highlightStartSquare(StackPane square, int c, int r) {
+	private void highlightStartSquare(StackPane square, int r, int c) {
 		start[0] = r; start[1] = c;
 		
 		Color yellow = Color.rgb(150, 150, 0, 0.65);
@@ -79,7 +79,7 @@ public class GameBoardController implements Initializable {
 
 
 
-	private void highlightMoves(int c, int r) {
+	private void highlightMoves(int r, int c) {
 		int[] moves = board.getValidMoves(r, c);
 		
 		Color green = Color.rgb(0, 150, 0, 0.65);
@@ -91,7 +91,7 @@ public class GameBoardController implements Initializable {
 
 
 
-	private void movePiece(int c, int r) {
+	private void movePiece(int r, int c) {
 		StackPane fromSquare = getSquare(start[0], start[1]);
 		StackPane toSquare = getSquare(r,c);
 		ObservableList<Node> imageViews1 = fromSquare.getChildren();
