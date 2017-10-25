@@ -1,17 +1,18 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
-
 import java.util.Date;
 
 public class JungleGame {
-	//NEED to find a datatype that will contain all the games if there are multiple. 
 	int GameID = 0;
 	Date startDateTime = new Date();
 	Date endDateTime;
 	int Status = 0;
-	//Status could be a String or an int with value of three (0,1,2) or (1,2,3) signifying each case. 
+	Player player1;
+	Player player2;
+	boolean liveGame = false;
 	
-	//This entire class is IN DEVELOPMENT. I need to figure out it's exact purpose and how we want it to handle the game vs games. How it will be passing and accepting Data. And more. 
-	
+	public JungleGame(int userIdOne) {
+		
+	}
 	
 	public JungleGame(int userIdOne, int userIdTwo) {
 		
@@ -22,7 +23,31 @@ public class JungleGame {
 		//If used this method should accept a username. It should then send a invitation to that user that is only valid for this game. 
 	}
 	
-	public void quitGame() {
+	public boolean startGame() {
+		return true;
+	}	
+	
+	public int[] getValidMoves(GamePiece piece) {
+		return null;		
+	}
+	
+	public boolean movePiece(GamePiece piece) {
+		return true;		
+	}
+	
+	public void endGame() {
+
+	}	
+	
+	public boolean hasWinner() {
+		return false;
+	}	
+	
+	public Player getWinner() {
+		return player1;
+	}
+	
+	public void quitGame(Player actingPlayer) {
 		//This method should remove the user requesting it, if the game is not over that user officially loses the game. 
 	}
 }
