@@ -28,6 +28,13 @@ public class User {
         this.nickName = nickName;
     }
 
+    public User(User user) {
+        this.nameFirst = user.nameFirst;
+        this.nameLast = user.nameLast;
+        this.nickName = user.nickName;
+        this.userId = user.userId;
+    }
+
     public int getUserId() {
         return userId;
     }
