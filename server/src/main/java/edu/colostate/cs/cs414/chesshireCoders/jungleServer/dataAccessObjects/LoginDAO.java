@@ -42,12 +42,14 @@ public class LoginDAO {
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-        Login login = new Login();
-        login.setUsername(rs.getString("Username"));
-        login.setHashedPass(rs.getString("HashedPass"));
-        login.setSalt(rs.getString("Salt"));
-        login.setUserID(rs.getInt("UserID"));
-        return login;
+        if (!rs.isBeforeFirst()) {
+            Login login = new Login();
+            login.setUsername(rs.getString("Username"));
+            login.setHashedPass(rs.getString("HashedPass"));
+            login.setSalt(rs.getString("Salt"));
+            login.setUserID(rs.getInt("UserID"));
+            return login;
+        } else return null;
     }
 
     /**
@@ -64,12 +66,14 @@ public class LoginDAO {
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-        Login login = new Login();
-        login.setUsername(rs.getString("Username"));
-        login.setHashedPass(rs.getString("HashedPass"));
-        login.setSalt(rs.getString("Salt"));
-        login.setUserID(rs.getInt("UserID"));
-        return login;
+        if (!rs.isBeforeFirst()) {
+            Login login = new Login();
+            login.setUsername(rs.getString("Username"));
+            login.setHashedPass(rs.getString("HashedPass"));
+            login.setSalt(rs.getString("Salt"));
+            login.setUserID(rs.getInt("UserID"));
+            return login;
+        } else return null;
     }
 
     /**
