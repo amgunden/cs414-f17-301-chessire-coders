@@ -9,18 +9,23 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.GetGameRes
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.GameDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
 import java.sql.SQLException;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes.SERVER_ERROR;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes.SUCCESS;
 
-public class GameHandler implements IRequestHandler {
+public class GameHandler extends AbstractRequestHandler {
+
+    public GameHandler(JungleServer server) {
+        super(server);
+    }
 
     @Override
-    public void addListeners(EndPoint endPoint) {
+    public void addListeners() {
         // GetGameRequest Handler
-        endPoint.addListener(new Listener.ThreadedListener(
+        server.addListener(new Listener.ThreadedListener(
                 new FilteredListener<GetGameRequest>(GetGameRequest.class) {
                     @Override
                     public void run(Connection connection, GetGameRequest received) {
