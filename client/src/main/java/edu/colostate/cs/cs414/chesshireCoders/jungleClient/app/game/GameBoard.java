@@ -132,16 +132,12 @@ public class GameBoard {
 	}
 	
 	public PlayerColor getWinner() {
-		//No winner with ongoing game
-		if(!(gameOver)) {
-			return null;
-		}
 		if(hasP1Won()) {
 			return PlayerColor.Red;
-		}
-		if(hasP2Won()) {
+		} else if(hasP2Won()) {
 			return PlayerColor.Black;
 		}
+		return null;
 	}
 	
 	private boolean hasP1Won() {
