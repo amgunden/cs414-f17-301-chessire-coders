@@ -7,13 +7,18 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredLi
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.LogoutRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UpdateSessionExpirationRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
-public class SessionHandler implements IRequestHandler {
+public class SessionHandler extends AbstractRequestHandler {
+
+    public SessionHandler(JungleServer server) {
+        super(server);
+    }
 
     @Override
-    public void addListeners(EndPoint endPoint) {
+    public void addListeners() {
         // LoginRequest Listener
-        endPoint.addListener(new Listener.ThreadedListener(
+        server.addListener(new Listener.ThreadedListener(
                 new FilteredListener<LoginRequest>(LoginRequest.class) {
                     @Override
                     public void run(Connection connection, LoginRequest received) {
@@ -23,7 +28,7 @@ public class SessionHandler implements IRequestHandler {
                 }));
 
         // LogoutRequest Listener
-        endPoint.addListener(new Listener.ThreadedListener(
+        server.addListener(new Listener.ThreadedListener(
                 new FilteredListener<LogoutRequest>(LogoutRequest.class) {
                     @Override
                     public void run(Connection connection, LogoutRequest received) {
@@ -32,7 +37,7 @@ public class SessionHandler implements IRequestHandler {
                 }));
 
         // UpdateSessionExpirationRequest Listener
-        endPoint.addListener(new Listener.ThreadedListener(
+        server.addListener(new Listener.ThreadedListener(
                 new FilteredListener<UpdateSessionExpirationRequest>(UpdateSessionExpirationRequest.class) {
                     @Override
                     public void run(Connection connection, UpdateSessionExpirationRequest received) {
