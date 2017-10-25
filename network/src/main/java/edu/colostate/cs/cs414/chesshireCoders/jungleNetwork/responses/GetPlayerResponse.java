@@ -37,4 +37,8 @@ public class GetPlayerResponse extends Response {
         this.playerName = playerName;
         this.playerColor = playerColor;
     }
+    
+    public GetPlayerResponse(int statusCode, String message) {
+        super(statusCode, message);
+    }
 }

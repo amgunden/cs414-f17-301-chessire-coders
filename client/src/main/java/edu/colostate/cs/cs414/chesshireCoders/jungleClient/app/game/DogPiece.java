@@ -2,8 +2,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 public class DogPiece extends GamePiece {
 
-	public DogPiece(int column, int row, PlayerColor color) {
-		super(column, row, color);
+	public DogPiece(int row, int column, PlayerColor color) {
+		super(row, column, color);
 		setPowerDefault();
 	}
 

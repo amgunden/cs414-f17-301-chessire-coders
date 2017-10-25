@@ -2,8 +2,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 public class LeopardPiece extends GamePiece {
 
-	public LeopardPiece(int column, int row, PlayerColor color) {
-		super(column, row, color);
+	public LeopardPiece(int row, int column, PlayerColor color) {
+		super(row, column, color);
 		setPowerDefault();
 	}
 

@@ -47,9 +47,12 @@ public class BoardSquare {
 	}
 	
 	public void setPiece(GamePiece piece) {
-		piece.setRow(this.getRow());
-		piece.setColumn(this.getColumn());
-		piece.setPowerDefault();
+		if (piece != null) {
+			piece.setRow(this.getRow());
+			piece.setColumn(this.getColumn());
+			piece.setPowerDefault();
+		}
+		
 		this.piece = piece;
 	}
 }

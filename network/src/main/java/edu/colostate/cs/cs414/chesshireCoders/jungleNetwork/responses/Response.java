@@ -41,6 +41,7 @@ public class Response {
         kryo.register(GetGameResponse.class);
         kryo.register(GetPieceLocationResponse.class);
         kryo.register(GetPlayerResponse.class);
+        kryo.register(GetUserResponse.class);
         kryo.register(GetUserGameHistoryResponse.class);
         kryo.register(GetInvitationResponse.class);
         kryo.register(LoginResponse.class);
