@@ -14,9 +14,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.Use
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
-public class GetUserHandler extends AbstractRequestHandler{
+public class UserHandler extends AbstractRequestHandler{
 
-	public GetUserHandler(JungleServer server) {
+	public UserHandler(JungleServer server) {
 		super(server);
 		// TODO Auto-generated constructor stub
 	}

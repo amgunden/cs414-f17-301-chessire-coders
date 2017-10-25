@@ -17,9 +17,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Player;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.PlayerColor;
 
-public class GetPlayerHandler extends AbstractRequestHandler{
+public class PlayerHandler extends AbstractRequestHandler{
 
-	public GetPlayerHandler(JungleServer server) {
+	public PlayerHandler(JungleServer server) {
 		super(server);
 		// TODO Auto-generated constructor stub
 	}
