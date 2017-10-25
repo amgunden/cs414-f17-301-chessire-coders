@@ -9,6 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UpdateSessi
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.LoginResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.LogoutResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.UpdateSessionExpirationResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.LoginManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.LoginVerifier;
@@ -52,9 +53,17 @@ public class SessionHandler extends AbstractRequestHandler {
                 new FilteredListener<UpdateSessionExpirationRequest>(UpdateSessionExpirationRequest.class) {
                     @Override
                     public void run(Connection connection, UpdateSessionExpirationRequest received) {
-                        // TODO: handle a session expiration update request.
+                        connection.sendTCP(handleUpdateSessionExpiration(connection, received));
                     }
                 }));
+    }
+
+    private UpdateSessionExpirationResponse handleUpdateSessionExpiration(Connection connection, UpdateSessionExpirationRequest received) {
+        if (manager.isLoggedIn(connection) && !manager.isSessionExpired(connection)) {
+            return new UpdateSessionExpirationResponse(-1L);
+        } else {
+            return new UpdateSessionExpirationResponse(ResponseStatusCodes.CLIENT_ERROR, "Session is expired");
+        }
     }
 
     private LogoutResponse handleLogout(Connection connection, LogoutRequest request) {
