@@ -28,6 +28,10 @@ public class AccountHandler {
     private RegisterController registerController;
     private LoginController loginController;
     private HomeController homeController;
+    
+    private boolean registerUserStatus=false;
+    private boolean unregisterUserStatus=false;
+    private boolean loginUserStatus=false;
 
     public AccountHandler() {
         this.client = App.getJungleClient();
@@ -38,18 +42,16 @@ public class AccountHandler {
 
         //String message = "";
         RegisterRequest request = new RegisterRequest(pw, email, nickname, "nameFirst", "nameLast");
-		System.out.println("Registration succ1: " );
 
         registerResponseListener = new Listener.ThreadedListener(new FilteredListener<RegisterResponse>(RegisterResponse.class) {
             @Override
             public void run(Connection connection, RegisterResponse received) {
-        		System.out.println("Registration succ2: " );
 
                 client.removeListener(registerResponseListener);
 
                 if (received.isRegistrationSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
-                    registerController.registrationSuccess();
-            		System.out.println("Registration succ: " );
+                	setRegisterUserStatus(true);
+                	registerController.registrationSuccess();
                 } else {
                     registerController.registrationFailure();
                 }
@@ -57,7 +59,7 @@ public class AccountHandler {
             }
         });
         
-        client.sendMessageExpectsResponse(request, registerResponseListener);
+       client.sendMessageExpectsResponse(request, registerResponseListener);
 
     }
     
@@ -76,6 +78,7 @@ public class AccountHandler {
 
                 if (received.isUnregisterSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
                     registerController.registrationSuccess();
+                    setUnregisterUserStatus(true);
                 } else {
                     registerController.registrationFailure();
                 }
@@ -104,6 +107,7 @@ public class AccountHandler {
 
                 if (received.isLoginSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
                     loginController.loginSuccess();
+                    setLoginUserStatus(true);
                 } else {
                     loginController.loginFailure();
                 }
@@ -116,8 +120,27 @@ public class AccountHandler {
 	}
 	
 	public void logout(String accessToken) {
-
 		
+		
+		
+	}
+	public void  setUnregisterUserStatus(boolean unregisterUserStatus ) {
+		this.unregisterUserStatus=unregisterUserStatus;	
+	}
+	public boolean getUnregisterUserStatus() {
+		return this.registerUserStatus;	
+	}
+	public void  setRegisterUserStatus(boolean registerUserStatus ) {
+		this.unregisterUserStatus=registerUserStatus;	
+	}
+	public boolean getRegisterUserStatus() {
+		return this.registerUserStatus;	
+	}
+	public void  setLoginUserStatus(boolean loginUserStatus ) {
+		this.loginUserStatus=loginUserStatus;	
+	}
+	public boolean getLoginUserStatus() {
+		return this.loginUserStatus;	
 	}
 	
 	

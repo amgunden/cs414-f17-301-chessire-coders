@@ -21,19 +21,21 @@ public class RegisterController implements Initializable {
 	@FXML Button btnRegister;
 
 	@FXML
-	private TextField emailField;
+	public  TextField emailField;
 
 	@FXML
-	private TextField nickNameField;
+	public TextField nickNameField;
 	
 	@FXML
-	private PasswordField passwordField;
+	public PasswordField passwordField;
 	
 	@FXML
-	private PasswordField passwordReenterField;
+	public PasswordField passwordReenterField;
 	
 	@FXML
 	private Label alreadyRegistered;
+	
+	private boolean registrationSuccess=false;
 	
 	
 	public void loginClicked()
@@ -64,7 +66,9 @@ public class RegisterController implements Initializable {
 	
 	public void registrationSuccess() {
 		try {
+			registrationSuccess=true;
 			App.setScene("homePage.fxml");
+			
 		} catch (IOException e) {
 			System.err.println("ERROR: Unable to load fxml file for Home page.");
 		} 
@@ -79,6 +83,15 @@ public class RegisterController implements Initializable {
 		
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean getRegStatus() {
+		return registrationSuccess;
+	}
+
+	public void setRegStatus(boolean registrationSuccess ){
+		this.registrationSuccess=registrationSuccess;
+		
 	}
 
 }
