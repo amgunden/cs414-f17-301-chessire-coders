@@ -97,9 +97,17 @@ public class TestGameBoard {
 	}
 
 	@Test
-	public void testGetValidMoves() {
+	public void testGetValidMoves_corner() {
 		int[] expected = {0,0,1,1};
 		int[] result = board.getValidMoves(0, 0);
+		
+		assertArrayEquals(expected, result);
+	}
+	
+	@Test
+	public void testGetValidMoves_leopard() {
+		int[] expected = {-1,-1,1,4};
+		int[] result = board.getValidMoves(2, 2);
 		
 		assertArrayEquals(expected, result);
 	}
