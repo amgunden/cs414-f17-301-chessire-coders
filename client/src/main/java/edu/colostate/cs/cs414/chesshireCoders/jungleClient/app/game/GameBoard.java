@@ -61,9 +61,6 @@ public class GameBoard {
 		
 		toSquare.setPiece( fromSquare.getPiece() );
 		fromSquare.clearPiece();
-		
-		//if either player has one the game is over.
-		gameOver = (hasP1Won() || hasP2Won());
 	}
 	
 	private int getValidMoveHorizontal(GamePiece piece, int direction) {
@@ -127,8 +124,9 @@ public class GameBoard {
 	}
 
 	//These are holder functions until JungleGame.java is set up. 
-	public boolean isGameOver() {
-		return gameOver;
+	public boolean isGameOver() {		
+		//if either player has one the game is over.
+		return (hasP1Won() || hasP2Won());
 	}
 	
 	public PlayerColor getWinner() {
