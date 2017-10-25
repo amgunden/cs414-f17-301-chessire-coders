@@ -2,6 +2,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses;
 
 public class UpdateSessionExpirationResponse extends Response {
 
+    public UpdateSessionExpirationResponse() {
+
+    }
+
     public long getNewExpirationTime() {
         return newExpirationTime;
     }
