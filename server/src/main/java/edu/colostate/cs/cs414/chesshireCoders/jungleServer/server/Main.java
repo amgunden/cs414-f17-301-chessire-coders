@@ -44,7 +44,6 @@ public class Main {
             // Create and start the server.
             server = new JungleServer();
             server.bind(serverListenPort);
-            addRequestHandlers(server);
             server.start();
 
             // Add a shutdown hook to shutdown server gracefully on SIGTERM
@@ -96,9 +95,5 @@ public class Main {
         );
 
         return dbProperties;
-    }
-
-    private static void addRequestHandlers(JungleServer server) {
-        server.addRequestHandler(new RegistrationHandler());
     }
 }
