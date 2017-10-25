@@ -96,8 +96,7 @@
       </VBox>
       <StackPane fx:id="unregSuccess" prefHeight="150.0" prefWidth="200.0" visible="false">
          <children>
-            <DialogPane fx:id="unregisterSuccess" prefHeight="1019.0" prefWidth="1000.0" visible="false" />
-            <Label fx:id="unregSuccessDialog" prefHeight="16.0" prefWidth="369.0" text="You have been successfully Unregistered" textFill="RED">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="369.0" text="You have been successfully unregistered" textFill="RED">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -105,7 +104,7 @@
                   <Insets bottom="150.0" />
                </StackPane.margin>
             </Label>
-            <Button fx:id="btnUnregSuccessReturn" mnemonicParsing="false" onMouseClicked="#UnregSuccessReturnClicked" prefHeight="26.0" prefWidth="187.0" text="Return to Login Page">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#UnregSuccessReturnClicked" prefHeight="26.0" prefWidth="187.0" text="Return to Login Page">
                <StackPane.margin>
                   <Insets bottom="50.0" />
                </StackPane.margin>
