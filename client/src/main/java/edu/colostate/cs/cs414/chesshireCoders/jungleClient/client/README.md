@@ -72,3 +72,8 @@ a seperate thread (this prevents the clients `update()` thread from being blocke
 
 ### `removeListener(Listener)`
 Removes and added listener from the client. That listener will no longer be called.
+
+## NetworkListener.java
+This class registers a number of event listeners with the client. The event listeners
+should not be removed as they handle asynchronous events from the server 
+(such as a new invitation).
