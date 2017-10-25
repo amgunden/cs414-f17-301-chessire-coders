@@ -2,8 +2,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 public class LionPiece extends GamePiece {
 
-	public LionPiece(int column, int row, PlayerColor color) {
-		super(column, row, color);
+	public LionPiece(int row, int column, PlayerColor color) {
+		super(row, column, color);
 		setPowerDefault();
 	}
 
