@@ -3,7 +3,6 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UnRegisterRequest;
@@ -13,14 +12,19 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.Log
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
 import java.sql.SQLException;
 
-public class RegistrationHandler implements IRequestHandler {
+public class RegistrationHandler extends AbstractRequestHandler {
+
+    public RegistrationHandler(JungleServer server) {
+        super(server);
+    }
 
     @Override
-    public void addListeners(EndPoint endPoint) {
-        endPoint.addListener(new Listener.ThreadedListener(
+    public void addListeners() {
+        server.addListener(new Listener.ThreadedListener(
                 new FilteredListener<RegisterRequest>(RegisterRequest.class) {
                     @Override
                     public void run(Connection connection, RegisterRequest received) {
@@ -29,7 +33,7 @@ public class RegistrationHandler implements IRequestHandler {
                 }
         ));
 
-        endPoint.addListener(new Listener.ThreadedListener(
+        server.addListener(new Listener.ThreadedListener(
                 new FilteredListener<UnRegisterRequest>(UnRegisterRequest.class) {
                     @Override
                     public void run(Connection connection, UnRegisterRequest received) {

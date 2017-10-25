@@ -8,17 +8,21 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.ServerEventType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.IRequestHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.AbstractRequestHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
 
 import javax.sql.DataSource;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JungleServer extends Server {
 
+    private Collection<AbstractRequestHandler> handlers = new HashSet<>();
     private FileOutputStream fileOutputStream;
     private DataSource dataSource;
     private static Logger logger;
@@ -30,11 +34,15 @@ public class JungleServer extends Server {
 
         logger = Logger.getLogger(this.getClass().getSimpleName());
 
+        // Register messages
         Events.kryoRegisterEvents(this);
         Response.kryoRegisterResponses(this);
         Requests.kryoRegisterRequests(this);
 
         logger.log(Level.FINER, "Registered all network message objects");
+
+        // Add all handlers
+        initializeHandlers();
 
         // Add a listener for logging.
         this.addListener(new Listener() {
@@ -116,8 +124,8 @@ public class JungleServer extends Server {
         return new SessionConnection();
     }
 
-    public void addRequestHandler(IRequestHandler handler) {
-        handler.addListeners(this);
+    private void initializeHandlers() {
+        handlers.add(new RegistrationHandler(this));
     }
 
     public class SessionConnection extends Connection {
