@@ -7,6 +7,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.LoginReques
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.LogoutRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UpdateSessionExpirationRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.LoginResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.LogoutResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.LoginManager;
@@ -42,7 +43,7 @@ public class SessionHandler extends AbstractRequestHandler {
                 new FilteredListener<LogoutRequest>(LogoutRequest.class) {
                     @Override
                     public void run(Connection connection, LogoutRequest received) {
-                        // TODO: delegate to login verifier
+                        connection.sendTCP(handleLogout(connection, received));
                     }
                 }));
 
@@ -54,6 +55,11 @@ public class SessionHandler extends AbstractRequestHandler {
                         // TODO: handle a session expiration update request.
                     }
                 }));
+    }
+
+    private LogoutResponse handleLogout(Connection connection, LogoutRequest request) {
+        manager.logoutUser(connection);
+        return new LogoutResponse(ResponseStatusCodes.SUCCESS, "Success");
     }
 
     private LoginResponse handleLoginRequest(Connection connection, LoginRequest request) throws SQLException {
