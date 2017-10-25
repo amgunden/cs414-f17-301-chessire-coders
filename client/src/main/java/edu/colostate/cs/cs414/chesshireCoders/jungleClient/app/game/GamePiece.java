@@ -18,7 +18,14 @@ public abstract class GamePiece {
 		this.color = piece.getColor();
 	}
   
-	public void changeLocation(int row, int column) {
+	public void setLocation(int row, int column) {
+		if ( (column < 0) || (column > 6) ) {
+			throw new RuntimeException("Column index out of bounds: " + column);
+		}
+		if ( (row < 0) || (row > 8) ) {
+			throw new RuntimeException("Row index out of bounds: " + row);
+		}
+		
 		this.row = row;
 		this.column = column;
 	}
@@ -33,8 +40,8 @@ public abstract class GamePiece {
 	}
 	
 	public void setPowerLevel(int power) {
-		powerLevel = Math.max(power, 0);
 		powerLevel = Math.min(power, 8);
+		powerLevel = Math.max(powerLevel, 0);
 	}
 	
 	public abstract void setPowerDefault();
