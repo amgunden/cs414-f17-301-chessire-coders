@@ -6,7 +6,6 @@ public class GameBoard {
 	BoardSquare[][] boardSquares = new BoardSquare[9][7];
 	int p1Pieces = 8;
 	int p2Pieces = 0;
-	boolean gameOver = false;
 
 	public GameBoard() {
 		setUpBoard();
