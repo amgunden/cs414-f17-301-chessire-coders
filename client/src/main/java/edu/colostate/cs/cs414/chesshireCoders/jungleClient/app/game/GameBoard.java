@@ -5,7 +5,7 @@ public class GameBoard {
 	//Set up Squares
 	BoardSquare[][] boardSquares = new BoardSquare[9][7];
 	int p1Pieces = 8;
-	int p2Pieces = 0;
+	int p2Pieces = 8;
 
 	public GameBoard() {
 		setUpBoard();
@@ -143,7 +143,7 @@ public class GameBoard {
 			return true;
 		}
 		//or if p1 is in p2's den p1 wins
-		if(getPieceAt(7, 3) != null) {
+		if(getPieceAt(0, 3) != null) {
 			return true;
 		}
 		return false;
@@ -155,7 +155,7 @@ public class GameBoard {
 			return true;
 		}
 		//or if p2 is in p1's den p2 wins
-		if(getPieceAt(0, 3) != null) {
+		if(getPieceAt(7, 3) != null) {
 			return true;
 		}		
 		return false;
