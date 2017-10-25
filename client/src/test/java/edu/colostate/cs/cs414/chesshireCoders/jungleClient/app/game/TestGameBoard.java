@@ -98,7 +98,10 @@ public class TestGameBoard {
 
 	@Test
 	public void testGetValidMoves() {
-		fail("Not yet implemented");
+		int[] expected = {0,0,1,1};
+		int[] result = board.getValidMoves(0, 0);
+		
+		assertArrayEquals(expected, result);
 	}
 
 	@Test
