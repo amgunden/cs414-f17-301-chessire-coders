@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -29,6 +31,11 @@ public class GameBoardController implements Initializable {
 	@FXML
 	private GridPane gridPane;
 	
+	@FXML StackPane winnerPane;
+	
+	@FXML
+	private Label lblWinner;
+	
 	public void initialize(URL location, ResourceBundle resources) {
 		board = new GameBoard();
 		start = new int[2];
@@ -39,8 +46,16 @@ public class GameBoardController implements Initializable {
 	public void squareClicked(MouseEvent event)
 	{
 		StackPane square = (StackPane) event.getSource();
-		int clickColumn = GridPane.getColumnIndex(square);
-		int clickRow = GridPane.getRowIndex(square);
+		int clickRow = 0;
+		int clickColumn = 0;
+		
+		try{
+			clickRow = GridPane.getRowIndex(square);
+		}catch (Exception e) {}
+		
+		try{
+			clickColumn = GridPane.getColumnIndex(square);
+		}catch (Exception e) {}
 
 		System.out.println("Square ("+clickRow+","+clickColumn+") Clicked.");
 		
@@ -104,7 +119,17 @@ public class GameBoardController implements Initializable {
 		
 		toSquare.getChildren().add(piece);
 		board.movePiece(start, new int[]{r, c});
+		if (board.getWinner() != null) {
+			showGameEnding(board.getWinner());
+		}
 	}
+
+	private void showGameEnding(PlayerColor winner) {
+		gridPane.setEffect(new GaussianBlur());
+		lblWinner.setText(winner.toString() + " Wins!");
+		winnerPane.setVisible(true);
+	}
+
 
 	/**
 	 * Sets the background highlight of a square in the GridPane.
