@@ -29,7 +29,34 @@ public class TestAccountHandler {
 		//Real test case assert, use this after being able to test the registration
 		//assertTrue(accountHandler.getRegisterUserStatus());
 	}
-
+	@Test
+	public void testRegisterUserAlreadyRegistered() {
+		//test data
+		RegisterController regController = new RegisterController();
+		AccountHandler accountHandler=new AccountHandler();
+		//accountHandler.registerUser("a", "b", "c", "c", regController);
+		
+		RegisterController regController2 = new RegisterController();
+		AccountHandler accountHandler2=new AccountHandler();
+		//accountHandler2.registerUser("a", "b", "c", "c", regController2);
+		
+		assertFalse(accountHandler2.getRegisterUserStatus());
+		
+		
+	}
+	
+	@Test
+	public void testRegisterUserFailure() {
+		//test data
+		RegisterController regController = new RegisterController();
+		AccountHandler accountHandler=new AccountHandler();
+		//accountHandler.registerUser("a", " ", "c", "c", regController);
+		
+		
+		assertFalse(accountHandler.getRegisterUserStatus());
+		
+		
+	}
 	@Test
 	public void testUnregisterUser() {
 		HomeController homeController=new HomeController();
