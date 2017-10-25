@@ -57,21 +57,13 @@ public class GameBoard {
 			} else {
 				p2Pieces -= 1;
 			}
-			
-			if((p1Pieces == 0) || (p2Pieces == 0)){
-				gameOver = true;
-			}
 		}
 		
 		toSquare.setPiece( fromSquare.getPiece() );
 		fromSquare.clearPiece();
 		
-		//if the piece is in a den the game is over
-		if(from[1] == 3) {
-			if(from[0] == 0 || from[0] == 7) {
-				gameOver = true;
-			}
-		}
+		//if either player has one the game is over.
+		gameOver = (hasP1Won() || hasP2Won());
 	}
 	
 	private int getValidMoveHorizontal(GamePiece piece, int direction) {
@@ -144,23 +136,36 @@ public class GameBoard {
 		if(!(gameOver)) {
 			return null;
 		}
-		//if p1 is out of pieces p2 wins
-		if(p1Pieces == 0) {
+		if(hasP1Won()) {
+			return PlayerColor.Red;
+		}
+		if(hasP2Won()) {
 			return PlayerColor.Black;
 		}
-		//or if p2 is in p1's den p2 wins
-		if(getPieceAt(0, 3) != null) {
-			return PlayerColor.Black;
-		}
-		
+	}
+	
+	private boolean hasP1Won() {
 		//if p2 is out of pieces p1 wins
 		if(p2Pieces == 0) {
-			return PlayerColor.Red;
+			return true;
 		}
 		//or if p1 is in p2's den p1 wins
 		if(getPieceAt(7, 3) != null) {
-			return PlayerColor.Red;
+			return true;
 		}
+		return false;
+	}
+	
+	private boolean hasP2Won() {
+		//if p1 is out of pieces p2 wins
+		if(p1Pieces == 0) {
+			return true;
+		}
+		//or if p2 is in p1's den p2 wins
+		if(getPieceAt(0, 3) != null) {
+			return true;
+		}		
+		return false;
 	}
 	
 	//Board Setup Functions -----------------------------------------------------------
