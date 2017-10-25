@@ -125,7 +125,7 @@ public class JungleServer extends Server {
     }
 
     private void initializeHandlers() {
-        handlers.add(new RegistrationHandler(this));
+        handlers.add(new RegistrationHandler(this)); // handles registration requests.
     }
 
     public class SessionConnection extends Connection {
