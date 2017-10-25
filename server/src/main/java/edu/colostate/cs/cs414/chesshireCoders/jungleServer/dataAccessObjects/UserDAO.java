@@ -44,12 +44,14 @@ public class UserDAO {
 
         ResultSet rs = statement.getResultSet();
 
-        User user = new User();
-        user.setUserId(rs.getInt("UserID"));
-        user.setNameFirst(rs.getString("NameFirst"));
-        user.setNameLast(rs.getString("NameLast"));
-        user.setNickName(rs.getString("NickName"));
-        return user;
+        if (!rs.isBeforeFirst()) {
+            User user = new User();
+            user.setUserId(rs.getInt("UserID"));
+            user.setNameFirst(rs.getString("NameFirst"));
+            user.setNameLast(rs.getString("NameLast"));
+            user.setNickName(rs.getString("NickName"));
+            return user;
+        } else return null;
     }
 
     /**
@@ -67,12 +69,14 @@ public class UserDAO {
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-        User user = new User();
-        user.setUserId(rs.getInt("UserID"));
-        user.setNameFirst(rs.getString("NameFirst"));
-        user.setNameLast(rs.getString("NameLast"));
-        user.setNickName(rs.getString("NickName"));
-        return user;
+        if (!rs.isBeforeFirst()) {
+            User user = new User();
+            user.setUserId(rs.getInt("UserID"));
+            user.setNameFirst(rs.getString("NameFirst"));
+            user.setNameLast(rs.getString("NameLast"));
+            user.setNickName(rs.getString("NickName"));
+            return user;
+        } else return null;
     }
 
     /**

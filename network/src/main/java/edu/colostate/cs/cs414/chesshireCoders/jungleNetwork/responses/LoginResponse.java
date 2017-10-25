@@ -8,7 +8,11 @@ public class LoginResponse extends Response {
     private String sessionToken;
     private long expiresOn;         // Expressed as milliseconds since Epoch
     private Boolean loginSuccess;
-    
+
+    public LoginResponse(int statusCode, String message) {
+        super(statusCode, message);
+    }
+
     public Boolean isLoginSuccess() {
     	return loginSuccess;
     }
