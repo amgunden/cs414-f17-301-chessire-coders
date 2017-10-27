@@ -35,6 +35,9 @@ public class RegisterController implements Initializable {
 	@FXML
 	private Label alreadyRegistered;
 	
+	@FXML
+	private Label regFailed;
+	
 	private boolean registrationSuccess=false;
 	
 	
@@ -56,12 +59,17 @@ public class RegisterController implements Initializable {
 		System.out.println("Email: " + emailField.getText());
 		System.out.println("Password: " + passwordField.getText());
 		
+		if( !emailField.getText().contains("@")) {
+			registrationFailure();
+		}
+		else {
 		// Commenting out register validation so UI can be run
 		
 		//accountHandler.registerUser(emailField.getText(), nickNameField.getText(),passwordField.getText(), passwordReenterField.getText(), this);
 		
 		registrationSuccess();
 		//System.out.println("btnRegister Clicked.");
+		}
 	}
 	
 	public void registrationSuccess() {
@@ -76,6 +84,7 @@ public class RegisterController implements Initializable {
 	
 	public void registrationFailure()
 	{
+		regFailed.setVisible(true);
 		alreadyRegistered.setVisible(true);
 	}
 	
