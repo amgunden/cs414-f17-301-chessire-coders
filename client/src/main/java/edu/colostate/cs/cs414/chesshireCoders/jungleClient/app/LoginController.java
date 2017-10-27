@@ -39,12 +39,17 @@ public class LoginController implements Initializable {
 		System.out.println("Email: " + emailField.getText());
 		System.out.println("Password: " + passwordField.getText());
 		
+		if( !emailField.getText().contains("@")) {
+			loginFailure();
+		}
+		else {
 		AccountHandler accountHandler = new AccountHandler();
 		
 		// Commenting out login validation so UI can be run
 		// accountHandler.validateLogin(emailField.getText(), passwordField.getText(), this);
 		
 		loginSuccess();
+		}
 		
 	}
 	
