@@ -62,6 +62,7 @@ public class LoginController implements Initializable {
 	}
 	
 	public void loginFailure() {
+		loginErrorMsg.setPrefWidth(180);
 		loginErrorMsg.setVisible(true);
 	}
 	
