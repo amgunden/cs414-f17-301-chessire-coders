@@ -3,18 +3,17 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.GetGameRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.GetGameResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.GameDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
 import java.sql.SQLException;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes.SERVER_ERROR;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes.SUCCESS;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
 
 public class GameHandler extends AbstractRequestHandler {
 

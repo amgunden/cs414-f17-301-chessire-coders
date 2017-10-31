@@ -1,7 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.GameStatus;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.PlayerStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
 
 import java.sql.Timestamp;
 

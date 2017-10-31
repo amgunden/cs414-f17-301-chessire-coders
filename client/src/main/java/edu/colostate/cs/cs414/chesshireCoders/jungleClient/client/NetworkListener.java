@@ -2,10 +2,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.GameEndedEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.InvitationEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 
 import static com.esotericsoftware.kryonet.Listener.ThreadedListener;
 

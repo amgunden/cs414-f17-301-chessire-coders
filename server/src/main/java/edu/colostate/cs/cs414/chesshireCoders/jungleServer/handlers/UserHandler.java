@@ -1,15 +1,15 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.ResponseStatusCodes.SERVER_ERROR;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
 
 import java.sql.SQLException;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.GetUserRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.GetUserResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;

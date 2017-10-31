@@ -8,13 +8,13 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.LoginRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.LoginResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.RegisterResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UnRegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.UnRegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
 
 public class AccountHandler {
 	

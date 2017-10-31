@@ -3,11 +3,11 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.ServerEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.ServerEventType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.Events;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.Requests;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.AbstractRequestHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
 

@@ -2,10 +2,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.events.Events;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.Requests;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.Response;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.Types;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.Events;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.Requests;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.Types;
 
 import java.io.IOException;
 
