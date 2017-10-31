@@ -1,7 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
 
 import com.esotericsoftware.kryonet.Connection;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 
 import java.util.Hashtable;
 

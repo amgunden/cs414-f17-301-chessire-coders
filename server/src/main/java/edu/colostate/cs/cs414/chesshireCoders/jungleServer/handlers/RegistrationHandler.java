@@ -1,18 +1,18 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.UnRegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.RegisterResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.UnRegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Login;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
 
 import java.sql.SQLException;
 
@@ -67,7 +67,7 @@ public class RegistrationHandler extends AbstractRequestHandler {
                 // Add login info to DB
                 loginDAO.insert(login);
 
-                return new RegisterResponse(true, "Registration successful");
+                return new RegisterResponse(ResponseStatusCodes.SUCCESS, "Registration successful");
 
             } finally {
                 userDAO.closeConnection();
@@ -75,7 +75,7 @@ public class RegistrationHandler extends AbstractRequestHandler {
             }
         } catch (SQLException e) {
             // TODO: Craft response based on error code.
-            return new RegisterResponse(false, "Registration failed");
+            return new RegisterResponse(ResponseStatusCodes.SERVER_ERROR, "Registration failed");
         }
     }
 
@@ -93,14 +93,14 @@ public class RegistrationHandler extends AbstractRequestHandler {
                 loginDAO.delete(login);
                 userDAO.delete(user);
 
-                return new UnRegisterResponse(true, "Un-registration successful");
+                return new UnRegisterResponse(ResponseStatusCodes.SUCCESS, "Un-registration successful");
             } finally {
                 userDAO.closeConnection();
                 loginDAO.closeConnection();
             }
         } catch (SQLException e) {
             // TODO: Craft response based on error code.
-            return new UnRegisterResponse(false, e.getMessage());
+            return new UnRegisterResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
         }
     }
 }

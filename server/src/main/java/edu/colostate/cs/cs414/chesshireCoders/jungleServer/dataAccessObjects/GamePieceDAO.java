@@ -1,7 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.types.PieceType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
 import java.sql.Connection;

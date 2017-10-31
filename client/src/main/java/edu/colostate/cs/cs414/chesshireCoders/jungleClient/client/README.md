@@ -33,9 +33,9 @@ The recommended usage of this method looks something like this:
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.listeners.FilteredListener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.requests.RegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleNetwork.responses.RegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 
 RegisterRequest request = new RegisterRequest(pw, email, nickname, "nameFirst", "nameLast");
 
