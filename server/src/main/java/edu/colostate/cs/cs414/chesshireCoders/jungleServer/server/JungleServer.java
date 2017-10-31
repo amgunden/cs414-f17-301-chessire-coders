@@ -3,10 +3,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.Events;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.Requests;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.AbstractRequestHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
@@ -35,9 +33,7 @@ public class JungleServer extends Server {
         logger = Logger.getLogger(this.getClass().getSimpleName());
 
         // Register messages
-        Events.kryoRegisterEvents(this);
-        Response.kryoRegisterResponses(this);
-        Requests.kryoRegisterRequests(this);
+        KryoRegistrar.registerClasses(this);
 
         logger.log(Level.FINER, "Registered all network message objects");
 
