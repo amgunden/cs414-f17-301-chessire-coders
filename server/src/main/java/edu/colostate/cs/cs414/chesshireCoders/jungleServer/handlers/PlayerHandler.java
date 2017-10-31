@@ -13,7 +13,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetPlayerReque
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetPlayerResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.PlayerDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Player;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Player;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerColor;
 

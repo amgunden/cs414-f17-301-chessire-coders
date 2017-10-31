@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects;
+package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 public class Invitation {
 

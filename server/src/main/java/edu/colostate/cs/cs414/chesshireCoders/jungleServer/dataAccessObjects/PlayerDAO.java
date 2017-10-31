@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameOutcomeType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerColor;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Player;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Player;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
 import java.sql.Connection;

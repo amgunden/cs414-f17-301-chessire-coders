@@ -11,7 +11,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
 public class UserHandler extends AbstractRequestHandler{

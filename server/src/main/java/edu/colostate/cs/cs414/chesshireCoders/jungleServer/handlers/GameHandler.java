@@ -1,14 +1,13 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.GameDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Invitation;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
 import java.sql.Connection;

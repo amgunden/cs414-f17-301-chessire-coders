@@ -1,6 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 
 public class UserSession extends User {
 

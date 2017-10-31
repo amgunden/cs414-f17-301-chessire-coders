@@ -1,12 +1,9 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Login;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class for pushing/pulling information about Login's from the database.

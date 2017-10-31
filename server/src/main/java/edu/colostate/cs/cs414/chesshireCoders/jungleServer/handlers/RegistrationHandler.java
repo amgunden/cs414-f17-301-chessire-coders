@@ -1,7 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
@@ -10,8 +9,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterRespo
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.Login;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataObjects.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 
 import java.sql.SQLException;
