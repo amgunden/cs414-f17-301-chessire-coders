@@ -3,21 +3,20 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
 
-import java.sql.Timestamp;
-
 public class Game {
 
     private int gameID;
-    private Timestamp gameStart;
-    private Timestamp gameEnd;
+    private long gameStart; // represented as millis since epoch time
+    private long gameEnd;   // represented as millis since epoch time
     private int playerOneID;
     private int playerTwoID;
     private PlayerStatus playerTwoStatus;
     private GameStatus gameStatus;
 
-    public Game() {}
+    public Game() {
+    }
 
-    public Game(int gameID, Timestamp gameStart, Timestamp gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
+    public Game(int gameID, long gameStart, long gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
         this.gameID = gameID;
         this.gameStart = gameStart;
         this.gameEnd = gameEnd;
@@ -27,7 +26,7 @@ public class Game {
         this.gameStatus = gameStatus;
     }
 
-    public Game(Timestamp gameStart, Timestamp gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
+    public Game(long gameStart, long gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
         this.gameStart = gameStart;
         this.gameEnd = gameEnd;
         this.playerOneID = playerOneID;
@@ -36,7 +35,7 @@ public class Game {
         this.gameStatus = gameStatus;
     }
 
-    public Game(Timestamp gameStart, Timestamp gameEnd, int playerOneID, GameStatus gameStatus) {
+    public Game(long gameStart, long gameEnd, int playerOneID, GameStatus gameStatus) {
         this.gameStart = gameStart;
         this.gameEnd = gameEnd;
         this.playerOneID = playerOneID;
@@ -51,19 +50,19 @@ public class Game {
         this.gameID = gameID;
     }
 
-    public Timestamp getGameStart() {
+    public long getGameStart() {
         return gameStart;
     }
 
-    public void setGameStart(Timestamp gameStart) {
+    public void setGameStart(long gameStart) {
         this.gameStart = gameStart;
     }
 
-    public Timestamp getGameEnd() {
+    public long getGameEnd() {
         return gameEnd;
     }
 
-    public void setGameEnd(Timestamp gameEnd) {
+    public void setGameEnd(long gameEnd) {
         this.gameEnd = gameEnd;
     }
 

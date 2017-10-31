@@ -1,13 +1,10 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +30,7 @@ public class GameDAO {
 
     /**
      * Returns an instance of Game corresponding to the given ID from the database.
+     *
      * @param id The primary key of the game to retrieve.
      * @return Instance of game corresponding to the given ID
      * @throws SQLException
@@ -45,8 +43,8 @@ public class GameDAO {
         rs.next();
         Game game = new Game();
         game.setGameID(rs.getInt("GameID"));
-        game.setGameStart(rs.getTimestamp("gameStartDateTime"));
-        game.setGameEnd(rs.getTimestamp("gameEndDateTime"));
+        game.setGameStart(rs.getTimestamp("gameStartDateTime").getTime());
+        game.setGameEnd(rs.getTimestamp("gameEndDateTime").getTime());
         game.setPlayerOneID(rs.getInt("PlayerOneID"));
         game.setPlayerTwoID(rs.getInt("PlayerTwoID"));
         game.setGameStatus(GameStatus.valueOf(rs.getString("GameStatus").toUpperCase()));
@@ -55,6 +53,7 @@ public class GameDAO {
 
     /**
      * Retrieves a list of games associated with a particular player ID number.
+     *
      * @param playerID
      * @return A list of games
      * @throws SQLException
@@ -69,8 +68,8 @@ public class GameDAO {
         while (rs.next()) {
             Game game = new Game();
             game.setGameID(rs.getInt("GameID"));
-            game.setGameStart(rs.getTimestamp("gameStartDateTime"));
-            game.setGameEnd(rs.getTimestamp("gameEndDateTime"));
+            game.setGameStart(rs.getTimestamp("gameStartDateTime").getTime());
+            game.setGameEnd(rs.getTimestamp("gameEndDateTime").getTime());
             game.setPlayerOneID(rs.getInt("PlayerOneID"));
             game.setPlayerTwoID(rs.getInt("PlayerTwoID"));
             game.setGameStatus(GameStatus.valueOf(rs.getString("GameStatus").toUpperCase()));
@@ -82,6 +81,7 @@ public class GameDAO {
 
     /**
      * Inserts a new Game object into the database.
+     *
      * @param game
      * @throws SQLException
      */
@@ -90,8 +90,8 @@ public class GameDAO {
                 + "(\"gameStartDateTime\", \"gameEndDateTime\", \"PlayerOneID\", \"PlayerTwoID\", \"GameStatus\")"
                 + "VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setTimestamp(1, game.getGameStart());
-        statement.setTimestamp(2, game.getGameEnd());
+        statement.setTimestamp(1, new Timestamp(game.getGameStart()));
+        statement.setTimestamp(2, new Timestamp(game.getGameEnd()));
         statement.setInt(3, game.getPlayerOneID());
         statement.setInt(4, game.getPlayerTwoID());
         statement.setString(5, game.getGameStatus().name().toLowerCase());
@@ -101,20 +101,21 @@ public class GameDAO {
 
     /**
      * Updates an existing game row in the database.
+     *
      * @param game The game to update, the gameID field must be set.
      * @throws SQLException
      */
     public void update(Game game) throws SQLException {
         String updateStr = "UPDATE public.\"Game\""
-                        + "SET \"gameStartDateTime\" = ?,"
-                        + "\"gameEndDateTime\" = ?,"
-                        + "\"PlayerOneID\" = ?,"
-                        + "\"PlayerTwoID\" = ?,"
-                        + "\"GameStatus\" = ?"
-                        + "WHERE \"GameID\" = ?";
+                + "SET \"gameStartDateTime\" = ?,"
+                + "\"gameEndDateTime\" = ?,"
+                + "\"PlayerOneID\" = ?,"
+                + "\"PlayerTwoID\" = ?,"
+                + "\"GameStatus\" = ?"
+                + "WHERE \"GameID\" = ?";
         PreparedStatement statement = connection.prepareStatement(updateStr);
-        statement.setTimestamp(1, game.getGameStart());
-        statement.setTimestamp(2, game.getGameEnd());
+        statement.setTimestamp(1, new Timestamp(game.getGameStart()));
+        statement.setTimestamp(2, new Timestamp(game.getGameEnd()));
         statement.setInt(3, game.getPlayerOneID());
         statement.setInt(4, game.getPlayerTwoID());
         statement.setString(5, game.getGameStatus().name().toLowerCase());
@@ -125,6 +126,7 @@ public class GameDAO {
 
     /**
      * Deletes a row from the table, corresponding to the gameId field in 'game'
+     *
      * @param game the 'game' to delete (the id must be set)
      * @throws SQLException
      */
