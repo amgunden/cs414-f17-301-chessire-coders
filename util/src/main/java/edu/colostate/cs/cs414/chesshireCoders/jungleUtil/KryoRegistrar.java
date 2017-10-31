@@ -25,11 +25,22 @@ public class KryoRegistrar {
      */
     public static void registerClasses(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
+        registerUtilClasses(kryo);
         registerEventClasses(kryo);
         registerGameClasses(kryo);
         registerRequestClasses(kryo);
         registerResponseClasses(kryo);
         registerTypeClasses(kryo);
+    }
+
+    /**
+     * This registers some utility classes such as String and ArrayList
+     *
+     * @param kryo
+     */
+    private static void registerUtilClasses(Kryo kryo) {
+        kryo.register(ArrayList.class);
+        kryo.register(String.class);
     }
 
     /**
@@ -84,15 +95,15 @@ public class KryoRegistrar {
     private static void registerResponseClasses(Kryo kryo) {
         kryo.register(Response.class);
         kryo.register(GetGameResponse.class);
-        kryo.register(GetPieceLocationResponse.class);
+        kryo.register(GetPieceResponse.class);
         kryo.register(GetPlayerResponse.class);
         kryo.register(GetUserResponse.class);
         kryo.register(GetUserGameHistoryResponse.class);
         kryo.register(GetInvitationResponse.class);
         kryo.register(LoginResponse.class);
         kryo.register(LogoutResponse.class);
-        kryo.register(ArrayList.class);
-        kryo.register(String.class);
+
+        kryo.register(UpdateSessionExpirationResponse.class);
     }
 
     /**
