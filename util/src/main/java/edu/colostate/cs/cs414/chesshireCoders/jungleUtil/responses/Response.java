@@ -3,7 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 public class Response {
 
     private int statusCode = ResponseStatusCodes.SUCCESS;
-    private String errMsg;
+    private String errMsg = null;
 
     public Response() {
     }
@@ -28,5 +28,10 @@ public class Response {
 
     public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;
+    }
+
+    public boolean isSuccess() {
+        // Success codes span the range of 200-299
+        return 200 <= this.statusCode && this.statusCode < 300;
     }
 }
