@@ -31,26 +31,22 @@ public class UserDAO {
 
     /**
      * Gets the User object associated with a given userID
+     *
      * @param userId
      * @return
      * @throws SQLException
      */
     public User getUserByUserId(int userId) throws SQLException {
-        String queryString = "SELECT * FROM public.\"User\""
-                + "WHERE \"User\".\"UserID\" = ?";
+        String queryString = "SELECT *\n" +
+                "FROM public.\"User\"\n" +
+                "WHERE \"User\".\"UserID\" = ?";
         PreparedStatement statement = connection.prepareStatement(queryString);
         statement.setInt(1, userId);
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-
-        if (!rs.isBeforeFirst()) {
-            User user = new User();
-            user.setUserId(rs.getInt("UserID"));
-            user.setNameFirst(rs.getString("NameFirst"));
-            user.setNameLast(rs.getString("NameLast"));
-            user.setNickName(rs.getString("NickName"));
-            return user;
+        if (rs.next()) {
+            return readUser(rs);
         } else return null;
     }
 
@@ -62,20 +58,16 @@ public class UserDAO {
      * @throws SQLException
      */
     public User getUserByNickName(String nickName) throws SQLException {
-        String queryString = "SELECT * FROM public.\"User\""
-                + "WHERE \"User\".\"NickName\" = ?";
+        String queryString = "SELECT *\n" +
+                "FROM public.\"User\"\n" +
+                "WHERE \"User\".\"NickName\" = ?";
         PreparedStatement statement = connection.prepareStatement(queryString);
         statement.setString(1, nickName);
         statement.executeQuery();
 
         ResultSet rs = statement.getResultSet();
-        if (!rs.isBeforeFirst()) {
-            User user = new User();
-            user.setUserId(rs.getInt("UserID"));
-            user.setNameFirst(rs.getString("NameFirst"));
-            user.setNameLast(rs.getString("NameLast"));
-            user.setNickName(rs.getString("NickName"));
-            return user;
+        if (rs.next()) {
+            return readUser(rs);
         } else return null;
     }
 
@@ -86,9 +78,7 @@ public class UserDAO {
      * @throws SQLException
      */
     public int insert(User user) throws SQLException {
-        String insertStr = "INSERT INTO public.\"User\""
-                + "(\"NameFirst\", \"NameLast\",\"NickName\")"
-                + "VALUES (?,?,?)";
+        String insertStr = "INSERT INTO public.\"User\" (\"NameFirst\", \"NameLast\", \"NickName\") VALUES (?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(insertStr);
         statement.setString(1, user.getNameFirst());
         statement.setString(2, user.getNameLast()); // TODO: possibly provide handling for null value? (should be handled already)
@@ -108,11 +98,9 @@ public class UserDAO {
      * @throws SQLException
      */
     public int update(User user) throws SQLException {
-        String insertStr = "UPDATE public.\"User\" SET"
-                + "\"NameFirst\" = ?,"
-                + "\"NameLast\" = ?,"
-                + "\"NickName\" = ?"
-                + "WHERE \"UserID\" = ?";
+        String insertStr = "UPDATE public.\"User\"\n" +
+                "SET \"NameFirst\" = ?, \"NameLast\" = ?, \"NickName\" = ?\n" +
+                "WHERE \"UserID\" = ?";
         PreparedStatement statement = connection.prepareStatement(insertStr);
         statement.setString(1, user.getNameFirst());
         statement.setString(2, user.getNameLast());
@@ -133,22 +121,19 @@ public class UserDAO {
      * @throws SQLException
      */
     public void delete(User user) throws SQLException {
-        String deleteStr = "DELETE FROM public.\"User\" WHERE \"UserID\" = ?";
+        String deleteStr = "DELETE FROM public.\"User\"\n" +
+                "WHERE \"UserID\" = ?";
         PreparedStatement statement = connection.prepareStatement(deleteStr);
         statement.setInt(1, user.getUserId());
         statement.executeUpdate();
     }
 
-    private List<User> constructListFromResultSet(ResultSet rs) throws SQLException {
-        ArrayList<User> users = new ArrayList<>();
-        while (rs.next()) {
-            User user = new User();
-            user.setUserId(rs.getInt("UserID"));
-            user.setNameFirst(rs.getString("NameFirst"));
-            user.setNameLast(rs.getString("NameLast"));
-            user.setNickName(rs.getString("NickName"));
-            users.add(user);
-        }
-        return users;
+    private User readUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setUserId(rs.getInt("UserID"));
+        user.setNameFirst(rs.getString("NameFirst"));
+        user.setNameLast(rs.getString("NameLast"));
+        user.setNickName(rs.getString("NickName"));
+        return user;
     }
 }
