@@ -10,6 +10,13 @@ public class GetPlayerResponse extends Response {
         this.player = player;
     }
 
+    public GetPlayerResponse() {
+    }
+
+    public GetPlayerResponse(int statusCode, String errMsg) {
+        super(statusCode, errMsg);
+    }
+
     public GetPlayerResponse(int statusCode, String errMsg, Player player) {
         super(statusCode, errMsg);
         this.player = player;

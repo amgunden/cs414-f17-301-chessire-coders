@@ -10,6 +10,13 @@ public class LoginResponse extends Response {
         this.login = login;
     }
 
+    public LoginResponse() {
+    }
+
+    public LoginResponse(int statusCode, String errMsg) {
+        super(statusCode, errMsg);
+    }
+
     public LoginResponse(int statusCode, String errMsg, Login login) {
         super(statusCode, errMsg);
         this.login = login;

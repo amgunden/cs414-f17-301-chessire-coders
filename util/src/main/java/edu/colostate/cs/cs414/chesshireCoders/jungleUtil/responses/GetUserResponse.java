@@ -10,6 +10,13 @@ public class GetUserResponse extends Response {
         this.user = user;
     }
 
+    public GetUserResponse() {
+    }
+
+    public GetUserResponse(int statusCode, String errMsg) {
+        super(statusCode, errMsg);
+    }
+
     public GetUserResponse(int statusCode, String errMsg, User user) {
         super(statusCode, errMsg);
         this.user = user;

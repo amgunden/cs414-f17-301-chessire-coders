@@ -7,8 +7,16 @@ public class GetGameResponse extends Response {
 
     private Game game;
 
+    public GetGameResponse() {
+        super();
+    }
+
     public GetGameResponse(Game game) {
         this.game = game;
+    }
+
+    public GetGameResponse(int statusCode, String message) {
+        super(statusCode, message);
     }
 
     public GetGameResponse(int statusCode, String errMsg, Game game) {
