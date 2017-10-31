@@ -1,18 +1,18 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
-
-import java.sql.SQLException;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
+
+import java.sql.SQLException;
+
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
 
 public class UserHandler extends AbstractRequestHandler{
 
@@ -40,12 +40,7 @@ public class UserHandler extends AbstractRequestHandler{
             try {
             	userDAO.getConnection();
             	User user = userDAO.getUserByUserId(request.getUserID());
-            	GetUserResponse response = new GetUserResponse();
-            	response.setUserID(user.getUserId());
-            	response.setFirstName(user.getNameFirst());
-            	response.setLastName(user.getNameLast());
-            	response.setNickName(user.getNickName());
-                return response;
+                return new GetUserResponse(user);
 
             } finally {
                 userDAO.closeConnection();

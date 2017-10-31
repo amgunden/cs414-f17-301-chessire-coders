@@ -2,17 +2,16 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.GameDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.GameDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes;
 
 import java.sql.SQLException;
-
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
 
 public class GameHandler extends AbstractRequestHandler {
 
@@ -39,19 +38,13 @@ public class GameHandler extends AbstractRequestHandler {
 
                 gameDAO.getConnection();
                 Game game = gameDAO.getGameByID(request.getGameID());
-                GetGameResponse response = new GetGameResponse();
-                response.setGameID(game.getGameID());
-                response.setPlayerOneID(game.getPlayerOneID());
-                response.setPlayerTwoID(game.getPlayerTwoID());
-                response.setPlayerTwoStatus(game.getPlayerTwoStatus());
-                response.setStatus(game.getGameStatus());
-                return response;
+                return new GetGameResponse(game);
 
             } finally {
                 gameDAO.closeConnection();
             }
         } catch (SQLException e) {
-            return new GetGameResponse(SERVER_ERROR, e.getMessage());
+            return new GetGameResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
         }
     }
 }
