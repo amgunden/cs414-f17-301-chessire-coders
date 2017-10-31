@@ -1,44 +1,25 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerColor;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Player;
 
 public class GetPlayerResponse extends Response {
-    private int playerID;
-    private String playerName;
-    private PlayerColor playerColor;
+    private Player player;
 
-    public int getPlayerID() {
-        return playerID;
+    public GetPlayerResponse(Player player) {
+        this.player = player;
     }
 
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
+    public GetPlayerResponse(int statusCode, String errMsg, Player player) {
+        super(statusCode, errMsg);
+        this.player = player;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public PlayerColor getPlayerColor() {
-        return playerColor;
-    }
-
-    public void setPlayerColor(PlayerColor playerColor) {
-        this.playerColor = playerColor;
-    }
-
-    public GetPlayerResponse(int playerID, String playerName, PlayerColor playerColor) {
-        this.playerID = playerID;
-        this.playerName = playerName;
-        this.playerColor = playerColor;
-    }
-    
-    public GetPlayerResponse(int statusCode, String message) {
-        super(statusCode, message);
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

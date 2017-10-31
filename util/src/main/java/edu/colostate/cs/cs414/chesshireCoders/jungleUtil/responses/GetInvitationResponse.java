@@ -1,48 +1,25 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
+
 public class GetInvitationResponse extends Response {
 
-    private int invitationID;
-    private int playerFromID;
-    private int playerToID;
-    private int gameID;
+    private Invitation invitation;
 
-    public int getInvitationID() {
-        return invitationID;
+    public GetInvitationResponse(Invitation invitation) {
+        this.invitation = invitation;
     }
 
-    public void setInvitationID(int invitationID) {
-        this.invitationID = invitationID;
+    public GetInvitationResponse(int statusCode, String errMsg, Invitation invitation) {
+        super(statusCode, errMsg);
+        this.invitation = invitation;
     }
 
-    public int getPlayerFromID() {
-        return playerFromID;
+    public Invitation getInvitation() {
+        return invitation;
     }
 
-    public void setPlayerFromID(int playerFromID) {
-        this.playerFromID = playerFromID;
-    }
-
-    public int getPlayerToID() {
-        return playerToID;
-    }
-
-    public void setPlayerToID(int playerToID) {
-        this.playerToID = playerToID;
-    }
-
-    public int getGameID() {
-        return gameID;
-    }
-
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
-
-    public GetInvitationResponse(int invitationID, int playerFromID, int playerToID, int gameID) {
-        this.invitationID = invitationID;
-        this.playerToID = playerToID;
-        this.playerFromID = playerFromID;
-        this.gameID = gameID;
+    public void setInvitation(Invitation invitation) {
+        this.invitation = invitation;
     }
 }

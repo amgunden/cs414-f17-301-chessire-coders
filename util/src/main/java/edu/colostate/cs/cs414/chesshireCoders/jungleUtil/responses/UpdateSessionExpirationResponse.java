@@ -5,15 +5,21 @@ public class UpdateSessionExpirationResponse extends Response {
     private long newExpirationTime;
 
     public UpdateSessionExpirationResponse() {
+        super();
+    }
 
+    public UpdateSessionExpirationResponse(int statusCode, String errMsg) {
+        super(statusCode, errMsg);
     }
 
     public UpdateSessionExpirationResponse(long newExpirationTime) {
+        super();
         this.newExpirationTime = newExpirationTime;
     }
 
-    public UpdateSessionExpirationResponse(int statusCode, String message) {
-        super(statusCode, message);
+    public UpdateSessionExpirationResponse(int statusCode, String errMsg, long newExpirationTime) {
+        super(statusCode, errMsg);
+        this.newExpirationTime = newExpirationTime;
     }
 
     public long getNewExpirationTime() {

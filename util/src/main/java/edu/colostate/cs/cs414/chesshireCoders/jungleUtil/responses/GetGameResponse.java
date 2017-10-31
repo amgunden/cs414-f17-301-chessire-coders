@@ -1,68 +1,26 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 
 public class GetGameResponse extends Response {
-    private int gameID;
-    private int playerOneID;
-    private int playerTwoID;
-    private PlayerStatus playerTwoStatus;
-    private GameStatus status;
 
-    public GetGameResponse() {
+    private Game game;
+
+    public GetGameResponse(Game game) {
+        this.game = game;
     }
 
-    public GetGameResponse(int statusCode, String message) {
-        super(statusCode, message);
+    public GetGameResponse(int statusCode, String errMsg, Game game) {
+        super(statusCode, errMsg);
+        this.game = game;
     }
 
-    public int getGameID() {
-        return gameID;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
-
-    public int getPlayerOneID() {
-        return playerOneID;
-    }
-
-    public void setPlayerOneID(int playerOneID) {
-        this.playerOneID = playerOneID;
-    }
-
-    public int getPlayerTwoID() {
-        return playerTwoID;
-    }
-
-    public void setPlayerTwoID(int playerTwoID) {
-        this.playerTwoID = playerTwoID;
-    }
-
-    public PlayerStatus getPlayerTwoStatus() {
-        return playerTwoStatus;
-    }
-
-    public void setPlayerTwoStatus(PlayerStatus playerTwoStatus) {
-        this.playerTwoStatus = playerTwoStatus;
-    }
-
-    public GameStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(GameStatus status) {
-        this.status = status;
-    }
-
-    public GetGameResponse(int gameID, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus status) {
-        this.gameID = gameID;
-        this.playerOneID = playerOneID;
-        this.playerTwoID = playerTwoID;
-        this.playerTwoStatus = playerTwoStatus;
-        this.status = status;
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
