@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LogoutRequest;
@@ -18,7 +19,8 @@ import java.sql.SQLException;
 
 public class SessionHandler extends AbstractRequestHandler {
 
-    LoginManager manager = new LoginManager();
+    private JungleDB jungleDB = JungleDB.getInstance();
+    private LoginManager manager = new LoginManager();
 
     public SessionHandler(JungleServer server) {
         super(server);

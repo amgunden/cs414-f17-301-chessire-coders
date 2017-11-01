@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.GameDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
@@ -15,6 +16,8 @@ import java.sql.SQLException;
 
 public class GameHandler extends AbstractRequestHandler {
 
+    private JungleDB jungleDB = JungleDB.getInstance();
+
     public GameHandler(JungleServer server) {
         super(server);
     }
@@ -26,25 +29,28 @@ public class GameHandler extends AbstractRequestHandler {
                 new FilteredListener<GetGameRequest>(GetGameRequest.class) {
                     @Override
                     public void run(Connection connection, GetGameRequest received) {
-                        connection.sendTCP(handleGetGame(received));
+                        try {
+                            connection.sendTCP(handleGetGame(received));
+                        } catch (SQLException e) {
+                            connection.sendTCP(new GetGameResponse(
+                                    ResponseStatusCodes.SERVER_ERROR,
+                                    e.getMessage()
+                            ));
+                        }
                     }
                 }));
     }
 
-    private Response handleGetGame(GetGameRequest request) {
-        GameDAO gameDAO = new GameDAO();
+    private Response handleGetGame(GetGameRequest request) throws SQLException {
+        java.sql.Connection connection = jungleDB.getConnection();
+        GameDAO gameDAO = new GameDAO(connection);
         try {
-            try {
-
-                gameDAO.getConnection();
-                Game game = gameDAO.getGameByID(request.getGameID());
-                return new GetGameResponse(game);
-
-            } finally {
-                gameDAO.closeConnection();
-            }
+            Game game = gameDAO.getGameByID(request.getGameID());
+            return new GetGameResponse(game);
         } catch (SQLException e) {
             return new GetGameResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
+        } finally {
+            connection.close();
         }
     }
 }
