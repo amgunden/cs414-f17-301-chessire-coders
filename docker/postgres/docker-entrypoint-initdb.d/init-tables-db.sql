@@ -1,60 +1,30 @@
-CREATE TYPE GAMESTATUSTYPE AS ENUM ('in progress', 'completed', 'abandoned');
-
-CREATE TYPE PIECETYPE AS ENUM ('dog', 'cat', 'rat', 'elephant', 'wolf', 'leopard', 'tiger', 'lion');
-
-CREATE TYPE PLAYERCOLORTYPE AS ENUM ('red', 'black');
-
-CREATE TYPE PLAYEROUTCOMETYPE AS ENUM ('win', 'loss', 'draw');
-
-
 CREATE TABLE "User"
 (
-  "UserID"    BIGSERIAL PRIMARY KEY,
+  "UserID"    BIGSERIAL   NOT NULL,
   "NameFirst" VARCHAR(20) NOT NULL,
   "NameLast"  VARCHAR(20),
-  "NickName"  VARCHAR(30) NOT NULL
+  "NickName"  VARCHAR(30) NOT NULL,
+
+  CONSTRAINT "PK_User_UserID" PRIMARY KEY ("UserID")
 );
 
 
 CREATE TABLE "Login"
 (
-  "Username"   VARCHAR(30) PRIMARY KEY,
-  "HashedPass" CHAR(64) NOT NULL,
-  "Salt"       CHAR(32) NOT NULL,
-  "UserID"     INTEGER  NOT NULL REFERENCES "User"
+  "UserID"     INTEGER     NOT NULL,
+  "Email"      VARCHAR(64) NOT NULL,
+  "HashedPass" CHAR(64)    NOT NULL,
+
+  CONSTRAINT "PK_Login_UserID" PRIMARY KEY ("UserID"),
+  CONSTRAINT "UNQ_Login_Email" UNIQUE ("Email"),
+  CONSTRAINT "FK_UserID_User" FOREIGN KEY ("UserID") REFERENCES "User" ("UserID")
 );
 
-CREATE TABLE "Player"
+CREATE TABLE "LoginAttempt"
 (
-  "PlayerID"    BIGSERIAL PRIMARY KEY,
-  "UserID"      INTEGER           NOT NULL REFERENCES "User",
-  "PlayerColor" PLAYERCOLORTYPE   NOT NULL,
-  "Outcome"     PLAYEROUTCOMETYPE NOT NULL
-);
+  "UserID" INT       NOT NULL,
+  "Time"   TIMESTAMP NOT NULL,
+  "Locked" BOOLEAN   NOT NULL DEFAULT FALSE,
 
-CREATE TABLE "Game"
-(
-  "GameID"            BIGSERIAL PRIMARY KEY,
-  "gameStartDateTime" TIMESTAMP,
-  "gameEndDateTime"   TIMESTAMP,
-  "PlayerOneID"       INTEGER        NOT NULL REFERENCES "Player",
-  "PlayerTwoID"       INTEGER        NOT NULL REFERENCES "Player",
-  "GameStatus"        GAMESTATUSTYPE NOT NULL
-);
-
-CREATE TABLE "GamePiece"
-(
-  "PieceID"   BIGSERIAL PRIMARY KEY,
-  "PlayerID"  INTEGER   NOT NULL REFERENCES "Player",
-  "PieceType" PIECETYPE NOT NULL,
-  "CoordY"    INTEGER   NOT NULL,
-  "CoordX"    INTEGER   NOT NULL,
-  "GameID"    INTEGER   NOT NULL REFERENCES "Game"
-);
-
-CREATE TABLE "GameInvitation"
-(
-  "InvitationID" BIGSERIAL PRIMARY KEY,
-  "Sender"       INTEGER NOT NULL REFERENCES "User",
-  "Recipient"    INTEGER NOT NULL REFERENCES "User"
+  CONSTRAINT "FK_LoginID_Login" FOREIGN KEY ("UserID") REFERENCES "Login" ("UserID")
 );
