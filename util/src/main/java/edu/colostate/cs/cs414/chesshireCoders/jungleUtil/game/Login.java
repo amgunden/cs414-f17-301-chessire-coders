@@ -2,27 +2,17 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 public class Login {
 
-    private String username;
     private String hashedPass;
-    private String salt;
     private int userID;
+    private String email;
 
     public Login() {
     }
 
-    public Login(String username, String hashedPass, String salt, int userID) {
-        this.username = username;
+    public Login(String hashedPass, int userID, String email) {
         this.hashedPass = hashedPass;
-        this.salt = salt;
         this.userID = userID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        this.email = email;
     }
 
     public String getHashedPass() {
@@ -33,19 +23,19 @@ public class Login {
         this.hashedPass = hashedPass;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public int getUserID() {
         return userID;
     }
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

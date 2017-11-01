@@ -49,20 +49,21 @@ public class RegistrationHandler extends AbstractRequestHandler {
         try {
             try {
                 // populate user info
-                User user = new User();
-                user.setNameFirst(request.getNameFirst());
-                user.setNameLast(request.getNameLast());
-                user.setNickName(request.getNickName());
+                User user = new User(
+                        request.getNameFirst(),
+                        request.getNameLast(),
+                        request.getNickName()
+                );
 
                 // add user to db
                 int userID = userDAO.insert(user);
 
                 // Populate login info
-                Login login = new Login();
-                login.setUserID(userID);
-                login.setSalt(""); // TODO: use salting
-                login.setHashedPass(request.getPassword()); // TODO: hash password?
-                login.setUsername(request.getEmail()); // TODO: refactor login.username to login.email
+                Login login = new Login(
+                        request.getPassword(),
+                        userID,
+                        request.getEmail()
+                );
 
                 // Add login info to DB
                 loginDAO.insert(login);
