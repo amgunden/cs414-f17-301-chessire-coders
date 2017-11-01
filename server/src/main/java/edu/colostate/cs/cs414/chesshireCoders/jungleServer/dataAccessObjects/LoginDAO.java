@@ -1,27 +1,17 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
 import java.sql.*;
 
 /**
  * A class for pushing/pulling information about Login's from the database.
  */
-public class LoginDAO {
-    private JungleDB jungleDB = null;
-    private Connection connection = null;
+public class LoginDAO extends AbstractDAO {
 
-    public LoginDAO() {
-        jungleDB = JungleDB.getInstance();
-    }
 
-    public void getConnection() throws SQLException {
-        connection = jungleDB.getConnection();
-    }
-
-    public void closeConnection() throws SQLException {
-        connection.close();
+    public LoginDAO(Connection connection) {
+        super(connection);
     }
 
     /**
@@ -35,14 +25,16 @@ public class LoginDAO {
         String queryString = "SELECT *\n" +
                 "FROM public.\"Login\"\n" +
                 "WHERE \"Login\".\"UserID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setInt(1, userId);
-        statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setInt(1, userId);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-        if (rs.next()) {
-            return readLogin(rs);
-        } else return null;
+            try (ResultSet rs = statement.getResultSet()) {
+                if (rs.next()) {
+                    return readLogin(rs);
+                } else return null;
+            }
+        }
     }
 
     /**
@@ -56,14 +48,16 @@ public class LoginDAO {
         String queryString = "SELECT *\n" +
                 "FROM public.\"Login\"\n" +
                 "WHERE \"Login\".\"Username\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setString(1, email);
-        statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setString(1, email);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-        if (rs.next()) {
-            return readLogin(rs);
-        } else return null;
+            try (ResultSet rs = statement.getResultSet()) {
+                if (rs.next()) {
+                    return readLogin(rs);
+                } else return null;
+            }
+        }
     }
 
     /**
@@ -74,16 +68,18 @@ public class LoginDAO {
      */
     public String insert(Login login) throws SQLException {
         String insertStr = "INSERT INTO public.\"Login\" (\"UserID\", \"Email\", \"HashedPass\") VALUES (?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(insertStr, Statement.RETURN_GENERATED_KEYS);
-        statement.setInt(1, login.getUserID());
-        statement.setString(2, login.getEmail());
-        statement.setString(3, login.getHashedPass());
+        try (PreparedStatement statement = connection.prepareStatement(insertStr, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, login.getUserID());
+            statement.setString(2, login.getEmail());
+            statement.setString(3, login.getHashedPass());
 
-        statement.executeUpdate();
-        ResultSet set = statement.getGeneratedKeys();
-        if (set.next()) {
-            return set.getString("Email");
-        } else return null;
+            statement.executeUpdate();
+            try (ResultSet set = statement.getGeneratedKeys()) {
+                if (set.next()) {
+                    return set.getString("Email");
+                } else return null;
+            }
+        }
     }
 
     /**
@@ -96,15 +92,17 @@ public class LoginDAO {
         String insertStr = "UPDATE public.\"Login\"\n" +
                 "SET \"HashedPass\" = ?\n" +
                 "WHERE \"Email\" = ?";
-        PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setString(1, login.getHashedPass());
-        statement.setString(2, login.getEmail());
+        try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
+            statement.setString(1, login.getHashedPass());
+            statement.setString(2, login.getEmail());
 
-        statement.executeUpdate();
-        ResultSet set = statement.getGeneratedKeys();
-        if (set.next()) {
-            return set.getString("Email");
-        } else return null;
+            statement.executeUpdate();
+            try (ResultSet set = statement.getGeneratedKeys()) {
+                if (set.next()) {
+                    return set.getString("Email");
+                } else return null;
+            }
+        }
     }
 
     /**
@@ -116,9 +114,10 @@ public class LoginDAO {
     public void delete(Login login) throws SQLException {
         String deleteStr = "DELETE FROM public.\"Login\"\n" +
                 "WHERE \"Email\" = ?";
-        PreparedStatement statement = connection.prepareStatement(deleteStr);
-        statement.setString(1, login.getEmail());
-        statement.executeUpdate();
+        try (PreparedStatement statement = connection.prepareStatement(deleteStr)) {
+            statement.setString(1, login.getEmail());
+            statement.executeUpdate();
+        }
     }
 
     private Login readLogin(ResultSet rs) throws SQLException {
