@@ -1,12 +1,3 @@
-CREATE TYPE GAMESTATUSTYPE AS ENUM ('in progress', 'completed', 'abandoned');
-
-CREATE TYPE PIECETYPE AS ENUM ('dog', 'cat', 'rat', 'elephant', 'wolf', 'leopard', 'tiger', 'lion');
-
-CREATE TYPE PLAYERCOLORTYPE AS ENUM ('red', 'black');
-
-CREATE TYPE PLAYEROUTCOMETYPE AS ENUM ('win', 'loss', 'draw');
-
-
 CREATE TABLE "User"
 (
   "UserID"    BIGSERIAL   NOT NULL,
