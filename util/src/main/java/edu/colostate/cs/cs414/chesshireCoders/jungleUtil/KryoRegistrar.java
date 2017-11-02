@@ -77,6 +77,7 @@ public class KryoRegistrar {
         kryo.register(LoginRequest.class);
         kryo.register(LogoutRequest.class);
         kryo.register(RegisterRequest.class);
+        kryo.register(UnRegisterRequest.class);
         kryo.register(GetGameRequest.class);
         kryo.register(GetPieceLocationRequest.class);
         kryo.register(UpdatePieceLocationRequest.class);
@@ -102,7 +103,8 @@ public class KryoRegistrar {
         kryo.register(GetInvitationResponse.class);
         kryo.register(LoginResponse.class);
         kryo.register(LogoutResponse.class);
-
+        kryo.register(RegisterResponse.class);
+        kryo.register(UnRegisterResponse.class);
         kryo.register(UpdateSessionExpirationResponse.class);
     }
 

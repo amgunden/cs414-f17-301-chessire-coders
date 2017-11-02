@@ -6,6 +6,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.GameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.SessionHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.UserHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public final class Main {
 
             // Add server listeners
             threadPoolSize = getListenerThreadNum(properties);
+            KryoRegistrar.registerClasses(server);
             addListeners(server, threadPoolSize);
 
             // Bind and start the server
