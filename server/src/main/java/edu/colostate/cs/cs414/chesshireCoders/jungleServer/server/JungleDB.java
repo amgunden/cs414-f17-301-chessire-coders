@@ -4,25 +4,18 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class JungleDB {
 
+    private static JungleDB db = null;
     private PGSimpleDataSource dataSource;
 
-    private static JungleDB db = null;
-    private static String hostname;
-    private static String databaseName;
-    private static int port;
-    private static String username;
-    private static String password;
 
-
-    private JungleDB(String hostname, String dbName, int port, String username, String password) {
+    private JungleDB(String hostname, String databaseName, int port, String username, String password) {
         dataSource = new PGSimpleDataSource();
 
         dataSource.setServerName(hostname);
-        dataSource.setDatabaseName(dbName);
+        dataSource.setDatabaseName(databaseName);
         dataSource.setPortNumber(port);
         dataSource.setUser(username);
         dataSource.setPassword(password);
@@ -30,25 +23,13 @@ public class JungleDB {
 
     public static JungleDB getInstance() {
         if (db == null) {
-            db = new JungleDB(hostname, databaseName, port, username, password);
+            throw new NullPointerException("JungleDB has not been initialized");
         }
         return db;
     }
 
-    public static void setConnectionDetails(Properties properties) {
-        hostname = properties.getProperty("hostname");
-        databaseName = properties.getProperty("dbName");
-        port = Integer.parseInt(properties.getProperty("port"));
-        username = properties.getProperty("username");
-        password = properties.getProperty("password");
-    }
-
-    public static void setConnectionDetails(String hostname, String dbName, int port, String username, String password) {
-        JungleDB.hostname = hostname;
-        JungleDB.databaseName = dbName;
-        JungleDB.port = port;
-        JungleDB.username = username;
-        JungleDB.password = password;
+    public static synchronized void initialize(String hostname, String dbName, int port, String username, String password) {
+        db = new JungleDB(hostname, dbName, port, username, password);
     }
 
     /**
