@@ -1,6 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.RegistrationHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,7 +50,6 @@ public class RegisterController implements Initializable {
     private static final Pattern NICKNAME_PATTERN = Pattern.compile("^[A-Z]+[A-Z0-9]*$", Pattern.CASE_INSENSITIVE);
     // matches a string containing at least 6 alpha-numeric, or punctuation characters.
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[A-Z0-9\\p{Punct}]{6,}?$", Pattern.CASE_INSENSITIVE);
-
 
     public void loginClicked() {
         try {
@@ -148,10 +146,12 @@ public class RegisterController implements Initializable {
 
     }
 
+    // FIXME: Is this method needed?
     public boolean getRegStatus() {
         return registrationSuccess;
     }
 
+    // FIXME: Is this method needed?
     public void setRegStatus(boolean registrationSuccess) {
         this.registrationSuccess = registrationSuccess;
 
