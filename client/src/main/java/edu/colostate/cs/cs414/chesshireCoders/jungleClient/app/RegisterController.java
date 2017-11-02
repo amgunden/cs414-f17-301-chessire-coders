@@ -1,9 +1,11 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.RegistrationHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +13,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
+
+    @FXML
+    private FlowPane flowPane;
 
     @FXML
     private Hyperlink hplLogin;
@@ -57,7 +62,7 @@ public class RegisterController implements Initializable {
     }
 
     public void registerClicked() {
-        AccountHandler accountHandler = new AccountHandler();
+        RegistrationHandler handler = new RegistrationHandler(this);
 
         System.out.println("btnRegistered Clicked.");
 
@@ -71,11 +76,8 @@ public class RegisterController implements Initializable {
         boolean isRegistrationValid = isEmailValid && isNicknameValid && isPasswordValid && isPasswordConfirmed;
 
         if (isRegistrationValid) {
-            try {
-                App.setScene("homePage.fxml");
-            } catch (IOException e) {
-                System.err.println("ERROR: Unable to load fxml file for Login page.");
-            }
+            flowPane.setDisable(true);
+            handler.sendRegistration();
         }
     }
 
@@ -90,6 +92,7 @@ public class RegisterController implements Initializable {
     }
 
     public void registrationFailure() {
+        flowPane.setDisable(false);
         regFailed.setVisible(true);
         alreadyRegistered.setVisible(true);
     }
