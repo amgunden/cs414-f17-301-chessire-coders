@@ -94,7 +94,7 @@ public class RegisterController implements Initializable {
         alreadyRegistered.setVisible(true);
     }
 
-    private boolean validateEmailAddress() {
+    boolean validateEmailAddress() {
         String email = emailField.getText();
         boolean isEmailValid = EMAIL_PATTERN.matcher(email).matches();
         if (isEmailValid) {
@@ -105,7 +105,7 @@ public class RegisterController implements Initializable {
         return isEmailValid;
     }
 
-    private boolean validateNickname() {
+    boolean validateNickname() {
         String nickName = nickNameField.getText();
         boolean isNickNameValid = NICKNAME_PATTERN.matcher(nickName).matches();
         if (isNickNameValid) {
@@ -116,7 +116,7 @@ public class RegisterController implements Initializable {
         return isNickNameValid;
     }
 
-    private boolean validatePassword() {
+    boolean validatePassword() {
         String password = passwordField.getText();
         boolean isPasswordValid = PASSWORD_PATTERN.matcher(password).matches();
         if (isPasswordValid) {
@@ -127,7 +127,7 @@ public class RegisterController implements Initializable {
         return isPasswordValid;
     }
 
-    private boolean validatePasswordConfirmation() {
+    boolean validatePasswordConfirmation() {
         String password = passwordField.getText();
         String passwordConfirmed = passwordReenterField.getText();
         boolean isPasswordConfirmed = !passwordConfirmed.equals("") && password.equals(passwordConfirmed);
