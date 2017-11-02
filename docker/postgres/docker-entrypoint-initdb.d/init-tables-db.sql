@@ -14,7 +14,8 @@ CREATE TABLE "User"
   "NameLast"  VARCHAR(20),
   "NickName"  VARCHAR(30) NOT NULL,
 
-  CONSTRAINT "PK_User_UserID" PRIMARY KEY ("UserID")
+  CONSTRAINT "PK_User_UserID" PRIMARY KEY ("UserID"),
+  CONSTRAINT "UNQ_User_NickName" UNIQUE ("NickName")
 );
 
 
