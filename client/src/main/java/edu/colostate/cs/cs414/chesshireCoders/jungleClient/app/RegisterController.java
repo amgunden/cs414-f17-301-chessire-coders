@@ -8,6 +8,9 @@ import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -40,6 +43,8 @@ public class RegisterController implements Initializable {
     @FXML
     private Label regFailed;
 
+    RegistrationHandler handler;
+
     private boolean registrationSuccess = false;
 
     private static final String COLOR_VALID = "#BAF5BA";
@@ -60,7 +65,8 @@ public class RegisterController implements Initializable {
     }
 
     public void registerClicked() {
-        RegistrationHandler handler = new RegistrationHandler(this);
+        handler = new RegistrationHandler(this);
+        App.getJungleClient().addListener(handler);
 
         System.out.println("btnRegistered Clicked.");
 
@@ -75,7 +81,17 @@ public class RegisterController implements Initializable {
 
         if (isRegistrationValid) {
             flowPane.setDisable(true);
-            handler.sendRegistration();
+
+            try {
+                String email = emailField.getText();
+                String nickName = nickNameField.getText();
+                String password = hashPassword(passwordField.getText());
+                handler.sendRegistration();
+
+            } catch (NoSuchAlgorithmException e) {
+                System.err.println("Client does not have SHA-256 hashing.");
+                registrationFailure();
+            }
         }
     }
 
@@ -138,6 +154,12 @@ public class RegisterController implements Initializable {
             passwordReenterField.setStyle("-fx-control-inner-background: " + COLOR_ERROR);
         }
         return isPasswordConfirmed;
+    }
+
+    String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        return new String(hash);
     }
 
     public void initialize(URL location, ResourceBundle resources) {
