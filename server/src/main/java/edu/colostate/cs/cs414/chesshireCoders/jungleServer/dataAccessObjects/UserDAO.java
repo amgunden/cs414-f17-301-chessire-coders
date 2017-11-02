@@ -2,10 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * A class for pushing/pulling information about User's to/from the database.
@@ -71,12 +68,12 @@ public class UserDAO extends AbstractDAO {
      */
     public int insert(User user) throws SQLException {
         String insertStr = "INSERT INTO public.\"User\" (\"NameFirst\", \"NameLast\", \"NickName\") VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
+        try (PreparedStatement statement = connection.prepareStatement(insertStr, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getNameFirst());
             statement.setString(2, user.getNameLast()); // TODO: possibly provide handling for null value? (should be handled already)
             statement.setString(3, user.getNickName());
 
-            statement.executeUpdate();
+            int n = statement.executeUpdate();
             try (ResultSet set = statement.getGeneratedKeys()) {
                 if (set.next()) {
                     return set.getInt("UserID");
