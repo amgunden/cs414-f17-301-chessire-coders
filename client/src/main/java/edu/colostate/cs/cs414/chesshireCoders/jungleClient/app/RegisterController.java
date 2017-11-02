@@ -73,11 +73,7 @@ public class RegisterController implements Initializable {
         System.out.println("Email: " + emailField.getText());
         System.out.println("Password: " + passwordField.getText());
 
-        boolean isEmailValid = validateEmailAddress();
-        boolean isNicknameValid = validateNickname();
-        boolean isPasswordValid = validatePassword();
-        boolean isPasswordConfirmed = validatePasswordConfirmation();
-        boolean isRegistrationValid = isEmailValid && isNicknameValid && isPasswordValid && isPasswordConfirmed;
+        boolean isRegistrationValid = validateRegistrationInfo();
 
         if (isRegistrationValid) {
             flowPane.setDisable(true);
@@ -97,6 +93,7 @@ public class RegisterController implements Initializable {
 
     public void registrationSuccess() {
         try {
+            App.getJungleClient().removeListener(handler);
             registrationSuccess = true;
             App.setScene("homePage.fxml");
 
@@ -106,9 +103,14 @@ public class RegisterController implements Initializable {
     }
 
     public void registrationFailure() {
+        App.getJungleClient().removeListener(handler);
         flowPane.setDisable(false);
         regFailed.setVisible(true);
         alreadyRegistered.setVisible(true);
+    }
+
+    boolean validateRegistrationInfo() {
+        return validateEmailAddress() && validateNickname() && validatePassword() && validatePasswordConfirmation();
     }
 
     boolean validateEmailAddress() {
@@ -178,5 +180,4 @@ public class RegisterController implements Initializable {
         this.registrationSuccess = registrationSuccess;
 
     }
-
 }
