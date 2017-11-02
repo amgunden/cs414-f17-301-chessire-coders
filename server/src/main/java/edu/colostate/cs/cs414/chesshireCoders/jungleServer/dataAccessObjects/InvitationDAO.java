@@ -13,21 +13,11 @@ import java.util.List;
 /**
  * A class for pushing/pulling Invitation data to/from the database.
  */
-public class InvitationDAO {
+public class InvitationDAO extends AbstractDAO {
 
-    private JungleDB jungleDB = null;
-    private Connection connection = null;
 
-    public InvitationDAO() {
-        jungleDB = JungleDB.getInstance();
-    }
-
-    public void getConnection() throws SQLException {
-        connection = jungleDB.getConnection();
-    }
-
-    public void closeConnection() throws SQLException {
-        connection.close();
+    public InvitationDAO(Connection connection) {
+        super(connection);
     }
 
     /**
@@ -39,19 +29,21 @@ public class InvitationDAO {
     public Invitation getInvitation(int id) throws SQLException {
         String queryString = "SELECT * FROM public.\"GameInvitation\""
                 + "WHERE \"GameInvitation\".\"InvitationID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setInt(1, id);
-        statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setInt(1, id);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-        Invitation invitation = new Invitation();
-        rs.next();
+            try(ResultSet rs = statement.getResultSet()) {
+                Invitation invitation = new Invitation();
+                rs.next();
 
-        invitation.setInvitationId(rs.getInt("InvitationID"));
-        invitation.setSenderId(rs.getInt("Sender"));
-        invitation.setRecipientId(rs.getInt("Recipient"));
+                invitation.setInvitationId(rs.getInt("InvitationID"));
+                invitation.setSenderId(rs.getInt("Sender"));
+                invitation.setRecipientId(rs.getInt("Recipient"));
 
-        return invitation;
+                return invitation;
+            }
+        }
     }
 
     /**
@@ -64,12 +56,14 @@ public class InvitationDAO {
     public List<Invitation> getInvitesBySender(int senderId) throws SQLException {
         String queryString = "SELECT * FROM public.\"GameInvitation\""
                 + "WHERE \"GameInvitation\".\"Sender\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setInt(1, senderId);
-        statement.executeQuery();
+        try(PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setInt(1, senderId);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-        return constructListFromResultSet(rs);
+            try (ResultSet rs = statement.getResultSet()) {
+                return constructListFromResultSet(rs);
+            }
+        }
     }
 
     /**
@@ -83,13 +77,15 @@ public class InvitationDAO {
         String queryString = "SELECT * FROM public.\"GameInvitation\""
                 + "WHERE \"GameInvitation\".\"Sender\" = ?"
                 + "AND \"GameInvitation\".\"Recipient\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setInt(1, senderId);
-        statement.setInt(2, recipientId);
-        statement.executeQuery();
+        try (PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setInt(1, senderId);
+            statement.setInt(2, recipientId);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-        return constructListFromResultSet(rs);
+            try (ResultSet rs = statement.getResultSet()) {
+                return constructListFromResultSet(rs);
+            }
+        }
     }
 
     /**
@@ -101,12 +97,13 @@ public class InvitationDAO {
         String insertStr = "INSERT INTO public.\"GameInvitation\""
                 + "(\"InvitationID\", \"Sender\", \"Recipient\")"
                 + "VALUES (?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setInt(1, invitation.getInvitationId()); // TODO: remove this, invitation ID is auto generated
-        statement.setInt(2, invitation.getSenderId());
-        statement.setInt(3, invitation.getRecipientId());
+        try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
+            statement.setInt(1, invitation.getInvitationId()); // TODO: remove this, invitation ID is auto generated
+            statement.setInt(2, invitation.getSenderId());
+            statement.setInt(3, invitation.getRecipientId());
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
 
     /**
@@ -120,12 +117,13 @@ public class InvitationDAO {
                 + "\"Sender\" = ?,"
                 + "\"Recipient\" = ?"
                 + "WHERE \"InvitationID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setInt(1, invitation.getSenderId());
-        statement.setInt(2, invitation.getRecipientId());
-        statement.setInt(3, invitation.getInvitationId());
+        try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
+            statement.setInt(1, invitation.getSenderId());
+            statement.setInt(2, invitation.getRecipientId());
+            statement.setInt(3, invitation.getInvitationId());
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
 
     /**
@@ -136,9 +134,10 @@ public class InvitationDAO {
      */
     public void delete(Invitation invitation) throws SQLException { // TODO: Change so that only ID is needed, or overload method.
         String deleteStr = "DELETE FROM public.\"GameInvitation\" WHERE \"InvitationID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(deleteStr);
-        statement.setInt(1, invitation.getInvitationId());
-        statement.executeUpdate();
+        try (PreparedStatement statement = connection.prepareStatement(deleteStr)) {
+            statement.setInt(1, invitation.getInvitationId());
+            statement.executeUpdate();
+        }
     }
 
     private List<Invitation> constructListFromResultSet(ResultSet rs) throws SQLException {

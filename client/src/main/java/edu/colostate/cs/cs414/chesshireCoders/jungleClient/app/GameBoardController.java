@@ -3,8 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.GameBoard;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.PlayerColor;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,7 +25,7 @@ import javafx.scene.paint.Paint;
 public class GameBoardController implements Initializable {
 
 	private int[] start;
-	private GameBoard board;
+	private JungleGame game;
 	
 	@FXML
 	private GridPane gridPane;
@@ -37,7 +36,7 @@ public class GameBoardController implements Initializable {
 	private Label lblWinner;
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		board = new GameBoard();
+		game = new JungleGame(0);
 		start = new int[2];
 	}
 	
@@ -63,9 +62,7 @@ public class GameBoardController implements Initializable {
 		if (square.getBackground() == null)
 		{
 			removePreviousHighlights();
-			GamePiece piece = board.getPieceAt(clickRow, clickColumn);
-			
-			if (piece != null && piece.getColor() == PlayerColor.Red)
+			if (game.canMovePieceAt(clickRow, clickColumn))
 			{
 				highlightStartSquare(square, clickRow, clickColumn);
 				highlightMoves(clickRow, clickColumn);
@@ -95,7 +92,7 @@ public class GameBoardController implements Initializable {
 
 
 	private void highlightMoves(int r, int c) {
-		int[] moves = board.getValidMoves(r, c);
+		int[] moves = game.getValidMoves(r, c);
 		
 		Color green = Color.rgb(0, 150, 0, 0.65);
 		if (moves[0]!=0) setHighlight(getSquare(r, c+moves[0]), green);
@@ -118,9 +115,9 @@ public class GameBoardController implements Initializable {
 		}
 		
 		toSquare.getChildren().add(piece);
-		board.movePiece(start, new int[]{r, c});
-		if (board.getWinner() != null) {
-			showGameEnding(board.getWinner());
+		game.movePiece(start, new int[]{r, c});
+		if (game.getWinner() != null) {
+			showGameEnding(game.getWinner());
 		}
 	}
 

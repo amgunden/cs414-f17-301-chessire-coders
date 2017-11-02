@@ -1,9 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
 public class RegisterRequest {
+
     private String password;
     private String email;
     private String nickName;
+    private String nameFirst;
+    private String nameLast;
 
     public RegisterRequest() {
 
@@ -48,9 +51,6 @@ public class RegisterRequest {
     public void setNameLast(String nameLast) {
         this.nameLast = nameLast;
     }
-
-    String nameFirst;
-    String nameLast;
 
     public RegisterRequest(String password, String email, String nickName, String nameFirst, String nameLast) {
         this.password = password;

@@ -1,57 +1,43 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class for pushing/pulling information about User's to/from the database.
  */
-public class UserDAO {
-    private JungleDB jungleDB = null;
-    private Connection connection = null;
+public class UserDAO extends AbstractDAO {
 
-    public UserDAO() {
-        jungleDB = JungleDB.getInstance();
-    }
 
-    public void getConnection() throws SQLException {
-        connection = jungleDB.getConnection();
-    }
-
-    public void closeConnection() throws SQLException {
-        connection.close();
+    public UserDAO(Connection connection) {
+        super(connection);
     }
 
     /**
      * Gets the User object associated with a given userID
+     *
      * @param userId
      * @return
      * @throws SQLException
      */
     public User getUserByUserId(int userId) throws SQLException {
-        String queryString = "SELECT * FROM public.\"User\""
-                + "WHERE \"User\".\"UserID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setInt(1, userId);
-        statement.executeQuery();
+        String queryString = "SELECT *\n" +
+                "FROM public.\"User\"\n" +
+                "WHERE \"User\".\"UserID\" = ?";
+        try (PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setInt(1, userId);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-
-        if (!rs.isBeforeFirst()) {
-            User user = new User();
-            user.setUserId(rs.getInt("UserID"));
-            user.setNameFirst(rs.getString("NameFirst"));
-            user.setNameLast(rs.getString("NameLast"));
-            user.setNickName(rs.getString("NickName"));
-            return user;
-        } else return null;
+            try (ResultSet rs = statement.getResultSet()) {
+                if (rs.next()) {
+                    return readUser(rs);
+                } else return null;
+            }
+        }
     }
 
     /**
@@ -62,21 +48,19 @@ public class UserDAO {
      * @throws SQLException
      */
     public User getUserByNickName(String nickName) throws SQLException {
-        String queryString = "SELECT * FROM public.\"User\""
-                + "WHERE \"User\".\"NickName\" = ?";
-        PreparedStatement statement = connection.prepareStatement(queryString);
-        statement.setString(1, nickName);
-        statement.executeQuery();
+        String queryString = "SELECT *\n" +
+                "FROM public.\"User\"\n" +
+                "WHERE \"User\".\"NickName\" = ?";
+        try (PreparedStatement statement = connection.prepareStatement(queryString)) {
+            statement.setString(1, nickName);
+            statement.executeQuery();
 
-        ResultSet rs = statement.getResultSet();
-        if (!rs.isBeforeFirst()) {
-            User user = new User();
-            user.setUserId(rs.getInt("UserID"));
-            user.setNameFirst(rs.getString("NameFirst"));
-            user.setNameLast(rs.getString("NameLast"));
-            user.setNickName(rs.getString("NickName"));
-            return user;
-        } else return null;
+            try (ResultSet rs = statement.getResultSet()) {
+                if (rs.next()) {
+                    return readUser(rs);
+                } else return null;
+            }
+        }
     }
 
     /**
@@ -86,19 +70,19 @@ public class UserDAO {
      * @throws SQLException
      */
     public int insert(User user) throws SQLException {
-        String insertStr = "INSERT INTO public.\"User\""
-                + "(\"NameFirst\", \"NameLast\",\"NickName\")"
-                + "VALUES (?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setString(1, user.getNameFirst());
-        statement.setString(2, user.getNameLast()); // TODO: possibly provide handling for null value? (should be handled already)
-        statement.setString(3, user.getNickName());
+        String insertStr = "INSERT INTO public.\"User\" (\"NameFirst\", \"NameLast\", \"NickName\") VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
+            statement.setString(1, user.getNameFirst());
+            statement.setString(2, user.getNameLast()); // TODO: possibly provide handling for null value? (should be handled already)
+            statement.setString(3, user.getNickName());
 
-        statement.executeUpdate();
-        ResultSet set = statement.getGeneratedKeys();
-        if (set.next()) {
-            return set.getInt("UserID");
-        } else return -1;
+            statement.executeUpdate();
+            try (ResultSet set = statement.getGeneratedKeys()) {
+                if (set.next()) {
+                    return set.getInt("UserID");
+                } else return -1;
+            }
+        }
     }
 
     /**
@@ -108,22 +92,22 @@ public class UserDAO {
      * @throws SQLException
      */
     public int update(User user) throws SQLException {
-        String insertStr = "UPDATE public.\"User\" SET"
-                + "\"NameFirst\" = ?,"
-                + "\"NameLast\" = ?,"
-                + "\"NickName\" = ?"
-                + "WHERE \"UserID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(insertStr);
-        statement.setString(1, user.getNameFirst());
-        statement.setString(2, user.getNameLast());
-        statement.setString(3, user.getNickName());
-        statement.setInt(4, user.getUserId());
+        String insertStr = "UPDATE public.\"User\"\n" +
+                "SET \"NameFirst\" = ?, \"NameLast\" = ?, \"NickName\" = ?\n" +
+                "WHERE \"UserID\" = ?";
+        try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
+            statement.setString(1, user.getNameFirst());
+            statement.setString(2, user.getNameLast());
+            statement.setString(3, user.getNickName());
+            statement.setInt(4, user.getUserId());
 
-        statement.executeUpdate();
-        ResultSet set = statement.getGeneratedKeys();
-        if (set.next()) {
-            return set.getInt("UserID");
-        } else return -1;
+            statement.executeUpdate();
+            try (ResultSet set = statement.getGeneratedKeys()) {
+                if (set.next()) {
+                    return set.getInt("UserID");
+                } else return -1;
+            }
+        }
     }
 
     /**
@@ -133,22 +117,20 @@ public class UserDAO {
      * @throws SQLException
      */
     public void delete(User user) throws SQLException {
-        String deleteStr = "DELETE FROM public.\"User\" WHERE \"UserID\" = ?";
-        PreparedStatement statement = connection.prepareStatement(deleteStr);
-        statement.setInt(1, user.getUserId());
-        statement.executeUpdate();
+        String deleteStr = "DELETE FROM public.\"User\"\n" +
+                "WHERE \"UserID\" = ?";
+        try (PreparedStatement statement = connection.prepareStatement(deleteStr)) {
+            statement.setInt(1, user.getUserId());
+            statement.executeUpdate();
+        }
     }
 
-    private List<User> constructListFromResultSet(ResultSet rs) throws SQLException {
-        ArrayList<User> users = new ArrayList<>();
-        while (rs.next()) {
-            User user = new User();
-            user.setUserId(rs.getInt("UserID"));
-            user.setNameFirst(rs.getString("NameFirst"));
-            user.setNameLast(rs.getString("NameLast"));
-            user.setNickName(rs.getString("NickName"));
-            users.add(user);
-        }
-        return users;
+    private User readUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setUserId(rs.getInt("UserID"));
+        user.setNameFirst(rs.getString("NameFirst"));
+        user.setNameLast(rs.getString("NameLast"));
+        user.setNickName(rs.getString("NickName"));
+        return user;
     }
 }

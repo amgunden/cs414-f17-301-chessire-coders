@@ -4,10 +4,9 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
@@ -16,91 +15,104 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterRes
 
 import java.sql.SQLException;
 
-public class RegistrationHandler extends AbstractRequestHandler {
+public class RegistrationHandler extends Listener {
 
-    public RegistrationHandler(JungleServer server) {
-        super(server);
-    }
+    private JungleDB jungleDB = JungleDB.getInstance();
 
     @Override
-    public void addListeners() {
-        server.addListener(new Listener.ThreadedListener(
-                new FilteredListener<RegisterRequest>(RegisterRequest.class) {
-                    @Override
-                    public void run(Connection connection, RegisterRequest received) {
-                        connection.sendTCP(handleNewRegistration(received));
-                    }
-                }
-        ));
+    public void received(Connection connection, Object received) {
 
-        server.addListener(new Listener.ThreadedListener(
-                new FilteredListener<UnRegisterRequest>(UnRegisterRequest.class) {
-                    @Override
-                    public void run(Connection connection, UnRegisterRequest received) {
-                        connection.sendTCP(handleUnregisterRequest(received));
-                    }
-                }
-        ));
-    }
-
-    private RegisterResponse handleNewRegistration(RegisterRequest request) {
-        UserDAO userDAO = new UserDAO();
-        LoginDAO loginDAO = new LoginDAO();
-        try {
+        if (received instanceof RegisterRequest) {
             try {
-                // populate user info
-                User user = new User();
-                user.setNameFirst(request.getNameFirst());
-                user.setNameLast(request.getNameLast());
-                user.setNickName(request.getNickName());
-
-                // add user to db
-                int userID = userDAO.insert(user);
-
-                // Populate login info
-                Login login = new Login();
-                login.setUserID(userID);
-                login.setSalt(""); // TODO: use salting
-                login.setHashedPass(request.getPassword()); // TODO: hash password?
-                login.setUsername(request.getEmail()); // TODO: refactor login.username to login.email
-
-                // Add login info to DB
-                loginDAO.insert(login);
-
-                return new RegisterResponse(ResponseStatusCodes.SUCCESS, "Registration successful");
-
-            } finally {
-                userDAO.closeConnection();
-                loginDAO.closeConnection();
+                connection.sendTCP(handleNewRegistration((RegisterRequest) received));
+            } catch (SQLException e) {
+                connection.sendTCP(new RegisterResponse(
+                        ResponseStatusCodes.SERVER_ERROR,
+                        e.getMessage()
+                ));
             }
-        } catch (SQLException e) {
-            // TODO: Craft response based on error code.
-            return new RegisterResponse(ResponseStatusCodes.SERVER_ERROR, "Registration failed");
+        } else if (received instanceof UnRegisterRequest) {
+            try {
+                connection.sendTCP(
+                        handleUnregisterRequest((UnRegisterRequest) received));
+            } catch (SQLException e) {
+                connection.sendTCP(new UnRegisterResponse(
+                        ResponseStatusCodes.SERVER_ERROR,
+                        e.getMessage()
+                ));
+            }
         }
     }
 
-    private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request) {
-        UserDAO userDAO = new UserDAO();
-        LoginDAO loginDAO = new LoginDAO();
+    private RegisterResponse handleNewRegistration(RegisterRequest request) throws SQLException {
+
+        java.sql.Connection connection = jungleDB.getConnection();
+        UserDAO userDAO = new UserDAO(connection);
+        LoginDAO loginDAO = new LoginDAO(connection);
+
         try {
-            try {
-                userDAO.getConnection();
-                loginDAO.getConnection();
+            connection.setAutoCommit(false);
+            // populate user info
+            User user = new User(
+                    request.getNameFirst(),
+                    request.getNameLast(),
+                    request.getNickName()
+            );
 
-                Login login = loginDAO.getLoginByEmail(request.getEmail());
-                User user = userDAO.getUserByUserId(login.getUserID());
+            // add user to db
+            int userID = userDAO.insert(user);
 
-                loginDAO.delete(login);
-                userDAO.delete(user);
+            // Populate login info
+            Login login = new Login(
+                    request.getPassword(),
+                    userID,
+                    request.getEmail()
+            );
 
-                return new UnRegisterResponse(ResponseStatusCodes.SUCCESS, "Un-registration successful");
-            } finally {
-                userDAO.closeConnection();
-                loginDAO.closeConnection();
-            }
+            // Add login info to DB
+            loginDAO.insert(login);
+            connection.commit();
+
+            return new RegisterResponse(ResponseStatusCodes.SUCCESS, "Registration successful");
+
         } catch (SQLException e) {
+
+            connection.rollback();
+            // TODO craft error based on error code.
+            return new RegisterResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
+
+        } finally {
+
+            connection.setAutoCommit(true);
+            connection.close();
+        }
+    }
+
+    private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request) throws SQLException {
+        java.sql.Connection connection = jungleDB.getConnection();
+        UserDAO userDAO = new UserDAO(connection);
+        LoginDAO loginDAO = new LoginDAO(connection);
+
+        try {
+            connection.setAutoCommit(false);
+            Login login = loginDAO.getLoginByEmail(request.getEmail());
+            User user = userDAO.getUserByUserId(login.getUserID());
+
+            loginDAO.delete(login);
+            userDAO.delete(user);
+            connection.commit();
+
+            return new UnRegisterResponse(ResponseStatusCodes.SUCCESS, "Un-registration successful");
+
+        } catch (SQLException e) {
+
+            connection.rollback();
             // TODO: Craft response based on error code.
             return new UnRegisterResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
+
+        } finally {
+            connection.setAutoCommit(true);
+            connection.close();
         }
     }
 }

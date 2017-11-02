@@ -2,12 +2,16 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class LoginVerifier {
+
+
 
     private String email;
     private String password;
@@ -30,27 +34,24 @@ public class LoginVerifier {
 
     public User getUserInfo() throws SQLException {
         if (isEmailRegistered()) {
-            UserDAO userDAO = new UserDAO();
+            Connection connection = JungleDB.getInstance().getConnection();
+            UserDAO userDAO = new UserDAO(connection);
             try {
-                userDAO.getConnection();
                 return userDAO.getUserByUserId(login.getUserID());
             } finally {
-                userDAO.closeConnection();
+                connection.close();
             }
         }
         return null;
     }
 
     private void getLoginInfo() throws SQLException {
-        LoginDAO loginDAO = new LoginDAO();
+        Connection connection = JungleDB.getInstance().getConnection();
+        LoginDAO loginDAO = new LoginDAO(connection);
         try {
-            loginDAO.getConnection();
-
             login = loginDAO.getLoginByEmail(email);
-
-
         } finally {
-            loginDAO.closeConnection();
+            connection.close();
         }
     }
 }
