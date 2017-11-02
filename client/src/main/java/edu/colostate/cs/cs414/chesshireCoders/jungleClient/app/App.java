@@ -16,7 +16,7 @@ import java.util.Properties;
 public class App extends Application {
     static Stage window;
     
-    static JungleClient client;
+    private static JungleClient client;
     
     public static JungleClient getJungleClient() {
     	return client;
@@ -55,8 +55,7 @@ public class App extends Application {
     	
 	        String propertiesFile = args[0];
 	        Properties properties;
-	        JungleClient client = null;
-	
+
 	        properties = new Properties();
 	        try {
 	            FileInputStream in = new FileInputStream(propertiesFile);

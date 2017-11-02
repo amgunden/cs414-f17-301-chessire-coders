@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
@@ -43,7 +44,7 @@ public class RegisterController implements Initializable {
     @FXML
     private Label regFailed;
 
-    RegistrationHandler handler;
+    private RegistrationHandler handler;
 
     private boolean registrationSuccess = false;
 
@@ -65,8 +66,6 @@ public class RegisterController implements Initializable {
     }
 
     public void registerClicked() {
-        handler = new RegistrationHandler(this);
-        App.getJungleClient().addListener(handler);
 
         System.out.println("btnRegistered Clicked.");
 
@@ -77,9 +76,13 @@ public class RegisterController implements Initializable {
 
         if (isRegistrationValid) {
 
-            flowPane.setDisable(true);
 
             try {
+                flowPane.setDisable(true);
+
+                handler = new RegistrationHandler(this);
+                App.getJungleClient().addListener(handler);
+
                 String email = emailField.getText();
                 String nickName = nickNameField.getText();
                 String password = hashPassword(passwordField.getText());
@@ -88,6 +91,8 @@ public class RegisterController implements Initializable {
             } catch (NoSuchAlgorithmException e) {
                 System.err.println("Client does not have SHA-256 hashing.");
                 registrationFailure();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
