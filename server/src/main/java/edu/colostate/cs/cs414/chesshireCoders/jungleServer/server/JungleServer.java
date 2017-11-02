@@ -6,21 +6,16 @@ import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.AbstractRequestHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
 
 import javax.sql.DataSource;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JungleServer extends Server {
 
-    private Collection<AbstractRequestHandler> handlers = new HashSet<>();
     private FileOutputStream fileOutputStream;
     private DataSource dataSource;
     private static Logger logger;
@@ -37,11 +32,8 @@ public class JungleServer extends Server {
 
         logger.log(Level.FINER, "Registered all network message objects");
 
-        // Add all handlers
-        initializeHandlers();
-
         // Add a listener for logging.
-        this.addListener(new Listener() {
+        this.addListener(new Listener.ThreadedListener(new Listener() {
 
             @Override
             public void connected(com.esotericsoftware.kryonet.Connection c) {
@@ -69,7 +61,7 @@ public class JungleServer extends Server {
                         new Object[]{c.getRemoteAddressTCP(), c.getID()}
                 );
             }
-        });
+        }));
     }
 
     public void setLogFile(String path) throws IOException {
@@ -118,10 +110,6 @@ public class JungleServer extends Server {
     @Override
     public Connection newConnection() {
         return new SessionConnection();
-    }
-
-    private void initializeHandlers() {
-        handlers.add(new RegistrationHandler(this)); // handles registration requests.
     }
 
     public class SessionConnection extends Connection {

@@ -5,10 +5,8 @@ import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
@@ -17,47 +15,33 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterRes
 
 import java.sql.SQLException;
 
-public class RegistrationHandler extends AbstractRequestHandler {
+public class RegistrationHandler extends Listener {
 
     private JungleDB jungleDB = JungleDB.getInstance();
 
-    public RegistrationHandler(JungleServer server) {
-        super(server);
-    }
-
     @Override
-    public void addListeners() {
-        server.addListener(new Listener.ThreadedListener(
-                new FilteredListener<RegisterRequest>(RegisterRequest.class) {
-                    @Override
-                    public void run(Connection connection, RegisterRequest received) {
-                        try {
-                            connection.sendTCP(handleNewRegistration(received));
-                        } catch (SQLException e) {
-                            connection.sendTCP(new RegisterResponse(
-                                    ResponseStatusCodes.SERVER_ERROR,
-                                    e.getMessage()
-                            ));
-                        }
-                    }
-                }
-        ));
+    public void received(Connection connection, Object received) {
 
-        server.addListener(new Listener.ThreadedListener(
-                new FilteredListener<UnRegisterRequest>(UnRegisterRequest.class) {
-                    @Override
-                    public void run(Connection connection, UnRegisterRequest received) {
-                        try {
-                            connection.sendTCP(handleUnregisterRequest(received));
-                        } catch (SQLException e) {
-                            connection.sendTCP(new UnRegisterResponse(
-                                    ResponseStatusCodes.SERVER_ERROR,
-                                    e.getMessage()
-                            ));
-                        }
-                    }
-                }
-        ));
+        if (received instanceof RegisterRequest) {
+            try {
+                connection.sendTCP(handleNewRegistration((RegisterRequest) received));
+            } catch (SQLException e) {
+                connection.sendTCP(new RegisterResponse(
+                        ResponseStatusCodes.SERVER_ERROR,
+                        e.getMessage()
+                ));
+            }
+        } else if (received instanceof UnRegisterRequest) {
+            try {
+                connection.sendTCP(
+                        handleUnregisterRequest((UnRegisterRequest) received));
+            } catch (SQLException e) {
+                connection.sendTCP(new UnRegisterResponse(
+                        ResponseStatusCodes.SERVER_ERROR,
+                        e.getMessage()
+                ));
+            }
+        }
     }
 
     private RegisterResponse handleNewRegistration(RegisterRequest request) throws SQLException {
