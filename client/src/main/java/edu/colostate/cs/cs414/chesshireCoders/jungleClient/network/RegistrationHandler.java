@@ -7,6 +7,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterControlle
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
+import javafx.application.Platform;
 
 public class RegistrationHandler extends Listener {
 
@@ -34,11 +35,13 @@ public class RegistrationHandler extends Listener {
     }
 
     void handleRegisterResponse(RegisterResponse response) {
-        if (response.isSuccess()) { // I'll add some getters and setters in my PR, currently everything is package private
-//            setRegisterUserStatus(true);
-            registerController.registrationSuccess();
-        } else {
-            registerController.registrationFailure(response.getErrMsg());
-        }
+        // JavaFX does not allow UI updates from non-UI threads.
+        Platform.runLater(()->{
+            if (response.isSuccess()) {
+                registerController.registrationSuccess();
+            } else {
+                registerController.registrationFailure(response.getErrMsg());
+            }
+        });
     }
 }

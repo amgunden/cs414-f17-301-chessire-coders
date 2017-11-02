@@ -117,6 +117,7 @@ public class RegisterController implements Initializable {
 
     public void registrationFailure(String errorMessage) {
         regFailed.setText(errorMessage);
+        System.err.println(errorMessage);
         registrationFailure();
     }
 
