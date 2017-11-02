@@ -2,7 +2,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.network;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
 
@@ -14,8 +16,12 @@ public class RegistrationHandler extends Listener {
         this.registerController = controller;
     }
 
-    public void sendRegistration() {
-        registerController.registrationSuccess();
+    public void sendRegistration(String email, String nickname, String hashedPassword) {
+        RegisterRequest request = new RegisterRequest();
+        request.setEmail(email);
+        request.setNickName(nickname);
+        request.setPassword(hashedPassword);
+        App.getJungleClient().sendMessage(request);
     }
 
     @Override

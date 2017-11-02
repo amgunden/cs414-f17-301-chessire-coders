@@ -5,6 +5,10 @@ public class RegisterRequest {
     private String email;
     private String nickName;
 
+    public RegisterRequest() {
+
+    }
+
     public String getPassword() {
         return password;
     }

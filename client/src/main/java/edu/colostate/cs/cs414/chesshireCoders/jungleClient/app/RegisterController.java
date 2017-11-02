@@ -76,13 +76,14 @@ public class RegisterController implements Initializable {
         boolean isRegistrationValid = validateRegistrationInfo();
 
         if (isRegistrationValid) {
+
             flowPane.setDisable(true);
 
             try {
                 String email = emailField.getText();
                 String nickName = nickNameField.getText();
                 String password = hashPassword(passwordField.getText());
-                handler.sendRegistration();
+                handler.sendRegistration(email, nickName, password);
 
             } catch (NoSuchAlgorithmException e) {
                 System.err.println("Client does not have SHA-256 hashing.");
