@@ -10,7 +10,7 @@ CREATE TYPE PLAYEROUTCOMETYPE AS ENUM ('win', 'loss', 'draw');
 CREATE TABLE "User"
 (
   "UserID"    BIGSERIAL PRIMARY KEY,
-  "NameFirst" VARCHAR(20) NOT NULL,
+  "NameFirst" VARCHAR(20),
   "NameLast"  VARCHAR(20),
   "NickName"  VARCHAR(30) NOT NULL
 );
