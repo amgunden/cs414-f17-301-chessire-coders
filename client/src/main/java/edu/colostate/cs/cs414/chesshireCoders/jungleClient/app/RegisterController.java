@@ -115,6 +115,11 @@ public class RegisterController implements Initializable {
         alreadyRegistered.setVisible(true);
     }
 
+    public void registrationFailure(String errorMessage) {
+        regFailed.setText(errorMessage);
+        registrationFailure();
+    }
+
     boolean validateRegistrationInfo() {
         return validateEmailAddress() && validateNickname() && validatePassword() && validatePasswordConfirmation();
     }

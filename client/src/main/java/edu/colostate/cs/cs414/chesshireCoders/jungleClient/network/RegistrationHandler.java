@@ -38,7 +38,7 @@ public class RegistrationHandler extends Listener {
 //            setRegisterUserStatus(true);
             registerController.registrationSuccess();
         } else {
-            registerController.registrationFailure();
+            registerController.registrationFailure(response.getErrMsg());
         }
     }
 }
