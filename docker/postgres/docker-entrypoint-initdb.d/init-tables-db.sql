@@ -1,11 +1,12 @@
 CREATE TABLE "User"
 (
   "UserID"    BIGSERIAL   NOT NULL,
-  "NameFirst" VARCHAR(20) NOT NULL,
+  "NameFirst" VARCHAR(20),
   "NameLast"  VARCHAR(20),
   "NickName"  VARCHAR(30) NOT NULL,
 
-  CONSTRAINT "PK_User_UserID" PRIMARY KEY ("UserID")
+  CONSTRAINT "PK_User_UserID" PRIMARY KEY ("UserID"),
+  CONSTRAINT "UNQ_User_NickName" UNIQUE ("NickName")
 );
 
 

@@ -27,9 +27,6 @@ public class JungleServer extends Server {
 
         logger = Logger.getLogger(this.getClass().getSimpleName());
 
-        // Register messages
-        KryoRegistrar.registerClasses(this);
-
         logger.log(Level.FINER, "Registered all network message objects");
 
         // Add a listener for logging.
@@ -114,6 +111,7 @@ public class JungleServer extends Server {
 
     public class SessionConnection extends Connection {
 
+        private Logger logger = Logger.getLogger(this.getClass().getSimpleName());
         private String sessionToken = null;
 
         public String getSessionToken() {
@@ -122,6 +120,16 @@ public class JungleServer extends Server {
 
         public void setSessionToken(String sessionToken) {
 
+        }
+
+        @Override
+        public int sendTCP(Object o) {
+            logger.log(
+                    Level.INFO,
+                    "Sending object of type {0} to connection at {1}",
+                    new Object[]{o.getClass().getSimpleName(), this.getRemoteAddressTCP()}
+            );
+            return super.sendTCP(o);
         }
     }
 }

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -33,7 +33,7 @@
                   <Image url="@../images/board_2d.png" />
                </image>
             </ImageView>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="341.0" prefWidth="220.0" vgap="6.0">
+            <FlowPane fx:id="flowPane" alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="341.0" prefWidth="220.0" vgap="6.0">
                <children>
                   <Label fx:id="regFailed" prefHeight="32.0" prefWidth="152.0" text="Registration Failed. Please Try Again." textFill="RED" visible="false" wrapText="true">
                      <font>
