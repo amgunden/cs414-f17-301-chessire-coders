@@ -31,7 +31,7 @@ public class LoginHandler extends Listener{
             try {
                 connection.sendTCP(handleLogin((LoginRequest) received));
             } catch (SQLException e) {
-                connection.sendTCP(new RegisterResponse(
+                connection.sendTCP(new LoginResponse(
                         ResponseStatusCodes.SERVER_ERROR,
                         e.getMessage()
                 ));
