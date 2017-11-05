@@ -1,21 +1,16 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LoginHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LoginHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 public class LoginController implements Initializable {
 
@@ -58,7 +53,7 @@ public class LoginController implements Initializable {
 				App.getJungleClient().addListener(handler);
 
 				String email = emailField.getText();
-				String password = hashPassword(passwordField.getText());
+				String password = Crypto.hashSHA256(passwordField.getText().getBytes());
 				handler.sendLogin(email, password);
 
 			} catch (NoSuchAlgorithmException e) {
@@ -102,12 +97,6 @@ public class LoginController implements Initializable {
 			System.err.println("ERROR: Unable to load fxml file for Register page.");
 		}
 	}
-	
-	String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        return new String(hash);
-    }
 	
 	boolean validateEmailAddress() {
         String email = emailField.getText();

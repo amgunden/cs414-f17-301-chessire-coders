@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.RegistrationHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -8,11 +9,8 @@ import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
@@ -85,7 +83,7 @@ public class RegisterController implements Initializable {
 
                 String email = emailField.getText();
                 String nickName = nickNameField.getText();
-                String password = hashPassword(passwordField.getText());
+                String password = Crypto.hashSHA256(passwordField.getText().getBytes());
                 handler.sendRegistration(email, nickName, password);
 
             } catch (NoSuchAlgorithmException e) {
@@ -168,12 +166,6 @@ public class RegisterController implements Initializable {
             passwordReenterField.setStyle("-fx-control-inner-background: " + COLOR_ERROR);
         }
         return isPasswordConfirmed;
-    }
-
-    String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        return new String(hash);
     }
 
     public void initialize(URL location, ResourceBundle resources) {

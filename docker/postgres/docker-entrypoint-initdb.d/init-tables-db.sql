@@ -14,7 +14,7 @@ CREATE TABLE "Login"
 (
   "UserID"     INTEGER     NOT NULL,
   "Email"      VARCHAR(64) NOT NULL,
-  "HashedPass" CHAR(64)    NOT NULL,
+  "HashedPass" CHAR(44)    NOT NULL,
 
   CONSTRAINT "PK_Login_UserID" PRIMARY KEY ("UserID"),
   CONSTRAINT "UNQ_Login_Email" UNIQUE ("Email"),
