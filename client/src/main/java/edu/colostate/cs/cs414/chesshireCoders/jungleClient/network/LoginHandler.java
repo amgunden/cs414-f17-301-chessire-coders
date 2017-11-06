@@ -39,4 +39,11 @@ public class LoginHandler extends Listener {
             }
         });
     }
+
+
+	public void sendLogout(String email) {
+		// TODO Auto-generated method stub
+		
+	}
+   
 }
