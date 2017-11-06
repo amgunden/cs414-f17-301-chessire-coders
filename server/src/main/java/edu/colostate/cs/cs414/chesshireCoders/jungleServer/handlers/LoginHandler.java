@@ -42,7 +42,7 @@ public class LoginHandler extends Listener{
 		
 		
         try {
-            connection.setAutoCommit(false);
+            
             // get UserID from provided email
             Login login = loginDAO.getLoginByEmail(request.getEmail());
             
@@ -53,9 +53,6 @@ public class LoginHandler extends Listener{
             	String token = Crypto.generateAuthToken();
             	LoginResponse repsonse = new LoginResponse(login, token);
             	
-            	// add login object to the db
-            	loginDAO.insert(login);
-            	
             	return repsonse;
             	
             }
@@ -65,13 +62,11 @@ public class LoginHandler extends Listener{
             
         } catch (SQLException e) {
 
-            connection.rollback();
             // TODO craft error based on error code.
             return new LoginResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
 
         } finally {
 
-            connection.setAutoCommit(true);
             connection.close();
         }
 		
