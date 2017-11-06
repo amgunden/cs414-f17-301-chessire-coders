@@ -3,17 +3,12 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 import com.esotericsoftware.kryonet.Listener;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 
 import com.esotericsoftware.kryonet.Connection;
@@ -42,7 +37,7 @@ public class LoginHandler extends Listener{
 	private LoginResponse handleLogin(LoginRequest request) throws SQLException {
 		
 		java.sql.Connection connection = jungleDB.getConnection();
-		UserDAO userDAO = new UserDAO(connection);
+
         LoginDAO loginDAO = new LoginDAO(connection);
 		
 		
@@ -51,14 +46,14 @@ public class LoginHandler extends Listener{
             // get UserID from provided email
             Login login = loginDAO.getLoginByEmail(request.getEmail());
             
-            
-            
+            // compare hash in the DB to the one sent by the client
             if(request.getPassword().equals(login.getHashedPass())) {
             	
+            	// generate new token and pass it into the Login Response constructor
             	String token = Crypto.generateAuthToken();
-            	
             	LoginResponse repsonse = new LoginResponse(login, token);
             	
+            	// add login object to the db
             	loginDAO.insert(login);
             	
             	return repsonse;
