@@ -108,5 +108,30 @@ public class LoginController implements Initializable {
         }
         return isEmailValid;
     }
+	public void logoutClicked()
+	{
+		System.out.println("Log Out Clicked.");
+		try {			
+			String email=getLogedinEmail();		
+			System.out.println("Email: " + email);			
+			handler = new LoginHandler(this);
+			App.getJungleClient().addListener(handler);
+			handler.sendLogout(email);
+			App.setScene("loginPage.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void logoutFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private String getLogedinEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

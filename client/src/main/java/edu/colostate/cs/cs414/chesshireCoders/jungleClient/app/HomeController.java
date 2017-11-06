@@ -2,8 +2,11 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LoginHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,13 +52,22 @@ public class HomeController implements Initializable {
 	public void logoutClicked()
 	{
 		System.out.println("Log Out Clicked.");
-		try {
+		try {			
+			//assign responsability to Login conntroller
+			
 			App.setScene("loginPage.fxml");
-		} catch (IOException e) {
-			System.err.println("ERROR: Unable to load fxml file for Login page.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
 	}
 	
+
 	public void playClicked()
 	{
 		System.out.println("Play Clicked.");
