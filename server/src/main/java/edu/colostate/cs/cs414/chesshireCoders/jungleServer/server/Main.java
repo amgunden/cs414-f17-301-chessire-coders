@@ -3,8 +3,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.GameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.sessionHandlers.LoginHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.SessionHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.UserHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 
@@ -135,22 +135,10 @@ public final class Main {
         logger.log(Level.INFO, "Setting up thread pool and adding listeners...");
         ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 
-        endPoint.addListener(new Listener.ThreadedListener(
-                new GameHandler(),
-                executorService
-        ));
-        endPoint.addListener(new Listener.ThreadedListener(
-                new RegistrationHandler(),
-                executorService
-        ));
-        endPoint.addListener(new Listener.ThreadedListener(
-                new SessionHandler(),
-                executorService
-        ));
-        endPoint.addListener(new Listener.ThreadedListener(
-                new UserHandler(),
-                executorService
-        ));
+        endPoint.addListener(new Listener.ThreadedListener(new GameHandler(), executorService));
+        endPoint.addListener(new Listener.ThreadedListener(new RegistrationHandler(), executorService));
+        endPoint.addListener(new Listener.ThreadedListener(new LoginHandler(), executorService));
+        endPoint.addListener(new Listener.ThreadedListener(new UserHandler(), executorService));
 
         // Add a shutdown hook to allow any running threads to end gracefully.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
