@@ -12,46 +12,49 @@ import java.sql.SQLException;
 public class LoginVerifier {
 
 
-
     private String email;
     private String password;
-    private Login login;
-    private boolean isRegistered = false;
 
-    public LoginVerifier(String email, String password) throws SQLException {
+    private User user;
+    private Login login;
+
+    public LoginVerifier(String email, String password) {
         this.email = email;
         this.password = password;
-        getLoginInfo();
     }
 
-    public boolean isEmailRegistered() {
-        return login != null;
-    }
+    public boolean authenticate() throws Exception {
+        fetchLoginInfo();
 
-    public boolean isPasswordOkay() {
-        return login.getHashedPass().equals(password);
-    }
-
-    public User getUserInfo() throws SQLException {
-        if (isEmailRegistered()) {
-            Connection connection = JungleDB.getInstance().getConnection();
-            UserDAO userDAO = new UserDAO(connection);
-            try {
-                return userDAO.getUserByUserId(login.getUserID());
-            } finally {
-                connection.close();
-            }
+        if (login == null) {
+            throw new Exception("No matching user for given email address.");
+        } else if (passwordMatches()) {
+            fetchUserInfo();
+            return true;
+        } else {
+            return false;
         }
-        return null;
     }
 
-    private void getLoginInfo() throws SQLException {
-        Connection connection = JungleDB.getInstance().getConnection();
-        LoginDAO loginDAO = new LoginDAO(connection);
-        try {
-            login = loginDAO.getLoginByEmail(email);
-        } finally {
-            connection.close();
+    public String getUserNickname() {
+        return user.getNickName();
+    }
+
+    private boolean passwordMatches() {
+        return login.getHashedPass().equals(this.password);
+    }
+
+    private void fetchUserInfo() throws SQLException {
+        try (Connection connection = JungleDB.getInstance().getConnection()) {
+            UserDAO userDAO = new UserDAO(connection);
+            this.user = userDAO.getUserByUserId(login.getUserID());
+        }
+    }
+
+    private void fetchLoginInfo() throws SQLException {
+        try (Connection connection = JungleDB.getInstance().getConnection()) {
+            LoginDAO loginDAO = new LoginDAO(connection);
+            this.login = loginDAO.getLoginByEmail(this.email);
         }
     }
 }
