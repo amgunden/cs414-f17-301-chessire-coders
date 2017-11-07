@@ -1,24 +1,20 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 
-import org.postgresql.ds.PGSimpleDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class JungleDB {
 
     private static JungleDB db = null;
-    private PGSimpleDataSource dataSource;
 
+    private HikariDataSource dataSource;
 
-    private JungleDB(String hostname, String databaseName, int port, String username, String password) {
-        dataSource = new PGSimpleDataSource();
-
-        dataSource.setServerName(hostname);
-        dataSource.setDatabaseName(databaseName);
-        dataSource.setPortNumber(port);
-        dataSource.setUser(username);
-        dataSource.setPassword(password);
+    private JungleDB(Properties properties) {
+        initDataSource(properties);
     }
 
     public static JungleDB getInstance() {
@@ -28,8 +24,8 @@ public class JungleDB {
         return db;
     }
 
-    public static synchronized void initialize(String hostname, String dbName, int port, String username, String password) {
-        db = new JungleDB(hostname, dbName, port, username, password);
+    public static synchronized void initialize(Properties properties) {
+        db = new JungleDB(properties);
     }
 
     /**
@@ -44,5 +40,10 @@ public class JungleDB {
         } else {
             throw new SQLException("Data source is not initialized.");
         }
+    }
+
+    private void initDataSource(Properties properties) {
+        HikariConfig config = new HikariConfig(properties);
+        dataSource = new HikariDataSource(config);
     }
 }

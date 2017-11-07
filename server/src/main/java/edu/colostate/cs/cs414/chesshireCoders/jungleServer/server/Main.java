@@ -3,9 +3,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.GameHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.sessionHandlers.LoginHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.RegistrationHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.UserHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.sessionHandlers.LoginHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 
 import java.io.FileInputStream;
@@ -35,12 +35,6 @@ public final class Main {
         int serverListenPort;
         int threadPoolSize;
 
-        String databaseHostname;
-        String databaseName;
-        int databasePort;
-        String databaseUser;
-        String databasePassword;
-
         try {
 
             // load and parse properties
@@ -52,12 +46,7 @@ public final class Main {
 
 
             // Initialize the database datasource object
-            databaseHostname = getDatabaseHostname(properties);
-            databaseName = getDatabaseName(properties);
-            databasePort = getDatabasePort(properties);
-            databaseUser = getDatabaseUser(properties);
-            databasePassword = getDatabasePassword(properties);
-            JungleDB.initialize(databaseHostname, databaseName, databasePort, databaseUser, databasePassword);
+            JungleDB.initialize(getDataSourceProperties(properties));
 
             // Create and start the server.
             server = new JungleServer();
@@ -92,38 +81,45 @@ public final class Main {
         return properties;
     }
 
+    private static Properties getDataSourceProperties(Properties properties) {
+        Properties dataSourceProperties = new Properties();
+        dataSourceProperties.setProperty(
+                "dataSourceClassName",
+                properties.getProperty("dataSourceClassName")
+        );
+        dataSourceProperties.setProperty(
+                "dataSource.databaseName",
+                properties.getProperty("dataSource.databaseName")
+        );
+        dataSourceProperties.setProperty(
+                "dataSource.user",
+                properties.getProperty("dataSource.user")
+        );
+        dataSourceProperties.setProperty(
+                "dataSource.password",
+                properties.getProperty("dataSource.password")
+        );
+        dataSourceProperties.setProperty(
+                "dataSource.serverName",
+                properties.getProperty("dataSource.serverName")
+        );
+        dataSourceProperties.setProperty(
+                "dataSource.portNumber",
+                properties.getProperty("dataSource.portNumber")
+        );
+        return dataSourceProperties;
+    }
+
     private static int getServerListenPort(Properties properties) {
         return Integer.parseInt(properties.getProperty(
-                "listen-port", "9898"
+                "server.listenPort", "9898"
         ));
     }
 
     private static int getListenerThreadNum(Properties properties) {
         return Integer.parseInt(properties.getProperty(
-                "listener-thread-num", "10"
+                "server.listenerThreadNum", "10"
         ));
-    }
-
-    private static String getDatabaseHostname(Properties properties) {
-        return properties.getProperty("database-host", "localhost");
-    }
-
-    private static String getDatabaseName(Properties properties) {
-        return properties.getProperty("database-name", "jungle");
-    }
-
-    private static int getDatabasePort(Properties properties) {
-        return Integer.parseInt(properties.getProperty(
-                "database-port", "5432")
-        );
-    }
-
-    private static String getDatabaseUser(Properties properties) {
-        return properties.getProperty("database-user", "jungle");
-    }
-
-    private static String getDatabasePassword(Properties properties) {
-        return properties.getProperty("database-password", "jungle");
     }
 
     private static String getLogPath(Properties properties) {
