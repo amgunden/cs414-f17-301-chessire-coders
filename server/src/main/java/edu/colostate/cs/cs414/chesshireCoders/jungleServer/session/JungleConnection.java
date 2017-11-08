@@ -22,6 +22,7 @@ public class JungleConnection extends Connection {
     public void authorize(String nickName, String authToken, long millisValid) {
         this.authToken = authToken;
         this.expirationTime = System.currentTimeMillis() + millisValid;
+        this.nickName = nickName;
     }
 
     public long getExpirationTime() {
