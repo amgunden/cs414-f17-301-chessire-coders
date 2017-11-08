@@ -47,7 +47,7 @@ public class LoginDAO extends AbstractDAO {
     public Login getLoginByEmail(String email) throws SQLException {
         String queryString = "SELECT *\n" +
                 "FROM public.\"Login\"\n" +
-                "WHERE \"Login\".\"Username\" = ?";
+                "WHERE \"Login\".\"Email\" = ?";
         try (PreparedStatement statement = connection.prepareStatement(queryString)) {
             statement.setString(1, email);
             statement.executeQuery();
