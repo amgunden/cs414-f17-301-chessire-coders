@@ -17,7 +17,7 @@ public final class Crypto {
     }
 
     public static String hashSHA256(byte[] bytes) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA256");
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] digestedBytes = digest.digest(bytes);
         return Base64.getEncoder().encodeToString(digestedBytes);
     }

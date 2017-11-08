@@ -47,7 +47,7 @@ public class LoginDAO extends AbstractDAO {
     public Login getLoginByEmail(String email) throws SQLException {
         String queryString = "SELECT *\n" +
                 "FROM public.\"Login\"\n" +
-                "WHERE \"Login\".\"Username\" = ?";
+                "WHERE \"Login\".\"Email\" = ?";
         try (PreparedStatement statement = connection.prepareStatement(queryString)) {
             statement.setString(1, email);
             statement.executeQuery();
@@ -70,8 +70,8 @@ public class LoginDAO extends AbstractDAO {
         String insertStr = "INSERT INTO public.\"Login\" (\"UserID\", \"Email\", \"HashedPass\") VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertStr, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, login.getUserID());
-            statement.setString(2, login.getEmail());
-            statement.setString(3, login.getHashedPass());
+            statement.setString(2, login.getEmail().trim());
+            statement.setString(3, login.getHashedPass().trim());
 
             statement.executeUpdate();
             try (ResultSet set = statement.getGeneratedKeys()) {
@@ -93,8 +93,8 @@ public class LoginDAO extends AbstractDAO {
                 "SET \"HashedPass\" = ?\n" +
                 "WHERE \"Email\" = ?";
         try (PreparedStatement statement = connection.prepareStatement(insertStr)) {
-            statement.setString(1, login.getHashedPass());
-            statement.setString(2, login.getEmail());
+            statement.setString(1, login.getHashedPass().trim());
+            statement.setString(2, login.getEmail().trim());
 
             statement.executeUpdate();
             try (ResultSet set = statement.getGeneratedKeys()) {
@@ -123,8 +123,8 @@ public class LoginDAO extends AbstractDAO {
     private Login readLogin(ResultSet rs) throws SQLException {
         Login login = new Login();
         login.setUserID(rs.getInt("UserID"));
-        login.setEmail(rs.getString("Email"));
-        login.setHashedPass(rs.getString("HashedPass"));
+        login.setEmail(rs.getString("Email").trim());
+        login.setHashedPass(rs.getString("HashedPass").trim());
         return login;
     }
 }

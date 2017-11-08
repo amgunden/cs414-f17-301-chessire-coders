@@ -1,64 +1,198 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
 
 import com.esotericsoftware.kryonet.Connection;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 
+/**
+ * The login manager uses the Singleton pattern so that there is only one,
+ * easily accessible instance of LoginManager for all SessionHandler classes.
+ *
+ * It tracks the set of all connections that have been authenticated and authorized
+ * by a user.
+ *
+ * This class uses Java's HashTables internally and synchronized ArrayLists, so it is thread-safe.
+ */
 public class LoginManager {
 
-    // Maps a Connection ID to a UserSession
-    private Hashtable<Integer, UserSession> connectionIdSessionMap = new Hashtable<>();
+    private static LoginManager manager = new LoginManager();
 
-    // Maps a userID to a connection
-    private Hashtable<Integer, Connection> userIdConnectionMap = new Hashtable<>();
+    private static final long SESSION_TIME_MILLIS = 24 * (60 * 60 * 1000); // 24 hours
 
-    // Maps a userID to a UserSession
-    private Hashtable<Integer, UserSession> useIdSessionMap = new Hashtable<>();
+    // maps an authentication token to a Connection
+    private Hashtable<String, JungleConnection> tokenConnectionTable = new Hashtable<>();
 
-    public boolean isLoggedIn(User user) {
-        return userIdConnectionMap.containsKey(user.getUserId());
+    // maps a nick name to a number of Connections
+    private Hashtable<String, List<JungleConnection>> nickNameConnectionTable = new Hashtable<>();
+
+    // maps a connection ID to a Connection
+    private Hashtable<Integer, JungleConnection> idConnectionTable = new Hashtable<>();
+
+    private LoginManager() {}
+
+    /**
+     * @return Returns the instance of LoginManager.
+     */
+    public static LoginManager getManager() {
+        return manager;
     }
 
-    public boolean isLoggedIn(Connection connection) {
-        return connectionIdSessionMap.containsKey(connection.getID());
+    /**
+     * Attempts to authenticate a user, and authorize they're associated connection.
+     *
+     * @param email The email to authenticate with.
+     * @param hashedPass The (hopefully) hashed password to authenticate with.
+     * @param connection The connection to attempt to authorize for privileged actions.
+     * @return Returns true on success, false on bad password.
+     * @throws Exception An exception will be thrown on non-existent email address, or for an SQL error.
+     */
+    public boolean authenticate(String email, String hashedPass, Connection connection) throws Exception {
+
+        LoginVerifier verifier = new LoginVerifier(email, hashedPass);
+        boolean authenticationSuccess = verifier.authenticate();
+
+        if (authenticationSuccess)
+            authorizeConnection(verifier.getUserNickname(), connection);
+
+        return authenticationSuccess;
     }
 
-    public boolean isSessionExpired(Connection connection) {
-        return connectionIdSessionMap.get(connection.getID()).getExpiresOn() > System.currentTimeMillis();
+    /**
+     * De-authorize a connection with a given ID.
+     * Note that this will not terminate any TCP connections.*
+     *
+     * @param id The ID of the connection to de-authorize.
+     */
+    public void deauthorizeConnectionId(int id) {
+        JungleConnection connection = idConnectionTable.remove(id);
+        if (connection != null) {
+            tokenConnectionTable.remove(connection.getAuthToken());
+            nickNameConnectionTable.remove(connection.getNickName());
+        }
     }
 
-    public boolean isSessionExpired(User user) {
-        return useIdSessionMap.get(user.getUserId()).getExpiresOn() > System.currentTimeMillis();
+    /**
+     * De-authorize a connection with a given authentication token.
+     * Note that this will not terminate any TCP connections.
+     *
+     * @param token The token associated with a connection to de-authorize.
+     */
+    public void deauthorizeToken(String token) {
+        JungleConnection connection = tokenConnectionTable.remove(token);
+        if (connection != null) {
+            idConnectionTable.remove(connection.getID());
+            nickNameConnectionTable.remove(connection.getNickName());
+        }
     }
 
-    public void loginUser(Connection connection, User user) {
-
-        UserSession session = new UserSession(user);
-
-        connectionIdSessionMap.put(connection.getID(), session);
-        userIdConnectionMap.put(session.getUserId(), connection);
-        useIdSessionMap.put(user.getUserId(), session);
+    /**
+     * De-authorizes ALL connections associated with a user's nickname.
+     * Note that this will not terminate any TCP connections.
+     *
+     * @param nickName The nick name associated with any connections to be de-authorized.
+     */
+    public void deathourizeNickName(String nickName) {
+        List<JungleConnection> connections = nickNameConnectionTable.remove(nickName);
+        for (JungleConnection connection : connections) {
+            if (connection != null) {
+                idConnectionTable.remove(connection.getID());
+                tokenConnectionTable.remove(connection.getAuthToken());
+            }
+        }
     }
 
-
-    public void logoutUser(User user) {
-        Connection connection = userIdConnectionMap.remove(user.getUserId());
-        connectionIdSessionMap.remove(connection.getID());
-        useIdSessionMap.remove(user.getUserId());
+    /**
+     * Checks if a given connection object has been authenticated and authorized.
+     *
+     * @param connection The connection to check
+     * @return True if authorized and authenticated, otherwise returns false.
+     * @throws InvalidConnectionException If the connection object is not an instance of JungleConnection.
+     */
+    public boolean isConnectionAuthorized(Connection connection) throws InvalidConnectionException {
+        return getJungleConnection(connection).isAuthorized();
     }
 
-    public void logoutUser(Connection connection) {
-        UserSession user = connectionIdSessionMap.remove(connection.getID());
-        userIdConnectionMap.remove(user.getUserId());
-        useIdSessionMap.remove(user.getUserId());
+    /**
+     * Fetches the list of connections associated with a user's nick name.
+     *
+     * @param nickName The user's nick name to find associated connections for.
+     * @return A list of associated connections, or NULL if none were found.
+     */
+    public List<Connection> getUserConnections(String nickName) {
+        return new ArrayList<>(nickNameConnectionTable.get(nickName));
     }
 
-    public Connection getUserConnection(User user) {
-        return userIdConnectionMap.get(user.getUserId());
+    /**
+     * Fetches the connection associated with an authentication token.
+     *
+     * @param authToken The authentication token associated with a connection.
+     * @return Returns a connection object if one was found, otherwise returns null.
+     */
+    public JungleConnection getConnectionFromAuthToken(String authToken) {
+        return tokenConnectionTable.get(authToken);
     }
 
-    public User getConnectionUser(Connection connection) {
-        return connectionIdSessionMap.get(connection.getID());
+    /**
+     * Fetches the connection associated with a connection ID.
+     *
+     * @param id The connection ID associated with a connection.
+     * @return Returns a connection object if one was found, otherwise returns null.
+     */
+    public JungleConnection getConnectionFromId(int id) {
+        return idConnectionTable.get(id);
+    }
+
+    private void authorizeConnection(String nickName, Connection connection) throws InvalidConnectionException {
+        JungleConnection jungleConnection = getJungleConnection(connection);
+        String authToken = Crypto.generateAuthToken();
+        jungleConnection.authorize(nickName, authToken, SESSION_TIME_MILLIS);
+
+        tokenConnectionTable.put(authToken, jungleConnection);
+        appendConnectionToNickName(nickName, getJungleConnection(connection));
+        idConnectionTable.put(jungleConnection.getID(), jungleConnection);
+    }
+
+    private JungleConnection getJungleConnection(Connection connection) throws InvalidConnectionException {
+        if (connection instanceof JungleConnection) {
+            return (JungleConnection) connection;
+        } else throw new InvalidConnectionException("Connection is not instance of JungleConnection.");
+    }
+
+    private void appendConnectionToNickName(String nickName, JungleConnection connection) {
+        if(nickNameConnectionTable.containsKey(nickName)) {
+            nickNameConnectionTable.get(nickName).add(connection);
+        } else {
+            List<JungleConnection> connections = Collections.synchronizedList(new ArrayList<JungleConnection>());
+            nickNameConnectionTable.put(nickName, connections);
+        }
+    }
+
+    /**
+     *
+     */
+    public class InvalidConnectionException extends Exception {
+        /**
+         * Constructs a new exception with {@code null} as its detail message.
+         * The cause is not initialized, and may subsequently be initialized by a
+         * call to {@link #initCause}.
+         */
+        public InvalidConnectionException() {
+        }
+
+        /**
+         * Constructs a new exception with the specified detail message.  The
+         * cause is not initialized, and may subsequently be initialized by
+         * a call to {@link #initCause}.
+         *
+         * @param message the detail message. The detail message is saved for
+         *                later retrieval by the {@link #getMessage()} method.
+         */
+        public InvalidConnectionException(String message) {
+            super(message);
+        }
     }
 }
