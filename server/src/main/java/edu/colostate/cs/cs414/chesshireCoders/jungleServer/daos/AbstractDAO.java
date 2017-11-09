@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer.daos;
 
 import java.sql.Connection;
 

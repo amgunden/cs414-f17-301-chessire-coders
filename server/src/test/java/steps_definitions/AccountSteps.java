@@ -2,8 +2,8 @@ package steps_definitions;
 
 import cucumber.api.DataTable;
 import cucumber.api.java8.En;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.daos.LoginDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.daos.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;

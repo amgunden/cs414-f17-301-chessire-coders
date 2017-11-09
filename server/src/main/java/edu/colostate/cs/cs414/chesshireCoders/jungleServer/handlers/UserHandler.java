@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.daos.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest;
