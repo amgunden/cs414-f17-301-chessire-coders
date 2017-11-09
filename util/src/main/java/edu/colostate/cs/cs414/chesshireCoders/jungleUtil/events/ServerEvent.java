@@ -6,6 +6,9 @@ public class ServerEvent {
     private String message;
     private ServerEventType eventType;
 
+    public ServerEvent() {
+    }
+
     public String getMessage() {
         return message;
     }

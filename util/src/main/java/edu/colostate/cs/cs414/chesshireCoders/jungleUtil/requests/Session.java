@@ -1,6 +1,9 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
 public class Session {
+    public Session() {
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

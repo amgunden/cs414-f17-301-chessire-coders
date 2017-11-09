@@ -6,6 +6,9 @@ public class GameEndedEvent {
     private int gameID;
     private GameOutcomeType outcomeType;
 
+    public GameEndedEvent() {
+    }
+
     public int getGameID() {
         return gameID;
     }

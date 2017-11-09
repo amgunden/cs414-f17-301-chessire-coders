@@ -6,6 +6,9 @@ public class GetPieceResponse extends Response {
 
     private GamePiece gamePiece;
 
+    public GetPieceResponse() {
+    }
+
     public GetPieceResponse(GamePiece gamePiece) {
         this.gamePiece = gamePiece;
     }

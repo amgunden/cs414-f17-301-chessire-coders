@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.esotericsoftware.minlog.Log;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -64,7 +65,8 @@ public class App extends Application {
 	            int serverListenPort = Integer.parseInt(properties.getProperty("server-listenport", "9898"));
 	
 	            client = new JungleClient();
-	            client.start();
+				Log.TRACE();
+				client.start();
 	            client.connect(5000, serverHostname, serverListenPort);
 	            
 

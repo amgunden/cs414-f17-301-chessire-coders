@@ -3,6 +3,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events;
 public class InvitationEvent {
     private int invitationID;
 
+    public InvitationEvent() {
+    }
+
     public int getInvitationID() {
         return invitationID;
     }
