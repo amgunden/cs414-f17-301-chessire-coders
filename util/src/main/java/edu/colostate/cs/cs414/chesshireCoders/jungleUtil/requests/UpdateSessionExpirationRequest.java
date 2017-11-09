@@ -3,6 +3,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 public class UpdateSessionExpirationRequest {
     private String accessToken;
 
+    public UpdateSessionExpirationRequest() {
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

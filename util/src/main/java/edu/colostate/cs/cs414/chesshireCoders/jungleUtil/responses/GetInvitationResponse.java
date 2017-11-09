@@ -6,6 +6,9 @@ public class GetInvitationResponse extends Response {
 
     private Invitation invitation;
 
+    public GetInvitationResponse() {
+    }
+
     public GetInvitationResponse(Invitation invitation) {
         this.invitation = invitation;
     }

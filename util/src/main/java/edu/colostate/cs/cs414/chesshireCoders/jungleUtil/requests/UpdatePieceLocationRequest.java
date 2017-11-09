@@ -5,6 +5,10 @@ public class UpdatePieceLocationRequest extends Session {
     private int x;
     private int y;
 
+    public UpdatePieceLocationRequest(int pieceID) {
+        this.pieceID = pieceID;
+    }
+
     public UpdatePieceLocationRequest(String accessToken, int pieceID, int x, int y) {
         super(accessToken);
         this.pieceID = pieceID;

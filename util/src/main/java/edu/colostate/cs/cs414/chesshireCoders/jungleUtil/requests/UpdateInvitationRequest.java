@@ -5,6 +5,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationRespons
 public class UpdateInvitationRequest extends Session {
     private int invitationID;
 
+    public UpdateInvitationRequest() {
+    }
+
     public InvitationResponseType getResponseType() {
         return responseType;
     }

@@ -7,6 +7,9 @@ public class UnRegisterRequest {
     private String nameFirst;
     private String nameLast;
 
+    public UnRegisterRequest() {
+    }
+
     public String getEmail() {
         return email;
     }
