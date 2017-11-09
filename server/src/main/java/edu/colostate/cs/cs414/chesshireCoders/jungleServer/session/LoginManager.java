@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
 
 import com.esotericsoftware.kryonet.Connection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class LoginManager {
     private static final long SESSION_TIME_MILLIS = 24 * (60 * 60 * 1000); // 24 hours
 
     // maps an authentication token to a Connection
-    private Hashtable<String, JungleConnection> tokenConnectionTable = new Hashtable<>();
+    private Hashtable<AuthToken, JungleConnection> tokenConnectionTable = new Hashtable<>();
 
     // maps a nick name to a number of Connections
     private Hashtable<String, List<JungleConnection>> nickNameConnectionTable = new Hashtable<>();
@@ -148,8 +149,8 @@ public class LoginManager {
 
     private void authorizeConnection(String nickName, Connection connection) throws InvalidConnectionException {
         JungleConnection jungleConnection = getJungleConnection(connection);
-        String authToken = Crypto.generateAuthToken();
-        jungleConnection.authorize(nickName, authToken, SESSION_TIME_MILLIS);
+        AuthToken authToken = Crypto.generateAuthToken();
+        jungleConnection.authorize(nickName, authToken);
 
         tokenConnectionTable.put(authToken, jungleConnection);
         appendConnectionToNickName(nickName, getJungleConnection(connection));

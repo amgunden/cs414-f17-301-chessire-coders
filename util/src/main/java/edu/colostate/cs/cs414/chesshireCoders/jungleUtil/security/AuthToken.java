@@ -2,27 +2,21 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security;
 
 public class AuthToken {
 
-    private static AuthToken token;
-
     private String authenticationToken;
+    private long expiresOn;
 
-    private AuthToken() {
+    public AuthToken() {
     }
 
-    public static AuthToken getInstance() {
-        if (token == null) {
-            synchronized (AuthToken.class) {
-                token = new AuthToken();
-            }
-        }
-
-        return token;
+    public AuthToken(String authenticationToken, long expiresOn) {
+        setToken(authenticationToken);
+        setExpiration(expiresOn);
     }
 
-    public static void load(String file) {
+    public void load(String file) {
     }
 
-    public static void save(String file) {
+    public void save(String file) {
     }
 
     public String getToken() {
@@ -31,5 +25,13 @@ public class AuthToken {
 
     public void setToken(String token) {
         this.authenticationToken = authenticationToken;
+    }
+
+    public long getExpiration() {
+        return expiresOn;
+    }
+
+    public void setExpiration(long expiresOn) {
+        this.expiresOn = expiresOn;
     }
 }
