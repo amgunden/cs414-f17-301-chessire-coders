@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
+package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security;
 
 public class AuthToken {
 
