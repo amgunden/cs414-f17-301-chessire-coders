@@ -1,6 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security;
 
-public class AuthToken {
+import java.io.Serializable;
+
+public class AuthToken implements Serializable {
 
     private String authenticationToken;
     private long expiresOn;

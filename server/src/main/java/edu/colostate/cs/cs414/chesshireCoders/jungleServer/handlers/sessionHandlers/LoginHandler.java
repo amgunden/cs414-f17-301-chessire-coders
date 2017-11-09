@@ -7,6 +7,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.LoginManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
 import java.sql.SQLException;
 
@@ -38,8 +39,10 @@ public class LoginHandler extends Listener {
                     connection
             );
 
+            AuthToken token = loginManager.getAuthToken(connection);
+
             if (authorized) {
-                return new LoginResponse(ResponseStatusCodes.SUCCESS, "Success");
+                return new LoginResponse(token);
             } else {
                 return new LoginResponse(ResponseStatusCodes.UNAUTHORIZED, "Login failed. Incorrect username or password.");
             }
