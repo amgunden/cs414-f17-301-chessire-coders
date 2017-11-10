@@ -16,6 +16,12 @@ public class AccountHandler extends Listener{
 
     private User userInfo;
 
+	private boolean unregisterUserStatus;
+
+	private boolean registerUserStatus;
+
+	private boolean loginUserStatus;
+
     public AccountHandler(HomeController homeController) {
         this.homeController = homeController;
     }
@@ -43,7 +49,29 @@ public class AccountHandler extends Listener{
         });
     }
    
+    public void setUnregisterUserStatus(boolean unregisterUserStatus) {
+        this.unregisterUserStatus = unregisterUserStatus;
+    }
 
+    public boolean getUnregisterUserStatus() {
+        return this.registerUserStatus;
+    }
+
+    public void setRegisterUserStatus(boolean registerUserStatus) {
+        this.unregisterUserStatus = registerUserStatus;
+    }
+
+    public boolean getRegisterUserStatus() {
+        return this.registerUserStatus;
+    }
+
+    public void setLoginUserStatus(boolean loginUserStatus) {
+        this.loginUserStatus = loginUserStatus;
+    }
+
+    public boolean getLoginUserStatus() {
+        return this.loginUserStatus;
+    }
 
 
 }
