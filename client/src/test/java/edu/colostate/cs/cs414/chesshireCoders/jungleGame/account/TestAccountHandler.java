@@ -16,7 +16,8 @@ import javafx.scene.control.TextField;
 public class TestAccountHandler {
 
     private RegisterController registerController;
-
+    
+    /*
 
 	@Test
 	public void testRegisterUser() {

@@ -2,8 +2,11 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.LoginDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.dataAccessObjects.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse;
@@ -34,9 +37,14 @@ public class UserHandler extends Listener {
 
         java.sql.Connection connection = JungleDB.getInstance().getConnection();
         UserDAO userDAO = new UserDAO(connection);
+        LoginDAO loginDAO = new LoginDAO(connection);
 
         try {
-            User user = userDAO.getUserByUserId(request.getUserID());
+        	Login login = loginDAO.getLoginByEmail(request.getEmail());
+        	int userID = login.getUserID();
+            User user = userDAO.getUserByUserId(userID);
+            
+            
             return new GetUserResponse(user);
 
         } catch (SQLException e) {
