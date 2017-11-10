@@ -61,10 +61,6 @@ public class HomeController implements Initializable {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
 	}
 	
 
@@ -132,6 +128,10 @@ public class HomeController implements Initializable {
 	public void viewInvitesClicked()
 	{
 		System.out.println("View Invites Clicked.");
+	}
+	
+	public void printGetUserError(String errorMsg) {
+		System.out.println("Error occured while attempting to get User Information: " + errorMsg);
 	}
 
 }
