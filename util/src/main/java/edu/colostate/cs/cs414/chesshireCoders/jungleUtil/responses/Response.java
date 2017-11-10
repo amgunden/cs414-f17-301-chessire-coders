@@ -5,6 +5,9 @@ public class Response {
     private int statusCode = ResponseStatusCodes.SUCCESS;
     private String errMsg = null;
 
+    /**
+     * Defaults to a SUCCESS code, and no error message
+     */
     public Response() {
     }
 

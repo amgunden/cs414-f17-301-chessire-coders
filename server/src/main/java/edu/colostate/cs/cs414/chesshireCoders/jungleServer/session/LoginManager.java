@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
 
 import com.esotericsoftware.kryonet.Connection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 
 import java.util.ArrayList;
@@ -11,20 +12,17 @@ import java.util.List;
 /**
  * The login manager uses the Singleton pattern so that there is only one,
  * easily accessible instance of LoginManager for all SessionHandler classes.
- *
+ * <p>
  * It tracks the set of all connections that have been authenticated and authorized
  * by a user.
- *
+ * <p>
  * This class uses Java's HashTables internally and synchronized ArrayLists, so it is thread-safe.
  */
 public class LoginManager {
 
     private static LoginManager manager = new LoginManager();
-
-    private static final long SESSION_TIME_MILLIS = 24 * (60 * 60 * 1000); // 24 hours
-
     // maps an authentication token to a Connection
-    private Hashtable<String, JungleConnection> tokenConnectionTable = new Hashtable<>();
+    private Hashtable<AuthToken, JungleConnection> tokenConnectionTable = new Hashtable<>();
 
     // maps a nick name to a number of Connections
     private Hashtable<String, List<JungleConnection>> nickNameConnectionTable = new Hashtable<>();
@@ -32,7 +30,8 @@ public class LoginManager {
     // maps a connection ID to a Connection
     private Hashtable<Integer, JungleConnection> idConnectionTable = new Hashtable<>();
 
-    private LoginManager() {}
+    private LoginManager() {
+    }
 
     /**
      * @return Returns the instance of LoginManager.
@@ -44,7 +43,7 @@ public class LoginManager {
     /**
      * Attempts to authenticate a user, and authorize they're associated connection.
      *
-     * @param email The email to authenticate with.
+     * @param email      The email to authenticate with.
      * @param hashedPass The (hopefully) hashed password to authenticate with.
      * @param connection The connection to attempt to authorize for privileged actions.
      * @return Returns true on success, false on bad password.
@@ -81,7 +80,7 @@ public class LoginManager {
      *
      * @param token The token associated with a connection to de-authorize.
      */
-    public void deauthorizeToken(String token) {
+    public void deauthorizeToken(AuthToken token) {
         JungleConnection connection = tokenConnectionTable.remove(token);
         if (connection != null) {
             idConnectionTable.remove(connection.getID());
@@ -132,7 +131,7 @@ public class LoginManager {
      * @param authToken The authentication token associated with a connection.
      * @return Returns a connection object if one was found, otherwise returns null.
      */
-    public JungleConnection getConnectionFromAuthToken(String authToken) {
+    public JungleConnection getConnectionFromAuthToken(AuthToken authToken) {
         return tokenConnectionTable.get(authToken);
     }
 
@@ -148,8 +147,8 @@ public class LoginManager {
 
     private void authorizeConnection(String nickName, Connection connection) throws InvalidConnectionException {
         JungleConnection jungleConnection = getJungleConnection(connection);
-        String authToken = Crypto.generateAuthToken();
-        jungleConnection.authorize(nickName, authToken, SESSION_TIME_MILLIS);
+        AuthToken authToken = Crypto.generateAuthToken();
+        jungleConnection.authorize(nickName, authToken);
 
         tokenConnectionTable.put(authToken, jungleConnection);
         appendConnectionToNickName(nickName, getJungleConnection(connection));
@@ -163,12 +162,16 @@ public class LoginManager {
     }
 
     private void appendConnectionToNickName(String nickName, JungleConnection connection) {
-        if(nickNameConnectionTable.containsKey(nickName)) {
+        if (nickNameConnectionTable.containsKey(nickName)) {
             nickNameConnectionTable.get(nickName).add(connection);
         } else {
             List<JungleConnection> connections = Collections.synchronizedList(new ArrayList<JungleConnection>());
             nickNameConnectionTable.put(nickName, connections);
         }
+    }
+
+    public AuthToken getAuthToken(Connection connection) {
+        return null;
     }
 
     /**
@@ -181,6 +184,7 @@ public class LoginManager {
          * call to {@link #initCause}.
          */
         public InvalidConnectionException() {
+
         }
 
         /**
