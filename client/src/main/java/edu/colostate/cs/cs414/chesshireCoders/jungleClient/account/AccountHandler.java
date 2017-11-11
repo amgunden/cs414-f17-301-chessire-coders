@@ -27,8 +27,8 @@ public class AccountHandler extends Listener{
     }
 
     public static void getUserInfo(String email) {
-        GetUserRequest request = new GetUserRequest(AuthTokenManager.getInstance().getAuthToken().getToken(), email);
-        App.getJungleClient().sendMessage(request);
+      //  GetUserRequest request = new GetUserRequest(AuthTokenManager.getInstance().getAuthToken().getToken(), email);
+    //    App.getJungleClient().sendMessage(request);
     }
 
     @Override

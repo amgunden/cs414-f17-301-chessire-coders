@@ -91,3 +91,6 @@ nbdist/
 
 .project
 .classpath
+
+# Local server properties file.
+test.properties
