@@ -1,16 +1,17 @@
 package steps_definitions;
 
+import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 
 public class AccountSteps implements En {
     public AccountSteps() {
-//        Given("^the following accounts exist:$", (DataTable dataTable) -> {
+        Given("^the following accounts exist:$", (DataTable dataTable) -> {
 //            List<List<String>> accounts = dataTable.asLists(String.class);
 //
 //            for(List<String> account : accounts) {
 //
-//                try (Connection connection = HikariConnectionProvider.getInstance().getConnection()) {
+//                try (Connection connection = HikariConnectionProvider.getInstance().newConnection()) {
 //                    connection.setAutoCommit(false);
 //                    try {
 //                        PostgresUserDAO postgresUserDAO = new PostgresUserDAO(connection);
@@ -36,7 +37,7 @@ public class AccountSteps implements En {
 //                    throw new RuntimeException(e);
 //                }
 //            }
-//        });
-        throw new PendingException();
+            throw new PendingException();
+        });
     }
 }

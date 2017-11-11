@@ -26,13 +26,11 @@ Feature: Login Management
   @DBClean
   Scenario: A registered user that provides incorrect credentials more than 3 times is locked out.
     Given the following accounts exist:
-      | email          | nickname | password |
-      | bob@test.com   | bob      | bob123   |
-      | nancy@test.com | nancy    | nancy123 |
-      | frank@test.com | frank    | frank123 |
+      | bob@test.com | bob | bob123 |
     When they log in with the following credentials:
-      | bob@test.com | bob123 |
-    And this is their third attempt
+      | bob@test.com | bad |
+      | bob@test.com | bad |
+      | bob@test.com | bad |
     Then their account is locked
 
   @DBClean

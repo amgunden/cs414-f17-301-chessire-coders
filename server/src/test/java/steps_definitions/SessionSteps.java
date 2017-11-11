@@ -1,78 +1,80 @@
 package steps_definitions;
 
-import com.esotericsoftware.kryonet.Connection;
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
+import helpers.ConnectionHelper;
+import helpers.CredentialHelper;
 import helpers.ExceptionHelper;
 
-import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class LoginSteps implements En {
+public class SessionSteps implements En {
 
     private SessionService sessionService = new SessionServiceImpl();
-    private List<List<String>> credentials;
-    private HashSet<Connection> emailConnectionMap = new HashSet<>();
+    private ExceptionHelper exceptionHelper = new ExceptionHelper();
+    private ConnectionHelper connectionHelper = new ConnectionHelper();
+    private CredentialHelper credentialHelper = new CredentialHelper();
 
-    ExceptionHelper exceptionHelper = new ExceptionHelper();
-
-    public LoginSteps() {
+    public SessionSteps() {
 
         When("^they log in with the following credentials:$", (DataTable dataTable) -> {
 
-            credentials = dataTable.asLists(String.class);
+            List<List<String>> credentials = dataTable.asLists(String.class);
 
             for (List<String> credential : credentials) {
+                credentialHelper.add(
+                        credential.get(0),
+                        credential.get(1),
+                        credential.get(2));
                 try {
-                    JungleConnection connection = new JungleConnection();
+                    JungleConnection connection = connectionHelper.newConnection();
                     sessionService.authenticate(
                             credential.get(0),
                             Crypto.hashSHA256(credential.get(1).getBytes()),
                             connection
                     );
-
-                    emailConnectionMap.add(connection);
-
                 } catch (Exception e) {
-                    exceptionHelper.add(e);
+                    exceptionHelper.handle(e);
                 }
             }
         });
         Then("^they are authenticated$", () -> {
-            for (Connection connection : emailConnectionMap) {
+            for (JungleConnection connection : connectionHelper.getConnections()) {
                 try {
                     assertTrue(sessionService.isAuthorized(connection));
+                    assertTrue(connection.isAuthorized());
                 } catch (SessionServiceImpl.InvalidConnectionException e) {
-                    exceptionHelper.add(e);
+                    exceptionHelper.handle(e);
                 }
             }
         });
         Then("^they are not authenticated$", () -> {
-            for (Connection connection : emailConnectionMap) {
+            for (JungleConnection connection : connectionHelper.getConnections()) {
                 try {
                     assertFalse(sessionService.isAuthorized(connection));
+                    assertFalse(connection.isAuthorized());
                 } catch (SessionServiceImpl.InvalidConnectionException e) {
-                    exceptionHelper.add(e);
+                    exceptionHelper.handle(e);
                 }
             }
         });
-        And("^this is their third attempt$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
         Then("^their account is locked$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
+            for (String email : credentialHelper.getEmails()) {
+                try {
+                    sessionService.isAccountLocked(email);
+                } catch (Exception e) {
+                    exceptionHelper.handle(e);
+                }
+            }
         });
-        Then("^it fails$", () -> assertFalse(exceptionHelper.getExceptions().isEmpty()));
+        Then("^it fails$", () -> assertFalse(exceptionHelper.failed()));
         Given("^the account does not exist$", () -> exceptionHelper.expectsException());
     }
 }
