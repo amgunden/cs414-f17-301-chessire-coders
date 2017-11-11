@@ -21,8 +21,6 @@ import java.sql.SQLException;
 
 public class RegistrationHandler extends Listener {
 
-    private ConnectionProvider provider = HikariConnectionProvider.getInstance();
-    private DAOManager manager = DAOManager.instance(provider, PostgresDAOManager.class);
     private RegistrationService registrationService = new RegistrationServiceImpl();
     private SessionService sessionService = new SessionServiceImpl();
 
