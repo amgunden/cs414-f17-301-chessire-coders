@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl;
 
 import com.esotericsoftware.kryonet.Connection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
@@ -9,7 +10,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.Login
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
@@ -18,6 +18,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.LoginAttempt;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.UserSession;
 
+import javax.security.auth.login.AccountLockedException;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.CredentialException;
 import java.sql.SQLException;
@@ -41,24 +42,44 @@ public class SessionServiceImpl implements SessionService {
             PostgresDAOManager.class);
 
     @Override
-    public AuthToken authenticate(String email, String hashedPass, Connection connection) throws AccountNotFoundException, CredentialException, SQLException {
+    public AuthToken authenticate(String email, String hashedPass, Connection connection) throws AccountNotFoundException, CredentialException, SQLException, AccountLockedException {
 
         Login login = fetchLoginInfo(email);
 
         if (login == null) throw new AccountNotFoundException("Error fetching account, has it been created?");
         if (!passwordOkay(hashedPass, login))
             failAuthentication(login);
+        if (isAccountLocked(login))
+            throw new AccountLockedException("This account has been locked.");
 
 
         User user = fetchUserInfo(login.getUserID());
         assert user != null;
 
-        JungleConnection jungleConnection = JungleConnection.class.cast(connection);
         AuthToken token = Crypto.generateAuthToken();
+        JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+        createUserSession(
+                user.getUserId(),
+                token,
+                jungleConnection.getRemoteAddressTCP().toString()
+        );
         jungleConnection.authorize(user.getNickName(), token);
+
 
         saveLoginAttempt(true, user.getUserId());
         return token;
+    }
+
+    private void createUserSession(final long userId, final AuthToken token, final String ipAddress)
+            throws SQLException {
+        final UserSession userSession = new UserSession()
+                .setAuthToken(token)
+                .setUserId(userId)
+                .setIpAddress(ipAddress);
+        manager.executeAtomic((DAOCommand<Void>) manager -> {
+            manager.getUserSessionDAO().create(userSession);
+            return null;
+        });
     }
 
     private void failAuthentication(Login login) throws SQLException, CredentialException {
@@ -94,7 +115,7 @@ public class SessionServiceImpl implements SessionService {
         final UserSession userSession = new UserSession();
         userSession.setAuthToken(new AuthToken()
                 .setToken(token)
-                .setExpiration(System.currentTimeMillis()));
+                .setExpiration(new Date(System.currentTimeMillis())));
 
         manager.execute((DAOCommand<Void>) manager -> {
             UserSessionDAO userSessionDAO = manager.getUserSessionDAO();
@@ -106,6 +127,10 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public boolean isAccountLocked(String email) {
         return false;
+    }
+
+    public boolean isAccountLocked(Login login) {
+        return login.isLocked();
     }
 
     @Override
@@ -145,7 +170,7 @@ public class SessionServiceImpl implements SessionService {
         final Date checkSince = new Date(System.currentTimeMillis() - LOGIN_CHECK_PERIOD);
         return manager.execute(manager -> {
             LoginAttemptDAO loginAttemptDAO = manager.getLoginAttemptDAO();
-            return loginAttemptDAO.getSuccessfulAttemptsSince(checkSince);
+            return loginAttemptDAO.getUnsuccessfulAttemptsSince(checkSince);
         });
     }
 

@@ -55,8 +55,6 @@ public class HomeController implements Initializable {
         AuthTokenManager.getInstance().setAuthToken(null);
         
         LogoutHandler handler = new LogoutHandler();
-		App.getJungleClient().addListener(handler);
-
 		handler.sendLogout(token);
         
         try {

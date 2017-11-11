@@ -33,12 +33,17 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
     @Override
     public Long create(UserSession userSession) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO public.\"user_session\" (\"ip_address\", \"auth_token\", \"expires_on\", \"user_id\")\n" +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO public.\"user_session\" (\n" +
+                "  \"ip_address\",\n" +
+                "  \"auth_token\",\n" +
+                "  \"expires_on\",\n" +
+                "  \"user_id\"\n" +
+                ") VALUES (?, ?, ?, ?)";
         return add(sql, Long.class,
                 userSession.getIpAddress(),
-                userSession.getAuthToken(),
-                userSession.getUser().getUserId());
+                userSession.getAuthToken().getToken(),
+                userSession.getAuthToken().getExpiration(),
+                userSession.getUserId());
     }
 
     @Override
@@ -49,7 +54,8 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
                 "WHERE \"user_id\" = ?";
         return modify(sql,
                 userSession.getAuthToken().getToken(),
-                userSession.getExpiresOn());
+                userSession.getAuthToken().getExpiration(),
+                userSession.getUserId());
     }
 
     /**
@@ -76,7 +82,7 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
                 "SET \"expires_on\" = ?\n" +
                 "WHERE \"auth_token\" = ?";
         return modify(sql,
-                session.getExpiresOn(),
+                session.getAuthToken().getExpiration(),
                 session.getAuthToken().getToken());
     }
 }

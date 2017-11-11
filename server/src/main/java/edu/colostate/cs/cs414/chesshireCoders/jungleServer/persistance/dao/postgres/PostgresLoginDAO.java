@@ -19,6 +19,7 @@ public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
         login.setUserID(rs.getInt("user_id"));
         login.setEmail(rs.getString("email"));
         login.setHashedPass(rs.getString("hashed_pass"));
+        login.setIsLocked(rs.getBoolean("account_locked"));
         return login;
     };
 
@@ -62,7 +63,7 @@ public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
     public int update(Login login) throws SQLException {
         //language=PostgreSQL
         String sql = "UPDATE public.\"login\" SET \"hashed_pass\" = ?, \"account_locked\" = ? WHERE \"email\" = ?";
-        return modify(sql, login.getHashedPass(), login.getEmail());
+        return modify(sql, login.getHashedPass(), login.isLocked(), login.getEmail());
     }
 
     /**

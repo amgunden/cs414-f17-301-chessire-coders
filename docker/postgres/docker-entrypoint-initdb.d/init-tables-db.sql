@@ -51,8 +51,8 @@ CREATE TABLE user_session
   session_id BIGSERIAL NOT NULL
     CONSTRAINT user_session_pkey
     PRIMARY KEY,
-  ip_address    VARCHAR(15),
-  auth_token    VARCHAR(22)
+  ip_address    VARCHAR(44),
+  auth_token    CHAR(24)
     CONSTRAINT unq_usersession_authtoken
     UNIQUE,
   expires_on    TIMESTAMP,

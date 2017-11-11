@@ -9,8 +9,7 @@ public class UserSession {
     private long sessionNumber;
     private String ipAddress;
     private AuthToken authToken;
-    private Date expiresOn;
-    private User user;
+    private long userId;
 
     public UserSession() {
     }
@@ -19,40 +18,36 @@ public class UserSession {
         return sessionNumber;
     }
 
-    public void setSessionNumber(long sessionNumber) {
+    public UserSession setSessionNumber(long sessionNumber) {
         this.sessionNumber = sessionNumber;
+        return this;
     }
 
     public String getIpAddress() {
         return ipAddress;
     }
 
-    public void setIpAddress(String ipAddress) {
+    public UserSession setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+        return this;
     }
 
     public AuthToken getAuthToken() {
         return authToken;
     }
 
-    public void setAuthToken(AuthToken authToken) {
+    public UserSession setAuthToken(AuthToken authToken) {
         this.authToken = authToken;
+        return this;
     }
 
-    public Date getExpiresOn() {
-        return expiresOn;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setExpiresOn(Date expiresOn) {
-        this.expiresOn = expiresOn;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public UserSession setUserId(long userId) {
+        this.userId = userId;
+        return this;
     }
 
     @Override
@@ -63,13 +58,10 @@ public class UserSession {
         UserSession that = (UserSession) object;
 
         if (getSessionNumber() != that.getSessionNumber()) return false;
+        if (getUserId() != that.getUserId()) return false;
         if (getIpAddress() != null ? !getIpAddress().equals(that.getIpAddress()) : that.getIpAddress() != null)
             return false;
-        if (getAuthToken() != null ? !getAuthToken().equals(that.getAuthToken()) : that.getAuthToken() != null)
-            return false;
-        if (getExpiresOn() != null ? !getExpiresOn().equals(that.getExpiresOn()) : that.getExpiresOn() != null)
-            return false;
-        return getUser() != null ? getUser().equals(that.getUser()) : that.getUser() == null;
+        return getAuthToken() != null ? getAuthToken().equals(that.getAuthToken()) : that.getAuthToken() == null;
     }
 
     @Override
@@ -77,8 +69,7 @@ public class UserSession {
         int result = (int) (getSessionNumber() ^ (getSessionNumber() >>> 32));
         result = 31 * result + (getIpAddress() != null ? getIpAddress().hashCode() : 0);
         result = 31 * result + (getAuthToken() != null ? getAuthToken().hashCode() : 0);
-        result = 31 * result + (getExpiresOn() != null ? getExpiresOn().hashCode() : 0);
-        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
+        result = 31 * result + (int) (getUserId() ^ (getUserId() >>> 32));
         return result;
     }
 }

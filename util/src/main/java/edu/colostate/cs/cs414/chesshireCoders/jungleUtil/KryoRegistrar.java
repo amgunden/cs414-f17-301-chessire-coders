@@ -12,6 +12,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class KryoRegistrar {
 
@@ -43,6 +44,7 @@ public class KryoRegistrar {
         kryo.register(ArrayList.class);
         kryo.register(String.class);
         kryo.register(AuthToken.class);
+        kryo.register(Date.class);
     }
 
     /**

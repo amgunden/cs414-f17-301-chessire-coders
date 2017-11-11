@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
@@ -32,23 +33,19 @@ public class AuthTokenManager {
         setAuthToken(token);
     }
 
-//    public AuthToken getAuthToken() {
-//        return authToken;
-//    }
-    
     public String getToken() {
     	if (authToken == null) return null;
     	
         return authToken.getToken();
     }
     
-    public long getExpiration() {
-    	if (authToken == null) return -1;
+    public Date getExpiration() {
+    	if (authToken == null) return null;
     	
         return authToken.getExpiration();
     }
     
-    public void renewExpiration(long newExpiration) {
+    public void renewExpiration(Date newExpiration) {
     	if (authToken == null) return;
     	
         authToken.setExpiration(newExpiration);

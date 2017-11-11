@@ -5,7 +5,7 @@ import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.UserHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.LoginHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 
@@ -134,7 +134,7 @@ public final class Main {
 
         endPoint.addListener(new Listener.ThreadedListener(new GameHandler(), executorService));
         endPoint.addListener(new Listener.ThreadedListener(new RegistrationHandler(), executorService));
-        endPoint.addListener(new Listener.ThreadedListener(new LoginHandler(), executorService));
+        endPoint.addListener(new Listener.ThreadedListener(new SessionHandler(), executorService));
         endPoint.addListener(new Listener.ThreadedListener(new UserHandler(), executorService));
 
         // Add a shutdown hook to allow any running threads to end gracefully.
