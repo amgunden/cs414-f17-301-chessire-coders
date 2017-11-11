@@ -13,7 +13,6 @@ public class GamesManager {
 	
 	private GamesManager() {
 		games = FXCollections.observableArrayList();
-		games.add(new JungleGame(12345));
 	}
 	
 	public static GamesManager getInstance()
