@@ -19,10 +19,11 @@ public class LoginResponse extends Response {
     }
 
     public AuthToken getAuthToken() {
-    	return authToken;
+        return authToken;
     }
 
-    public void setAuthToken(AuthToken token) {
-    	authToken = token;
+    public LoginResponse setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+        return this;
     }
 }

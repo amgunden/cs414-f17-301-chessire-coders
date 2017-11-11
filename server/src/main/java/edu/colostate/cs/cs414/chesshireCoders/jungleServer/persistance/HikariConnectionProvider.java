@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -7,17 +7,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class JungleDB {
+public class HikariConnectionProvider implements ConnectionProvider {
 
-    private static JungleDB db = null;
+    private static HikariConnectionProvider db = null;
 
     private HikariDataSource dataSource;
 
-    private JungleDB(Properties properties) {
+    private HikariConnectionProvider(Properties properties) {
         initDataSource(properties);
     }
 
-    public static JungleDB getInstance() {
+    public static HikariConnectionProvider getInstance() {
         if (db == null) {
             throw new NullPointerException("JungleDB has not been initialized");
         }
@@ -25,7 +25,7 @@ public class JungleDB {
     }
 
     public static synchronized void initialize(Properties properties) {
-        db = new JungleDB(properties);
+        db = new HikariConnectionProvider(properties);
     }
 
     /**

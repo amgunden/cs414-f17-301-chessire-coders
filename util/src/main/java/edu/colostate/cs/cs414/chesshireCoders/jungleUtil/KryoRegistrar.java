@@ -8,6 +8,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.*;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.*;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.*;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.*;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class KryoRegistrar {
     private static void registerUtilClasses(Kryo kryo) {
         kryo.register(ArrayList.class);
         kryo.register(String.class);
+        kryo.register(AuthToken.class);
     }
 
     /**

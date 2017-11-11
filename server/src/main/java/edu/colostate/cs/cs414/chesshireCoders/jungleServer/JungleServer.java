@@ -1,10 +1,8 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleServer.server;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.JungleConnection;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType;
 

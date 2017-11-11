@@ -1,6 +1,6 @@
 package helpers;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 
 import java.sql.*;
 import java.util.Properties;
@@ -20,7 +20,7 @@ public class DatabaseHelper {
         dataSourceProperties.setProperty("dataSource.user", dbUser);
         dataSourceProperties.setProperty("dataSource.password", dbPassword);
 
-        JungleDB.initialize(dataSourceProperties);
+        HikariConnectionProvider.initialize(dataSourceProperties);
     }
 
     public static void cleanDatabase() throws SQLException {
@@ -79,7 +79,7 @@ public class DatabaseHelper {
     }
 
     public static ResultSet executeUpdate(String sql) throws SQLException {
-        try (Connection connection = JungleDB.getInstance().getConnection()) {
+        try (Connection connection = HikariConnectionProvider.getInstance().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.executeUpdate();
                 return statement.getResultSet();
@@ -88,7 +88,7 @@ public class DatabaseHelper {
     }
 
     public static ResultSet executeQuery(String sql) throws SQLException {
-        try (Connection connection = JungleDB.getInstance().getConnection()) {
+        try (Connection connection = HikariConnectionProvider.getInstance().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.executeUpdate();
                 return statement.getResultSet();

@@ -3,8 +3,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 public class Login {
 
     private String hashedPass;
-    private int userID;
+    private long userID;
     private String email;
+    private boolean isLocked;
 
     public Login() {
     }
@@ -19,23 +20,35 @@ public class Login {
         return hashedPass;
     }
 
-    public void setHashedPass(String hashedPass) {
+    public Login setHashedPass(String hashedPass) {
         this.hashedPass = hashedPass;
+        return this;
     }
 
-    public int getUserID() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public Login setUserID(long userID) {
         this.userID = userID;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Login setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public Login setIsLocked(boolean isLocked) {
+        this.isLocked = isLocked;
+        return this;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
     }
 }

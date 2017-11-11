@@ -25,15 +25,17 @@ public class AuthToken implements Serializable {
         return authenticationToken;
     }
 
-    public void setToken(String token) {
+    public AuthToken setToken(String token) {
         this.authenticationToken = authenticationToken;
+        return this;
     }
 
     public long getExpiration() {
         return expiresOn;
     }
 
-    public void setExpiration(long expiresOn) {
+    public AuthToken setExpiration(long expiresOn) {
         this.expiresOn = expiresOn;
+        return this;
     }
 }

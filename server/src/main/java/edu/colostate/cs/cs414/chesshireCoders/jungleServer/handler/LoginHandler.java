@@ -1,20 +1,23 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handlers.sessionHandlers;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.server.JungleDB;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.LoginManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
+import javax.security.auth.login.AccountNotFoundException;
+import javax.security.auth.login.CredentialException;
 import java.sql.SQLException;
 
 public class LoginHandler extends Listener {
 
-    private JungleDB jungleDB = JungleDB.getInstance();
-    private LoginManager loginManager = LoginManager.getManager();
+    private HikariConnectionProvider hikariConnectionProvider = HikariConnectionProvider.getInstance();
+    private SessionService sessionService = new SessionServiceImpl();
 
     @Override
     public void received(Connection connection, Object received) {
@@ -33,20 +36,19 @@ public class LoginHandler extends Listener {
 
     private LoginResponse handleLogin(LoginRequest request, Connection connection) throws SQLException {
         try {
-            boolean authorized = loginManager.authenticate(
+            AuthToken token = sessionService.authenticate(
                     request.getEmail(),
                     request.getPassword(),
                     connection
             );
-
-            AuthToken token = loginManager.getAuthToken(connection);
-
-            if (authorized) {
-                return new LoginResponse(token);
-            } else {
-                return new LoginResponse(ResponseStatusCodes.UNAUTHORIZED, "Login failed. Incorrect username or password.");
-            }
+            return new LoginResponse()
+                    .setAuthToken(token);
+        } catch (CredentialException e) {
+            return new LoginResponse(ResponseStatusCodes.UNAUTHORIZED, e.getMessage());
+        } catch (AccountNotFoundException e) {
+            return new LoginResponse(ResponseStatusCodes.CLIENT_ERROR, e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             return new LoginResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
         }
     }
