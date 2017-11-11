@@ -1,6 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.CreateGameHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,8 +28,14 @@ public class GamesManager {
 	public void createGame()
 	{
 		// send create game request to server
+		CreateGameHandler handler = new CreateGameHandler();
+		App.getJungleClient().addListener(handler);
+		handler.sendCreateGame();
+	}
+	
+	public void createGame(int gameID)
+	{
 		// store game with GameID in this.games
-		int gameID = 1234;
 		games.add(new JungleGame(gameID));
 	}
 	

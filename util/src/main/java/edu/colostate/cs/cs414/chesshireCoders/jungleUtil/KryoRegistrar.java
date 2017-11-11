@@ -78,7 +78,8 @@ public class KryoRegistrar {
      * @param kryo
      */
     private static void registerRequestClasses(Kryo kryo) {
-        kryo.register(LoginRequest.class);
+    	kryo.register(CreateGameRequest.class);
+    	kryo.register(LoginRequest.class);
         kryo.register(LogoutRequest.class);
         kryo.register(RegisterRequest.class);
         kryo.register(UnRegisterRequest.class);
@@ -98,7 +99,8 @@ public class KryoRegistrar {
      * @param kryo
      */
     private static void registerResponseClasses(Kryo kryo) {
-        kryo.register(Response.class);
+    	kryo.register(CreateGameResponse.class);
+    	kryo.register(Response.class);
         kryo.register(GetGameResponse.class);
         kryo.register(GetPieceResponse.class);
         kryo.register(GetPlayerResponse.class);
