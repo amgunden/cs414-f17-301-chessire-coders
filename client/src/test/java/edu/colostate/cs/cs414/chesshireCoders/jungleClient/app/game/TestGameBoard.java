@@ -1,9 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestGameBoard {
 	GameBoard board = new GameBoard();

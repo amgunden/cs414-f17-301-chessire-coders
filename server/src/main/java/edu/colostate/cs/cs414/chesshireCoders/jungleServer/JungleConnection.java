@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleServer.session;
+package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 
 import com.esotericsoftware.kryonet.Connection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;

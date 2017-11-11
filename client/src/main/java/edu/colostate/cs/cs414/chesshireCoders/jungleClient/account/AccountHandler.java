@@ -5,30 +5,31 @@ import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse;
 import javafx.application.Platform;
 
-public class AccountHandler extends Listener{
+public class AccountHandler extends Listener {
 
     private HomeController homeController;
 
     private User userInfo;
 
-	private boolean unregisterUserStatus;
+    private boolean unregisterUserStatus;
 
-	private boolean registerUserStatus;
+    private boolean registerUserStatus;
 
-	private boolean loginUserStatus;
+    private boolean loginUserStatus;
 
     public AccountHandler(HomeController homeController) {
         this.homeController = homeController;
     }
 
     public static void getUserInfo(String email) {
-      //  GetUserRequest request = new GetUserRequest(AuthTokenManager.getInstance().getAuthToken().getToken(), email);
-    //    App.getJungleClient().sendMessage(request);
+        //  GetUserRequest request = new GetUserRequest(AuthTokenManager.getInstance().getAuthToken().getToken(), email);
+        //    App.getJungleClient().sendMessage(request);
     }
 
     @Override
@@ -40,15 +41,15 @@ public class AccountHandler extends Listener{
 
     private void handleGetUserResponse(GetUserResponse response) {
         // JavaFX does not allow UI updates from non-UI threads.
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             if (response.isSuccess()) {
                 userInfo = response.getUser();
             } else {
-            	homeController.printGetUserError(response.getErrMsg());
+                homeController.printGetUserError(response.getErrMsg());
             }
         });
     }
-   
+
     public void setUnregisterUserStatus(boolean unregisterUserStatus) {
         this.unregisterUserStatus = unregisterUserStatus;
     }
@@ -74,4 +75,9 @@ public class AccountHandler extends Listener{
     }
 
 
+    public void unregisterUser(HomeController homeController) {
+        UnRegisterRequest request = new UnRegisterRequest();
+        request.setAuthToken(AuthTokenManager.getInstance().getToken());
+        App.getJungleClient().sendMessage(request);
+    }
 }

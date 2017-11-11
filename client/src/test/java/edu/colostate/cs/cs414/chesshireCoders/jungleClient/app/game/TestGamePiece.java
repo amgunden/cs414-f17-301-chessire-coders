@@ -1,8 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestGamePiece {
 	GamePiece piece = new DogPiece(0, 0, PlayerColor.Red);

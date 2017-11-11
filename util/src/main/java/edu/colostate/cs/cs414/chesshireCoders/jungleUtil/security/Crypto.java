@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Date;
 
 public final class Crypto {
 
@@ -18,7 +19,7 @@ public final class Crypto {
         AuthToken authToken = new AuthToken();
 
         authToken.setToken(Base64.getEncoder().encodeToString(token));
-        authToken.setExpiration(System.currentTimeMillis() + AUTH_TOKEN_MILLIS_VALID);
+        authToken.setExpiration(new Date(System.currentTimeMillis() + AUTH_TOKEN_MILLIS_VALID));
 
         return authToken;
     }

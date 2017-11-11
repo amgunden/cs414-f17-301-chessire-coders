@@ -2,14 +2,12 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.network;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javafx.application.Platform;
 
 public class LoginHandler extends Listener {

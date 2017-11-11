@@ -4,8 +4,9 @@ import com.esotericsoftware.kryonet.Connection;
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.JungleConnection;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.session.LoginManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import helpers.ExceptionHelper;
 
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 public class LoginSteps implements En {
 
-    private LoginManager loginManager = LoginManager.getManager();
+    private SessionService sessionService = new SessionServiceImpl();
     private List<List<String>> credentials;
     private HashSet<Connection> emailConnectionMap = new HashSet<>();
 
@@ -32,7 +33,7 @@ public class LoginSteps implements En {
             for (List<String> credential : credentials) {
                 try {
                     JungleConnection connection = new JungleConnection();
-                    loginManager.authenticate(
+                    sessionService.authenticate(
                             credential.get(0),
                             Crypto.hashSHA256(credential.get(1).getBytes()),
                             connection
@@ -48,8 +49,8 @@ public class LoginSteps implements En {
         Then("^they are authenticated$", () -> {
             for (Connection connection : emailConnectionMap) {
                 try {
-                    assertTrue(loginManager.isConnectionAuthorized(connection));
-                } catch (LoginManager.InvalidConnectionException e) {
+                    assertTrue(sessionService.isAuthorized(connection));
+                } catch (SessionServiceImpl.InvalidConnectionException e) {
                     exceptionHelper.add(e);
                 }
             }
@@ -57,8 +58,8 @@ public class LoginSteps implements En {
         Then("^they are not authenticated$", () -> {
             for (Connection connection : emailConnectionMap) {
                 try {
-                    assertFalse(loginManager.isConnectionAuthorized(connection));
-                } catch (LoginManager.InvalidConnectionException e) {
+                    assertFalse(sessionService.isAuthorized(connection));
+                } catch (SessionServiceImpl.InvalidConnectionException e) {
                     exceptionHelper.add(e);
                 }
             }

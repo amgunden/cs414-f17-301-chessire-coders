@@ -2,10 +2,11 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 public class User {
 
-    private int userId;
+    private long userId;
     private String nameFirst;
     private String nameLast;
     private String nickName;
+    private boolean registered;
 
     public User() {
     }
@@ -35,35 +36,48 @@ public class User {
         this.userId = user.userId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public User setUserId(long userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getNameFirst() {
         return nameFirst;
     }
 
-    public void setNameFirst(String nameFirst) {
+    public User setNameFirst(String nameFirst) {
         this.nameFirst = nameFirst;
+        return this;
     }
 
     public String getNameLast() {
         return nameLast;
     }
 
-    public void setNameLast(String nameLast) {
+    public User setNameLast(String nameLast) {
         this.nameLast = nameLast;
+        return this;
     }
 
     public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(String nickName) {
+    public User setNickName(String nickName) {
         this.nickName = nickName;
+        return this;
+    }
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public User setRegistered(boolean registered) {
+        this.registered = registered;
+        return this;
     }
 }

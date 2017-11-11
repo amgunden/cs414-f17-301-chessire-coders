@@ -1,16 +1,17 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AuthToken implements Serializable {
 
     private String authenticationToken;
-    private long expiresOn;
+    private Date expiresOn;
 
     public AuthToken() {
     }
 
-    public AuthToken(String authenticationToken, long expiresOn) {
+    public AuthToken(String authenticationToken, Date expiresOn) {
         setToken(authenticationToken);
         setExpiration(expiresOn);
     }
@@ -25,15 +26,17 @@ public class AuthToken implements Serializable {
         return authenticationToken;
     }
 
-    public void setToken(String token) {
+    public AuthToken setToken(String token) {
         this.authenticationToken = token;
+        return this;
     }
 
-    public long getExpiration() {
+    public Date getExpiration() {
         return expiresOn;
     }
 
-    public void setExpiration(long expiresOn) {
+    public AuthToken setExpiration(Date expiresOn) {
         this.expiresOn = expiresOn;
+        return this;
     }
 }

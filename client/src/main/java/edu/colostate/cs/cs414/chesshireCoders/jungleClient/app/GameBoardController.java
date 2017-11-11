@@ -1,8 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.PlayerColor;
 import javafx.collections.ObservableList;
@@ -14,13 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class GameBoardController implements Initializable {
 
