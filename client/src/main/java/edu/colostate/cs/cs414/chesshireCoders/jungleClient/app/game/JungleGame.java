@@ -1,23 +1,27 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
-import java.util.Date;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 
 public class JungleGame {
-	int GameID = 0;
-	Date startDateTime = new Date();
-	Date endDateTime;
-	int Status = 0;
-	Player player1;
-	Player player2;
-	boolean liveGame = false;
+	private Game game;
 	private GameBoard board;
 	
-	public JungleGame(int userIdOne) {
+	public JungleGame(int gameID) {
 		board = new GameBoard();
+		game = new Game();
+		game.setGameID(gameID);
 	}
 	
 	public JungleGame(int userIdOne, int userIdTwo) {
 		board = new GameBoard();
 	}
+	
+	public int getGameID() {
+        return this.game.getGameID();
+    }
+
+    public void setGameID(int gameID) {
+        this.game.setGameID(gameID);
+    }
 	
 	public void sendInvitation() {
 		//Not sure this is needed but I'm working on getting ideas down currently.
@@ -64,5 +68,10 @@ public class JungleGame {
 	
 	public void quitGame(Player actingPlayer) {
 		//This method should remove the user requesting it, if the game is not over that user officially loses the game. 
+	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(getGameID());
 	}
 }

@@ -32,7 +32,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <ListView prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
+                        <ListView fx:id="gamesList" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
                      </children>
                   </FlowPane>
                </right>
