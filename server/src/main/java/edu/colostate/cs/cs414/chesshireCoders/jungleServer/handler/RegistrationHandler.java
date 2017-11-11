@@ -64,9 +64,9 @@ public class RegistrationHandler extends Listener {
 
     private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request, Connection connection) throws SQLException {
         try {
-            registrationService.unregisterUser(request.getEmail());
-            sessionService.expireSession(JungleConnection.class
-                    .cast(connection)
+            JungleConnection jungConn = JungleConnection.class.cast(connection);
+            registrationService.unregisterUser(request.getEmail(), jungConn.getAuthToken());
+            sessionService.expireSession(jungConn
                     .getAuthToken()
                     .getToken());
             return new UnRegisterResponse(); // Defaults to success

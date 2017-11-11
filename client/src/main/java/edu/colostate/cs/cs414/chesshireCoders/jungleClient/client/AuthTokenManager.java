@@ -1,14 +1,9 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Date;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+
+import java.io.*;
+import java.util.Date;
 
 /**
  * The auth token manager is implemented as a singleton as the client should only have one authentication
@@ -33,10 +28,10 @@ public class AuthTokenManager {
         setAuthToken(token);
     }
 
-    public String getToken() {
+    public AuthToken getToken() {
     	if (authToken == null) return null;
     	
-        return authToken.getToken();
+        return authToken;
     }
     
     public Date getExpiration() {

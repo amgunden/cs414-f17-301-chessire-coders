@@ -5,17 +5,4 @@ public class GetPieceLocationRequest extends Session {
 
     public GetPieceLocationRequest() {
     }
-
-    public GetPieceLocationRequest(String accessToken, int pieceID) {
-        super(accessToken);
-        this.pieceID = pieceID;
-    }
-
-    public int getPieceID() {
-        return pieceID;
-    }
-
-    public void setPieceID(int pieceID) {
-        this.pieceID = pieceID;
-    }
 }

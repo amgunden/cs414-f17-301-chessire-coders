@@ -6,8 +6,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
 import javafx.application.Platform;
 
 public class RegistrationHandler extends Listener {
@@ -26,12 +26,18 @@ public class RegistrationHandler extends Listener {
         App.getJungleClient().sendMessage(request);
     }
 
+    public void sendUnregisterRequest() {
+        UnRegisterRequest request = new UnRegisterRequest();
+        request.setAuthToken(AuthTokenManager
+                .getInstance()
+                .getToken());
+    }
+
     @Override
     public void received(Connection connection, Object received) {
+        super.received(connection, received);
         if (received instanceof RegisterResponse) {
             handleRegisterResponse((RegisterResponse) received);
-        } else if (received instanceof UnRegisterResponse) {
-
         }
     }
 

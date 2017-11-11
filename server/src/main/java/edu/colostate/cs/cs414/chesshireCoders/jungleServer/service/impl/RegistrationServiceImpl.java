@@ -9,6 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postg
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
 import java.sql.SQLException;
 
@@ -38,7 +39,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public void unregisterUser(String email) throws SQLException {
+    public void unregisterUser(String email, AuthToken token) throws SQLException {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             Login login = manager
                     .getLoginDAO()

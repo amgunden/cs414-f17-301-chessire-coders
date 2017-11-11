@@ -1,17 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleGame.account;
 
-import static org.junit.Assert.*;
-
-
-import org.junit.Test;
-
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.LoginController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.RegisterController;
-import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 public class TestAccountHandler {
 

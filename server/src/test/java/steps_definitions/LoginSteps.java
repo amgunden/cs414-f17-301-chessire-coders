@@ -5,8 +5,8 @@ import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import helpers.ExceptionHelper;
 

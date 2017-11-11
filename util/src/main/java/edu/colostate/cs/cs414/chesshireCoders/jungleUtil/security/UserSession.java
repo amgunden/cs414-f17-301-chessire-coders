@@ -1,9 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-
-import java.util.Date;
-
 public class UserSession {
 
     private long sessionNumber;

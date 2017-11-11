@@ -4,8 +4,8 @@ import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.UserHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.UserHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 

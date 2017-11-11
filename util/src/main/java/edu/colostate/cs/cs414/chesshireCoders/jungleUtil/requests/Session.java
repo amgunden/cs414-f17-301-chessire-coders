@@ -1,20 +1,24 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+
 public class Session {
+
+    private AuthToken authToken;
+
     public Session() {
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public Session(AuthToken authToken) {
+        this.authToken = authToken;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public AuthToken getAuthToken() {
+        return authToken;
     }
 
-    private String accessToken;
-
-    protected Session(String accessToken) {
-        this.accessToken = accessToken;
+    public Session setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+        return this;
     }
 }

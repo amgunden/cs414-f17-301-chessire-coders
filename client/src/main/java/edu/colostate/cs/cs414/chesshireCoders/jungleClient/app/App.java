@@ -1,10 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-
 import com.esotericsoftware.minlog.Log;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
 import javafx.application.Application;
@@ -12,6 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 public class App extends Application {
     static Stage window;
