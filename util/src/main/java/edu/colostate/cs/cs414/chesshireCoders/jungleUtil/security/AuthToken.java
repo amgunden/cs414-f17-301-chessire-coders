@@ -26,7 +26,7 @@ public class AuthToken implements Serializable {
     }
 
     public void setToken(String token) {
-        this.authenticationToken = authenticationToken;
+        this.authenticationToken = token;
     }
 
     public long getExpiration() {
