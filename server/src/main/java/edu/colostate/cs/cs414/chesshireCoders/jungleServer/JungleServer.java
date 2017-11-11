@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType;
 
 import javax.sql.DataSource;
@@ -91,6 +92,24 @@ public class JungleServer extends Server {
                 o.getClass().getSimpleName()
         );
         super.sendToAllTCP(o);
+    }
+
+    public void sendToTCPWithToken(Object o, AuthToken token) {
+        Connection[] connections = this.getConnections();
+        for (Connection connection : connections) {
+            JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+            if (jungleConnection.getAuthToken().equals(token))
+                jungleConnection.sendTCP(o);
+        }
+    }
+
+    public void sendToTCPWithNickName(Object o, String nickName) {
+        Connection[] connections = this.getConnections();
+        for (Connection connection : connections) {
+            JungleConnection jungConn = JungleConnection.class.cast(connection);
+            if (jungConn.getNickName().equals(nickName))
+                jungConn.sendTCP(o);
+        }
     }
 
     @Override
