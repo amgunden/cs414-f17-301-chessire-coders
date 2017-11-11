@@ -5,18 +5,18 @@ public class GetUserRequest extends Session {
     public GetUserRequest() {
     }
 
-    public int getUserID() {
-        return userID;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserID(String email) {
+        this.email = email;
     }
 
-    private int userID;
+    private String email;
 
-    public GetUserRequest(String accessToken, int userID) {
+    public GetUserRequest(String accessToken, String email) {
         super(accessToken);
-        this.userID = userID;
+        this.email = email;
     }
 }
