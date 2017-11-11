@@ -1,53 +1,61 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class HomeController implements Initializable {
 
     @FXML
     private BorderPane borderPane;
-
     @FXML
     private Button btnPlay;
-
     @FXML
     private Button btnLogout;
-
     @FXML
     private ImageView btnSettings;
-
     @FXML
     private ImageView btnViewInvites;
-
     @FXML
     private Button btnViewGameHistory;
-
+    @FXML
+    private ListView<JungleGame> gamesList;
     @FXML
     private VBox mainVBox;
-
     @FXML
     private StackPane unregSuccess;
 
+    protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
+    
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
         App.window.setResizable(false);
+        
+        gamesList.itemsProperty().bind(listProperty);
+
+        //This does not work, you can not directly add to a ListProperty
+        //listProperty.addAll( asianCurrencyList );
+        listProperty.set(GamesManager.getInstance().getGames());
     }
 
     public void logoutClicked() {
@@ -67,7 +75,9 @@ public class HomeController implements Initializable {
 
 
     public void playClicked() {
-        System.out.println("Play Clicked.");
+        System.out.println("Start New Game Clicked.");
+        GamesManager.getInstance().createGame();
+        
         Node board;
         try {
             board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));

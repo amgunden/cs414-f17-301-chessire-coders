@@ -1,29 +1,33 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
-import java.util.Date;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
 
-public class JungleGame {
-	int GameID = 0;
-	Date startDateTime = new Date();
-	Date endDateTime;
-	int Status = 0;
-	Player player1;
-	Player player2;
-	boolean liveGame = false;
-	private GameBoard board;
+public class JungleGame extends Game {
+	protected GameBoard board;
 	
-	public JungleGame(int userIdOne) {
+	public JungleGame(int gameID) {
+		setGameID(gameID);
 		board = new GameBoard();
 	}
 	
-	public JungleGame(int userIdOne, int userIdTwo) {
+	public JungleGame(int gameID, long gameStart, long gameEnd, int playerOneID, int playerTwoID,
+			PlayerStatus playerTwoStatus, GameStatus gameStatus) {
+		super(gameID, gameStart, gameEnd, playerOneID, playerTwoID, playerTwoStatus, gameStatus);
 		board = new GameBoard();
 	}
-	
-	public void sendInvitation() {
-		//Not sure this is needed but I'm working on getting ideas down currently.
-		//If used this method should accept a username. It should then send a invitation to that user that is only valid for this game. 
+
+	public JungleGame(long gameStart, long gameEnd, int playerOneID, GameStatus gameStatus) {
+		super(gameStart, gameEnd, playerOneID, gameStatus);
+		board = new GameBoard();
 	}
-	
+
+	public JungleGame(long gameStart, long gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus,
+			GameStatus gameStatus) {
+		super(gameStart, gameEnd, playerOneID, playerTwoID, playerTwoStatus, gameStatus);
+		board = new GameBoard();
+	}
+
 	public boolean canMovePieceAt(int row, int column)
 	{
 		boolean result = false;
@@ -64,5 +68,10 @@ public class JungleGame {
 	
 	public void quitGame(Player actingPlayer) {
 		//This method should remove the user requesting it, if the game is not over that user officially loses the game. 
+	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(getGameID());
 	}
 }
