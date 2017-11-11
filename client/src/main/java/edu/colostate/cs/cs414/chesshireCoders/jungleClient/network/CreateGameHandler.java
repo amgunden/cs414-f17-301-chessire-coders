@@ -34,8 +34,10 @@ public class CreateGameHandler extends Listener {
         Platform.runLater(()->{
             if (response.isSuccess()) {
             	GamesManager.getInstance().createGame(response.getGameId());
+            	App.getJungleClient().removeListener(this);
             } else {
                 System.err.println("[ERROR]: Server was unable to create game.");
+            	App.getJungleClient().removeListener(this);
             }
         });
     }
