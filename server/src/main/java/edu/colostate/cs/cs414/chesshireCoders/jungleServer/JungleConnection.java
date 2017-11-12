@@ -30,4 +30,14 @@ public class JungleConnection extends Connection {
     public AuthToken getAuthToken() {
         return authToken;
     }
+
+    public JungleConnection setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+
+    public JungleConnection setNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
 }

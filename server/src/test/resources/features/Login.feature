@@ -10,34 +10,38 @@ Feature: Login Management
   @DBClean
   Scenario: A registered user that provides correct credentials is authenticated by the server.
     Given the following accounts exist:
-      | bob@test.com | bob | bob123 |
-    When they log in with the following credentials:
-      | bob@test.com | bob123 |
+      | email        | nick name | password |
+      | bob@test.com | bob       | bob123   |
+    When they log in with correct credentials:
+      | email        | password |
+      | bob@test.com | bob123   |
     Then they are authenticated
 
   @DBClean
   Scenario: A registered user that provides incorrect credentials is not authenticated by the server.
     Given the following accounts exist:
-      | bob@test.com | bob | bob123 |
-    When they log in with the following credentials:
+      | email        | nick name | password |
+      | bob@test.com | bob       | bob123   |
+    When they log in with incorrect credentials:
       | bob@test.com | badPassword |
     Then they are not authenticated
 
   @DBClean
   Scenario: A registered user that provides incorrect credentials more than 3 times is locked out.
     Given the following accounts exist:
-      | email          | nickname | password |
-      | bob@test.com   | bob      | bob123   |
-      | nancy@test.com | nancy    | nancy123 |
-      | frank@test.com | frank    | frank123 |
-    When they log in with the following credentials:
-      | bob@test.com | bob123 |
-    And this is their third attempt
+      | email        | nick name | password |
+      | bob@test.com | bob       | bob123   |
+    When they log in with incorrect credentials:
+      | email        | password |
+      | bob@test.com | bad      |
+      | bob@test.com | bad      |
+      | bob@test.com | bad      |
     Then their account is locked
 
   @DBClean
   Scenario: An unregistered user cannot be authenticated by the server.
     Given the account does not exist
-    When they log in with the following credentials:
-      | not-bob@test.com | not-bob |
+    When they log in with any credentials:
+      | email            | password |
+      | not-bob@test.com | not-bob  |
     Then it fails

@@ -31,16 +31,16 @@ public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
     public Login findByPrimaryKey(Long userId) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT *\n" +
-                "FROM public.\"login\"\n" +
-                "WHERE \"login\".\"user_id\" = ?";
+                "FROM login\n" +
+                "WHERE login.user_id = ?";
         return query(sql, LOGIN_ROW_MAPPER, userId).get(0);
     }
 
     public Login findByEmail(String email) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT *\n" +
-                "FROM public.\"login\"\n" +
-                "WHERE \"login\".\"email\" = ?";
+                "FROM login\n" +
+                "WHERE login.email = ?";
         List<Login> logins = query(sql, LOGIN_ROW_MAPPER, email);
         return logins.isEmpty() ? null : logins.get(0);
     }
@@ -48,21 +48,21 @@ public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
     @Override
     public Long create(Login login) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO public.\"login\" (\"user_id\", \"email\", \"hashed_pass\") VALUES (?, ?, ?)";
+        String sql = "INSERT INTO login (user_id, email, hashed_pass) VALUES (?, ?, ?)";
         return add(sql, Long.class, login.getUserID(), login.getEmail(), login.getHashedPass());
     }
 
     @Override
     public List<Login> findAll() throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM public.\"login\"";
+        String sql = "SELECT * FROM login";
         return query(sql, LOGIN_ROW_MAPPER);
     }
 
     @Override
     public int update(Login login) throws SQLException {
         //language=PostgreSQL
-        String sql = "UPDATE public.\"login\" SET \"hashed_pass\" = ?, \"account_locked\" = ? WHERE \"email\" = ?";
+        String sql = "UPDATE login SET hashed_pass = ?, account_locked = ? WHERE email = ?";
         return modify(sql, login.getHashedPass(), login.isLocked(), login.getEmail());
     }
 
@@ -76,14 +76,14 @@ public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
     @Override
     public int delete(Long aLong) throws SQLException {
         //language=PostgreSQL
-        String sql = "DELETE FROM public.\"login\" WHERE \"user_id\" = ?";
+        String sql = "DELETE FROM login WHERE user_id = ?";
         return modify(sql, aLong);
     }
 
 
     public int delete(Login login) throws SQLException {
         //language=PostgreSQL
-        String sql = "DELETE FROM public.\"login\" WHERE \"email\" = ?";
+        String sql = "DELETE FROM login WHERE email = ?";
         return modify(sql, login.getEmail());
     }
 }

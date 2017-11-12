@@ -134,8 +134,27 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public boolean isAuthorized(Connection connection) throws InvalidConnectionException {
-        return false;
+    public boolean isAuthorized(Connection connection) throws InvalidConnectionException, SQLException {
+        final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+        return manager.execute(manager -> {
+            UserSession userSession = manager.getUserSessionDAO()
+                    .findByAuthToken(jungleConnection.getAuthToken().getToken());
+
+            boolean ipMatches = userSession.getIpAddress().equals(jungleConnection.getRemoteAddressTCP().toString());
+            boolean tokenMatches = userSession.getAuthToken().equals(jungleConnection.getAuthToken());
+            return ipMatches && tokenMatches;
+        });
+    }
+
+    @Override
+    public boolean isExpired(Connection connection) throws SQLException {
+        final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+        final Date now = new Date(System.currentTimeMillis());
+        return manager.execute(manager -> manager.getUserSessionDAO()
+                .findByAuthToken(jungleConnection.getAuthToken().getToken())
+                .getAuthToken()
+                .getExpiration()
+                .before(now));
     }
 
     private boolean passwordOkay(String givenPassword, Login login) {

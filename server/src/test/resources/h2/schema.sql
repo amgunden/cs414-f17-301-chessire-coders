@@ -1,9 +1,8 @@
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA "public";
+DROP ALL OBJECTS;
 
 CREATE TABLE login
 (
-  user_id        BIGINT                NOT NULL
+  user_id        IDENTITY                NOT NULL
     CONSTRAINT login_pkey
     PRIMARY KEY,
   email          VARCHAR(64)           NOT NULL
@@ -15,7 +14,7 @@ CREATE TABLE login
 
 CREATE TABLE login_attempt
 (
-  login_attempt_id     BIGSERIAL    NOT NULL
+  login_attempt_id     IDENTITY    NOT NULL
     CONSTRAINT login_attempt_pkey
     PRIMARY KEY,
   login_attempt_time TIMESTAMP NOT NULL,
@@ -25,7 +24,7 @@ CREATE TABLE login_attempt
 
 CREATE TABLE jungle_user
 (
-  user_id    BIGSERIAL            NOT NULL
+  user_id    IDENTITY            NOT NULL
     CONSTRAINT user_pkey
     PRIMARY KEY,
   name_first VARCHAR(20),
@@ -46,7 +45,7 @@ FOREIGN KEY (user_id) REFERENCES jungle_user;
 
 CREATE TABLE user_session
 (
-  session_id BIGSERIAL NOT NULL
+  session_id IDENTITY NOT NULL
     CONSTRAINT user_session_pkey
     PRIMARY KEY,
   ip_address    VARCHAR(44),
