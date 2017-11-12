@@ -25,7 +25,7 @@ CREATE TABLE login_attempt
   UNIQUE (user_id, login_attempt_time)
 );
 
-CREATE TABLE "user"
+CREATE TABLE jungle_user
 (
   user_id    BIGSERIAL            NOT NULL
     CONSTRAINT user_pkey
@@ -40,11 +40,11 @@ CREATE TABLE "user"
 
 ALTER TABLE login
   ADD CONSTRAINT fk_login_user_userid
-FOREIGN KEY (user_id) REFERENCES "user";
+FOREIGN KEY (user_id) REFERENCES jungle_user;
 
 ALTER TABLE login_attempt
   ADD CONSTRAINT fk_login_attempt_user_userid
-FOREIGN KEY (user_id) REFERENCES "user";
+FOREIGN KEY (user_id) REFERENCES jungle_user;
 
 CREATE TABLE user_session
 (
@@ -58,6 +58,6 @@ CREATE TABLE user_session
   expires_on    TIMESTAMP,
   user_id       BIGINT
     CONSTRAINT fk_usersession_user_userid
-    REFERENCES "user"
+    REFERENCES jungle_user
 );
 
