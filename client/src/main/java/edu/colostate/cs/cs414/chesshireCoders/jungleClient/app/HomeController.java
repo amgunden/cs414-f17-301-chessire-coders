@@ -3,7 +3,6 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
@@ -43,6 +42,8 @@ public class HomeController implements Initializable {
     @FXML
     private ImageView btnViewGameHistory;
     @FXML
+    private Label nickName;
+    @FXML
     private ListView<JungleGame> gamesList;
     @FXML
     private VBox mainVBox;
@@ -51,16 +52,26 @@ public class HomeController implements Initializable {
 
     protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
     
+    public String nick;
+    
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
-        
+        //displayNickName();
         gamesList.itemsProperty().bind(listProperty);
 
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
         listProperty.set(GamesManager.getInstance().getGames());
     }
-
+    
+    public void setNickName(String nick) {
+    	this.nick = nick;
+    }
+    
+    public void displayNickName() {
+    	nickName.setText(nick);
+    }
+    
     public void logoutClicked() {
         // Don't wait for server to end session.
         AuthToken token = AuthTokenManager.getInstance().getToken();

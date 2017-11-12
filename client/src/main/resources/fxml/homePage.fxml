@@ -53,7 +53,7 @@
                                     <Image url="@../images/user_icon.png" />
                                  </image>
                               </ImageView>
-                              <Label text="Nickname">
+                              <Label fx:id="nickName" text="Nickname">
                                  <font>
                                     <Font name="System Bold" size="28.0" />
                                  </font>
