@@ -52,8 +52,10 @@ public class SessionHandler extends Listener {
                     request.getPassword(),
                     connection
             );
+            JungleConnection jungleConnection = JungleConnection.class.cast(connection);
             return new LoginResponse()
-                    .setAuthToken(token);
+                    .setAuthToken(token)
+                    .setNickName(jungleConnection.getNickName());
         } catch (CredentialException e) {
             return new LoginResponse(ResponseStatusCodes.UNAUTHORIZED, e.getMessage());
         } catch (AccountNotFoundException | AccountLockedException e) {
