@@ -8,5 +8,7 @@ public interface RegistrationService {
 
     void registerUser(String nickName, String email, String hashedPassword) throws SQLException;
 
-    void unregisterUser(String email, AuthToken token) throws SQLException;
+    void unregisterUser(String email) throws SQLException;
+
+    boolean isRegistered(String email) throws SQLException;
 }

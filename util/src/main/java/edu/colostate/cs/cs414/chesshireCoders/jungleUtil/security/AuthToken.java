@@ -39,4 +39,23 @@ public class AuthToken implements Serializable {
         this.expiresOn = expiresOn;
         return this;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        AuthToken authToken = (AuthToken) object;
+
+        if (authenticationToken != null ? !authenticationToken.equals(authToken.authenticationToken) : authToken.authenticationToken != null)
+            return false;
+        return expiresOn != null ? expiresOn.equals(authToken.expiresOn) : authToken.expiresOn == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = authenticationToken != null ? authenticationToken.hashCode() : 0;
+        result = 31 * result + (expiresOn != null ? expiresOn.hashCode() : 0);
+        return result;
+    }
 }

@@ -22,8 +22,6 @@ import java.sql.SQLException;
 
 public class RegistrationHandler extends Listener {
 
-    private ConnectionProvider provider = HikariConnectionProvider.getInstance();
-    private DAOManager manager = DAOManager.instance(provider, PostgresDAOManager.class);
     private RegistrationService registrationService = new RegistrationServiceImpl();
     private SessionService sessionService = new SessionServiceImpl();
 
@@ -68,7 +66,7 @@ public class RegistrationHandler extends Listener {
     private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request, Connection connection) throws SQLException {
         try {
             JungleConnection jungConn = JungleConnection.class.cast(connection);
-            registrationService.unregisterUser(request.getEmail(), jungConn.getAuthToken());
+            registrationService.unregisterUser(request.getEmail());
             sessionService.expireSession(jungConn
                     .getAuthToken()
                     .getToken());
