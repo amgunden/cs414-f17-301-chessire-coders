@@ -46,7 +46,7 @@ public class RegistrationHandler extends Listener {
         Platform.runLater(() -> {
             if (response.isSuccess()) {
                 AuthTokenManager.getInstance().setAuthToken(response.getAuthToken());
-                registerController.registrationSuccess();
+                registerController.registrationSuccess(response.getNickName());
             } else {
                 registerController.registrationFailure(response.getErrMsg());
             }
