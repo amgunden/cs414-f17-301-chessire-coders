@@ -108,19 +108,20 @@ CREATE TYPE INVITESTATUS AS ENUM ('PENDING', 'ACCEPTED', 'REJECTED');
 
 CREATE TABLE invitation
 (
-  invitation_id     BIGSERIAL                      NOT NULL
+  invitation_id           BIGSERIAL                      NOT NULL
     CONSTRAINT invitation_pkey
     PRIMARY KEY,
-  user_sender_id    BIGINT                         NOT NULL
+  user_sender_id          BIGINT                         NOT NULL
     CONSTRAINT fk_invitation_sender_id
     REFERENCES jungle_user,
-  user_recipient_id BIGINT                         NOT NULL
+  user_recipient_id       BIGINT                         NOT NULL
     CONSTRAINT fk_invitation_recipient_id
     REFERENCES jungle_user,
-  game_id           BIGINT                         NOT NULL
+  game_id                 BIGINT                         NOT NULL
     CONSTRAINT fk_invitation_game_id
     REFERENCES game,
-  invite_status     INVITESTATUS DEFAULT 'PENDING' NOT NULL
+  invite_status           INVITESTATUS DEFAULT 'PENDING' NOT NULL,
+  invitation_created_time TIMESTAMP DEFAULT now()        NOT NULL
 );
 
 ALTER TABLE invitation

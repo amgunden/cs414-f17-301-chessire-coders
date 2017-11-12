@@ -37,6 +37,13 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
     }
 
     @Override
+    public List<Invitation> findByRecipientId(long recipientId, InvitationStatusType statusType) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM invitation WHERE user_recipient_id = ? AND invite_status = ?";
+        return query(sql, INVITATION_ROW_MAPPER, recipientId, statusType.name());
+    }
+
+    @Override
     public List<Invitation> findByGameId(long gameId) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT * FROM invitation WHERE game_id = ?";
