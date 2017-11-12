@@ -3,11 +3,15 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.InviteManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.NetworkListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -36,6 +40,8 @@ public class HomeController implements Initializable {
     @FXML
     private Label lblActiveGames;
     @FXML
+    private Label lblGameInvites;
+    @FXML
     private ImageView btnSettings;
     @FXML
     private ImageView btnViewInvites;
@@ -46,29 +52,36 @@ public class HomeController implements Initializable {
     @FXML
     private ListView<JungleGame> gamesList;
     @FXML
+    private ListView<Invitation> invitationList;
+    @FXML
     private VBox mainVBox;
     @FXML
     private StackPane unregSuccess;
 
-    protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
+    protected ListProperty<JungleGame> gameListProperty = new SimpleListProperty<>();
+    protected ListProperty<Invitation> inviteListProperty = new SimpleListProperty<>();
     
     public String nick;
     
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
         //displayNickName();
-        gamesList.itemsProperty().bind(listProperty);
-
+        gamesList.itemsProperty().bind(gameListProperty);
+        invitationList.itemsProperty().bind(inviteListProperty);
+        btnViewInvites.setVisible(false);
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
-        listProperty.set(GamesManager.getInstance().getGames());
+        gameListProperty.set(GamesManager.getInstance().getGames());
+        inviteListProperty.set(InviteManager.getInstance().getInvites());
+        NetworkListener.addEventListeners(App.getJungleClient());
+        
     }
     
     public void setNickName(String nick) {
     	this.nick = nick;
     }
     
-    public void displayNickName() {
+    public void displayNickname() {
     	nickName.setText(nick);
     }
     
@@ -96,6 +109,7 @@ public class HomeController implements Initializable {
         try {
             board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
+            lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
             borderPane.setCenter(board);
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Game Board.");
@@ -168,5 +182,4 @@ public class HomeController implements Initializable {
     public void printGetUserError(String errorMsg) {
         System.out.println("Error occured while attempting to get User Information: " + errorMsg);
     }
-
 }

@@ -29,24 +29,33 @@
                               <Font size="20.0" />
                            </font>
                            <padding>
-                              <Insets left="40.0" />
+                              <Insets left="30.0" />
                            </padding>
                         </Label>
-                        <ListView fx:id="gamesList" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
+                        <ListView fx:id="gamesList" prefHeight="316.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
+                        <Label fx:id="lblGameInvites" alignment="CENTER" text="Game Invitations" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <ListView fx:id="invitationList" prefHeight="355.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
                      </children>
                   </FlowPane>
                </right>
                <top>
                   <GridPane prefHeight="80.0" style="-fx-background-color: #cccccc;" BorderPane.alignment="CENTER">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="615.0" minWidth="10.0" prefWidth="506.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="274.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="615.0" minWidth="10.0" prefWidth="420.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="395.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <FlowPane hgap="10.0">
+                        <FlowPane hgap="10.0" prefHeight="80.0" prefWidth="467.0">
                            <children>
                               <ImageView fitHeight="52.0" fitWidth="61.0" preserveRatio="true">
                                  <image>
@@ -64,16 +73,16 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </FlowPane>
-                        <FlowPane alignment="TOP_RIGHT" hgap="10.0" GridPane.columnIndex="1">
+                        <FlowPane alignment="TOP_RIGHT" hgap="10.0" prefHeight="101.0" prefWidth="373.0" GridPane.columnIndex="1">
                            <children>
-                              <ImageView fx:id="btnViewGameHistory" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#viewGameHistoryClicked" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/hourglass.png" />
-                                 </image>
-                              </ImageView>
                               <ImageView fx:id="btnViewInvites" fitHeight="65.0" fitWidth="67.0" onMouseClicked="#viewInvitesClicked" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/envelope_badged.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="btnViewGameHistory" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#viewGameHistoryClicked" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/hourglass.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="btnSettings" fitHeight="41.0" fitWidth="43.0" onMouseClicked="#settingsClicked" pickOnBounds="true" preserveRatio="true">

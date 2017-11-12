@@ -4,6 +4,7 @@ public class Invitation {
 
     private int invitationId;
     private int senderId;
+    private String senderNickname;
     private int recipientId;
 
     public Invitation() {
@@ -42,5 +43,10 @@ public class Invitation {
 
     public void setRecipientId(int recipientId) {
         this.recipientId = recipientId;
+    }
+    
+    @Override
+    public String toString() {
+    	return senderNickname + " (" + invitationId + ")";
     }
 }
