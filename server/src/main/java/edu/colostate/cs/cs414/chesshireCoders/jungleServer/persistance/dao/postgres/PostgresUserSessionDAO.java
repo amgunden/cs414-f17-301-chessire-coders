@@ -20,24 +20,24 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
     @Override
     public UserSession findByPrimaryKey(Long pk) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM public.\"user_session\" WHERE \"user_session\".\"session_id\" = ?";
+        String sql = "SELECT * FROM user_session WHERE session_id = ?";
         return query(sql, USER_SESSION_ROW_MAPPER, pk).get(0);
     }
 
     @Override
     public List<UserSession> findAll() throws SQLException {
         //language=PostgreSQL
-        return query("SELECT * FROM public.\"user_session\"", USER_SESSION_ROW_MAPPER);
+        return query("SELECT * FROM user_session", USER_SESSION_ROW_MAPPER);
     }
 
     @Override
     public Long create(UserSession userSession) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO public.\"user_session\" (\n" +
-                "  \"ip_address\",\n" +
-                "  \"auth_token\",\n" +
-                "  \"expires_on\",\n" +
-                "  \"user_id\"\n" +
+        String sql = "INSERT INTO user_session (\n" +
+                "  ip_address,\n" +
+                "  auth_token,\n" +
+                "  expires_on,\n" +
+                "  user_id\n" +
                 ") VALUES (?, ?, ?, ?)";
         return add(sql, Long.class,
                 userSession.getIpAddress(),
@@ -49,9 +49,9 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
     @Override
     public int update(UserSession userSession) throws SQLException {
         //language=PostgreSQL
-        String sql = "UPDATE public.\"user_session\"\n" +
-                "SET \"auth_token\" = ?, \"expires_on\" = ?\n" +
-                "WHERE \"user_id\" = ?";
+        String sql = "UPDATE user_session\n" +
+                "SET auth_token = ?, expires_on = ?\n" +
+                "WHERE user_id = ?";
         return modify(sql,
                 userSession.getAuthToken().getToken(),
                 userSession.getAuthToken().getExpiration(),
@@ -78,9 +78,9 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
     @Override
     public int updateExpiration(UserSession session) throws SQLException {
         //language=PostgreSQL
-        String sql = "UPDATE public.\"user_session\"\n" +
-                "SET \"expires_on\" = ?\n" +
-                "WHERE \"auth_token\" = ?";
+        String sql = "UPDATE user_session\n" +
+                "SET expires_on = ?\n" +
+                "WHERE auth_token = ?";
         return modify(sql,
                 session.getAuthToken().getExpiration(),
                 session.getAuthToken().getToken());

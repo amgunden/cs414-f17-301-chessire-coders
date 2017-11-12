@@ -30,41 +30,41 @@ public class PostgresUserDAO extends BaseDAO<User, Long> implements UserDAO {
     @Override
     public User findByPrimaryKey(Long pk) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM public.\"user\" WHERE \"user\".\"user_id\" = ?";
+        String sql = "SELECT * FROM \"user\" WHERE \"user\".user_id = ?";
         return query(sql, USER_ROW_MAPPER, pk).get(0);
     }
 
     @Override
     public List<User> findAll() throws SQLException {
-        return query("SELECT * FROM public.\"user\"", USER_ROW_MAPPER);
+        return query("SELECT * FROM \"user\"", USER_ROW_MAPPER);
     }
 
     @Override
     public User findByNickName(String nickName) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM public.\"user\" WHERE \"user\".\"nick_name\" = ?";
+        String sql = "SELECT * FROM \"user\" WHERE \"user\".nick_name = ?";
         return query(sql, USER_ROW_MAPPER, nickName).get(0);
     }
 
     @Override
     public Long create(User user) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO public.\"user\" (\"name_first\", \"name_last\", \"nick_name\") VALUES (?, ?, ?)";
+        String sql = "INSERT INTO \"user\" (name_first, name_last, nick_name) VALUES (?, ?, ?)";
         return add(sql, Long.class, user.getNameFirst(), user.getNameLast(), user.getNickName());
     }
 
     @Override
     public int update(User user) throws SQLException {
         //language=PostgreSQL
-        String sql = "UPDATE \"public\".\"user\"\n" +
-                "SET \"name_first\" = ?, \"name_last\" = ?, \"nick_name\" = ?\n" +
-                "WHERE \"user_id\" = ?";
+        String sql = "UPDATE \"user\"\n" +
+                "SET name_first = ?, name_last = ?, nick_name = ?\n" +
+                "WHERE user_id = ?";
         return modify(sql, user.getNameFirst(), user.getNameLast(), user.getNickName());
     }
 
     public int delete(Long id) throws SQLException {
         //language=PostgreSQL
-        String sql = "DELETE FROM public.\"user\" WHERE \"user_id\" = ?";
+        String sql = "DELETE FROM \"user\" WHERE user_id = ?";
         return modify(sql, id);
     }
 
@@ -80,7 +80,7 @@ public class PostgresUserDAO extends BaseDAO<User, Long> implements UserDAO {
     @Override
     public int delete(User user) throws SQLException {
         //language=PostgreSQL
-        String sql = "DELETE FROM public.\"user\" WHERE \"nick_name\" = ?";
+        String sql = "DELETE FROM \"user\" WHERE nick_name = ?";
         return modify(sql, user.getNickName());
     }
 }
