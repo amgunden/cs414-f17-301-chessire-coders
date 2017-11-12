@@ -3,10 +3,12 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.InviteManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.NetworkListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
@@ -56,7 +58,7 @@ public class HomeController implements Initializable {
     @FXML
     private StackPane unregSuccess;
 
-    protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
+    protected ListProperty<JungleGame> gameListProperty = new SimpleListProperty<>();
     protected ListProperty<Invitation> inviteListProperty = new SimpleListProperty<>();
     
     public String nick;
@@ -64,11 +66,12 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
         //displayNickName();
-        gamesList.itemsProperty().bind(listProperty);
+        gamesList.itemsProperty().bind(gameListProperty);
         btnViewInvites.setVisible(false);
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
-        listProperty.set(GamesManager.getInstance().getGames());
+        gameListProperty.set(GamesManager.getInstance().getGames());
+        inviteListProperty.set(InviteManager.getInstance().getInvites());
         NetworkListener.addEventListeners(App.getJungleClient());
         
     }
@@ -77,7 +80,7 @@ public class HomeController implements Initializable {
     	this.nick = nick;
     }
     
-    public void displayNickName() {
+    public void displayNickname() {
     	nickName.setText(nick);
     }
     
@@ -178,10 +181,4 @@ public class HomeController implements Initializable {
     public void printGetUserError(String errorMsg) {
         System.out.println("Error occured while attempting to get User Information: " + errorMsg);
     }
-    
-    public void inviteArrived() {
-    	//Update invite list in UI
-    	
-    }
-
 }

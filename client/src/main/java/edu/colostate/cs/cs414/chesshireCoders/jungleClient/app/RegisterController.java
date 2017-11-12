@@ -111,7 +111,7 @@ public class RegisterController implements Initializable {
             controller.nick = nick;
             Scene scene = new Scene(root);
             App.setScene(scene);          
-            controller.displayNickName();
+            controller.displayNickname();
 
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Home page.");

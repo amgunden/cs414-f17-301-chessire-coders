@@ -1,6 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.collections.FXCollections;
@@ -9,10 +8,10 @@ import javafx.collections.ObservableList;
 public class InviteManager {
 	
 	private static InviteManager instance;
-	private ObservableList<Invitation> invitesReceived;
+	private ObservableList<Invitation> invites;
 	
 	private InviteManager() {
-		invitesReceived = FXCollections.observableArrayList();
+		invites = FXCollections.observableArrayList();
 	}
 	
 	public static InviteManager getInstance()
@@ -26,11 +25,11 @@ public class InviteManager {
 	
 	public ObservableList<Invitation> getInvites()
 	{
-		return invitesReceived;
+		return invites;
 	}
 	
 	public void addInvitation(Invitation invite) {
-		invitesReceived.add(invite);
+		invites.add(invite);
 	}
 	
 	public void addInvitationEvent(InvitationEvent invite) {
@@ -39,9 +38,7 @@ public class InviteManager {
 	}
 	
 	public void removeInvitation(Invitation invite) {
-		invitesReceived.remove(invite);
+		invites.remove(invite);
 	}
-	
-	
 
 }
