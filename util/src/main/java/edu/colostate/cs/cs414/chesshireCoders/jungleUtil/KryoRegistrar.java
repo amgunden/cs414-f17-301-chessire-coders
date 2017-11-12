@@ -33,6 +33,7 @@ public class KryoRegistrar {
         registerRequestClasses(kryo);
         registerResponseClasses(kryo);
         registerTypeClasses(kryo);
+        registerSecurityClasses(kryo);
     }
 
     /**
@@ -91,6 +92,15 @@ public class KryoRegistrar {
         kryo.register(GetUserGameHistoryRequest.class);
         kryo.register(UpdateInvitationRequest.class);
         kryo.register(UpdateSessionExpirationRequest.class);
+    }
+    
+    /**
+     * This registers some security classes such as AuthToken
+     *
+     * @param kryo
+     */
+    private static void registerSecurityClasses(Kryo kryo) {
+    	kryo.register(AuthToken.class);
     }
 
     /**

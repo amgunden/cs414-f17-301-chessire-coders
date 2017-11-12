@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
@@ -40,6 +41,8 @@ public class HomeController implements Initializable {
     @FXML
     private Button btnViewGameHistory;
     @FXML
+    private Label nickName;
+    @FXML
     private ListView<JungleGame> gamesList;
     @FXML
     private VBox mainVBox;
@@ -48,16 +51,28 @@ public class HomeController implements Initializable {
 
     protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
     
+    private AccountHandler acctHandler;
+    
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
-        
+        sendGetUserRequest();
         gamesList.itemsProperty().bind(listProperty);
 
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
         listProperty.set(GamesManager.getInstance().getGames());
     }
-
+    
+    public void sendGetUserRequest() {
+    	acctHandler = new AccountHandler(this);
+    	acctHandler.requestUserInfo();
+    }
+    
+    public void displayNickName() {
+    	nickName.setText( acctHandler.getUserInfo().getNickName() );
+    	App.getJungleClient().removeListener(acctHandler);
+    }
+    
     public void logoutClicked() {
         // Don't wait for server to end session.
         AuthToken token = AuthTokenManager.getInstance().getToken();

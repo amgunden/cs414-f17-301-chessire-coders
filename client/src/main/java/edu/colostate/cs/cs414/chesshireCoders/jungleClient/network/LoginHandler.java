@@ -35,9 +35,9 @@ public class LoginHandler extends Listener {
         // JavaFX does not allow UI updates from non-UI threads.
         Platform.runLater(()->{
             if (response.isSuccess()) {
+            	AuthTokenManager.getInstance().setAuthToken(response.getAuthToken());
+            	AuthTokenManager.getInstance().setEmail(request.getEmail());
                 loginController.loginSuccess();
-                AuthTokenManager.getInstance().setAuthToken(response.getAuthToken());
-                AccountHandler.getUserInfo( request.getEmail());
             } else {
                 loginController.loginFailure(response.getErrMsg());
             }

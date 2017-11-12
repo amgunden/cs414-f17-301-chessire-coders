@@ -7,15 +7,17 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javafx.application.Platform;
 
 public class AccountHandler extends Listener {
 
     private HomeController homeController;
 
-    private User userInfo;
+    private static User userInfo;
 
     private boolean unregisterUserStatus;
 
@@ -25,11 +27,14 @@ public class AccountHandler extends Listener {
 
     public AccountHandler(HomeController homeController) {
         this.homeController = homeController;
+        App.getJungleClient().addListener(this);
     }
 
-    public static void getUserInfo(String email) {
-        //  GetUserRequest request = new GetUserRequest(AuthTokenManager.getInstance().getAuthToken().getToken(), email);
-        //    App.getJungleClient().sendMessage(request);
+    public static void requestUserInfo() {
+    	AuthToken token = AuthTokenManager.getInstance().getToken();
+    	String email = AuthTokenManager.getInstance().getEmail();
+    	GetUserRequest request = new GetUserRequest(token, email);
+    	App.getJungleClient().sendMessage(request);
     }
 
     @Override
@@ -44,10 +49,15 @@ public class AccountHandler extends Listener {
         Platform.runLater(() -> {
             if (response.isSuccess()) {
                 userInfo = response.getUser();
+                homeController.displayNickName();
             } else {
                 homeController.printGetUserError(response.getErrMsg());
             }
         });
+    }
+    
+    public static User getUserInfo() {
+    	return userInfo;
     }
 
     public void setUnregisterUserStatus(boolean unregisterUserStatus) {
