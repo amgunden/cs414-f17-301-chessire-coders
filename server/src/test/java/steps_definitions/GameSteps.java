@@ -1,13 +1,15 @@
 package steps_definitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
 import main.World;
+import org.junit.Assert;
 
 public class GameSteps implements En {
 
@@ -22,9 +24,17 @@ public class GameSteps implements En {
                 gameHandler.received(connection, request);
             }
         });
-        And("^the games? (?:was|were) created$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
+        And("^the games? (?:was|were)( not)? created$", (String not) -> {
+            for (Object response : world.getSentMessages(CreateGameResponse.class)) {
+                CreateGameResponse createGameResponse = CreateGameResponse.class.cast(response);
+                try {
+                    Game game = gameService.fetchGame(createGameResponse.getGameID());
+                    if (not != null) Assert.assertNull(game);
+                    else Assert.assertNotNull(game);
+                } catch (Exception e) {
+                    world.handleException(e);
+                }
+            }
         });
     }
 }

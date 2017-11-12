@@ -17,7 +17,7 @@ public class CreateGameResponse extends Response {
     }
 
     public CreateGameResponse(long gameId) {
-
+        setGameID(gameId);
     }
 
     public long getGameID() {

@@ -65,7 +65,7 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
 
         return add(sql, Long.class,
                 game.getPlayerOneID(),
-                game.getPlayerTwoID(),
+                game.getPlayerTwoID() == -1 ? null : game.getPlayerTwoID(),
                 game.getGameStatus().name(),
                 game.getGameStart(),
                 game.getGameEnd()
@@ -83,7 +83,8 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     public Game findByPrimaryKey(Long gameId) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT * FROM game WHERE game_id = ?";
-        return query(sql, GAME_ROW_MAPPER, gameId).get(0);
+        List<Game> games = query(sql, GAME_ROW_MAPPER, gameId);
+        return games.isEmpty() ? null : games.get(0);
     }
 
     /**

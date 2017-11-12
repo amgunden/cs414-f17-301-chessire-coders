@@ -45,13 +45,14 @@ public class GameServiceImpl implements GameService {
                     .setPlayerOneID(user.getUserId())
                     .setGamePieces(gamePieces)
                     .setGameStatus(PENDING);
+            long gameId = manager.getGameDAO().create(game);
             for (GamePiece piece : gamePieces) {
                 // tie the game id to each piece, then add it
-                piece.setGameId(game.getGameID());
+                piece.setGameId(gameId);
                 manager.getGamePieceDAO().create(piece);
             }
+            game.setGameID(gameId);
             // finally, add the game
-            manager.getGameDAO().create(game);
             return game;
         });
     }
@@ -117,20 +118,20 @@ public class GameServiceImpl implements GameService {
         pieces.add(new GamePiece(PLAYER_TWO, CAT, 1, 7));
 
         // power level 3
-        pieces.add(new GamePiece(PLAYER_ONE, DOG, 4, 2));
-        pieces.add(new GamePiece(PLAYER_TWO, DOG, 2, 6));
+        pieces.add(new GamePiece(PLAYER_ONE, FOX, 4, 2));
+        pieces.add(new GamePiece(PLAYER_TWO, FOX, 2, 6));
 
         // power level 4
-        pieces.add(new GamePiece(PLAYER_ONE, WOLF, 1, 1));
-        pieces.add(new GamePiece(PLAYER_TWO, WOLF, 5, 7));
+        pieces.add(new GamePiece(PLAYER_ONE, DOG, 1, 1));
+        pieces.add(new GamePiece(PLAYER_TWO, DOG, 5, 7));
 
         // power level 5
         pieces.add(new GamePiece(PLAYER_ONE, LEOPARD, 2, 2));
         pieces.add(new GamePiece(PLAYER_TWO, LEOPARD, 4, 6));
 
         // power level 6
-        pieces.add(new GamePiece(PLAYER_ONE, TIGER, 6, 8));
-        pieces.add(new GamePiece(PLAYER_TWO, TIGER, 0, 0));
+        pieces.add(new GamePiece(PLAYER_ONE, TIGER, 6, 0));
+        pieces.add(new GamePiece(PLAYER_TWO, TIGER, 0, 8));
 
         // power level 7
         pieces.add(new GamePiece(PLAYER_ONE, LION, 0, 0));

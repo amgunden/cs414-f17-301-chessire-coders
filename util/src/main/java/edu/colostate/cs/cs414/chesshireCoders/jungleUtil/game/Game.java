@@ -11,7 +11,7 @@ public class Game {
     private Date gameStart;
     private Date gameEnd;
     private long playerOneID;
-    private long playerTwoID;
+    private long playerTwoID = -1;
     private GameStatus gameStatus;
     private List<GamePiece> gamePieces;
 

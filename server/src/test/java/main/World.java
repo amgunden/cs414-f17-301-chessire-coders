@@ -4,6 +4,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import helpers.ConnectionHelper;
 import helpers.ExceptionHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,15 @@ public class World {
 
     public List<Object> getSentMessages() {
         return connectionHelper.getSentMessages();
+    }
+
+    public List<Object> getSentMessages(Class tClass) {
+        List<Object> objects = new ArrayList<>();
+        for (Object message : getSentMessages()) {
+            if (message.getClass().equals(tClass))
+                objects.add(message);
+        }
+        return objects;
     }
 
     public boolean messageSent() {
