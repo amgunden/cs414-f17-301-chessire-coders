@@ -13,16 +13,13 @@ import static com.esotericsoftware.kryonet.Listener.ThreadedListener;
 
 public class NetworkListener {
 	
-	private static HomeController homeController;
-
+	
     /**
      * This method adds listeners to the client that will handle event messages from the server
      *
      * @param client The client object to add the listeners to.
      */
-    public static void addEventListeners(JungleClient client, HomeController home) {
-
-    	homeController = home;
+    public static void addEventListeners(JungleClient client) {
     	
         // Server Event Listener
         client.addListener(new ThreadedListener(new FilteredListener<ServerEvent>(ServerEvent.class) {
@@ -36,7 +33,7 @@ public class NetworkListener {
         client.addListener(new ThreadedListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
             @Override
             public void run(Connection connection, GameEndedEvent received) {
-
+            		
             }
         }));
 
@@ -44,7 +41,7 @@ public class NetworkListener {
         client.addListener(new ThreadedListener(new FilteredListener<InvitationEvent>(InvitationEvent.class) {
             @Override
             public void run(Connection connection, InvitationEvent received) {
-
+            	InviteManager.getInstance().addInvitationEvent(received);
             }
         }));
     }

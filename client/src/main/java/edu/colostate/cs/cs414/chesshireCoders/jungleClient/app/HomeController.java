@@ -66,7 +66,7 @@ public class HomeController implements Initializable {
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
         listProperty.set(GamesManager.getInstance().getGames());
-        NetworkListener.addEventListeners(App.getJungleClient(), this);
+        NetworkListener.addEventListeners(App.getJungleClient());
         
     }
     
@@ -177,7 +177,7 @@ public class HomeController implements Initializable {
     }
     
     public void inviteArrived() {
-  	
+    	//Update invite list in UI
     	
     }
 
