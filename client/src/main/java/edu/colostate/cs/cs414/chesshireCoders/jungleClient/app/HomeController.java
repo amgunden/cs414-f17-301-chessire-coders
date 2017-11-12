@@ -37,8 +37,6 @@ public class HomeController implements Initializable {
     @FXML
     private Label lblActiveGames;
     @FXML
-    private Button btnLogout;
-    @FXML
     private ImageView btnSettings;
     @FXML
     private ImageView btnViewInvites;
