@@ -1,42 +1,59 @@
 package steps_definitions;
 
-import cucumber.api.PendingException;
+import cucumber.api.DataTable;
 import cucumber.api.java8.En;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
+import helpers.ExceptionHelper;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertFalse;
 
 public class AccountSteps implements En {
+
+    private ExceptionHelper exceptionHelper = new ExceptionHelper();
+    private RegistrationService registrationService = new RegistrationServiceImpl();
+    private SessionService sessionService = new SessionServiceImpl();
+
+    private List<Map<String, String>> credentials;
+
     public AccountSteps() {
-//        Given("^the following accounts exist:$", (DataTable dataTable) -> {
-//            List<List<String>> accounts = dataTable.asLists(String.class);
-//
-//            for(List<String> account : accounts) {
-//
-//                try (Connection connection = HikariConnectionProvider.getInstance().getConnection()) {
-//                    connection.setAutoCommit(false);
-//                    try {
-//                        PostgresUserDAO postgresUserDAO = new PostgresUserDAO(connection);
-//                        PostgresLoginDAO postgresLoginDAO = new PostgresLoginDAO(connection);
-//
-//                        User user = new User();
-//                        user.setNickName(account.get(1));
-//                        int userId = postgresUserDAO.insert(user);
-//
-//                        Login login = new Login();
-//                        login.setUserID(userId);
-//                        login.setEmail(account.get(0));
-//                        login.setHashedPass(Crypto.hashSHA256(account.get(2).getBytes()));
-//
-//                        postgresLoginDAO.insert(login);
-//                    } catch (SQLException e) {
-//                        connection.rollback();
-//                        throw new RuntimeException(e);
-//                    } finally {
-//                        connection.setAutoCommit(true);
-//                    }
-//                } catch (SQLException | NoSuchAlgorithmException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-        throw new PendingException();
+        Given("^the following accounts exist:$", (DataTable dataTable) -> {
+            credentials = dataTable.asMaps(String.class, String.class);
+            for (Map<String, String> credential : credentials) {
+                try {
+                    registrationService.registerUser(
+                            credential.get("nick name"),
+                            credential.get("email"),
+                            credential.get("password")
+                    );
+                } catch (SQLException e) {
+                    exceptionHelper.handle(e);
+                }
+            }
+        });
+        Then("^they have been marked as un-registered$", () -> {
+            for (Map<String, String> credential : credentials) {
+                try {
+                    assertFalse(registrationService.isRegistered(credential.get("email")));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        When("^they un-register their account$", () -> {
+            for (Map<String, String> credential : credentials) {
+                try {
+                    registrationService.unregisterUser(credential.get("email"));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

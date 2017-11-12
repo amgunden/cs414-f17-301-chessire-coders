@@ -45,4 +45,14 @@ public class JungleConnection extends Connection {
     	}
     	return super.sendTCP(o);
     }
+
+    public JungleConnection setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+
+    public JungleConnection setNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
 }
