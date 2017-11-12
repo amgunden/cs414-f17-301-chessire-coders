@@ -2,7 +2,7 @@ DROP ALL OBJECTS;
 
 CREATE TABLE login
 (
-  user_id        BIGINT                NOT NULL
+  user_id        IDENTITY                NOT NULL
     CONSTRAINT login_pkey
     PRIMARY KEY,
   email          VARCHAR(64)           NOT NULL
@@ -19,9 +19,7 @@ CREATE TABLE login_attempt
     PRIMARY KEY,
   login_attempt_time TIMESTAMP NOT NULL,
   login_successful   BOOLEAN   NOT NULL,
-  user_id            BIGINT,
-  CONSTRAINT unq_login_attempt_userid_time
-  UNIQUE (user_id, login_attempt_time)
+  user_id            BIGINT
 );
 
 CREATE TABLE jungle_user

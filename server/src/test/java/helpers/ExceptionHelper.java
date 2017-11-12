@@ -8,22 +8,21 @@ import java.util.Set;
 public class ExceptionHelper {
 
     private boolean expectsAnyException = false;
-    private Set<Class<? extends  Exception>> expectedTypes;
+    private Set<Class<? extends  Exception>> expectedTypes = new HashSet<>();
     private List<Exception> unexpectedExceptions = new ArrayList<>();
 
-    public void expectsException() {
+    public void expectsAnyException() {
         expectsAnyException = true;
     }
 
-    public void expectExceptionType(Class<? extends Exception> type) {
-        expectedTypes = new HashSet<>();
+    public void expectsException(Class<? extends Exception> type) {
+        expectedTypes.add(type);
     }
 
     public void handle(Exception e) {
-        if (!expectsAnyException) {
-            throw new RuntimeException(e);
-        }
-        unexpectedExceptions.add(e);
+        if (expectsAnyException || expectedTypes.contains(e.getClass())) {
+            unexpectedExceptions.add(e);
+        } else throw new RuntimeException(e);
     }
 
     public List<Exception> getUnexpectedExceptions() {
