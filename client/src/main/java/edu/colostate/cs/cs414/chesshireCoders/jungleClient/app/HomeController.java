@@ -22,7 +22,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.GaussianBlur;
@@ -37,6 +36,8 @@ public class HomeController implements Initializable {
     private BorderPane borderPane;
     @FXML
     private Label lblActiveGames;
+    @FXML
+    private Button btnLogout;
     @FXML
     private ImageView btnSettings;
     @FXML
