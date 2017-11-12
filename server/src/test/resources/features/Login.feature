@@ -45,7 +45,7 @@ Feature: Login Management
   @DBClean
   Scenario: An unregistered user cannot be authenticated by the server.
     Given a user has not created an account
-    When they log in with any credentials:
+    When they log in with nonexistent credentials:
       | email            | password |
       | not-bob@test.com | not-bob  |
     Then the client is sent an error response

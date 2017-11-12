@@ -9,13 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 public class HandlerSteps implements En {
     public HandlerSteps(World world) {
-        Then("^the client is sent an error response$", () -> {
+        Then("^the client is sent an? (error|success) response$", (String responseType) -> {
             Response response = Response.class.cast(world.getSentMessages().get(0));
-            assertFalse(response.isSuccess());
-        });
-        And("^the client is sent a success response$", () -> {
-            Response response = Response.class.cast(world.getSentMessages().get(0));
-            assertTrue(response.isSuccess());
+            if (responseType.equals("success")) assertTrue(response.isSuccess());
+            else if (responseType.equals("error")) assertFalse(response.isSuccess());
         });
     }
 }

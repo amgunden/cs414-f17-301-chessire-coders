@@ -9,6 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionS
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import main.World;
 
+import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.CredentialException;
 import java.util.Map;
 
@@ -23,9 +24,11 @@ public class SessionSteps implements En {
 
     public SessionSteps(final World world) {
 
-        When("^they log in with (?:correct|any) credentials:$", (DataTable dataTable) -> {
-
+        When("^they log in with (correct|incorrect|nonexistent) credentials:$", (String credentialType, DataTable dataTable) -> {
             world.setCredentials(dataTable.asMaps(String.class, String.class));
+
+            if (credentialType.equals("incorrect")) world.expectsException(CredentialException.class);
+            if (credentialType.equals("nonexistent")) world.expectsException(AccountNotFoundException.class);
 
             for (Map<String, String> credential : world.getCredentials()) {
                 LoginRequest request = new LoginRequest()
@@ -64,19 +67,7 @@ public class SessionSteps implements En {
             }
         });
         Then("^it fails$", () -> assertTrue(world.failed()));
-
-        When("^they log in with (?:incorrect|bad) credentials:$", (DataTable dataTable) -> {
-            world.setCredentials(dataTable.asMaps(String.class, String.class));
-            world.expectsException(CredentialException.class);
-
-            for (Map<String, String> credential : world.getCredentials()) {
-                LoginRequest request = new LoginRequest()
-                        .setEmail(credential.get("email"))
-                        .setPassword(credential.get("password"));
-                sessionHandler.received(world.createConnection(), request);
-            }
-        });
-        When("^they (?:log|are logged) out$", () -> {
+        When("^they log out$", () -> {
             for (JungleConnection connection : world.getConnections()) {
                 try {
                     sessionService.expireSession(connection.getAuthToken().getToken());
@@ -85,14 +76,15 @@ public class SessionSteps implements En {
                 }
             }
         });
-        Then("^their session is expired$", () -> {
+        Then("^(?:their session is expired|they are logged out)$", () -> {
             for (JungleConnection connection : world.getConnections()) {
                 try {
-                    sessionService.isExpired(connection);
+                    assertTrue(sessionService.isExpired(connection));
                 } catch (Exception e) {
                     world.handleException(e);
                 }
             }
         });
+
     }
 }

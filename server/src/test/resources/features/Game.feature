@@ -11,6 +11,7 @@ Feature: Create Game
   - Each game should have 8 pieces per player.
   - Every piece should be positioned correctly.
 
+  @DBClean
   Scenario: Normal game creation
     Given the following accounts exist:
       | email        | nick name | password |
@@ -18,4 +19,6 @@ Feature: Create Game
     And they log in with correct credentials:
       | email        | password |
       | bob@test.com | bob123   |
-    When a game is created
+    When they create a game
+    Then the client is sent a success response
+    And the game was created
