@@ -16,6 +16,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequ
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
 import java.sql.SQLException;
 
@@ -54,8 +55,10 @@ public class RegistrationHandler extends Listener {
     private RegisterResponse handleNewRegistration(RegisterRequest request, Connection connection) throws SQLException {
         try {
             registrationService.registerUser(request.getNickName(), request.getEmail(), request.getPassword());
-            sessionService.authenticate(request.getEmail(), request.getPassword(), connection);
-            return new RegisterResponse(); // Defaults to success
+            AuthToken authToken = sessionService.authenticate(request.getEmail(), request.getPassword(), connection);
+            return new RegisterResponse()
+                    .setAuthToken(authToken)
+                    .setNickName(request.getNickName()); // Defaults to success
         } catch (Exception e) {
             e.printStackTrace();
             return new RegisterResponse(ResponseStatusCodes.SERVER_ERROR, "Server Error: Unable to register user.");
