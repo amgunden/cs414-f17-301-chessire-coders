@@ -135,7 +135,7 @@ public class KryoRegistrar {
         kryo.register(ErrorType.class);
         kryo.register(GameOutcomeType.class);
         kryo.register(GameStatus.class);
-        kryo.register(InvitationResponseType.class);
+        kryo.register(InvitationStatusType.class);
         kryo.register(LoginStatus.class);
         kryo.register(PlayerColor.class);
         kryo.register(PlayerStatus.class);
