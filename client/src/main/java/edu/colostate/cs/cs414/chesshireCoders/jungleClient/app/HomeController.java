@@ -67,6 +67,7 @@ public class HomeController implements Initializable {
         App.window.setResizable(false);
         //displayNickName();
         gamesList.itemsProperty().bind(gameListProperty);
+        invitationList.itemsProperty().bind(inviteListProperty);
         btnViewInvites.setVisible(false);
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
