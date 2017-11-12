@@ -54,13 +54,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
 	@Override
-	public User fetchUserByNickName(final String nickName) throws SQLException {
-		return manager.execute(manager -> manager.getUserDAO().findByNickName(nickName));
+    public User fetchUserByNickName(final String nickName) throws Exception {
+        return manager.execute(manager -> manager.getUserDAO().findByNickName(nickName));
 	}
 
 	@Override
-	public User fetchUserByEmail(final String email) throws SQLException {
-		return manager.execute(manager -> {
+    public User fetchUserByEmail(final String email) throws Exception {
+        return manager.execute(manager -> {
 			Login login = manager.getLoginDAO()
 					.findByEmail(email);
 			return manager.getUserDAO()
