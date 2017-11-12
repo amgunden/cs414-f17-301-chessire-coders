@@ -15,6 +15,13 @@ public class GamePiece {
     public GamePiece() {
     }
 
+    public GamePiece(PlayerOwnerType ownerType, PieceType pieceType, int column, int row) {
+        setPlayerOwner(ownerType);
+        setPieceType(pieceType);
+        setColumn(column);
+        setRow(row);
+    }
+
     public long getPieceId() {
         return pieceId;
     }
@@ -47,7 +54,9 @@ public class GamePiece {
     }
 
     public GamePiece setColumn(int column) {
-        this.column = column;
+        if (0 <= column && column < 7)
+            this.column = column;
+        else throw new IllegalArgumentException("Value for column must be in range 0-6");
         return this;
     }
 
@@ -56,7 +65,9 @@ public class GamePiece {
     }
 
     public GamePiece setRow(int row) {
-        this.row = row;
+        if (0 <= row && row < 9)
+            this.row = row;
+        else throw new IllegalArgumentException("Value for row must be in range 0-8");
         return this;
     }
 

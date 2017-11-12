@@ -15,7 +15,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javax.security.auth.login.AccountLockedException;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.CredentialException;
-import java.sql.SQLException;
 
 public class SessionHandler extends Listener {
 
@@ -40,7 +39,7 @@ public class SessionHandler extends Listener {
                     .getAuthToken()
                     .getToken()
             );
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

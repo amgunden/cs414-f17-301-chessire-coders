@@ -4,10 +4,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,7 +20,7 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
             .setGameStart(rs.getTimestamp("start_date_time"))
             .setGameEnd(rs.getTimestamp("end_date_time"));
 
-    
+
 
     public PostgresGameDAO(Connection connection) {
         super(connection);
@@ -39,6 +36,13 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     public List<Game> findByPlayerTwoId(long userId) throws SQLException {
         String sql = "SELECT * FROM game WHERE player_two_id = ?";
         return query(sql, GAME_ROW_MAPPER, userId);
+    }
+
+    @Override
+    public List<Game> findByUserId(long userId) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM game WHERE player_one_id = ? OR player_two_id = ?";
+        return query(sql, GAME_ROW_MAPPER, userId, userId);
     }
 
     /**
@@ -108,11 +112,11 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
         String sql = "UPDATE game\n" +
                 "SET player_two_id = ?, game_state = ?, start_date_time = ?, end_date_time = ?\n" +
                 "WHERE game_id = ?";
-        return modify(sql, 
-                game.getPlayerTwoID(), 
-                game.getGameStatus(), 
-                game.getGameStart(), 
-                game.getGameEnd(), 
+        return modify(sql,
+                game.getPlayerTwoID(),
+                game.getGameStatus(),
+                game.getGameStart(),
+                game.getGameEnd(),
                 game.getGameID());
     }
 

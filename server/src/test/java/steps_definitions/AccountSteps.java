@@ -8,7 +8,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.Registra
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import helpers.ExceptionHelper;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class AccountSteps implements En {
                             credential.get("email"),
                             credential.get("password")
                     );
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     exceptionHelper.handle(e);
                 }
             }
@@ -41,7 +40,7 @@ public class AccountSteps implements En {
             for (Map<String, String> credential : credentials) {
                 try {
                     assertFalse(registrationService.isRegistered(credential.get("email")));
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -50,7 +49,7 @@ public class AccountSteps implements En {
             for (Map<String, String> credential : credentials) {
                 try {
                     registrationService.unregisterUser(credential.get("email"));
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }

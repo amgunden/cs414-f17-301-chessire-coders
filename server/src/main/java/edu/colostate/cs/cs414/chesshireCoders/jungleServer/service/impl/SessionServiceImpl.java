@@ -42,7 +42,7 @@ public class SessionServiceImpl implements SessionService {
             PostgresDAOManager.class);
 
     @Override
-    public AuthToken authenticate(String email, String hashedPass, Connection connection) throws AccountNotFoundException, CredentialException, SQLException, AccountLockedException {
+    public AuthToken authenticate(String email, String hashedPass, Connection connection) throws Exception {
 
         Login login = fetchLoginInfo(email);
 
@@ -71,7 +71,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     private void createUserSession(final long userId, final AuthToken token, final String ipAddress)
-            throws SQLException {
+            throws Exception {
         final UserSession userSession = new UserSession()
                 .setAuthToken(token)
                 .setUserId(userId)
@@ -82,14 +82,14 @@ public class SessionServiceImpl implements SessionService {
         });
     }
 
-    private void failAuthentication(Login login) throws SQLException, CredentialException {
+    private void failAuthentication(Login login) throws Exception {
         saveLoginAttempt(false, login.getUserID());
         if (getInvalidAttempts(login) > 3)
             lockAccount(login);
         throw new CredentialException("Bad password");
     }
 
-    private void lockAccount(final Login login) throws SQLException {
+    private void lockAccount(final Login login) throws Exception {
         login.setIsLocked(true);
         manager.execute((DAOCommand<Void>) manager -> {
             LoginDAO loginDAO = manager.getLoginDAO();
@@ -98,7 +98,7 @@ public class SessionServiceImpl implements SessionService {
         });
     }
 
-    private void saveLoginAttempt(final boolean success, final long userId) throws SQLException {
+    private void saveLoginAttempt(final boolean success, final long userId) throws Exception {
         final Date now = new Date(System.currentTimeMillis());
         manager.execute((DAOCommand<Void>) manager -> {
             LoginAttemptDAO loginAttemptDAO = manager.getLoginAttemptDAO();
@@ -111,7 +111,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void expireSession(String token) throws SQLException {
+    public void expireSession(String token) throws Exception {
         final UserSession userSession = new UserSession();
         userSession.setAuthToken(new AuthToken()
                 .setToken(token)
@@ -134,7 +134,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public boolean isAuthorized(Connection connection) throws InvalidConnectionException, SQLException {
+    public boolean isAuthorized(Connection connection) throws Exception {
         final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
         return manager.execute(manager -> {
             UserSession userSession = manager.getUserSessionDAO()
@@ -147,7 +147,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public boolean isExpired(Connection connection) throws SQLException {
+    public boolean isExpired(Connection connection) throws Exception {
         final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
         final Date now = new Date(System.currentTimeMillis());
         return manager.execute(manager -> manager.getUserSessionDAO()
@@ -161,7 +161,7 @@ public class SessionServiceImpl implements SessionService {
         return login.getHashedPass().equals(givenPassword);
     }
 
-    private Login fetchLoginInfo(final String email) {
+    private Login fetchLoginInfo(final String email) throws Exception {
         try {
             return manager.execute(manager -> {
                 LoginDAO loginDAO = manager.getLoginDAO();
@@ -173,7 +173,7 @@ public class SessionServiceImpl implements SessionService {
         }
     }
 
-    private User fetchUserInfo(final long userId) {
+    private User fetchUserInfo(final long userId) throws Exception {
         try {
             return manager.execute(manager -> {
                 UserDAO userDAO = manager.getUserDAO();
@@ -185,22 +185,11 @@ public class SessionServiceImpl implements SessionService {
         }
     }
 
-    private int getInvalidAttempts(Login login) throws SQLException {
+    private int getInvalidAttempts(Login login) throws Exception {
         final Date checkSince = new Date(System.currentTimeMillis() - LOGIN_CHECK_PERIOD);
         return manager.execute(manager -> {
             LoginAttemptDAO loginAttemptDAO = manager.getLoginAttemptDAO();
             return loginAttemptDAO.getUnsuccessfulAttemptsSince(checkSince);
         });
-    }
-
-    public class InvalidConnectionException extends Exception {
-
-        public InvalidConnectionException() {
-            super();
-        }
-
-        public InvalidConnectionException(String message) {
-            super(message);
-        }
     }
 }

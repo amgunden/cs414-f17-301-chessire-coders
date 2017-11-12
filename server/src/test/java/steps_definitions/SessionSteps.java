@@ -1,7 +1,6 @@
 package steps_definitions;
 
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
@@ -11,7 +10,6 @@ import helpers.ExceptionHelper;
 
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.CredentialException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +52,7 @@ public class SessionSteps implements En {
                 try {
                     assertTrue(sessionService.isAuthorized(connection));
                     assertTrue(connection.isAuthorized());
-                } catch (SessionServiceImpl.InvalidConnectionException | SQLException e) {
+                } catch (Exception e) {
                     exceptionHelper.handle(e);
                 }
             }
@@ -64,7 +62,7 @@ public class SessionSteps implements En {
                 try {
                     assertFalse(sessionService.isAuthorized(connection));
                     assertFalse(connection.isAuthorized());
-                } catch (SessionServiceImpl.InvalidConnectionException | SQLException e) {
+                } catch (Exception e) {
                     exceptionHelper.handle(e);
                 }
             }
@@ -103,7 +101,7 @@ public class SessionSteps implements En {
             for (JungleConnection connection : connections) {
                 try {
                     sessionService.expireSession(connection.getAuthToken().getToken());
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     exceptionHelper.handle(e);
                 }
             }
@@ -112,7 +110,7 @@ public class SessionSteps implements En {
             for (JungleConnection connection : connections) {
                 try {
                     sessionService.isExpired(connection);
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     exceptionHelper.handle(e);
                 }
             }
