@@ -26,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -60,8 +59,6 @@ public class HomeController implements Initializable {
     protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
     
     public String nick;
-    
-    public NetworkListener networkListener;
     
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
