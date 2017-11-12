@@ -1,14 +1,12 @@
-package steps_definitions;
+package steps_definitions.hooks;
 
 import cucumber.api.java8.En;
 import helpers.DatabaseHelper;
-
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import main.World;
 
 public class DatabaseHooks implements En {
 
-    public DatabaseHooks() {
+    public DatabaseHooks(World world) {
         String[] tags = {"@DBClean"};
         Before(tags, DatabaseHelper::clean);
     }

@@ -136,6 +136,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public boolean isAuthorized(Connection connection) throws Exception {
         final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+        if (jungleConnection.getAuthToken() == null) return false;
         return manager.execute(manager -> {
             UserSession userSession = manager.getUserSessionDAO()
                     .findByAuthToken(jungleConnection.getAuthToken().getToken());
