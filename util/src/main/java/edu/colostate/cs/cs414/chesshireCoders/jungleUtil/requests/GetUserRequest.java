@@ -4,14 +4,14 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
 public class GetUserRequest extends Session {
 	
-	private String email;
+	private String nickName;
 	
     public GetUserRequest() {
     }
     
-    public GetUserRequest(AuthToken token, String email) {
+    public GetUserRequest(AuthToken token, String nick) {
     	setAuthToken(token);
-    	setEmail(email);
+    	setNickName(nick);
     }
     
     @Override
@@ -24,12 +24,12 @@ public class GetUserRequest extends Session {
     	return (GetUserRequest) super.setAuthToken(authToken);
     }
     
-    public String getEmail() {
-    	return email;
+    public String getNickName() {
+    	return nickName;
     }
     
-    public GetUserRequest setEmail(String email) {
-    	this.email=email;
+    public GetUserRequest setNickName(String nickName) {
+    	this.nickName=nickName;
     	return this;
     }
 }

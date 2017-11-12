@@ -25,7 +25,7 @@ public class UserHandler extends Listener {
     private GetUserResponse handleGetUser(final GetUserRequest request) {
     	try {
     		return new GetUserResponse(registrationService
-    				.fetchUserByEmail(request.getEmail()));
+    				.fetchUserByNickName(request.getNickName()));
     	} catch (SQLException e) {
     		e.printStackTrace();
     		return new GetUserResponse(ResponseStatusCodes.SERVER_ERROR, "Error fetching user info.");

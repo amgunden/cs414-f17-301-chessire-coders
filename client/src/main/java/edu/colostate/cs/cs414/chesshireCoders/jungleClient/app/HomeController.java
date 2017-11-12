@@ -3,7 +3,6 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
@@ -53,11 +52,11 @@ public class HomeController implements Initializable {
 
     protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
     
-    private AccountHandler acctHandler;
+    public String nick;
     
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
-        sendGetUserRequest();
+        //displayNickName();
         gamesList.itemsProperty().bind(listProperty);
 
         //This does not work, you can not directly add to a ListProperty
@@ -65,14 +64,12 @@ public class HomeController implements Initializable {
         listProperty.set(GamesManager.getInstance().getGames());
     }
     
-    public void sendGetUserRequest() {
-    	acctHandler = new AccountHandler(this);
-    	acctHandler.requestUserInfo();
+    public void setNickName(String nick) {
+    	this.nick = nick;
     }
     
     public void displayNickName() {
-    	nickName.setText( acctHandler.getUserInfo().getNickName() );
-    	App.getJungleClient().removeListener(acctHandler);
+    	nickName.setText(nick);
     }
     
     public void logoutClicked() {

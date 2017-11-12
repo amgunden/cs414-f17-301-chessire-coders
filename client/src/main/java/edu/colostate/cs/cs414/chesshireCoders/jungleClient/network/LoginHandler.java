@@ -36,8 +36,7 @@ public class LoginHandler extends Listener {
         Platform.runLater(()->{
             if (response.isSuccess()) {
             	AuthTokenManager.getInstance().setAuthToken(response.getAuthToken());
-            	AuthTokenManager.getInstance().setEmail(request.getEmail());
-                loginController.loginSuccess();
+                loginController.loginSuccess( response.getNickName() );
             } else {
                 loginController.loginFailure(response.getErrMsg());
             }

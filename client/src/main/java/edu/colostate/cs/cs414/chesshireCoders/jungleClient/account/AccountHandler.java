@@ -17,23 +17,20 @@ public class AccountHandler extends Listener {
 
     private HomeController homeController;
 
-    private static User userInfo;
-
-    private boolean unregisterUserStatus;
-
     private boolean registerUserStatus;
 
     private boolean loginUserStatus;
+
+	private boolean unregisterUserStatus;
 
     public AccountHandler(HomeController homeController) {
         this.homeController = homeController;
         App.getJungleClient().addListener(this);
     }
 
-    public static void requestUserInfo() {
+    public static void requestUserInfo(String nickName) {
     	AuthToken token = AuthTokenManager.getInstance().getToken();
-    	String email = AuthTokenManager.getInstance().getEmail();
-    	GetUserRequest request = new GetUserRequest(token, email);
+    	GetUserRequest request = new GetUserRequest(token, nickName);
     	App.getJungleClient().sendMessage(request);
     }
 
@@ -48,16 +45,11 @@ public class AccountHandler extends Listener {
         // JavaFX does not allow UI updates from non-UI threads.
         Platform.runLater(() -> {
             if (response.isSuccess()) {
-                userInfo = response.getUser();
-                homeController.displayNickName();
+                //homeController.displayNickName();
             } else {
                 homeController.printGetUserError(response.getErrMsg());
             }
         });
-    }
-    
-    public static User getUserInfo() {
-    	return userInfo;
     }
 
     public void setUnregisterUserStatus(boolean unregisterUserStatus) {
