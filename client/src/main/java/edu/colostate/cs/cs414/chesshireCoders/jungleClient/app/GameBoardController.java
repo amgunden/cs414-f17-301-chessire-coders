@@ -1,7 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.PlayerColor;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.InvitePlayerHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,15 +18,17 @@ import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class GameBoardController implements Initializable {
 
@@ -52,7 +59,13 @@ public class GameBoardController implements Initializable {
 	 
 			@Override
 			public void handle(ActionEvent event) {
-				//TODO handle invite clicked
+				TextInputDialog dialog = new TextInputDialog();
+				dialog.setContentText("Enter opponent's nickname.");
+				dialog.setHeaderText(null);
+				Optional<String> opponentNickname = dialog.showAndWait();
+				if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
+					sendInvite(opponentNickname.get());
+				}
 			}
 		});
 		MenuItem quit = new MenuItem("Quit Game");
@@ -110,7 +123,6 @@ public class GameBoardController implements Initializable {
 	}
 
 
-
 	private void highlightStartSquare(StackPane square, int r, int c) {
 		start[0] = r; start[1] = c;
 		
@@ -150,6 +162,14 @@ public class GameBoardController implements Initializable {
 		}
 	}
 
+
+	private void sendInvite(String nickname) {
+		InvitePlayerHandler handler = new InvitePlayerHandler();
+		App.getJungleClient().addListener(handler);
+		handler.sendInvitePlayer(nickname, game.getGameID());
+	}
+
+	
 	private void showGameEnding(PlayerColor winner) {
 		gridPane.setEffect(new GaussianBlur());
 		lblWinner.setText(winner.toString() + " Wins!");
