@@ -34,7 +34,7 @@ public class InvitePlayerHandler extends Listener {
             if (response.isSuccess()) {
             	
             } else {
-                System.err.println("[ERROR]: Server was unable to create game.");
+                System.err.println("[ERROR]: Server was unable to invite player.");
             }
             
         	App.getJungleClient().removeListener(this);
