@@ -28,7 +28,7 @@ public class PostgresGamePieceDAO extends BaseDAO<GamePiece, Long> implements Ga
     /**
      * Add a new object to the table.
      *
-     * @param newInstance The object to add
+     * @param gamePiece The object to add
      * @return The primary key of the added object.
      * @throws SQLException
      */
@@ -84,18 +84,21 @@ public class PostgresGamePieceDAO extends BaseDAO<GamePiece, Long> implements Ga
         String sql = "UPDATE game_piece \n" +
                 "SET position_row = ?, position_column = ?\n" +
                 "WHERE piece_id = ?";
+        return modify(sql, gamePiece.getRow(), gamePiece.getColumn(), gamePiece.getPieceId());
     }
 
     /**
      * Deletes a single row from the database using the rows primary key.
      *
-     * @param aLong Primary key
+     * @param pieceId Primary key
      * @return rows affected (should only be 1)
      * @throws SQLException
      */
     @Override
-    public int delete(Long aLong) throws SQLException {
-        return 0;
+    public int delete(Long pieceId) throws SQLException {
+        //language=PostgreSQL
+        String sql = "DELETE FROM game_piece WHERE piece_id = ?";
+        return modify(sql, pieceId);
     }
 
     /**
@@ -109,6 +112,15 @@ public class PostgresGamePieceDAO extends BaseDAO<GamePiece, Long> implements Ga
      */
     @Override
     public int delete(GamePiece gamePiece) throws SQLException {
-        return 0;
+        //language=PostgreSQL
+        String sql = "DELETE FROM game_piece WHERE piece_id = ?";
+        return modify(sql, gamePiece.getPieceId());
+    }
+
+    @Override
+    public List<GamePiece> findByGameId(long gameId) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM game_piece WHERE game_id = ?";
+        return query(sql, GAME_PIECE_ROW_MAPPER, sql);
     }
 }
