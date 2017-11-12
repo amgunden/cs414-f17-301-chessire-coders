@@ -57,6 +57,7 @@ public class HomeController implements Initializable {
     private StackPane unregSuccess;
 
     protected ListProperty<JungleGame> listProperty = new SimpleListProperty<>();
+    protected ListProperty<Invitation> inviteListProperty = new SimpleListProperty<>();
     
     public String nick;
     
