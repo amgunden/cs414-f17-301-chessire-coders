@@ -3,11 +3,16 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.PlayerColor;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +30,8 @@ public class GameBoardController implements Initializable {
 	
 	@FXML
 	private GridPane gridPane;
-	
+	@FXML
+	private ImageView btnOptions;
 	@FXML StackPane winnerPane;
 	
 	@FXML
@@ -36,6 +42,33 @@ public class GameBoardController implements Initializable {
 		start = new int[2];
 	}
 	
+	@FXML
+	public void optionsClicked() {
+		System.out.println("Options Clicked.");
+		// show context menu
+	
+		MenuItem invitePlayer = new MenuItem("Invite Player...");
+		invitePlayer.setOnAction(new EventHandler<ActionEvent>() {
+	 
+			@Override
+			public void handle(ActionEvent event) {
+				//TODO handle invite clicked
+			}
+		});
+		MenuItem quit = new MenuItem("Quit Game");
+		quit.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				//TODO handle quit clicked
+			}
+		});
+	    
+		// TODO only add invitePlayer if game has < 2 players.
+		ContextMenu optionsMenu = new ContextMenu(invitePlayer, quit);
+		Bounds boundsInScreen = btnOptions.localToScreen(btnOptions.getBoundsInLocal());
+		optionsMenu.show(btnOptions, boundsInScreen.getMinX(), boundsInScreen.getMaxY());
+	}
 	
 	@FXML
 	public void squareClicked(MouseEvent event)

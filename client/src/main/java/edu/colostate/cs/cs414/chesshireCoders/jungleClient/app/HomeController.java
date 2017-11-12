@@ -18,9 +18,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.GaussianBlur;
@@ -34,7 +35,7 @@ public class HomeController implements Initializable {
     @FXML
     private BorderPane borderPane;
     @FXML
-    private Button btnPlay;
+    private Label lblActiveGames;
     @FXML
     private ImageView btnSettings;
     @FXML
@@ -83,6 +84,7 @@ public class HomeController implements Initializable {
         Node board;
         try {
             board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));
+            lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
             borderPane.setCenter(board);
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Game Board.");

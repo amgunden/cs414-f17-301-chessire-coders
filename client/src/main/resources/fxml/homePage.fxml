@@ -18,18 +18,18 @@
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController">
    <children>
-      <VBox fx:id="mainVBox" prefHeight="800.0" prefWidth="780.0">
+      <VBox fx:id="mainVBox" prefHeight="800.0" prefWidth="815.0">
         <children>
             <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dddddd;" VBox.vgrow="ALWAYS">
                <right>
-                  <FlowPane alignment="TOP_CENTER" prefWidth="220.0" style="-fx-background-color: #eeeeee;" BorderPane.alignment="CENTER">
+                  <FlowPane prefWidth="185.0" style="-fx-background-color: #eeeeee;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" text="Active Games" underline="true">
+                        <Label fx:id="lblActiveGames" alignment="CENTER" text="Active Games" underline="true">
                            <font>
                               <Font size="20.0" />
                            </font>
                            <padding>
-                              <Insets left="10.0" />
+                              <Insets left="40.0" />
                            </padding>
                         </Label>
                         <ListView fx:id="gamesList" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
@@ -58,7 +58,7 @@
                                     <Font name="System Bold" size="28.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnPlay" mnemonicParsing="false" onMouseClicked="#playClicked" text="Start New Game" />
+                              <Button mnemonicParsing="false" onMouseClicked="#playClicked" text="Start New Game" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -90,7 +90,7 @@
                   </GridPane>
                </top>
                <center>
-                  <Pane blendMode="DARKEN" prefHeight="720.0" prefWidth="780.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
+                  <Pane blendMode="DARKEN" prefHeight="720.0" prefWidth="615.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding></Pane>
