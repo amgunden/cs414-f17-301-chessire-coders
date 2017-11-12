@@ -7,6 +7,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandle
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.NetworkListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javafx.beans.property.ListProperty;
@@ -24,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -54,6 +56,8 @@ public class HomeController implements Initializable {
     
     public String nick;
     
+    public NetworkListener networkListener;
+    
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
         //displayNickName();
@@ -62,6 +66,8 @@ public class HomeController implements Initializable {
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
         listProperty.set(GamesManager.getInstance().getGames());
+        NetworkListener.addEventListeners(App.getJungleClient(), this);
+        
     }
     
     public void setNickName(String nick) {
@@ -162,11 +168,17 @@ public class HomeController implements Initializable {
     }
 
     public void viewInvitesClicked() {
+    	//inviteReceived.setVisible(false);
         System.out.println("View Invites Clicked.");
     }
 
     public void printGetUserError(String errorMsg) {
         System.out.println("Error occured while attempting to get User Information: " + errorMsg);
+    }
+    
+    public void inviteArrived() {
+  	
+    	
     }
 
 }
