@@ -65,7 +65,7 @@ public class HomeController implements Initializable {
         App.window.setResizable(false);
         //displayNickName();
         gamesList.itemsProperty().bind(listProperty);
-
+        btnViewInvites.setVisible(false);
         //This does not work, you can not directly add to a ListProperty
         //listProperty.addAll( asianCurrencyList );
         listProperty.set(GamesManager.getInstance().getGames());
@@ -105,6 +105,7 @@ public class HomeController implements Initializable {
         try {
             board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
+            lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
             borderPane.setCenter(board);
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Game Board.");
