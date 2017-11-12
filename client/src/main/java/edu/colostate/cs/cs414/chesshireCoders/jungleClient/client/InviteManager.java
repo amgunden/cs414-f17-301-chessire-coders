@@ -32,9 +32,9 @@ public class InviteManager {
 		invites.add(invite);
 	}
 	
-	public void addInvitationEvent(InvitationEvent invite) {
-		// Add invitation to list
-		// Call homecontroller to update list
+	public void addInvitationEvent(InvitationEvent inviteEvent) {
+		if (inviteEvent != null && inviteEvent.getInvite() != null)
+			addInvitation(inviteEvent.getInvite());
 	}
 	
 	public void removeInvitation(Invitation invite) {

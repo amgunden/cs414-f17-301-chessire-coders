@@ -1,20 +1,27 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
+
 public class InvitationEvent {
-    private int invitationID;
+    private Invitation invite;
 
     public InvitationEvent() {
     }
 
     public int getInvitationID() {
-        return invitationID;
+        return invite.getInvitationId();
     }
 
     public void setInvitationID(int invitationID) {
-        this.invitationID = invitationID;
+        this.invite.setInvitationId(invitationID);
+    }
+    
+    public Invitation getInvite()
+    {
+    	return invite;
     }
 
-    public InvitationEvent(int invitationID) {
-        this.invitationID = invitationID;
+    public InvitationEvent(Invitation invite) {
+        this.invite = invite;
     }
 }
