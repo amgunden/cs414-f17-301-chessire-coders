@@ -3,15 +3,26 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.post
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.UserSession;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implements UserSessionDAO {
 
-    private static RowMapper<UserSession> USER_SESSION_ROW_MAPPER = rs -> null;
+    private static RowMapper<UserSession> USER_SESSION_ROW_MAPPER = rs -> {
+        AuthToken token = new AuthToken()
+                .setToken(rs.getString("auth_token"))
+                .setExpiration(new Date(rs.getTimestamp("expires_on").getTime()));
+        return new UserSession()
+                .setIpAddress(rs.getString("ip_address"))
+                .setUserId(rs.getLong("user_id"))
+                .setSessionNumber(rs.getLong("session_id"))
+                .setAuthToken(token);
+    };
 
     public PostgresUserSessionDAO(Connection connection) {
         super(connection);
@@ -84,5 +95,12 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
         return modify(sql,
                 session.getAuthToken().getExpiration(),
                 session.getAuthToken().getToken());
+    }
+
+    @Override
+    public UserSession findByAuthToken(String token) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM user_session WHERE auth_token = ?";
+        return query(sql, USER_SESSION_ROW_MAPPER, token).get(0);
     }
 }

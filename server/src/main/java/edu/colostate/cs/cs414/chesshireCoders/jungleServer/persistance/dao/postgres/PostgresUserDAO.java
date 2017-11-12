@@ -59,7 +59,7 @@ public class PostgresUserDAO extends BaseDAO<User, Long> implements UserDAO {
         String sql = "UPDATE jungle_user\n" +
                 "SET name_first = ?, name_last = ?, nick_name = ?\n" +
                 "WHERE user_id = ?";
-        return modify(sql, user.getNameFirst(), user.getNameLast(), user.getNickName());
+        return modify(sql, user.getNameFirst(), user.getNameLast(), user.getNickName(), user.getUserId());
     }
 
     public int delete(Long id) throws SQLException {

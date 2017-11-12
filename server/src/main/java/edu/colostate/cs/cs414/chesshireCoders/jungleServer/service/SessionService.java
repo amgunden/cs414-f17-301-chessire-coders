@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.service;
 
 import com.esotericsoftware.kryonet.Connection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
@@ -14,5 +15,7 @@ public interface SessionService {
 
     boolean isAccountLocked(String email);
 
-    boolean isAuthorized(Connection connection) throws SessionServiceImpl.InvalidConnectionException;
+    boolean isAuthorized(Connection connection) throws SessionServiceImpl.InvalidConnectionException, SQLException;
+
+    boolean isExpired(Connection connection) throws SQLException;
 }

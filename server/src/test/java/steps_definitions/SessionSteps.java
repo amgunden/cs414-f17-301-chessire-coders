@@ -6,11 +6,12 @@ import cucumber.api.java8.En;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
+import helpers.ConnectionHelper;
 import helpers.ExceptionHelper;
 
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.CredentialException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,9 @@ public class SessionSteps implements En {
 
     private SessionService sessionService = new SessionServiceImpl();
     private ExceptionHelper exceptionHelper = new ExceptionHelper();
+    private ConnectionHelper connectionHelper = new ConnectionHelper();
 
-    private List<Map<String,String>> givenCredentials;
+    private List<Map<String, String>> givenCredentials;
     private List<JungleConnection> connections;
 
     public SessionSteps() {
@@ -33,13 +35,13 @@ public class SessionSteps implements En {
             givenCredentials = dataTable.asMaps(String.class, String.class);
             connections = new ArrayList<>();
 
-            for (Map<String,String> credential : givenCredentials) {
+            for (Map<String, String> credential : givenCredentials) {
                 try {
-                    JungleConnection connection = new JungleConnection();
+                    JungleConnection connection = connectionHelper.createConnection();
                     connections.add(connection);
                     sessionService.authenticate(
                             credential.get("email"),
-                            Crypto.hashSHA256(credential.get("password").getBytes()),
+                            credential.get("password"),
                             connection
                     );
                 } catch (Exception e) {
@@ -52,7 +54,7 @@ public class SessionSteps implements En {
                 try {
                     assertTrue(sessionService.isAuthorized(connection));
                     assertTrue(connection.isAuthorized());
-                } catch (SessionServiceImpl.InvalidConnectionException e) {
+                } catch (SessionServiceImpl.InvalidConnectionException | SQLException e) {
                     exceptionHelper.handle(e);
                 }
             }
@@ -62,13 +64,13 @@ public class SessionSteps implements En {
                 try {
                     assertFalse(sessionService.isAuthorized(connection));
                     assertFalse(connection.isAuthorized());
-                } catch (SessionServiceImpl.InvalidConnectionException e) {
+                } catch (SessionServiceImpl.InvalidConnectionException | SQLException e) {
                     exceptionHelper.handle(e);
                 }
             }
         });
         Then("^their account is locked$", () -> {
-            for (Map<String,String> credential : givenCredentials) {
+            for (Map<String, String> credential : givenCredentials) {
                 try {
                     sessionService.isAccountLocked(credential.get("email"));
                 } catch (Exception e) {
@@ -83,16 +85,34 @@ public class SessionSteps implements En {
             connections = new ArrayList<>();
             exceptionHelper.expectsException(CredentialException.class);
 
-            for (Map<String,String> credential : givenCredentials) {
+            for (Map<String, String> credential : givenCredentials) {
                 try {
                     JungleConnection connection = new JungleConnection();
                     connections.add(connection);
                     sessionService.authenticate(
                             credential.get("email"),
-                            Crypto.hashSHA256(credential.get("password").getBytes()),
+                            credential.get("password"),
                             connection
                     );
                 } catch (Exception e) {
+                    exceptionHelper.handle(e);
+                }
+            }
+        });
+        When("^they (?:log|are logged) out$", () -> {
+            for (JungleConnection connection : connections) {
+                try {
+                    sessionService.expireSession(connection.getAuthToken().getToken());
+                } catch (SQLException e) {
+                    exceptionHelper.handle(e);
+                }
+            }
+        });
+        Then("^their session is expired$", () -> {
+            for (JungleConnection connection : connections) {
+                try {
+                    sessionService.isExpired(connection);
+                } catch (SQLException e) {
                     exceptionHelper.handle(e);
                 }
             }

@@ -39,7 +39,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public void unregisterUser(String email, AuthToken token) throws SQLException {
+    public void unregisterUser(String email) throws SQLException {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             Login login = manager
                     .getLoginDAO()
@@ -54,5 +54,11 @@ public class RegistrationServiceImpl implements RegistrationService {
                     .delete(login);
             return null;
         });
+    }
+
+    @Override
+    public boolean isRegistered(final String email) throws SQLException {
+        return manager.execute(manager -> manager.getLoginDAO()
+                .findByEmail(email) != null);
     }
 }

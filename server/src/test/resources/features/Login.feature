@@ -13,7 +13,8 @@ Feature: Login Management
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
     When they log in with correct credentials:
-      | bob@test.com | bob123 |
+      | email        | password |
+      | bob@test.com | bob123   |
     Then they are authenticated
 
   @DBClean
@@ -21,7 +22,7 @@ Feature: Login Management
     Given the following accounts exist:
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
-    When they log in with correct credentials:
+    When they log in with incorrect credentials:
       | bob@test.com | badPassword |
     Then they are not authenticated
 
