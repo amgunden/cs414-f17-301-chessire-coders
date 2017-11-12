@@ -9,6 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManag
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.NetworkListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -38,6 +39,8 @@ public class HomeController implements Initializable {
     @FXML
     private Label lblActiveGames;
     @FXML
+    private Label lblGameInvites;
+    @FXML
     private ImageView btnSettings;
     @FXML
     private ImageView btnViewInvites;
@@ -47,6 +50,8 @@ public class HomeController implements Initializable {
     private Label nickName;
     @FXML
     private ListView<JungleGame> gamesList;
+    @FXML
+    private ListView<Invitation> invitationList;
     @FXML
     private VBox mainVBox;
     @FXML
@@ -168,7 +173,6 @@ public class HomeController implements Initializable {
     }
 
     public void viewInvitesClicked() {
-    	//inviteReceived.setVisible(false);
         System.out.println("View Invites Clicked.");
     }
 
