@@ -3,7 +3,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.RegistrationHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 
@@ -95,11 +98,20 @@ public class RegisterController implements Initializable {
         }
     }
 
-    public void registrationSuccess() {
+    public void registrationSuccess(String nick) {
         try {
             App.getJungleClient().removeListener(handler);
             registrationSuccess = true;
-            App.setScene("homePage.fxml");
+            
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/homePage.fxml"));
+            Parent root = loader.load();
+            // Get the Controller from the FXMLLoader
+            HomeController controller = loader.getController();
+            // Set data in the controller
+            controller.nick = nick;
+            Scene scene = new Scene(root);
+            App.setScene(scene);          
+            controller.displayNickname();
 
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Home page.");

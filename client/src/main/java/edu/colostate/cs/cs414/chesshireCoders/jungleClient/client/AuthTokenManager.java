@@ -20,6 +20,7 @@ public class AuthTokenManager {
     }
 
     private AuthToken authToken;
+    private String email;
 
     private AuthTokenManager() {
     }
@@ -48,6 +49,14 @@ public class AuthTokenManager {
 
     public void setAuthToken(AuthToken authToken) {
         this.authToken = authToken;
+    }
+    
+    public String getEmail() {
+    	return email;
+    }
+    
+    public void setEmail(String email) {
+    	this.email=email;
     }
 
     /**

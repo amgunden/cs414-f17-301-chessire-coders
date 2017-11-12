@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
@@ -43,11 +44,13 @@ public class JungleServer extends Server {
 
             @Override
             public void received(com.esotericsoftware.kryonet.Connection c, Object object) {
-                logger.log(
-                        Level.INFO,
-                        "Received {0} from client at {1} with ID {2}.",
-                        new Object[]{object.getClass().getSimpleName(), c.getRemoteAddressTCP(), c.getID()}
-                );
+            	if (!(object instanceof FrameworkMessage.KeepAlive)) {
+            		logger.log(
+            				Level.INFO,
+            				"Received {0} from client at {1} with ID {2}.",
+            				new Object[]{object.getClass().getSimpleName(), c.getRemoteAddressTCP(), c.getID()}
+            		);
+            	}	
             }
 
             @Override
