@@ -35,6 +35,8 @@ public class InviteReplyHandler extends Listener {
 		// JavaFX does not allow UI updates from non-UI threads.
         Platform.runLater(()->{
         	// do stuff
+        	
+        	App.getJungleClient().removeListener(this);
         });
 	}
 	
