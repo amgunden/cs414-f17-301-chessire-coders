@@ -16,7 +16,19 @@ public class JungleGame extends Game {
         board = new GameBoard();
     }
 
-    public boolean canMovePieceAt(int row, int column) {
+    public JungleGame(Game game) {
+		super();
+		setGameEnd(game.getGameEnd());
+		setGameID(game.getGameID());
+		setGamePieces(game.getGamePieces());
+		setGameStart(game.getGameStart());
+		setGameStatus(game.getGameStatus());
+		setPlayerOneID(game.getPlayerOneID());
+		setPlayerTwoID(game.getPlayerTwoID());
+		setTurnOfPlayer(game.getTurnOfPlayer());
+	}
+
+	public boolean canMovePieceAt(int row, int column) {
         boolean result = false;
 
         // TODO check that it is this computer's turn

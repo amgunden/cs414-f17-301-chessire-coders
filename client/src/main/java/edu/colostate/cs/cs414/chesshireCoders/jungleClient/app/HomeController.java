@@ -104,13 +104,21 @@ public class HomeController implements Initializable {
 
     public void playClicked() {
         System.out.println("Start New Game Clicked.");
-        GamesManager.getInstance().createGame();
-        
-        Node board;
+        GamesManager.getInstance().createGame(this);
+    }
+    
+    public void initializeBoard(JungleGame game) {
+    	Node board;
         try {
-            board = FXMLLoader.load(App.class.getResource("/fxml/gameBoard.fxml"));
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
             lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
+            
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/gameBoard.fxml"));
+            board = loader.load();
+            // Get the Controller from the FXMLLoader
+            GameBoardController controller = loader.getController();
+            controller.setGame(game);
+            // Set data in the controller
             borderPane.setCenter(board);
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Game Board.");

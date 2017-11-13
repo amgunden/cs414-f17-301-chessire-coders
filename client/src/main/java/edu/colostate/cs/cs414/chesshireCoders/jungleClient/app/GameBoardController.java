@@ -45,10 +45,13 @@ public class GameBoardController implements Initializable {
 	private Label lblWinner;
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		game = new JungleGame(0);
 		start = new int[2];
 	}
 	
+	public void setGame(JungleGame game) {
+		this.game = game;
+	}
+
 	@FXML
 	public void optionsClicked() {
 		System.out.println("Options Clicked.");

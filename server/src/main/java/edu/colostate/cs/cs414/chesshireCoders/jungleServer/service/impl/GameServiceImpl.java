@@ -158,8 +158,10 @@ public class GameServiceImpl implements GameService {
             // Create invitation and save.
             Invitation invite = new Invitation()
                     .setSenderId(senderId)
+                    .setSenderNickname(senderNickname)
                     .setRecipientId(recipientId)
-                    .setGameId(gameId);
+                    .setGameId(gameId)
+                    .setInvitationStatus(InvitationStatusType.PENDING);
             manager.getInvitationDAO().create(invite);
             return invite;
         });
