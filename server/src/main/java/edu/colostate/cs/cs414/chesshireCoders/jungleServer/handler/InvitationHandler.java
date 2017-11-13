@@ -23,6 +23,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyReq
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
 
+import java.util.Date;
+
 public class InvitationHandler extends Listener {
 
     private SessionService sessionService = new SessionServiceImpl();
@@ -90,7 +92,8 @@ public class InvitationHandler extends Listener {
 
                 // check if receiving player is connected
                 //      If connected: send invitation event
-                server.sendToTCPWithNickName(new InvitationEvent(invitation), request.getNickname());
+                Date now = new Date(System.currentTimeMillis());
+                server.sendToTCPWithNickName(new InvitationEvent(invitation).setInvitationTime(now), request.getNickname());
                 return new InvitePlayerResponse(); // defaults to success
             } else return new InvitePlayerResponse(UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {
