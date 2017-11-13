@@ -2,7 +2,6 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.TurnOfPlayerType;
 
 import java.util.Date;
 import java.util.List;
