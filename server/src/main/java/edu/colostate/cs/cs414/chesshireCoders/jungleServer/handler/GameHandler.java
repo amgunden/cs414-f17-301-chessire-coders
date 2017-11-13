@@ -18,12 +18,16 @@ import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Respon
 
 public class GameHandler extends Listener {
 
-    private final JungleServer server;
+    private JungleServer server;
     private GameService gameService = new GameServiceImpl();
     private SessionService sessionService = new SessionServiceImpl();
 
     public GameHandler(JungleServer server) {
         this.server = server;
+    }
+
+    public GameHandler() {
+
     }
 
     @Override

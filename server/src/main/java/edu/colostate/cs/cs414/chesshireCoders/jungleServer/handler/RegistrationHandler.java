@@ -23,12 +23,16 @@ import java.sql.SQLException;
 
 public class RegistrationHandler extends Listener {
 
-    private final JungleServer server;
+    private JungleServer server;
     private RegistrationService registrationService = new RegistrationServiceImpl();
     private SessionService sessionService = new SessionServiceImpl();
 
     public RegistrationHandler(JungleServer server) {
         this.server = server;
+    }
+
+    public RegistrationHandler() {
+
     }
 
     @Override

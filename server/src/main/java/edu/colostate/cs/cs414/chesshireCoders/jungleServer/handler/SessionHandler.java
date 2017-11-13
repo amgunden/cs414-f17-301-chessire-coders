@@ -19,12 +19,16 @@ import javax.security.auth.login.CredentialException;
 
 public class SessionHandler extends Listener {
 
-    private final JungleServer server;
+    private JungleServer server;
     private HikariConnectionProvider hikariConnectionProvider = HikariConnectionProvider.getInstance();
     private SessionService sessionService = new SessionServiceImpl();
 
     public SessionHandler(JungleServer server) {
         this.server = server;
+    }
+
+    public SessionHandler() {
+
     }
 
     @Override
