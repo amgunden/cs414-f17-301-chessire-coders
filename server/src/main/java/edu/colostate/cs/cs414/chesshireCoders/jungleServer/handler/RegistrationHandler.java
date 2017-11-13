@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.ConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
@@ -22,8 +23,13 @@ import java.sql.SQLException;
 
 public class RegistrationHandler extends Listener {
 
+    private final JungleServer server;
     private RegistrationService registrationService = new RegistrationServiceImpl();
     private SessionService sessionService = new SessionServiceImpl();
+
+    public RegistrationHandler(JungleServer server) {
+        this.server = server;
+    }
 
     @Override
     public void received(Connection connection, Object received) {

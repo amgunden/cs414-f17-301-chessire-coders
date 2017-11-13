@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl;
@@ -17,8 +18,13 @@ import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Respon
 
 public class GameHandler extends Listener {
 
+    private final JungleServer server;
     private GameService gameService = new GameServiceImpl();
     private SessionService sessionService = new SessionServiceImpl();
+
+    public GameHandler(JungleServer server) {
+        this.server = server;
+    }
 
     @Override
     public void received(Connection connection, Object received) {
