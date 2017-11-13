@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
-public class InvitePlayerRequest extends Session {
+public class InvitePlayerRequest extends SessionRequest {
 
 	private String nickname;
 	private long gameID;

@@ -2,9 +2,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
-public class GetUserRequest extends Session {
-	
-	private String nickName;
+public class GetUserRequest extends SessionRequest {
+
+    private String nickName;
 	
     public GetUserRequest() {
     }

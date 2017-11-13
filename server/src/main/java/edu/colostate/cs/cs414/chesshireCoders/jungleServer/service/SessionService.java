@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.service;
 
 import com.esotericsoftware.kryonet.Connection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
 public interface SessionService {
@@ -14,4 +15,6 @@ public interface SessionService {
     boolean isAuthorized(Connection connection) throws Exception;
 
     boolean isExpired(Connection connection) throws Exception;
+
+    boolean validateSessionRequest(SessionRequest request, Connection connection);
 }

@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
-public class UnRegisterRequest extends Session {
+public class UnRegisterRequest extends SessionRequest {
 
     private String email;
 
