@@ -175,7 +175,7 @@ public class HomeController implements Initializable {
     public void viewGameHistoryClicked() {
         System.out.println("View Game History Clicked.");
         Invitation invite = new Invitation(123, 456, 789);
-        invite.setSenderNickname("Ur Mom");
+        invite.setSenderNickname("Test Sender");
         InviteManager.getInstance().addInvitation(invite);
     }
 
