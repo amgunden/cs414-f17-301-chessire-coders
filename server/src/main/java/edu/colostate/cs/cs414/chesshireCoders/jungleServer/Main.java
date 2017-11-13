@@ -2,10 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.UserHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.*;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 
@@ -127,15 +124,16 @@ public final class Main {
         return properties.getProperty("log-path");
     }
 
-    private static void addListeners(EndPoint endPoint, int poolSize) {
+    private static void addListeners(JungleServer server, int poolSize) {
 
         logger.log(Level.INFO, "Setting up thread pool and adding listeners...");
         ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
 
-        endPoint.addListener(new Listener.ThreadedListener(new GameHandler(), executorService));
-        endPoint.addListener(new Listener.ThreadedListener(new RegistrationHandler(), executorService));
-        endPoint.addListener(new Listener.ThreadedListener(new SessionHandler(), executorService));
-        endPoint.addListener(new Listener.ThreadedListener(new UserHandler(), executorService));
+        server.addListener(new Listener.ThreadedListener(new GameHandler(server), executorService));
+        server.addListener(new Listener.ThreadedListener(new RegistrationHandler(server), executorService));
+        server.addListener(new Listener.ThreadedListener(new SessionHandler(server), executorService));
+//        server.addListener(new Listener.ThreadedListener(new UserHandler(server), executorService));
+        server.addListener(new Listener.ThreadedListener(new InvitationHandler(server)));
 
         // Add a shutdown hook to allow any running threads to end gracefully.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
