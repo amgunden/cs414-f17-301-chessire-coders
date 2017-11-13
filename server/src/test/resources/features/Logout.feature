@@ -6,7 +6,7 @@ Feature: Log out
   - Upon logout, the user's session must be expired.
 
   @DBClean
-  Scenario: Normal logout.
+  Scenario: Normal logout
     Given the following accounts exist:
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |

@@ -1,4 +1,4 @@
-Feature: Unregistering a user from the system.
+Feature: Unregister
 
   A user should have the option to unregister from our game system as per the assignment description.
   Rules:
@@ -8,7 +8,7 @@ Feature: Unregistering a user from the system.
   - The user's login row is deleted.
 
   @DBClean
-  Scenario: Normal un-registration.
+  Scenario: Normal un-registration
     Given the following accounts exist:
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
