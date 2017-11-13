@@ -40,7 +40,6 @@ public class GameHandler extends Listener {
     private CreateGameResponse handleCreateGame(CreateGameRequest request, Connection connection) {
         try {
             if (sessionService.validateSessionRequest(request, connection)) {
-                connection.sendTCP(new CreateGameResponse(UNAUTHORIZED, "You are not authorized to perform this action"));
                 JungleConnection jungleConnection = JungleConnection.class.cast(connection);
                 long gameId = gameService.newGame(jungleConnection.getNickName()).getGameID();
                 return new CreateGameResponse(gameId);
