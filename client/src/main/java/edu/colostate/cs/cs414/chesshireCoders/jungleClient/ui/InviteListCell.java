@@ -48,7 +48,7 @@ public class InviteListCell extends ListCell<Invitation> {
 			rejectBtn = new ImageView(new Image(new FileInputStream(fos)));
 			rejectBtn.setPickOnBounds(true);
 		} catch (Exception e) {
-			rejectBtn = new Button("Accept");
+			rejectBtn = new Button("Reject");
 		}
         
         acceptBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {

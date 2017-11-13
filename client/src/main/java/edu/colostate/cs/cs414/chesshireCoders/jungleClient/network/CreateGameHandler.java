@@ -35,7 +35,7 @@ public class CreateGameHandler extends Listener {
         // JavaFX does not allow UI updates from non-UI threads.
         Platform.runLater(()->{
             if (response.isSuccess()) {
-        		GamesManager.getInstance().createGame(response.getGameID(), PlayerEnumType.PLAYER_TWO);
+        		GamesManager.getInstance().createGame(response.getGameID(), PlayerEnumType.PLAYER_ONE);
             } else {
                 System.err.println("[ERROR]: Server was unable to create game.");
             }
