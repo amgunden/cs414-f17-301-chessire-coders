@@ -15,7 +15,7 @@ public class Game {
     private long playerTwoID = -1;
     private GameStatus gameStatus;
     private List<GamePiece> gamePieces;
-    private PlayerEnumType turnOfPlayer;
+    private PlayerEnumType turnOfPlayer = PlayerEnumType.PLAYER_ONE;
 
     public Game() {
     }
