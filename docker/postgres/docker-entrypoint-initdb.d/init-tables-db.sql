@@ -129,23 +129,29 @@ ALTER TABLE game_piece
   ADD CONSTRAINT unq_row_column_game
 UNIQUE (position_row, position_column, game_id);
 
-CREATE TYPE INVITESTATUS AS ENUM ('PENDING', 'ACCEPTED', 'REJECTED');
 
 CREATE TABLE invitation
 (
   invitation_id           BIGSERIAL                      NOT NULL
     CONSTRAINT invitation_pkey
     PRIMARY KEY,
+
   user_sender_id          BIGINT                         NOT NULL
     CONSTRAINT fk_invitation_sender_id
     REFERENCES jungle_user,
+
   user_recipient_id       BIGINT                         NOT NULL
     CONSTRAINT fk_invitation_recipient_id
     REFERENCES jungle_user,
+
   game_id                 BIGINT                         NOT NULL
     CONSTRAINT fk_invitation_game_id
     REFERENCES game,
+
   invite_status           INVITESTATUS DEFAULT 'PENDING' NOT NULL,
+  CONSTRAINT chk_invitation_status
+  CHECK (invite_status IN ('PENDING', 'ACCEPTED', 'REJECTED')),
+
   invitation_created_time TIMESTAMP DEFAULT now()        NOT NULL
 );
 
