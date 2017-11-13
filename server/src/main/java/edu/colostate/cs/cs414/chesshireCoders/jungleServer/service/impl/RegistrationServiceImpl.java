@@ -9,9 +9,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postg
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
-
-import java.sql.SQLException;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
@@ -20,7 +17,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             PostgresDAOManager.class);
 
     @Override
-    public void registerUser(String nickName, String email, String hashedPassword) throws SQLException {
+    public void registerUser(String nickName, String email, String hashedPassword) throws Exception {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             UserDAO userDAO = manager.getUserDAO();
             LoginDAO loginDAO = manager.getLoginDAO();
@@ -39,7 +36,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public void unregisterUser(String email) throws SQLException {
+    public void unregisterUser(String email) throws Exception {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             Login login = manager
                     .getLoginDAO()
@@ -57,13 +54,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
 	@Override
-	public User fetchUserByNickName(final String nickName) throws SQLException {
-		return manager.execute(manager -> manager.getUserDAO().findByNickName(nickName));
+    public User fetchUserByNickName(final String nickName) throws Exception {
+        return manager.execute(manager -> manager.getUserDAO().findByNickName(nickName));
 	}
 
 	@Override
-	public User fetchUserByEmail(final String email) throws SQLException {
-		return manager.execute(manager -> {
+    public User fetchUserByEmail(final String email) throws Exception {
+        return manager.execute(manager -> {
 			Login login = manager.getLoginDAO()
 					.findByEmail(email);
 			return manager.getUserDAO()
@@ -73,7 +70,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 		
 
     @Override
-    public boolean isRegistered(final String email) throws SQLException {
+    public boolean isRegistered(final String email) throws Exception {
         return manager.execute(manager -> manager.getLoginDAO()
                 .findByEmail(email) != null);
     }

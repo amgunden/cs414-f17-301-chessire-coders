@@ -2,19 +2,30 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
 public class CreateGameResponse extends Response {
 
-	private int gameID = -1;
+    private long gameID = -1;
 
-	public CreateGameResponse(int statusCode, String errMsg, int gameID) {
-		super(statusCode, errMsg);
-		setGameID(gameID);
-	}
+    public CreateGameResponse() {
+    }
 
-    public int getGameId() {
+    public CreateGameResponse(int statusCode, String errMsg, int gameID) {
+        super(statusCode, errMsg);
+        setGameID(gameID);
+    }
+
+    public CreateGameResponse(int statusCode, String msg) {
+        super(statusCode, msg);
+    }
+
+    public CreateGameResponse(long gameId) {
+        setGameID(gameId);
+    }
+
+    public long getGameID() {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public CreateGameResponse setGameID(long gameID) {
         this.gameID = gameID;
+        return this;
     }
-	
 }

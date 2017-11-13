@@ -1,17 +1,13 @@
-package steps_definitions;
+package main;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import helpers.DatabaseHelper;
-import org.h2.tools.DeleteDbFiles;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @RunWith(Cucumber.class)

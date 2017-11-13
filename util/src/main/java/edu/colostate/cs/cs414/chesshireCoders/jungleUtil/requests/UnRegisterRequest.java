@@ -1,5 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+
 public class UnRegisterRequest extends Session {
 
     private String email;
@@ -13,6 +15,12 @@ public class UnRegisterRequest extends Session {
 
     public UnRegisterRequest setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    @Override
+    public UnRegisterRequest setAuthToken(AuthToken authToken) {
+        super.setAuthToken(authToken);
         return this;
     }
 }

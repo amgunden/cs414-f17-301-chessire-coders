@@ -16,15 +16,17 @@ public class LoginRequest {
         return email;
     }
 
-    public void setEmail(String email) {
+    public LoginRequest setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public LoginRequest setPassword(String password) {
         this.password = password;
+        return this;
     }
 }

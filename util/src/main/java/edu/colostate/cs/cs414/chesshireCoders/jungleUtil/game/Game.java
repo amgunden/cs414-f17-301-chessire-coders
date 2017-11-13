@@ -1,100 +1,113 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
+
+import java.util.Date;
+import java.util.List;
 
 public class Game {
 
-    private int gameID;
-    private long gameStart; // represented as millis since epoch time
-    private long gameEnd;   // represented as millis since epoch time
-    private int playerOneID;
-    private int playerTwoID;
-    private PlayerStatus playerTwoStatus;
+    private long gameID;
+    private Date gameStart;
+    private Date gameEnd;
+    private long playerOneID;
+    private long playerTwoID = -1;
     private GameStatus gameStatus;
+    private List<GamePiece> gamePieces;
 
     public Game() {
     }
 
-    public Game(int gameID, long gameStart, long gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
-        this.gameID = gameID;
-        this.gameStart = gameStart;
-        this.gameEnd = gameEnd;
-        this.playerOneID = playerOneID;
-        this.playerTwoID = playerTwoID;
-        this.playerTwoStatus = playerTwoStatus;
-        this.gameStatus = gameStatus;
-    }
-
-    public Game(long gameStart, long gameEnd, int playerOneID, int playerTwoID, PlayerStatus playerTwoStatus, GameStatus gameStatus) {
-        this.gameStart = gameStart;
-        this.gameEnd = gameEnd;
-        this.playerOneID = playerOneID;
-        this.playerTwoID = playerTwoID;
-        this.playerTwoStatus = playerTwoStatus;
-        this.gameStatus = gameStatus;
-    }
-
-    public Game(long gameStart, long gameEnd, int playerOneID, GameStatus gameStatus) {
-        this.gameStart = gameStart;
-        this.gameEnd = gameEnd;
-        this.playerOneID = playerOneID;
-        this.gameStatus = gameStatus;
-    }
-
-    public int getGameID() {
+    public long getGameID() {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public Game setGameID(long gameID) {
         this.gameID = gameID;
+        return this;
     }
 
-    public long getGameStart() {
+    public Date getGameStart() {
         return gameStart;
     }
 
-    public void setGameStart(long gameStart) {
+    public Game setGameStart(Date gameStart) {
         this.gameStart = gameStart;
+        return this;
     }
 
-    public long getGameEnd() {
+    public Date getGameEnd() {
         return gameEnd;
     }
 
-    public void setGameEnd(long gameEnd) {
+    public Game setGameEnd(Date gameEnd) {
         this.gameEnd = gameEnd;
+        return this;
     }
 
-    public int getPlayerOneID() {
+    public long getPlayerOneID() {
         return playerOneID;
     }
 
-    public void setPlayerOneID(int playerOneID) {
+    public Game setPlayerOneID(long playerOneID) {
         this.playerOneID = playerOneID;
+        return this;
     }
 
-    public int getPlayerTwoID() {
+    public long getPlayerTwoID() {
         return playerTwoID;
     }
 
-    public void setPlayerTwoID(int playerTwoID) {
+    public Game setPlayerTwoID(long playerTwoID) {
         this.playerTwoID = playerTwoID;
-    }
-
-    public PlayerStatus getPlayerTwoStatus() {
-        return playerTwoStatus;
-    }
-
-    public void setPlayerTwoStatus(PlayerStatus playerTwoStatus) {
-        this.playerTwoStatus = playerTwoStatus;
+        return this;
     }
 
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public Game setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
+        return this;
+    }
+
+    public List<GamePiece> getGamePieces() {
+        return gamePieces;
+    }
+
+    public Game setGamePieces(List<GamePiece> gamePieces) {
+        this.gamePieces = gamePieces;
+        return this;
+    }
+
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Game game = (Game) object;
+
+        if (getGameID() != game.getGameID()) return false;
+        if (getPlayerOneID() != game.getPlayerOneID()) return false;
+        if (getPlayerTwoID() != game.getPlayerTwoID()) return false;
+        if (getGameStart() != null ? !getGameStart().equals(game.getGameStart()) : game.getGameStart() != null)
+            return false;
+        if (getGameEnd() != null ? !getGameEnd().equals(game.getGameEnd()) : game.getGameEnd() != null) return false;
+        if (getGameStatus() != game.getGameStatus()) return false;
+        return getGamePieces() != null ? getGamePieces().equals(game.getGamePieces()) : game.getGamePieces() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getGameID() ^ (getGameID() >>> 32));
+        result = 31 * result + (getGameStart() != null ? getGameStart().hashCode() : 0);
+        result = 31 * result + (getGameEnd() != null ? getGameEnd().hashCode() : 0);
+        result = 31 * result + (int) (getPlayerOneID() ^ (getPlayerOneID() >>> 32));
+        result = 31 * result + (int) (getPlayerTwoID() ^ (getPlayerTwoID() >>> 32));
+        result = 31 * result + (getGameStatus() != null ? getGameStatus().hashCode() : 0);
+        result = 31 * result + (getGamePieces() != null ? getGamePieces().hashCode() : 0);
+        return result;
     }
 }

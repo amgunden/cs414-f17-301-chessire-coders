@@ -16,6 +16,7 @@ Feature: Login Management
       | email        | password |
       | bob@test.com | bob123   |
     Then they are authenticated
+    And the client is sent a success response
 
   @DBClean
   Scenario: A registered user that provides incorrect credentials is not authenticated by the server.
@@ -23,8 +24,10 @@ Feature: Login Management
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
     When they log in with incorrect credentials:
+      | email        | password    |
       | bob@test.com | badPassword |
     Then they are not authenticated
+    And the client is sent an error response
 
   @DBClean
   Scenario: A registered user that provides incorrect credentials more than 3 times is locked out.
@@ -37,11 +40,12 @@ Feature: Login Management
       | bob@test.com | bad      |
       | bob@test.com | bad      |
     Then their account is locked
+    And the client is sent an error response
 
   @DBClean
   Scenario: An unregistered user cannot be authenticated by the server.
-    Given the account does not exist
-    When they log in with any credentials:
+    Given a user has not created an account
+    When they log in with nonexistent credentials:
       | email            | password |
       | not-bob@test.com | not-bob  |
-    Then it fails
+    Then the client is sent an error response

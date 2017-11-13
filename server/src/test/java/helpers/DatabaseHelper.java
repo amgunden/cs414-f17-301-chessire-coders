@@ -2,10 +2,8 @@ package helpers;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import org.h2.tools.DeleteDbFiles;
-import org.h2.tools.RunScript;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,7 +12,7 @@ import java.util.Properties;
 public class DatabaseHelper {
 
     private static final String scriptFile = "./src/test/resources/h2/schema.sql";
-    private static final String jdbcUrl = "jdbc:h2:file:./src/test/resources/h2/test.db;AUTO_SERVER=TRUE;DATABASE_TO_UPPER=false;DB_CLOSE_ON_EXIT=FALSE";
+    private static final String jdbcUrl = "jdbc:h2:file:./src/test/resources/h2/test.db;AUTO_SERVER=TRUE;DATABASE_TO_UPPER=FALSE;DB_CLOSE_ON_EXIT=FALSE";
     private static final String dbUser = "jungle";
     private static final String dbPassword = "jungle";
     private static final String dbDataSource = "org.h2.jdbcx.JdbcDataSource";

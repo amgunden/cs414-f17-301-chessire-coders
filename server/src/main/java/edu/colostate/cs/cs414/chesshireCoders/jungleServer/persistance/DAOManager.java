@@ -1,9 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -74,7 +71,7 @@ public abstract class DAOManager {
      * @param <T>     The return type of the command
      * @throws SQLException on failure to obtain connection.
      */
-    public <T> T execute(DAOCommand<T> command) throws SQLException {
+    public <T> T execute(DAOCommand<T> command) throws Exception {
         this.autoCommit = true;
         try {
             return command.execute(this);
@@ -90,7 +87,7 @@ public abstract class DAOManager {
      * @param <T>     The return type of the command
      * @throws SQLException on failure to obtain connection.
      */
-    public <T> T executeAtomic(DAOCommand<T> command) throws SQLException {
+    public <T> T executeAtomic(DAOCommand<T> command) throws Exception {
         this.autoCommit = false;
         try {
             T t = command.execute(this);
@@ -112,4 +109,8 @@ public abstract class DAOManager {
     public abstract LoginAttemptDAO getLoginAttemptDAO() throws SQLException;
 
     public abstract UserSessionDAO getUserSessionDAO() throws SQLException;
+
+    public abstract GameDAO getGameDAO() throws SQLException;
+
+    public abstract GamePieceDAO getGamePieceDAO() throws SQLException;
 }

@@ -1,19 +1,16 @@
 package steps_definitions;
 
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
-import helpers.ConnectionHelper;
-import helpers.ExceptionHelper;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
+import main.World;
 
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.CredentialException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
@@ -22,100 +19,72 @@ import static org.junit.Assert.assertTrue;
 public class SessionSteps implements En {
 
     private SessionService sessionService = new SessionServiceImpl();
-    private ExceptionHelper exceptionHelper = new ExceptionHelper();
-    private ConnectionHelper connectionHelper = new ConnectionHelper();
 
-    private List<Map<String, String>> givenCredentials;
-    private List<JungleConnection> connections;
+    private SessionHandler sessionHandler = new SessionHandler();
 
-    public SessionSteps() {
+    public SessionSteps(final World world) {
 
-        When("^they log in with (?:correct|any) credentials:$", (DataTable dataTable) -> {
+        When("^they log in with (correct|incorrect|nonexistent) credentials:$", (String credentialType, DataTable dataTable) -> {
+            world.setCredentials(dataTable.asMaps(String.class, String.class));
 
-            givenCredentials = dataTable.asMaps(String.class, String.class);
-            connections = new ArrayList<>();
+            if (credentialType.equals("incorrect")) world.expectsException(CredentialException.class);
+            if (credentialType.equals("nonexistent")) world.expectsException(AccountNotFoundException.class);
 
-            for (Map<String, String> credential : givenCredentials) {
-                try {
-                    JungleConnection connection = connectionHelper.createConnection();
-                    connections.add(connection);
-                    sessionService.authenticate(
-                            credential.get("email"),
-                            credential.get("password"),
-                            connection
-                    );
-                } catch (Exception e) {
-                    exceptionHelper.handle(e);
-                }
+            for (Map<String, String> credential : world.getCredentials()) {
+                LoginRequest request = new LoginRequest()
+                        .setEmail(credential.get("email"))
+                        .setPassword(credential.get("password"));
+                sessionHandler.received(world.createConnection(), request);
             }
         });
         Then("^they are authenticated$", () -> {
-            for (JungleConnection connection : connections) {
+            for (JungleConnection connection : world.getConnections()) {
                 try {
                     assertTrue(sessionService.isAuthorized(connection));
                     assertTrue(connection.isAuthorized());
-                } catch (SessionServiceImpl.InvalidConnectionException | SQLException e) {
-                    exceptionHelper.handle(e);
+                } catch (Exception e) {
+                    world.handleException(e);
                 }
             }
         });
         Then("^they are not authenticated$", () -> {
-            for (JungleConnection connection : connections) {
+            for (JungleConnection connection : world.getConnections()) {
                 try {
                     assertFalse(sessionService.isAuthorized(connection));
                     assertFalse(connection.isAuthorized());
-                } catch (SessionServiceImpl.InvalidConnectionException | SQLException e) {
-                    exceptionHelper.handle(e);
+                } catch (Exception e) {
+                    world.handleException(e);
                 }
             }
         });
         Then("^their account is locked$", () -> {
-            for (Map<String, String> credential : givenCredentials) {
+            for (Map<String, String> credential : world.getCredentials()) {
                 try {
                     sessionService.isAccountLocked(credential.get("email"));
                 } catch (Exception e) {
-                    exceptionHelper.handle(e);
+                    world.handleException(e);
                 }
             }
         });
-        Then("^it fails$", () -> assertTrue(exceptionHelper.failed()));
-        Given("^the account does not exist$", () -> exceptionHelper.expectsException(AccountNotFoundException.class));
-        When("^they log in with (?:incorrect|bad) credentials:$", (DataTable dataTable) -> {
-            givenCredentials = dataTable.asMaps(String.class, String.class);
-            connections = new ArrayList<>();
-            exceptionHelper.expectsException(CredentialException.class);
-
-            for (Map<String, String> credential : givenCredentials) {
-                try {
-                    JungleConnection connection = new JungleConnection();
-                    connections.add(connection);
-                    sessionService.authenticate(
-                            credential.get("email"),
-                            credential.get("password"),
-                            connection
-                    );
-                } catch (Exception e) {
-                    exceptionHelper.handle(e);
-                }
-            }
-        });
-        When("^they (?:log|are logged) out$", () -> {
-            for (JungleConnection connection : connections) {
+        Then("^it fails$", () -> assertTrue(world.failed()));
+        When("^they log out$", () -> {
+            for (JungleConnection connection : world.getConnections()) {
                 try {
                     sessionService.expireSession(connection.getAuthToken().getToken());
-                } catch (SQLException e) {
-                    exceptionHelper.handle(e);
+                } catch (Exception e) {
+                    world.handleException(e);
                 }
             }
         });
-        Then("^their session is expired$", () -> {
-            for (JungleConnection connection : connections) {
+        Then("^(?:their session is expired|they are logged out)$", () -> {
+            for (JungleConnection connection : world.getConnections()) {
                 try {
-                    sessionService.isExpired(connection);
-                } catch (SQLException e) {
-                    exceptionHelper.handle(e);
+                    assertTrue(sessionService.isExpired(connection));
+                } catch (Exception e) {
+                    world.handleException(e);
                 }
             }
         });
+
     }
 }

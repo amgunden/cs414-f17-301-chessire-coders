@@ -1,81 +1,108 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType;
 
 public class GamePiece {
 
-    private int pieceId;
-    private int playerId;
+    private long pieceId;
+    private PlayerOwnerType playerOwner;
     private PieceType pieceType;
     private int column;
     private int row;
-    private int gameId;
+    private long gameId;
 
     public GamePiece() {
     }
 
-    public GamePiece(int pieceId, int playerId, PieceType pieceType, int column, int row, int gameId) {
-        this.pieceId = pieceId;
-        this.playerId = playerId;
-        this.pieceType = pieceType;
-        this.column = column;
-        this.row = row;
-        this.gameId = gameId;
+    public GamePiece(PlayerOwnerType ownerType, PieceType pieceType, int column, int row) {
+        setPlayerOwner(ownerType);
+        setPieceType(pieceType);
+        setColumn(column);
+        setRow(row);
     }
 
-    public GamePiece(int playerId, PieceType pieceType, int column, int row, int gameId) {
-        this.playerId = playerId;
-        this.pieceType = pieceType;
-        this.column = column;
-        this.row = row;
-        this.gameId = gameId;
-    }
-
-    public int getPieceId() {
+    public long getPieceId() {
         return pieceId;
     }
 
-    public void setPieceId(int pieceId) {
+    public GamePiece setPieceId(long pieceId) {
         this.pieceId = pieceId;
+        return this;
     }
 
-    public int getPlayerId() {
-        return playerId;
+    public PlayerOwnerType getPlayerOwner() {
+        return playerOwner;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
+    public GamePiece setPlayerOwner(PlayerOwnerType playerOwner) {
+        this.playerOwner = playerOwner;
+        return this;
     }
 
     public PieceType getPieceType() {
         return pieceType;
     }
 
-    public void setPieceType(PieceType pieceType) {
+    public GamePiece setPieceType(PieceType pieceType) {
         this.pieceType = pieceType;
+        return this;
     }
 
     public int getColumn() {
         return column;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public GamePiece setColumn(int column) {
+        if (0 <= column && column < 7)
+            this.column = column;
+        else throw new IllegalArgumentException("Value for column must be in range 0-6");
+        return this;
     }
 
     public int getRow() {
         return row;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public GamePiece setRow(int row) {
+        if (0 <= row && row < 9)
+            this.row = row;
+        else throw new IllegalArgumentException("Value for row must be in range 0-8");
+        return this;
     }
 
-    public int getGameId() {
+    public long getGameId() {
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public GamePiece setGameId(long gameId) {
         this.gameId = gameId;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        GamePiece gamePiece = (GamePiece) object;
+
+        if (getPieceId() != gamePiece.getPieceId()) return false;
+        if (getColumn() != gamePiece.getColumn()) return false;
+        if (getRow() != gamePiece.getRow()) return false;
+        if (getGameId() != gamePiece.getGameId()) return false;
+        if (getPlayerOwner() != gamePiece.getPlayerOwner()) return false;
+        return getPieceType() == gamePiece.getPieceType();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getPieceId() ^ (getPieceId() >>> 32));
+        result = 31 * result + (getPlayerOwner() != null ? getPlayerOwner().hashCode() : 0);
+        result = 31 * result + (getPieceType() != null ? getPieceType().hashCode() : 0);
+        result = 31 * result + getColumn();
+        result = 31 * result + getRow();
+        result = 31 * result + (int) (getGameId() ^ (getGameId() >>> 32));
+        return result;
     }
 }
