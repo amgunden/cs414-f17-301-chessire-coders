@@ -11,6 +11,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.InviteManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.NetworkListener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import javafx.beans.property.ListProperty;
@@ -65,12 +66,12 @@ public class HomeController implements Initializable {
     
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
-        //displayNickName();
+
         gamesList.itemsProperty().bind(gameListProperty);
         invitationList.itemsProperty().bind(inviteListProperty);
+        invitationList.setCellFactory(param -> new InviteListCell());
         btnViewInvites.setVisible(false);
-        //This does not work, you can not directly add to a ListProperty
-        //listProperty.addAll( asianCurrencyList );
+        
         gameListProperty.set(GamesManager.getInstance().getGames());
         inviteListProperty.set(InviteManager.getInstance().getInvites());
         NetworkListener.addEventListeners(App.getJungleClient());
@@ -173,6 +174,9 @@ public class HomeController implements Initializable {
 
     public void viewGameHistoryClicked() {
         System.out.println("View Game History Clicked.");
+        Invitation invite = new Invitation(123, 456, 789);
+        invite.setSenderNickname("Ur Mom");
+        InviteManager.getInstance().addInvitation(invite);
     }
 
     public void viewInvitesClicked() {
