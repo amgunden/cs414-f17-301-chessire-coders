@@ -36,4 +36,9 @@ public class PostgresDAOManager extends DAOManager {
     public GamePieceDAO getGamePieceDAO() throws SQLException {
         return new PostgresGamePieceDAO(getConnection());
     }
+
+    @Override
+    public InvitationDAO getInvitationDAO() throws SQLException {
+        return new PostgresInvitationDAO(getConnection());
+    }
 }

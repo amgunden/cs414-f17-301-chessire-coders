@@ -23,9 +23,7 @@ public class GameHandler extends Listener {
     @Override
     public void received(Connection connection, Object received) {
         try {
-            if (!sessionService.isAuthorized(connection)) {
-                connection.sendTCP(new CreateGameResponse(UNAUTHORIZED, "You are not authorized to perform this action"));
-            } else if (received instanceof CreateGameRequest) {
+            if (received instanceof CreateGameRequest) {
                 connection.sendTCP(handleCreateGame((CreateGameRequest) received, connection));
             } else if (received instanceof GetGameRequest) {
                 connection.sendTCP(handleGetGame((GetGameRequest) received, connection));
@@ -41,9 +39,11 @@ public class GameHandler extends Listener {
      */
     private CreateGameResponse handleCreateGame(CreateGameRequest request, Connection connection) {
         try {
-            JungleConnection jungleConnection = JungleConnection.class.cast(connection);
-            long gameId = gameService.newGame(jungleConnection.getNickName()).getGameID();
-            return new CreateGameResponse(gameId);
+            if (sessionService.validateSessionRequest(request, connection)) {
+                JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+                long gameId = gameService.newGame(jungleConnection.getNickName()).getGameID();
+                return new CreateGameResponse(gameId);
+            } else return new CreateGameResponse(UNAUTHORIZED, "You are not authorized to perform this action");
         } catch (Exception e) {
             e.printStackTrace();
             return new CreateGameResponse(SERVER_ERROR, "An unknown error occurred");

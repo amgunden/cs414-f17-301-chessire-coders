@@ -13,6 +13,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postg
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.LoginAttempt;
@@ -41,6 +42,9 @@ public class SessionServiceImpl implements SessionService {
             HikariConnectionProvider.getInstance(),
             PostgresDAOManager.class);
 
+    /**
+     * Given an email and password, authenticate the connection, and create a new session in the database.
+     */
     @Override
     public AuthToken authenticate(String email, String hashedPass, Connection connection) throws Exception {
 
@@ -70,6 +74,9 @@ public class SessionServiceImpl implements SessionService {
         return token;
     }
 
+    /**
+     * Creates and stores a new user session object.
+     */
     private void createUserSession(final long userId, final AuthToken token, final String ipAddress)
             throws Exception {
         final UserSession userSession = new UserSession()
@@ -82,6 +89,9 @@ public class SessionServiceImpl implements SessionService {
         });
     }
 
+    /**
+     * Creates failed login attempt row in the data base, and checks if the account should be locked
+     */
     private void failAuthentication(Login login) throws Exception {
         saveLoginAttempt(false, login.getUserID());
         if (getInvalidAttempts(login) > 3)
@@ -89,6 +99,9 @@ public class SessionServiceImpl implements SessionService {
         throw new CredentialException("Bad password");
     }
 
+    /**
+     * Locks the given account
+     */
     private void lockAccount(final Login login) throws Exception {
         login.setIsLocked(true);
         manager.execute((DAOCommand<Void>) manager -> {
@@ -98,6 +111,9 @@ public class SessionServiceImpl implements SessionService {
         });
     }
 
+    /**
+     * Creates a saves a login attempt object to the database.
+     */
     private void saveLoginAttempt(final boolean success, final long userId) throws Exception {
         final Date now = new Date(System.currentTimeMillis());
         manager.execute((DAOCommand<Void>) manager -> {
@@ -110,6 +126,9 @@ public class SessionServiceImpl implements SessionService {
         });
     }
 
+    /**
+     * expire a given session token
+     */
     @Override
     public void expireSession(String token) throws Exception {
         final UserSession userSession = new UserSession();
@@ -124,29 +143,37 @@ public class SessionServiceImpl implements SessionService {
         });
     }
 
+    /**
+     * Check if a given account is locked
+     */
     @Override
     public boolean isAccountLocked(String email) {
         return false;
     }
 
+    /**
+     * Check if a given account is locked
+     */
     public boolean isAccountLocked(Login login) {
         return login.isLocked();
     }
 
+    /**
+     * Returns whether or not a given connection is valid and authenticated.
+     */
     @Override
-    public boolean isAuthorized(Connection connection) throws Exception {
+    public boolean isConnectionAuthorized(Connection connection) throws Exception {
         final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
-        if (jungleConnection.getAuthToken() == null) return false;
-        return manager.execute(manager -> {
-            UserSession userSession = manager.getUserSessionDAO()
-                    .findByAuthToken(jungleConnection.getAuthToken().getToken());
 
-            boolean ipMatches = userSession.getIpAddress().equals(jungleConnection.getRemoteAddressTCP().toString());
-            boolean tokenMatches = userSession.getAuthToken().equals(jungleConnection.getAuthToken());
-            return ipMatches && tokenMatches;
-        });
+        if (jungleConnection.getAuthToken() == null) return false;
+        if (jungleConnection.getNickName() == null) return false;
+
+        return doesConnectionMatchStored(jungleConnection);
     }
 
+    /**
+     * Checks if the token of a given connection is expired
+     */
     @Override
     public boolean isExpired(Connection connection) throws Exception {
         final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
@@ -158,10 +185,34 @@ public class SessionServiceImpl implements SessionService {
                 .before(now));
     }
 
+    /**
+     * Checks that a given connection and request are valid and authenitcated, and whether or not the two tokens
+     * match.
+     */
+    @Override
+    public boolean validateSessionRequest(SessionRequest request, Connection connection) throws Exception {
+        // check that the request is valid.
+        final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+
+        if (jungleConnection.getAuthToken() == null) return false;
+        if (jungleConnection.getNickName() == null) return false;
+
+        AuthToken requestToken = request.getAuthToken();
+        AuthToken connectionToken = jungleConnection.getAuthToken();
+
+        return doesConnectionMatchStored(jungleConnection) && requestToken.equals(connectionToken);
+    }
+
+    /**
+     * Checks passwoard equality.
+     */
     private boolean passwordOkay(String givenPassword, Login login) {
         return login.getHashedPass().equals(givenPassword);
     }
 
+    /**
+     * retireives login information from the database.
+     */
     private Login fetchLoginInfo(final String email) throws Exception {
         try {
             return manager.execute(manager -> {
@@ -174,6 +225,9 @@ public class SessionServiceImpl implements SessionService {
         }
     }
 
+    /**
+     * retrieves user information from the database
+     */
     private User fetchUserInfo(final long userId) throws Exception {
         try {
             return manager.execute(manager -> {
@@ -186,11 +240,28 @@ public class SessionServiceImpl implements SessionService {
         }
     }
 
+    /**
+     * Gets the number of invalid login attempts within the last $LOGIN_CHECK_PERIOD minutes
+     */
     private int getInvalidAttempts(Login login) throws Exception {
         final Date checkSince = new Date(System.currentTimeMillis() - LOGIN_CHECK_PERIOD);
         return manager.execute(manager -> {
             LoginAttemptDAO loginAttemptDAO = manager.getLoginAttemptDAO();
             return loginAttemptDAO.getUnsuccessfulAttemptsSince(checkSince);
+        });
+    }
+
+    /**
+     * Checkst that a given connection token matches what is in the database.
+     */
+    private boolean doesConnectionMatchStored(JungleConnection jungleConnection) throws Exception {
+        return manager.execute(manager -> {
+            UserSession userSession = manager.getUserSessionDAO()
+                    .findByAuthToken(jungleConnection.getAuthToken().getToken());
+
+            boolean ipMatches = userSession.getIpAddress().equals(jungleConnection.getRemoteAddressTCP().toString());
+            boolean tokenMatches = userSession.getAuthToken().equals(jungleConnection.getAuthToken());
+            return ipMatches && tokenMatches;
         });
     }
 }

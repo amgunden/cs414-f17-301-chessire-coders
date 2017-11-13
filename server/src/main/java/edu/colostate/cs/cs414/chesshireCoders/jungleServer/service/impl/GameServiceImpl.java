@@ -5,9 +5,12 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManage
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +18,7 @@ import java.util.List;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.ONGOING;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.PENDING;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType.PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType.PLAYER_TWO;
@@ -58,25 +62,6 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game startGame(long gameId, final String playerTwoNickName) throws Exception {
-        if (playerTwoNickName == null) throw new IllegalArgumentException("Nick name cannot be null");
-
-        return manager.executeAtomic(manager -> {
-            // Find the user to be player two
-            User playerTwo = manager.getUserDAO().findByNickName(playerTwoNickName);
-            if (playerTwo == null) throw new Exception(String.format("User '%s' was not found", playerTwoNickName));
-
-            // Find and update associated game.
-            Game game = manager.getGameDAO().findByPrimaryKey(gameId)
-                    .setGameStart(new Date(System.currentTimeMillis()))
-                    .setPlayerTwoID(playerTwo.getUserId())
-                    .setGameStatus(ONGOING);
-            manager.getGameDAO().update(game);
-            return game;
-        });
-    }
-
-    @Override
     public void updateGame(final Game game) throws Exception {
         if (game == null) throw new IllegalArgumentException("Game cannot be NULL");
         if (game.getGameStatus() == PENDING)
@@ -102,6 +87,82 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<Game> fetchUserGames(long userId) throws Exception {
         return manager.execute(manager -> manager.getGameDAO().findByUserId(userId));
+    }
+
+    @Override
+    public void acceptInvitation(long invitationId) throws Exception {
+        Invitation invitation = updateInviteStatus(invitationId, ACCEPTED);
+        startGame(invitation);
+    }
+
+    @Override
+    public void rejectInvitation(long invitationId) throws Exception {
+        Invitation invitation = updateInviteStatus(invitationId, REJECTED);
+    }
+
+    private Invitation updateInviteStatus(long invitationId, InvitationStatusType type) throws Exception {
+        return manager.execute(manager -> {
+            // find invitation
+            Invitation invitation = manager.getInvitationDAO()
+                    .findByPrimaryKey(invitationId);
+            // update invitation status
+            invitation.setInvitationStatus(type);
+            // update DB
+            manager.getInvitationDAO().update(invitation);
+            return invitation;
+        });
+    }
+
+    private Game startGame(Invitation invite) throws Exception {
+        if (invite == null) throw new IllegalArgumentException("Invite cannot be null");
+
+        return manager.executeAtomic(manager -> {
+            Game game = manager.getGameDAO()
+                    .findByPrimaryKey(invite.getGameId());
+
+            if (game.getGameStatus() == ONGOING) throw new GameStateException("Game is already started");
+
+            // Update game object with start time, player two ID and status
+            game.setGameStart(new Date(System.currentTimeMillis()))
+                    .setPlayerTwoID(invite.getRecipientId())
+                    .setGameStatus(ONGOING);
+
+            // save to DB
+            manager.getGameDAO().update(game);
+            return game;
+        });
+    }
+
+    @Override
+    public Invitation createInvitation(final String senderNickname, final String receiverNickName, long gameId) throws Exception {
+        return manager.executeAtomic(manager -> {
+            // retrieve user ID's
+            long senderId = manager.getUserDAO()
+                    .findByNickName(senderNickname)
+                    .getUserId();
+            long recipientId = manager.getUserDAO()
+                    .findByNickName(receiverNickName)
+                    .getUserId();
+
+            // Create invitation and save.
+            Invitation invite = new Invitation()
+                    .setSenderId(senderId)
+                    .setRecipientId(recipientId)
+                    .setGameId(gameId);
+            manager.getInvitationDAO().create(invite);
+            return invite;
+        });
+    }
+
+    @Override
+    public List<Invitation> getPlayerReceivedInvites(String nickName, InvitationStatusType statusType) throws Exception {
+        return manager.execute(manager -> {
+            long userId = manager.getUserDAO()
+                    .findByNickName(nickName)
+                    .getUserId();
+            return manager.getInvitationDAO()
+                    .findByRecipientId(userId, statusType);
+        });
     }
 
     private List<GamePiece> createPieces() {

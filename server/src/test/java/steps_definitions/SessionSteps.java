@@ -40,7 +40,7 @@ public class SessionSteps implements En {
         Then("^they are authenticated$", () -> {
             for (JungleConnection connection : world.getConnections()) {
                 try {
-                    assertTrue(sessionService.isAuthorized(connection));
+                    assertTrue(sessionService.isConnectionAuthorized(connection));
                     assertTrue(connection.isAuthorized());
                 } catch (Exception e) {
                     world.handleException(e);
@@ -50,7 +50,7 @@ public class SessionSteps implements En {
         Then("^they are not authenticated$", () -> {
             for (JungleConnection connection : world.getConnections()) {
                 try {
-                    assertFalse(sessionService.isAuthorized(connection));
+                    assertFalse(sessionService.isConnectionAuthorized(connection));
                     assertFalse(connection.isAuthorized());
                 } catch (Exception e) {
                     world.handleException(e);

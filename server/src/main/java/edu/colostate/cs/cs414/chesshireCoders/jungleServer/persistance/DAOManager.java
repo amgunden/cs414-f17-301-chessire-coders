@@ -113,4 +113,6 @@ public abstract class DAOManager {
     public abstract GameDAO getGameDAO() throws SQLException;
 
     public abstract GamePieceDAO getGamePieceDAO() throws SQLException;
+
+    public abstract InvitationDAO getInvitationDAO() throws SQLException;
 }
