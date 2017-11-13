@@ -12,9 +12,9 @@ public interface SessionService {
 
     boolean isAccountLocked(String email);
 
-    boolean isAuthorized(Connection connection) throws Exception;
+    boolean isConnectionAuthorized(Connection connection) throws Exception;
 
     boolean isExpired(Connection connection) throws Exception;
 
-    boolean validateSessionRequest(SessionRequest request, Connection connection);
+    boolean validateSessionRequest(SessionRequest request, Connection connection) throws Exception;
 }
