@@ -13,7 +13,8 @@ import java.util.List;
 public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements InvitationDAO {
 
     private RowMapper<Invitation> INVITATION_ROW_MAPPER = rs -> new Invitation()
-            .setSenderId(rs.getLong("user_sender_id"))
+    		.setInvitationId(rs.getLong("invitation_id"))
+    		.setSenderId(rs.getLong("user_sender_id"))
             .setRecipientId(rs.getLong("user_recipient_id"))
             .setGameId(rs.getLong("game_id"))
             .setInvitationStatus(InvitationStatusType.valueOf(rs.getString("invite_status")));
