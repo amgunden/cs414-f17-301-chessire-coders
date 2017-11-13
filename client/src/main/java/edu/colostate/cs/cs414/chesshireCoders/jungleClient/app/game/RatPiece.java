@@ -1,10 +1,14 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-public class RatPiece extends GamePiece {
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
-	public RatPiece(int row, int column, PlayerColor color) {
-		super(row, column, color);
+public class RatPiece extends JungleGamePiece {
+
+	public RatPiece(PlayerEnumType ownerType, int column, int row) {
+        super(ownerType,  column, row);
 		setPowerDefault();
+		setPieceType(PieceType.RAT);
 	}
 
 	@Override
@@ -24,7 +28,7 @@ public class RatPiece extends GamePiece {
 			if ( (square.getPiece().getPowerLevel() != 8) && (square.getPiece().getPowerLevel() > this.getPowerLevel()) ) {
 				result = false;
 			}
-			if (square.getPiece().getColor() == this.getColor()) {
+			if (square.getPiece().getPlayerOwner() == this.getPlayerOwner()) {
 				result = false;
 			}
 		}

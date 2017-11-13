@@ -2,20 +2,22 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 import org.junit.Test;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+
 import static org.junit.Assert.*;
 
 public class TestBoardSquare {
 
 	@Test
 	public void testConstructorWithPlayerColor() {
-		BoardSquare square = new BoardSquare(0, 0, null, PlayerColor.Red);
+		BoardSquare square = new BoardSquare(0, 0, null, PlayerEnumType.PLAYER_ONE);
 		
-		assertEquals("The square should have a color of Red.", PlayerColor.Red, square.getColor());
+		assertEquals("The square should belong to player 1.", PlayerEnumType.PLAYER_ONE, square.getPlayerOwner());
 	}
 
 	@Test
 	public void testClearPiece() {
-		GamePiece piece = new RatPiece(0, 0, PlayerColor.Red);
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
 		BoardSquare square = new BoardSquare(0, 0, piece);
 		
 		square.clearPiece();
@@ -32,14 +34,14 @@ public class TestBoardSquare {
 	
 	@Test
 	public void testIsEmpty_not() {
-		BoardSquare square = new BoardSquare(0, 0, new RatPiece(0, 0, PlayerColor.Red));
+		BoardSquare square = new BoardSquare(0, 0, new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0));
 		
 		assertFalse("The square should not be empty.", square.isEmpty());
 	}
 
 	@Test
 	public void testSetPiece() {
-		GamePiece piece = new RatPiece(0, 0, PlayerColor.Red);
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
 		BoardSquare square = new BoardSquare(0, 0, null);
 		
 		square.setPiece(piece);
@@ -49,7 +51,7 @@ public class TestBoardSquare {
 	
 	@Test
 	public void testSetPiece_null() {
-		GamePiece piece = new RatPiece(0, 0, PlayerColor.Red);
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
 		BoardSquare square = new BoardSquare(0, 0, piece);
 		
 		square.setPiece(null);
