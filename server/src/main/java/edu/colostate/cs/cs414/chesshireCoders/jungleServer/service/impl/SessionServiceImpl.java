@@ -67,7 +67,7 @@ public class SessionServiceImpl implements SessionService {
                 token,
                 jungleConnection.getRemoteAddressTCP().toString()
         );
-        jungleConnection.authorize(user.getNickName(), token);
+        jungleConnection.authorize(user.getUserId(), user.getNickName(), token);
 
 
         saveLoginAttempt(true, user.getUserId());

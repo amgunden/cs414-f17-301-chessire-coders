@@ -10,7 +10,7 @@ public interface GameService {
 
     Game newGame(String playerOneNickName) throws Exception;
 
-    void updateGame(Game game) throws Exception;
+    void updateGame(long updatingUserId, Game game) throws Exception;
 
     Game fetchGame(long gameId) throws Exception;
 

@@ -11,6 +11,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,8 +21,8 @@ import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.PENDING;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType.*;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType.PLAYER_ONE;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType.PLAYER_TWO;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
 public class GameServiceImpl implements GameService {
 
@@ -62,7 +63,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void updateGame(final Game game) throws Exception {
+    public void updateGame(long updatingUserId, final Game game) throws Exception {
         if (game == null) throw new IllegalArgumentException("Game cannot be NULL");
         if (game.getGameStatus() == PENDING)
             throw new IllegalStateException("Game has not been started, it cannot be update");
@@ -71,7 +72,17 @@ public class GameServiceImpl implements GameService {
             List<GamePiece> gamePieces = game.getGamePieces();
             if (gamePieces == null) throw new NullPointerException("Game piece list is NULL");
 
+            if (game.getTurnOfPlayer() == PLAYER_ONE && updatingUserId == game.getPlayerOneID())
+                throw new GameStateException("It is not this player's turn");
+            if (game.getTurnOfPlayer() == PLAYER_TWO && updatingUserId == game.getPlayerTwoID())
+                throw new GameStateException("It is not this player's turn");
+
+            // Update game
+            PlayerEnumType player = game.getTurnOfPlayer() == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
+            game.setTurnOfPlayer(player);
             manager.getGameDAO().update(game);
+
+            // Update pieces
             for (GamePiece piece : gamePieces) {
                 manager.getGamePieceDAO().update(piece);
             }

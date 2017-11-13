@@ -5,6 +5,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseD
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,7 +19,8 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
             .setPlayerTwoID(rs.getLong("player_two_id"))
             .setGameStatus(GameStatus.valueOf(rs.getString("game_state")))
             .setGameStart(rs.getTimestamp("start_date_time"))
-            .setGameEnd(rs.getTimestamp("end_date_time"));
+            .setGameEnd(rs.getTimestamp("end_date_time"))
+            .setTurnOfPlayer(PlayerEnumType.valueOf(rs.getString("turn_of_player")));
 
 
 
@@ -111,14 +113,15 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     public int update(Game game) throws SQLException {
         //language=PostgreSQL
         String sql = "UPDATE game\n" +
-                "SET player_two_id = ?, game_state = ?, start_date_time = ?, end_date_time = ?\n" +
+                "SET player_two_id = ?, game_state = ?, start_date_time = ?, end_date_time = ?, turn_of_player = ?\n" +
                 "WHERE game_id = ?";
         return modify(sql,
                 game.getPlayerTwoID(),
                 game.getGameStatus(),
                 game.getGameStart(),
                 game.getGameEnd(),
-                game.getGameID());
+                game.getGameID(),
+                game.getTurnOfPlayer().name());
     }
 
     /**
