@@ -1,8 +1,11 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.CreateGameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.GetGameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,6 +13,7 @@ public class GamesManager {
 
 	private static GamesManager instance;
 	private ObservableList<JungleGame> games;
+	private HomeController homeController;
 	
 	private GamesManager() {
 		games = FXCollections.observableArrayList();
@@ -24,20 +28,29 @@ public class GamesManager {
 		return instance;
 	}
 	
-	public void createGame()
+	public void createGame(HomeController controller)
 	{
+		this.homeController = controller;
 		// send create game request to server
 		CreateGameHandler handler = new CreateGameHandler();
 		App.getJungleClient().addListener(handler);
 		handler.sendCreateGame();
 	}
 	
-	public void createGame(int gameID)
+	public void createGame(long gameID)
 	{
-		// store game with GameID in this.games
-		games.add(new JungleGame(gameID));
+    	GetGameHandler handler = new GetGameHandler();
+		App.getJungleClient().addListener(handler);
+		handler.sendGetGame(gameID);
 	}
 	
+	public void createGame(Game game)
+	{
+		// store game with GameID in this.games
+		JungleGame jGame = new JungleGame(game);
+		games.add(jGame);
+		homeController.initializeBoard(jGame);
+	}
 	
 	public void fetchGames()
 	{
