@@ -68,6 +68,7 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
 
+        GamesManager.getInstance().setHomeController(this);
         gamesList.itemsProperty().bind(gameListProperty);
         invitationList.itemsProperty().bind(inviteListProperty);
         invitationList.setCellFactory(param -> new InviteListCell());

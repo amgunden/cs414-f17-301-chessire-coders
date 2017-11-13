@@ -29,6 +29,10 @@ public class GamesManager {
 		return instance;
 	}
 	
+	public void setHomeController(HomeController homeController) {
+		this.homeController = homeController;
+	}
+
 	public void createGame(HomeController controller)
 	{
 		this.homeController = controller;
