@@ -1,12 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public class GamePiece {
 
     private long pieceId;
-    private PlayerOwnerType playerOwner;
+    private PlayerEnumType playerOwner;
     private PieceType pieceType;
     private int column;
     private int row;
@@ -15,7 +15,7 @@ public class GamePiece {
     public GamePiece() {
     }
 
-    public GamePiece(PlayerOwnerType ownerType, PieceType pieceType, int column, int row) {
+    public GamePiece(PlayerEnumType ownerType, PieceType pieceType, int column, int row) {
         setPlayerOwner(ownerType);
         setPieceType(pieceType);
         setColumn(column);
@@ -31,11 +31,11 @@ public class GamePiece {
         return this;
     }
 
-    public PlayerOwnerType getPlayerOwner() {
+    public PlayerEnumType getPlayerOwner() {
         return playerOwner;
     }
 
-    public GamePiece setPlayerOwner(PlayerOwnerType playerOwner) {
+    public GamePiece setPlayerOwner(PlayerEnumType playerOwner) {
         this.playerOwner = playerOwner;
         return this;
     }

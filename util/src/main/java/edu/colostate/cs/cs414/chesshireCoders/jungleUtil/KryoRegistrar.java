@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
@@ -54,8 +55,10 @@ public class KryoRegistrar {
      * @param kryo
      */
     private static void registerEventClasses(Kryo kryo) {
-        kryo.register(InvitationEvent.class);
+        kryo.register(BoardUpdateEvent.class);
         kryo.register(GameEndedEvent.class);
+        kryo.register(InvitationEvent.class);
+        kryo.register(InvitationEvent.class);
         kryo.register(ServerEvent.class);
     }
 
@@ -79,20 +82,22 @@ public class KryoRegistrar {
      * @param kryo
      */
     private static void registerRequestClasses(Kryo kryo) {
-    	kryo.register(CreateGameRequest.class);
-    	kryo.register(InvitePlayerRequest.class);
-    	kryo.register(LoginRequest.class);
+        // Game Handling
+        kryo.register(GetGameRequest.class);
+        kryo.register(UpdateGameRequest.class);
+        kryo.register(CreateGameRequest.class);
+
+        // Invitation Handling
+        kryo.register(InvitePlayerRequest.class);
+        kryo.register(InviteReplyRequest.class);
+
+        // Session Handling
+        kryo.register(LoginRequest.class);
         kryo.register(LogoutRequest.class);
+
+        // Account requests
         kryo.register(RegisterRequest.class);
         kryo.register(UnRegisterRequest.class);
-        kryo.register(GetGameRequest.class);
-        kryo.register(GetPieceLocationRequest.class);
-        kryo.register(UpdatePieceLocationRequest.class);
-        kryo.register(GetPlayerRequest.class);
-        kryo.register(GetUserRequest.class);
-        kryo.register(GetUserGameHistoryRequest.class);
-        kryo.register(UpdateInvitationRequest.class);
-        kryo.register(UpdateSessionExpirationRequest.class);
     }
     
     /**
@@ -110,20 +115,24 @@ public class KryoRegistrar {
      * @param kryo
      */
     private static void registerResponseClasses(Kryo kryo) {
-    	kryo.register(CreateGameResponse.class);
-    	kryo.register(InvitePlayerResponse.class);
-    	kryo.register(Response.class);
+        // Base class type
+        kryo.register(Response.class);
+
+        // Game Handling
         kryo.register(GetGameResponse.class);
-        kryo.register(GetPieceResponse.class);
-        kryo.register(GetPlayerResponse.class);
-        kryo.register(GetUserResponse.class);
-        kryo.register(GetUserGameHistoryResponse.class);
-        kryo.register(GetInvitationResponse.class);
+        kryo.register(CreateGameResponse.class);
+
+        // Invitation Handling
+        kryo.register(InvitePlayerResponse.class);
+        kryo.register(InviteReplyResponse.class);
+
+        // Session Handling
         kryo.register(LoginResponse.class);
         kryo.register(LogoutResponse.class);
+
+        // Account Handling
         kryo.register(RegisterResponse.class);
         kryo.register(UnRegisterResponse.class);
-        kryo.register(UpdateSessionExpirationResponse.class);
     }
 
     /**
@@ -136,9 +145,9 @@ public class KryoRegistrar {
         kryo.register(GameOutcomeType.class);
         kryo.register(GameStatus.class);
         kryo.register(InvitationStatusType.class);
-        kryo.register(LoginStatus.class);
         kryo.register(PlayerColor.class);
         kryo.register(PlayerStatus.class);
+        kryo.register(PlayerEnumType.class);
         kryo.register(ServerEventType.class);
     }
 }

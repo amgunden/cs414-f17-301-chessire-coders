@@ -13,6 +13,7 @@ public class JungleConnection extends Connection {
     private AuthToken authToken;
 
     private String nickName; // The nickname of the user this connection is associated with.
+    private long userId;
 
     public JungleConnection() {
         super();
@@ -23,7 +24,8 @@ public class JungleConnection extends Connection {
                 && (authToken != null);
     }
 
-    public void authorize(String nickName, AuthToken authToken) {
+    public void authorize(long userId, String nickName, AuthToken authToken) {
+        this.userId = userId;
         this.authToken = authToken;
         this.nickName = nickName;
     }
@@ -54,5 +56,9 @@ public class JungleConnection extends Connection {
     public JungleConnection setNickName(String nickName) {
         this.nickName = nickName;
         return this;
+    }
+
+    public long getUserId() {
+        return userId;
     }
 }

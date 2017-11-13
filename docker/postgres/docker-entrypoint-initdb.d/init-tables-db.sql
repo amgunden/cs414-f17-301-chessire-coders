@@ -76,11 +76,11 @@ CREATE TABLE user_session
 
 CREATE TABLE game
 (
-  game_id         BIGSERIAL NOT NULL
+  game_id         BIGSERIAL                        NOT NULL
     CONSTRAINT game_pkey
     PRIMARY KEY,
 
-  player_one_id   BIGINT    NOT NULL
+  player_one_id   BIGINT                           NOT NULL
     CONSTRAINT fk_game_player_one_id
     REFERENCES jungle_user,
 
@@ -88,9 +88,13 @@ CREATE TABLE game
     CONSTRAINT fk_game_player_two_id
     REFERENCES jungle_user,
 
-  game_state      VARCHAR(20) DEFAULT 'PENDING',
+  turn_of_player  VARCHAR(12) DEFAULT 'PLAYER_ONE' NOT NULL,
+  CONSTRAINT chk_game_turn_of_player
+  CHECK (turn_of_player IN ('PLAYER_ONE', 'PLAYER_TWO')),
+
+  game_status     VARCHAR(20) DEFAULT 'PENDING'    NOT NULL,
   CONSTRAINT chk_game_state
-  CHECK (game_state IN ('PENDING', 'ONGOING', 'DRAW', 'WINNER_PLAYER_ONE', 'WINNER_PLAYER_TWO')),
+  CHECK (game_status IN ('PENDING', 'ONGOING', 'DRAW', 'WINNER_PLAYER_ONE', 'WINNER_PLAYER_TWO')),
 
   start_date_time TIMESTAMP,
 

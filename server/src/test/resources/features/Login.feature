@@ -8,7 +8,7 @@ Feature: Login Management
   - After 3 bad attempts to log in, the account is locked.
 
   @DBClean
-  Scenario: A registered user that provides correct credentials is authenticated by the server.
+  Scenario: Login with correct credentials
     Given the following accounts exist:
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
@@ -19,7 +19,7 @@ Feature: Login Management
     And the client is sent a success response
 
   @DBClean
-  Scenario: A registered user that provides incorrect credentials is not authenticated by the server.
+  Scenario: Login with incorrect credentials
     Given the following accounts exist:
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
@@ -30,7 +30,7 @@ Feature: Login Management
     And the client is sent an error response
 
   @DBClean
-  Scenario: A registered user that provides incorrect credentials more than 3 times is locked out.
+  Scenario: Account locking after three bad attempts
     Given the following accounts exist:
       | email        | nick name | password |
       | bob@test.com | bob       | bob123   |
@@ -43,7 +43,7 @@ Feature: Login Management
     And the client is sent an error response
 
   @DBClean
-  Scenario: An unregistered user cannot be authenticated by the server.
+  Scenario: Unregistered user logs in
     Given a user has not created an account
     When they log in with nonexistent credentials:
       | email            | password |

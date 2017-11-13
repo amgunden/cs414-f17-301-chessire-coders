@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Game {
     private long playerTwoID = -1;
     private GameStatus gameStatus;
     private List<GamePiece> gamePieces;
+    private PlayerEnumType turnOfPlayer;
 
     public Game() {
     }
@@ -109,5 +111,14 @@ public class Game {
         result = 31 * result + (getGameStatus() != null ? getGameStatus().hashCode() : 0);
         result = 31 * result + (getGamePieces() != null ? getGamePieces().hashCode() : 0);
         return result;
+    }
+
+    public PlayerEnumType getTurnOfPlayer() {
+        return turnOfPlayer;
+    }
+
+    public Game setTurnOfPlayer(PlayerEnumType turnOfPlayer) {
+        this.turnOfPlayer = turnOfPlayer;
+        return this;
     }
 }

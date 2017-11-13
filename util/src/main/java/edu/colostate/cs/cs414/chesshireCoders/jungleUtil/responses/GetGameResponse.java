@@ -28,7 +28,8 @@ public class GetGameResponse extends Response {
         return game;
     }
 
-    public void setGame(Game game) {
+    public GetGameResponse setGame(Game game) {
         this.game = game;
+        return this;
     }
 }

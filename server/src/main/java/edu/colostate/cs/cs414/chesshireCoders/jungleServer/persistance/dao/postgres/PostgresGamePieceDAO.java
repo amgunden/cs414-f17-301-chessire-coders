@@ -5,7 +5,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseD
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerOwnerType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ public class PostgresGamePieceDAO extends BaseDAO<GamePiece, Long> implements Ga
 
     private static RowMapper<GamePiece> GAME_PIECE_ROW_MAPPER = rs -> new GamePiece()
             .setPieceId(rs.getLong("piece_id"))
-            .setPlayerOwner(PlayerOwnerType.valueOf(rs.getString("player_owner")))
+            .setPlayerOwner(PlayerEnumType.valueOf(rs.getString("player_owner")))
             .setGameId(rs.getLong("game_id"))
             .setPieceType(PieceType.valueOf(rs.getString("piece_type")))
             .setRow(rs.getInt("position_row"))
