@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.ui;
 import java.io.File;
 import java.io.FileInputStream;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.InviteManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -53,7 +54,8 @@ public class InviteListCell extends ListCell<Invitation> {
         acceptBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	// TODO send AnswerInviteRequest to server
+            	Invitation invite = getListView().getSelectionModel().getSelectedItem();
+                InviteManager.getInstance().acceptInvite(invite);
                 getListView().getItems().remove(getItem());
             }
         });
@@ -61,7 +63,8 @@ public class InviteListCell extends ListCell<Invitation> {
         rejectBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                // TODO send AnswerInviteRequest to server
+            	Invitation invite = getListView().getSelectionModel().getSelectedItem();
+                InviteManager.getInstance().declineInvite(invite);
                 getListView().getItems().remove(getItem());
             }
         });
