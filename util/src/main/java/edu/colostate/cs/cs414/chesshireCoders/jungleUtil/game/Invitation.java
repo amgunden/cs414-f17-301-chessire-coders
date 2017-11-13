@@ -37,7 +37,15 @@ public class Invitation {
         this.senderId = senderId;
     }
 
-    public int getRecipientId() {
+    public String getSenderNickname() {
+		return senderNickname;
+	}
+
+	public void setSenderNickname(String senderNickname) {
+		this.senderNickname = senderNickname;
+	}
+
+	public int getRecipientId() {
         return recipientId;
     }
 
