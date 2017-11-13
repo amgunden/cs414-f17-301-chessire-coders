@@ -1,9 +1,9 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.InviteReplyHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -44,13 +44,15 @@ public class InviteManager {
 	}
 	
 	public void acceptInvite(Invitation invite) {
-		InviteReplyRequest request = new InviteReplyRequest(AuthTokenManager.getInstance().getToken(), true, invite.getInvitationId());
-		App.getJungleClient().sendMessage(request);
+		InviteReplyHandler inviteReplyHandler = new InviteReplyHandler();
+		App.getJungleClient().addListener(inviteReplyHandler);
+		inviteReplyHandler.sendAcceptInvite(invite);
+		 
 	}
 	
 	public void declineInvite(Invitation invite) {
-		InviteReplyRequest request = new InviteReplyRequest(AuthTokenManager.getInstance().getToken(), false, invite.getInvitationId());
-		App.getJungleClient().sendMessage(request);
+		InviteReplyHandler inviteReplyHandler = new InviteReplyHandler();
+		inviteReplyHandler.sendRejectInvite(invite);
 	}
 
 }
