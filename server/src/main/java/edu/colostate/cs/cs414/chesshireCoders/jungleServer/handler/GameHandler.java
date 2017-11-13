@@ -65,6 +65,8 @@ public class GameHandler extends Listener {
                 // notify opposing player
                 server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), jungleConnection.getUserId());
 
+                return new UpdateGameResponse(); // Defaults to success
+
             } else return new UpdateGameResponse(UNAUTHORIZED, "You are not authorized to perform this action");
         } catch (GameStateException e) {
             return new UpdateGameResponse(CLIENT_ERROR, e.getMessage());
