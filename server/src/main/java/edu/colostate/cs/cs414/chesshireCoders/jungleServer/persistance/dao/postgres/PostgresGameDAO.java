@@ -120,8 +120,8 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
                 game.getGameStatus(),
                 game.getGameStart(),
                 game.getGameEnd(),
-                game.getGameID(),
-                game.getTurnOfPlayer().name());
+                game.getTurnOfPlayer().name(),
+                game.getGameID());
     }
 
     /**

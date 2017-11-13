@@ -1,14 +1,20 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
 
 public abstract class BaseDAO<T, PK extends Serializable> {
 
@@ -109,6 +115,10 @@ public abstract class BaseDAO<T, PK extends Serializable> {
                         .getTimeInMillis()));
             } else if (parameter instanceof BigDecimal) {
                 statement.setBigDecimal(parameterIndex, (BigDecimal) parameter);
+            } else if (parameter instanceof InvitationStatusType) {
+                statement.setString(parameterIndex, ((InvitationStatusType) parameter).name());
+            } else if (parameter instanceof GameStatus) {
+                statement.setString(parameterIndex, ((GameStatus) parameter).name());
             } else {
                 throw new IllegalArgumentException(String.format(
                         "Unknown type of the parameter is found. [param: %s, paramIndex: %s]",

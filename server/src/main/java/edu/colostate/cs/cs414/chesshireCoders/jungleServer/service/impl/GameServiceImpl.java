@@ -109,6 +109,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public void rejectInvitation(long invitationId) throws Exception {
         Invitation invitation = updateInviteStatus(invitationId, REJECTED);
+        deleteInvitation(invitationId);
     }
 
     private Invitation updateInviteStatus(long invitationId, InvitationStatusType type) throws Exception {
@@ -144,6 +145,18 @@ public class GameServiceImpl implements GameService {
         });
     }
 
+    private Invitation deleteInvitation(long invitationId) throws Exception {
+        return manager.execute(manager -> {
+            // find invitation
+            Invitation invitation = manager.getInvitationDAO()
+                    .findByPrimaryKey(invitationId);
+            // update invitation status
+            // update DB
+            manager.getInvitationDAO().delete(invitation.getInvitationId());
+            return invitation;
+        });
+    }
+    
     @Override
     public Invitation createInvitation(final String senderNickname, final String receiverNickName, long gameId) throws Exception {
         return manager.executeAtomic(manager -> {
@@ -155,14 +168,17 @@ public class GameServiceImpl implements GameService {
                     .findByNickName(receiverNickName)
                     .getUserId();
 
-            // Create invitation and save.
-            Invitation invite = new Invitation()
+           // Create invitation and save.
+           Invitation invite = new Invitation()
                     .setSenderId(senderId)
                     .setSenderNickname(senderNickname)
                     .setRecipientId(recipientId)
                     .setGameId(gameId)
                     .setInvitationStatus(InvitationStatusType.PENDING);
-            manager.getInvitationDAO().create(invite);
+            long inviteId = manager.getInvitationDAO().create(invite);
+            
+            invite.setInvitationId(inviteId);
+            
             return invite;
         });
     }
