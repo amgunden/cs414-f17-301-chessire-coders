@@ -55,7 +55,6 @@ public class InviteListCell extends ListCell<Invitation> {
             @Override
             public void handle(MouseEvent event) {
             	Invitation invite = getListView().getSelectionModel().getSelectedItem();
-            	
                 InviteManager.getInstance().acceptInvite(invite);
                 getListView().getItems().remove(getItem());
             }
