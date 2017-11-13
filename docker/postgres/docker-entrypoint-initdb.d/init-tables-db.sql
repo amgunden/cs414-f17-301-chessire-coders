@@ -148,7 +148,7 @@ CREATE TABLE invitation
     CONSTRAINT fk_invitation_game_id
     REFERENCES game,
 
-  invite_status           INVITESTATUS DEFAULT 'PENDING' NOT NULL,
+  invite_status           VARCHAR(10) DEFAULT 'PENDING'  NOT NULL,
   CONSTRAINT chk_invitation_status
   CHECK (invite_status IN ('PENDING', 'ACCEPTED', 'REJECTED')),
 
