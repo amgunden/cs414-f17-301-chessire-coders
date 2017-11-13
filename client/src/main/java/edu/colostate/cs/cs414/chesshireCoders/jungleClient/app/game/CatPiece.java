@@ -1,10 +1,14 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
-public class CatPiece extends GamePiece {
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
-	public CatPiece(int row, int column, PlayerColor color) {
-		super(row, column, color);
+public class CatPiece extends JungleGamePiece {
+
+	public CatPiece(PlayerEnumType ownerType, int column, int row) {
+        super(ownerType,  column, row);
 		setPowerDefault();
+		setPieceType(PieceType.CAT);
 	}
 
 	@Override

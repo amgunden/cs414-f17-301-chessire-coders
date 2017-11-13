@@ -1,10 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public class JungleGame extends Game {
 
     protected GameBoard board;
+    protected PlayerEnumType viewingPlayer;
 
     public JungleGame() {
         super();
@@ -31,9 +33,8 @@ public class JungleGame extends Game {
 	public boolean canMovePieceAt(int row, int column) {
         boolean result = false;
 
-        // TODO check that it is this computer's turn
-        if (board.getPieceAt(row, column) != null) {
-            if (board.getPieceAt(row, column).getColor() == PlayerColor.Red) {
+        if (this.getTurnOfPlayer() == viewingPlayer && board.getPieceAt(row, column) != null) {
+            if (board.getPieceAt(row, column).getPlayerOwner() == viewingPlayer) {
                 result = true;
             }
         }
@@ -65,7 +66,15 @@ public class JungleGame extends Game {
         return board.getWinner();
     }
 
-    public void quitGame(Player actingPlayer) {
+    public PlayerEnumType getViewingPlayer() {
+		return viewingPlayer;
+	}
+
+	public void setViewingPlayer(PlayerEnumType viewingPlayer) {
+		this.viewingPlayer = viewingPlayer;
+	}
+
+	public void quitGame(Player actingPlayer) {
         //This method should remove the user requesting it, if the game is not over that user officially loses the game.
     }
 

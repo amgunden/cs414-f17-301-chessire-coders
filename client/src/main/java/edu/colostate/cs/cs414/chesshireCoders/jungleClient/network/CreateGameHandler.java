@@ -9,6 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
 
 public class CreateGameHandler extends Listener {
@@ -34,7 +35,7 @@ public class CreateGameHandler extends Listener {
         // JavaFX does not allow UI updates from non-UI threads.
         Platform.runLater(()->{
             if (response.isSuccess()) {
-        		GamesManager.getInstance().createGame(response.getGameID());
+        		GamesManager.getInstance().createGame(response.getGameID(), PlayerEnumType.PLAYER_ONE);
             } else {
                 System.err.println("[ERROR]: Server was unable to create game.");
             }

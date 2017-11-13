@@ -2,6 +2,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 import org.junit.Test;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+
 import static org.junit.Assert.*;
 
 public class TestGameBoard {
@@ -9,10 +11,10 @@ public class TestGameBoard {
 
 	@Test
 	public void testGetPieceAt_normal() {
-		GamePiece piece = new RatPiece(0,0,PlayerColor.Black);
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
 		board.getSquareAt(0, 0).setPiece(piece);
 		
-		GamePiece result = board.getPieceAt(0, 0);
+		JungleGamePiece result = board.getPieceAt(0, 0);
 		
 		assertNotNull("The piece returned from the square (0,0) should not be null.", result);
 		assertEquals("The piece returned from the square (0,0) should equal the piece placed there.", piece, result);
@@ -20,35 +22,35 @@ public class TestGameBoard {
 	
 	@Test
 	public void testGetPieceAt_column_too_big() {
-		GamePiece piece = board.getPieceAt(0, 7);
+		JungleGamePiece piece = board.getPieceAt(0, 7);
 
 		assertNull("The piece returned from the invalid bounds should be null.", piece);
 	}
 	
 	@Test
 	public void testGetPieceAt_column_too_small() {
-		GamePiece piece = board.getPieceAt(0, -1);
+		JungleGamePiece piece = board.getPieceAt(0, -1);
 
 		assertNull("The piece returned from the invalid bounds should be null.", piece);
 	}
 	
 	@Test
 	public void testGetPieceAt_empty_square() {
-		GamePiece piece = board.getPieceAt(1, 0);
+		JungleGamePiece piece = board.getPieceAt(1, 0);
 		
 		assertNull("The piece returned from the empty square should be null.", piece);
 	}
 	
 	@Test
 	public void testGetPieceAt_row_too_big() {
-		GamePiece piece = board.getPieceAt(9, 0);
+		JungleGamePiece piece = board.getPieceAt(9, 0);
 
 		assertNull("The piece returned from the invalid bounds should be null.", piece);
 	}
 	
 	@Test
 	public void testGetPieceAt_row_too_small() {
-		GamePiece piece = board.getPieceAt(-1, 0);
+		JungleGamePiece piece = board.getPieceAt(-1, 0);
 		
 		assertNull("The piece returned from the invalid bounds should be null.", piece);
 	}
@@ -118,7 +120,7 @@ public class TestGameBoard {
 		
 		board.movePiece(from, to);
 		
-		GamePiece result = board.getPieceAt(0, 0);
+		JungleGamePiece result = board.getPieceAt(0, 0);
 		assertNull("The piece returned from the square (0,0) should be null.", result);
 		
 		result = board.getPieceAt(0, 1);

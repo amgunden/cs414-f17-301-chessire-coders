@@ -2,10 +2,12 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
 
 import org.junit.Test;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+
 import static org.junit.Assert.*;
 
 public class TestGamePiece {
-	GamePiece piece = new DogPiece(0, 0, PlayerColor.Red);
+	JungleGamePiece piece = new DogPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
 	
 	@Test
 	public void testSetLocation_bottom_right_corner() {
@@ -93,7 +95,7 @@ public class TestGamePiece {
 	
 	@Test
 	public void testCanOccupy_river_rat() {
-		piece = new RatPiece(0, 0, PlayerColor.Red);
+		piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
 		BoardSquare river = new RiverSquare(1, 0, null);
 		assertTrue("A rat should be able to enter a river square.", piece.canOccupy(river));
 	}
@@ -101,14 +103,14 @@ public class TestGamePiece {
 	@Test
 	public void testCanOccupy_friendly_piece() {
 		piece.setLocation(0, 0);
-		BoardSquare square = new BoardSquare(1, 0, new CatPiece(1, 0, PlayerColor.Red));
+		BoardSquare square = new BoardSquare(1, 0, new CatPiece(PlayerEnumType.PLAYER_ONE, 1, 0));
 		assertFalse("A normal piece should not be able to enter a square occupied by a friendly piece.", piece.canOccupy(square));
 	}
 	
 	@Test
 	public void testCanOccupy_friendly_den() {
 		piece.setLocation(0, 0);
-		BoardSquare square = new DenSquare(1, 0, null, PlayerColor.Red);
+		BoardSquare square = new DenSquare(1, 0, null, PlayerEnumType.PLAYER_ONE);
 		assertFalse("A normal piece should not be able to enter a friendly den square.", piece.canOccupy(square));
 	}
 	
@@ -128,7 +130,7 @@ public class TestGamePiece {
 	
 	@Test
 	public void testCanOccupy_square_not_adjacent_leopard() {
-		piece = new LeopardPiece(0, 0, PlayerColor.Red);
+		piece = new LeopardPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
 		piece.setLocation(0, 0);
 		BoardSquare square = new BoardSquare(0, 2, null);
 		assertTrue("A leopard piece should be able to enter a square that is not right next to it.", piece.canOccupy(square));

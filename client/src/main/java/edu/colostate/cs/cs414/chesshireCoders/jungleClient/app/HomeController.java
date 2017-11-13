@@ -14,6 +14,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.event.ActionEvent;
@@ -67,6 +68,7 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         App.window.setResizable(false);
 
+        GamesManager.getInstance().setHomeController(this);
         gamesList.itemsProperty().bind(gameListProperty);
         invitationList.itemsProperty().bind(inviteListProperty);
         invitationList.setCellFactory(param -> new InviteListCell());
@@ -108,6 +110,24 @@ public class HomeController implements Initializable {
     }
     
     public void initializeBoard(JungleGame game) {
+    	Node board;
+        try {
+            lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
+            lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
+            
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/gameBoard.fxml"));
+            board = loader.load();
+            // Get the Controller from the FXMLLoader
+            GameBoardController controller = loader.getController();
+            controller.setGame(game);
+            // Set data in the controller
+            borderPane.setCenter(board);
+        } catch (IOException e) {
+            System.err.println("ERROR: Unable to load fxml file for Game Board.");
+        }
+    }
+    
+    public void updateBoard(JungleGame game) {
     	Node board;
         try {
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));

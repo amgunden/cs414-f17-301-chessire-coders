@@ -1,7 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler;
 
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.GAME_ALREADY_STARTED;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.UNAUTHORIZED;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService;
@@ -9,6 +14,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionServic
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
@@ -17,9 +23,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyReq
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.GAME_ALREADY_STARTED;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.UNAUTHORIZED;
+import java.util.Date;
 
 public class InvitationHandler extends Listener {
 
@@ -55,11 +59,12 @@ public class InvitationHandler extends Listener {
                     server.sendToTCPWithNickName(
                             new InvitationAcceptedEvent(request.getGameId()),
                             request.getSendingNickName());
+                    
                 }
                 // if rejected, reject and return success to player 2
                 else gameService.rejectInvitation(request.getInvitationId());
 
-                return new InviteReplyResponse(); // defaults to success
+                return new InviteReplyResponse(request.getGameId()); // defaults to success
 
             } else return new InviteReplyResponse(UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (GameStateException e) {
@@ -87,7 +92,8 @@ public class InvitationHandler extends Listener {
 
                 // check if receiving player is connected
                 //      If connected: send invitation event
-                server.sendToTCPWithNickName(new InvitationEvent(invitation), request.getNickname());
+                Date now = new Date(System.currentTimeMillis());
+                server.sendToTCPWithNickName(new InvitationEvent(invitation).setInvitationTime(now), request.getNickname());
                 return new InvitePlayerResponse(); // defaults to success
             } else return new InvitePlayerResponse(UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {

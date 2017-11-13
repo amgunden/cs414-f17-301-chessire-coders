@@ -6,6 +6,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.CreateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.GetGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,6 +29,10 @@ public class GamesManager {
 		return instance;
 	}
 	
+	public void setHomeController(HomeController homeController) {
+		this.homeController = homeController;
+	}
+
 	public void createGame(HomeController controller)
 	{
 		this.homeController = controller;
@@ -37,17 +42,18 @@ public class GamesManager {
 		handler.sendCreateGame();
 	}
 	
-	public void createGame(long gameID)
+	public void createGame(long gameID, PlayerEnumType viewingPlayer)
 	{
     	GetGameHandler handler = new GetGameHandler();
 		App.getJungleClient().addListener(handler);
-		handler.sendGetGame(gameID);
+		handler.sendGetGame(gameID, viewingPlayer);
 	}
 	
-	public void createGame(Game game)
+	public void createGame(Game game, PlayerEnumType viewingPlayer)
 	{
 		// store game with GameID in this.games
 		JungleGame jGame = new JungleGame(game);
+		jGame.setViewingPlayer(viewingPlayer);
 		games.add(jGame);
 		homeController.initializeBoard(jGame);
 	}
