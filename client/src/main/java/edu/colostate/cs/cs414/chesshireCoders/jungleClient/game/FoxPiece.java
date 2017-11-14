@@ -1,19 +1,19 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
-public class ElephantPiece extends JungleGamePiece {
+public class FoxPiece extends JungleGamePiece {
 
-	public ElephantPiece(PlayerEnumType ownerType, int column, int row) {
+	public FoxPiece(PlayerEnumType ownerType, int column, int row) {
         super(ownerType,  column, row);
 		setPowerDefault();
-		setPieceType(PieceType.ELEPHANT);
+		setPieceType(PieceType.FOX);
 	}
 
 	@Override
 	public void setPowerDefault() {
-		setPowerLevel(8);
+		setPowerLevel(3);
 	}
 
 }

@@ -1,16 +1,15 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
-public class LeopardPiece extends JungleGamePiece {
+public class TigerPiece extends JungleGamePiece {
 
-	public LeopardPiece(PlayerEnumType ownerType, int column, int row) {
+	public TigerPiece(PlayerEnumType ownerType, int column, int row) {
         super(ownerType,  column, row);
 		setPowerDefault();
-		setPieceType(PieceType.LEOPARD);
+		setPieceType(PieceType.TIGER);
 	}
-
 
 	@Override
 	public boolean canOccupy(BoardSquare square) {
@@ -28,7 +27,7 @@ public class LeopardPiece extends JungleGamePiece {
 	
 	@Override
 	public void setPowerDefault() {
-		setPowerLevel(5);
+		setPowerLevel(6);
 	}
-
+	
 }

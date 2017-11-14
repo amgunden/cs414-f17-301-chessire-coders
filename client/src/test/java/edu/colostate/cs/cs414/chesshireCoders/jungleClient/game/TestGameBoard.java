@@ -1,7 +1,11 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import org.junit.Test;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 import static org.junit.Assert.*;

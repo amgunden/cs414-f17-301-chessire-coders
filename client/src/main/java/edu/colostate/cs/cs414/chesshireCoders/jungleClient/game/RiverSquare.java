@@ -1,15 +1,15 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
-public class TrapSquare extends BoardSquare {
+public class RiverSquare extends BoardSquare {
 
-	public TrapSquare(int col, int row, JungleGamePiece piece) {
+	public RiverSquare(int col, int row, JungleGamePiece piece) {
 		super(col, row, piece);
 		// TODO Auto-generated constructor stub
 	}
 
-	public TrapSquare(int col, int row, JungleGamePiece piece, PlayerEnumType owner) {
+	public RiverSquare(int col, int row, JungleGamePiece piece, PlayerEnumType owner) {
 		super(col, row, piece);
 		// TODO Auto-generated constructor stub
 	}
@@ -18,7 +18,7 @@ public class TrapSquare extends BoardSquare {
 	public void setPiece(JungleGamePiece piece) {
 		piece.setRow(this.getRow());
 		piece.setColumn(this.getColumn());
-		piece.setPowerLevel(1);
+		piece.setPowerLevel(0);
 		this.piece = piece;
 	}
 }

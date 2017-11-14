@@ -5,11 +5,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.account.AccountHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.AuthTokenManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.InviteManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.NetworkListener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.LogoutHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
