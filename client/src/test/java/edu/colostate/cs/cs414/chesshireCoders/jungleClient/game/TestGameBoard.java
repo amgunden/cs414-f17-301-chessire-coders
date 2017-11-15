@@ -147,7 +147,7 @@ public class TestGameBoard {
 	
 	@Test
 	public void testMovePieceIntoOwnDen() {
-		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 2, 0);
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_ONE, 2, 0);
 		board.getSquareAt(0, 2).setPiece(piece1);
 		assertEquals(PieceType.RAT, board.getPieceAt(0, 2).getPieceType());
 		
@@ -158,7 +158,7 @@ public class TestGameBoard {
 	
 	@Test
 	public void testMovePieceIntoOpponentsDen() {
-		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_ONE, 2, 0);
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 2, 0);
 		board.getSquareAt(0, 2).setPiece(piece1);
 		assertEquals(PieceType.RAT, board.getPieceAt(0, 2).getPieceType());
 		
