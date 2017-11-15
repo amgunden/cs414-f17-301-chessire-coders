@@ -6,10 +6,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.CreateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.GetGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.UpdateGameHandler;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,7 +46,8 @@ public class GamesManager {
 		
 		if (game != null)
 			getAndShowGame(gameID, game.getViewingPlayer());
-		//this.homeController.
+		game = findById(gameID);
+		this.homeController.showGameEnding(game.getWinner());
 	}
 
 	public void createGame(HomeController controller)
@@ -74,9 +72,18 @@ public class GamesManager {
 		JungleGame jGame = new JungleGame(game);
 		jGame.setViewingPlayer(viewingPlayer);
 		if (findById(jGame.getGameID())==null) games.add(jGame);
+		else updateLocalGame(jGame);
 		homeController.initializeBoard(jGame);
 	}
 	
+	private void updateLocalGame(JungleGame jGame) {
+		
+		for (int i = 0; i < games.size(); i++) {
+			if (games.get(i).getGameID() == jGame.getGameID())
+				games.set(i, jGame);
+		}
+	}
+
 	public void updateGame(JungleGame jungleGame)
 	{
 		Game game = new Game()

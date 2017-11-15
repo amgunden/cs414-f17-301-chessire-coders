@@ -10,6 +10,7 @@ public class GameEndedEvent {
     }
     
     public GameEndedEvent(long gameID) {
+    	setGameID(gameID);
     }
 
     public long getGameID() {

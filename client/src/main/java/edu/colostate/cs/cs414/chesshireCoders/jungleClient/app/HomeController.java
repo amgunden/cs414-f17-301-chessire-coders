@@ -15,6 +15,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.event.ActionEvent;
@@ -145,10 +146,15 @@ public class HomeController implements Initializable {
         }
     }
 
-    private void showGameEnding(PlayerEnumType winner) {
-		borderPane.getCenter().setEffect(new GaussianBlur());
-		//lblWinner.setText(winner.toString() + " Wins!");
-		//winnerPane.setVisible(true);
+    public void showGameEnding(PlayerEnumType winner) {
+		StackPane stackPane = (StackPane) borderPane.getCenter();
+		stackPane.getChildren().get(0).setEffect(new GaussianBlur());
+		StackPane winnerPane = (StackPane) stackPane.getChildren().get(1);
+		Label lblWinner = (Label) winnerPane.getChildren().get(0);
+		Platform.runLater(()->{
+			lblWinner.setText(winner.name() + " Wins!");
+			winnerPane.setVisible(true);
+        });
 	}
     
     public void settingsClicked() {
