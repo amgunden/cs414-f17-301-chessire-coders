@@ -16,7 +16,7 @@ services:
 
     environment:
       POSTGRES_USER: jungle
-      POSTGRES_PASSWORD: 7Dh@Z5efPChIpb24o&
+      POSTGRES_PASSWORD: 45v*b1*kGZPo5TR%D!9@caL0%rIjjpBZ
 
   jungle_server:
 
