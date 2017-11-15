@@ -43,7 +43,9 @@ public class GameBoard {
 		
 		for (int row = 0; row < boardSquares.length; row++) {
 			for (int col = 0; col < boardSquares[0].length; col++) {
-				pieces.add(getPieceAt(row, col));
+				JungleGamePiece p = getPieceAt(row, col);
+				if (p != null)
+					pieces.add(p);
 			}
 		}
 		

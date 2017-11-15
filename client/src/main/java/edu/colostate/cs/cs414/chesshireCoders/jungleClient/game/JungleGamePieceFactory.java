@@ -1,5 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
 
@@ -41,13 +44,24 @@ public class JungleGamePieceFactory {
 		return result;
 	}
 	
-	public static GamePiece castPieceUp(JungleGamePiece piece)
+	public static GamePiece castPieceUp(GamePiece piece)
 	{
 		GamePiece result = new GamePiece(piece.getPlayerOwner(), piece.getPieceType(), piece.getColumn(), piece.getRow())
 				.setGameId(piece.getGameId())
 				.setPieceId(piece.getPieceId());
 		
 		return result;
+	}
+	
+	public static List<GamePiece> castPiecesUp(List<GamePiece> list)
+	{
+		List<GamePiece> results = new ArrayList<>();
+		
+		for (GamePiece piece : list) {
+			results.add(castPieceUp(piece));
+		}
+		
+		return results;
 	}
 	
 	public static JungleGamePiece getPiece(PieceType pieceType)

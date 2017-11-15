@@ -9,6 +9,7 @@ import com.esotericsoftware.kryonet.EndPoint;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
@@ -35,6 +36,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LogoutRespons
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ErrorType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameOutcomeType;
@@ -90,7 +92,7 @@ public class KryoRegistrar {
         kryo.register(BoardUpdateEvent.class);
         kryo.register(GameEndedEvent.class);
         kryo.register(InvitationEvent.class);
-        kryo.register(InvitationEvent.class);
+        kryo.register(InvitationAcceptedEvent.class);
         kryo.register(ServerEvent.class);
     }
 
@@ -152,6 +154,7 @@ public class KryoRegistrar {
 
         // Game Handling
         kryo.register(GetGameResponse.class);
+        kryo.register(UpdateGameResponse.class);
         kryo.register(CreateGameResponse.class);
 
         // Invitation Handling

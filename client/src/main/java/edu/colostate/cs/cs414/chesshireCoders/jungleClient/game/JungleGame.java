@@ -70,7 +70,7 @@ public class JungleGame extends Game {
 
     public void movePiece(int[] from, int[] to) {
         board.movePiece(from, to);
-        setGamePieces(board.getPieces());
+        setGamePieces(JungleGamePieceFactory.castPiecesUp(board.getPieces()));
         setTurnOfPlayer((getTurnOfPlayer()==PlayerEnumType.PLAYER_ONE) ? PlayerEnumType.PLAYER_TWO : PlayerEnumType.PLAYER_ONE);
         // TODO check for win
         GamesManager.getInstance().updateGame(this);

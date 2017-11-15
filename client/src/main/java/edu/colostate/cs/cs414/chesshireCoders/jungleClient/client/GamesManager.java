@@ -9,6 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.UpdateGameHan
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,5 +109,10 @@ public class GamesManager {
 		}
 		return null;
 	}
+
+	/*public void startGame(long gameId) {
+		JungleGame game = findById(gameId);
+		game.setGameStatus(GameStatus.ONGOING);
+	}*/
 	
 }
