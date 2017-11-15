@@ -1,11 +1,25 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app;
 
+import java.io.File;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.CatPiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DogPiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.ElephantPiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.FoxPiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LionPiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.InvitePlayerHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,6 +64,8 @@ public class GameBoardController implements Initializable {
 	
 	public void setGame(JungleGame game) {
 		this.game = game;
+		
+		placePieces(game.getGamePieces());
 	}
 
 	@FXML
@@ -162,6 +178,90 @@ public class GameBoardController implements Initializable {
 		game.movePiece(start, new int[]{r, c});
 		if (game.getWinner() != null) {
 			showGameEnding(game.getWinner());
+		}
+	}
+	
+	private void placePieceAt(int row, int column, GamePiece piece) {
+		StackPane square = getSquare(row, column);
+		
+		ObservableList<Node> imageViews = square.getChildren();
+		File iconImage = new File("src/main/resources/images/" + getImageForPiece(piece));
+		ImageView pieceImage = new ImageView(iconImage.toURI().toString());
+		pieceImage.setMouseTransparent(true);
+		pieceImage.setPreserveRatio(true);
+		
+		if (imageViews.size() > 1) {
+			imageViews.remove(imageViews.size()-1);
+		}
+		
+		imageViews.add(pieceImage);
+	}
+	
+	private String getImageForPiece(GamePiece piece) {
+		String result = "red_x.png";
+		
+		switch (piece.getPieceType()) {
+		case CAT:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_2_red.png";
+			else
+				result = "piece_2_black.png";
+			break;
+		case DOG:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_4_red.png";
+			else
+				result = "piece_4_black.png";
+			break;
+		case ELEPHANT:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_8_red.png";
+			else
+				result = "piece_8_black.png";
+			break;
+		case FOX:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_3_red.png";
+			else
+				result = "piece_3_black.png";
+			break;
+		case LEOPARD:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_5_red.png";
+			else
+				result = "piece_5_black.png";
+		case LION:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_7_red.png";
+			else
+				result = "piece_7_black.png";
+			break;
+		case RAT:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_1_red.png";
+			else
+				result = "piece_1_black.png";
+			break;
+		case TIGER:
+			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
+				result = "piece_6_red.png";
+			else
+				result = "piece_6_black.png";
+		default:
+			break;
+		}
+		
+		return result;
+	}
+
+	private void placePieces(List<GamePiece> pieces) {
+		if (pieces == null || pieces.isEmpty())
+			return;
+		
+		for (Iterator<GamePiece> iterator = pieces.iterator(); iterator.hasNext();) {
+			GamePiece piece = iterator.next();
+			
+			placePieceAt(piece.getRow(), piece.getColumn(), piece);
 		}
 	}
 
