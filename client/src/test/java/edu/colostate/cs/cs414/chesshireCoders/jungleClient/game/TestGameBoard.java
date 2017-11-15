@@ -180,7 +180,7 @@ public class TestGameBoard {
 		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_ONE, 3, 0);
 		board.getSquareAt(0, 3).setPiece(piece1);
 		
-		assertEquals(PlayerColor.RED,board.getWinner());
+		assertEquals(PlayerEnumType.PLAYER_ONE,board.getWinner());
 	}
 
 }
