@@ -43,7 +43,8 @@ public class PostgresUserDAO extends BaseDAO<User, Long> implements UserDAO {
     public User findByNickName(String nickName) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT * FROM jungle_user WHERE jungle_user.nick_name = ?";
-        return query(sql, USER_ROW_MAPPER, nickName).get(0);
+        List<User> users = query(sql, USER_ROW_MAPPER, nickName);
+        return users.size() > 0 ? users.get(0) : null;
     }
 
     @Override
