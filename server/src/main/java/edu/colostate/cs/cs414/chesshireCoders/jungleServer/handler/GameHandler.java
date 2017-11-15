@@ -63,7 +63,8 @@ public class GameHandler extends Listener {
                 gameService.updateGame(sendingUserId, game);
 
                 // notify opposing player
-                server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), jungleConnection.getUserId());
+                long receivingUserId = (sendingUserId == received.getGame().getPlayerOneID()) ? received.getGame().getPlayerTwoID() : received.getGame().getPlayerOneID();
+                server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), receivingUserId);
 
                 return new UpdateGameResponse(); // Defaults to success
 
