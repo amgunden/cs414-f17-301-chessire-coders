@@ -92,9 +92,9 @@ CREATE TABLE game
   CONSTRAINT chk_game_turn_of_player
   CHECK (turn_of_player IN ('PLAYER_ONE', 'PLAYER_TWO')),
 
-  game_status     VARCHAR(20) DEFAULT 'PENDING'    NOT NULL,
+  game_state      VARCHAR(20) DEFAULT 'PENDING'    NOT NULL,
   CONSTRAINT chk_game_state
-  CHECK (game_status IN ('PENDING', 'ONGOING', 'DRAW', 'WINNER_PLAYER_ONE', 'WINNER_PLAYER_TWO')),
+  CHECK (game_state IN ('PENDING', 'ONGOING', 'DRAW', 'WINNER_PLAYER_ONE', 'WINNER_PLAYER_TWO')),
 
   start_date_time TIMESTAMP,
 

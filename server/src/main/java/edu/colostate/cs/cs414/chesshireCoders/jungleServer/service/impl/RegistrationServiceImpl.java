@@ -36,14 +36,14 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public void unregisterUser(String email) throws Exception {
+    public void unregisterUser(long userId) throws Exception {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             Login login = manager
                     .getLoginDAO()
-                    .findByEmail(email);
+                    .findByPrimaryKey(userId);
             User user = manager
                     .getUserDAO()
-                    .findByPrimaryKey(login.getUserID())
+                    .findByPrimaryKey(userId)
                     .setRegistered(false);
             manager.getUserDAO()
                     .update(user);
