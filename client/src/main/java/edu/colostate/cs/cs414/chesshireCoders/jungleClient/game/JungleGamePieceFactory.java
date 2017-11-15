@@ -41,6 +41,11 @@ public class JungleGamePieceFactory {
 			break;
 		}
 		
+		if (result != null) {
+			result.setGameId(piece.getGameId());
+			result.setPieceId(piece.getPieceId());
+		}
+		
 		return result;
 	}
 	

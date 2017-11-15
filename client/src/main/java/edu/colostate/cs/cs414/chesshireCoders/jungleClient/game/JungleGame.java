@@ -7,6 +7,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.UpdateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public class JungleGame extends Game {
@@ -39,7 +40,7 @@ public class JungleGame extends Game {
 	public boolean canMovePieceAt(int row, int column) {
         boolean result = false;
 
-        if (this.getTurnOfPlayer() == viewingPlayer && board.getPieceAt(row, column) != null) {
+        if (this.getGameStatus() == GameStatus.ONGOING && this.getTurnOfPlayer() == viewingPlayer && board.getPieceAt(row, column) != null) {
             if (board.getPieceAt(row, column).getPlayerOwner() == viewingPlayer) {
                 result = true;
             }

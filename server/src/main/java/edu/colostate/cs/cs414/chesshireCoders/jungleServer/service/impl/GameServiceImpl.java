@@ -78,8 +78,8 @@ public class GameServiceImpl implements GameService {
                 throw new GameStateException("It is not this player's turn");
 
             // Update game
-            PlayerEnumType player = game.getTurnOfPlayer() == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
-            game.setTurnOfPlayer(player);
+            //PlayerEnumType player = game.getTurnOfPlayer() == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
+            //game.setTurnOfPlayer(player);
             manager.getGameDAO().update(game);
 
             // Update pieces

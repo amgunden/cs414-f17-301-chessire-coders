@@ -230,6 +230,7 @@ public class GameBoardController implements Initializable {
 				result = "piece_5_red.png";
 			else
 				result = "piece_5_black.png";
+			break;
 		case LION:
 			if (piece.getPlayerOwner() == PlayerEnumType.PLAYER_ONE)
 				result = "piece_7_red.png";
@@ -247,6 +248,7 @@ public class GameBoardController implements Initializable {
 				result = "piece_6_red.png";
 			else
 				result = "piece_6_black.png";
+			break;
 		default:
 			break;
 		}
