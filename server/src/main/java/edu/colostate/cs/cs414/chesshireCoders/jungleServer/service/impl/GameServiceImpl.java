@@ -11,7 +11,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +18,8 @@ import java.util.List;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.ONGOING;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.PENDING;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.*;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.ACCEPTED;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.REJECTED;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
@@ -78,9 +78,34 @@ public class GameServiceImpl implements GameService {
                 throw new GameStateException("It is not this player's turn");
 
             // Update game
-            PlayerEnumType player = game.getTurnOfPlayer() == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
-            game.setTurnOfPlayer(player);
+            //PlayerEnumType player = game.getTurnOfPlayer() == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
+            //game.setTurnOfPlayer(player);
             manager.getGameDAO().update(game);
+
+            // delete any pieces missing from the game set
+            List<GamePiece> dbPieces = manager.getGamePieceDAO().findByGameId(game.getGameID());
+
+            List<Long> missingIds = new ArrayList<>();
+
+            // find any pieces that are missing in the received List
+            for (int i = 0; i < dbPieces.size(); ++i) {
+                GamePiece iPiece = dbPieces.get(i);
+                boolean found = false;
+                for (int j = 0; j < gamePieces.size(); ++j) {
+                    GamePiece jPiece = gamePieces.get(j);
+                    if (iPiece.getPieceId() == jPiece.getPieceId()) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) missingIds.add(iPiece.getPieceId());
+            }
+
+            // delete any captured ID's
+            for (Long pieceId : missingIds) {
+                manager.getGamePieceDAO().delete(pieceId);
+            }
+
 
             // Update pieces
             for (GamePiece piece : gamePieces) {
@@ -92,12 +117,29 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game fetchGame(long gameId) throws Exception {
-        return manager.execute(manager -> manager.getGameDAO().findByPrimaryKey(gameId));
+    	return manager.execute(manager -> {
+    		Game game = manager.getGameDAO().findByPrimaryKey(gameId);
+    		List<GamePiece> pieces = manager
+    			.getGamePieceDAO()
+    			.findByGameId(gameId);
+    		return game.setGamePieces(pieces);
+    	});
     }
 
     @Override
     public List<Game> fetchUserGames(long userId) throws Exception {
-        return manager.execute(manager -> manager.getGameDAO().findByUserId(userId));
+        return manager.execute(manager -> {
+    		List<Game> games = manager.getGameDAO().findByUserId(userId);
+    		
+    		for (Game game : games) {
+    			List<GamePiece> pieces = manager
+    	    			.getGamePieceDAO()
+    	    			.findByGameId(game.getGameID());
+    	    	game.setGamePieces(pieces);
+			}
+    		
+    		return games;
+    	});
     }
 
     @Override

@@ -22,9 +22,10 @@ public class BoardSquare {
 	}
 	
   // Remove a piece from the square.
-	public void clearPiece() {
-		this.piece = new RatPiece(playerOwner, 0, 0);
+	public JungleGamePiece clearPiece() {
+		JungleGamePiece result = piece;
 		piece = null;
+		return result;
 	}
 
 	public PlayerEnumType getPlayerOwner() {

@@ -23,6 +23,7 @@ public class InviteReplyHandler extends Listener {
 	public void sendAcceptInvite(Invitation invite) {
 		inviteReplyRequest = new InviteReplyRequest(AuthTokenManager.getInstance().getToken(), true, invite.getInvitationId());
 		inviteReplyRequest.setGameId(invite.getGameId());
+		inviteReplyRequest.setSendingNickName(invite.getSenderNickname());
 		App.getJungleClient().sendMessage(inviteReplyRequest);
 	}
 	
@@ -38,7 +39,7 @@ public class InviteReplyHandler extends Listener {
         Platform.runLater(()->{
         	
         	 if (response.isSuccess()) {
-             	GamesManager.getInstance().createGame(response.getGameID(), PlayerEnumType.PLAYER_TWO);
+             	GamesManager.getInstance().getAndShowGame(response.getGameID(), PlayerEnumType.PLAYER_TWO);
              } else {
                  System.err.println("[ERROR]: Server was unable to get game.");
              }
@@ -51,6 +52,7 @@ public class InviteReplyHandler extends Listener {
 	public void sendRejectInvite(Invitation invite) {
 		inviteReplyRequest = new InviteReplyRequest(AuthTokenManager.getInstance().getToken(), false, invite.getInvitationId());
 		inviteReplyRequest.setGameId(invite.getGameId());
+		inviteReplyRequest.setSendingNickName(invite.getSenderNickname());
 		App.getJungleClient().sendMessage(inviteReplyRequest);
 	}
 }

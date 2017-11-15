@@ -36,16 +36,16 @@ public class InviteListCell extends ListCell<Invitation> {
         }); 
         
         try {
-			File fos = new File("src/main/resources/images/green_check.png");
-			acceptBtn = new ImageView(new Image(new FileInputStream(fos)));
+			File iconImage = new File("src/main/resources/images/green_check.png");
+			acceptBtn = new ImageView(iconImage.toURI().toString());
 			acceptBtn.setPickOnBounds(true);
 		} catch (Exception e) {
 			acceptBtn = new Button("Accept");
 		}
         
         try {
-			File fos = new File("src/main/resources/images/red_x.png");
-			rejectBtn = new ImageView(new Image(new FileInputStream(fos)));
+			File iconImage = new File("src/main/resources/images/red_x.png");
+			rejectBtn = new ImageView(iconImage.toURI().toString());
 			rejectBtn.setPickOnBounds(true);
 		} catch (Exception e) {
 			rejectBtn = new Button("Reject");

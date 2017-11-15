@@ -10,6 +10,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServ
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
@@ -17,6 +18,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequ
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.*;
 
@@ -63,7 +65,13 @@ public class GameHandler extends Listener {
                 gameService.updateGame(sendingUserId, game);
 
                 // notify opposing player
-                server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), jungleConnection.getUserId());
+                long receivingUserId = (sendingUserId == received.getGame().getPlayerOneID()) ? received.getGame().getPlayerTwoID() : received.getGame().getPlayerOneID();
+                
+                if (game.getGameStatus() == GameStatus.ONGOING) {
+                	server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), receivingUserId);
+                } else {
+                	server.sendToTCPWithUserId(new GameEndedEvent(game.getGameID()), receivingUserId);
+                }
 
                 return new UpdateGameResponse(); // Defaults to success
 

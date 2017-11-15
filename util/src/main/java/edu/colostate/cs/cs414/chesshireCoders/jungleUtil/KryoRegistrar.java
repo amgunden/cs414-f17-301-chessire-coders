@@ -1,20 +1,52 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.EndPoint;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.*;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.*;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.*;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.*;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.EndPoint;
+
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Player;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LogoutRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LogoutResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ErrorType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameOutcomeType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerColor;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType;
 
 public class KryoRegistrar {
 
@@ -60,7 +92,7 @@ public class KryoRegistrar {
         kryo.register(BoardUpdateEvent.class);
         kryo.register(GameEndedEvent.class);
         kryo.register(InvitationEvent.class);
-        kryo.register(InvitationEvent.class);
+        kryo.register(InvitationAcceptedEvent.class);
         kryo.register(ServerEvent.class);
     }
 
@@ -122,6 +154,7 @@ public class KryoRegistrar {
 
         // Game Handling
         kryo.register(GetGameResponse.class);
+        kryo.register(UpdateGameResponse.class);
         kryo.register(CreateGameResponse.class);
 
         // Invitation Handling
@@ -147,6 +180,7 @@ public class KryoRegistrar {
         kryo.register(GameOutcomeType.class);
         kryo.register(GameStatus.class);
         kryo.register(InvitationStatusType.class);
+        kryo.register(PieceType.class);
         kryo.register(PlayerColor.class);
         kryo.register(PlayerStatus.class);
         kryo.register(PlayerEnumType.class);
