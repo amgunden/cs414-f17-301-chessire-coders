@@ -5,16 +5,26 @@ version: '3.3'
 services:
   db:
 
-    image: 'jungledb:latest'
+    image: jungledb:latest
     build:
-      context: 'docker/postgres/'
+      context: docker/postgres/
 
     ports:
-      - '5432:5432'
+      - 5432:5432
 
-    restart: 'always'
+    restart: always
 
     environment:
-      POSTGRES_USER: 'jungle'
-      POSTGRES_PASSWORD: '7Dh@Z5efPChIpb24o&'
+      POSTGRES_USER: jungle
+      POSTGRES_PASSWORD: 7Dh@Z5efPChIpb24o&
+
+  jungle_server:
+
+    image: junglesrv:latest
+    build:
+      context: ./
+      dockerfile: docker/jungleserver/Dockerfile
+
+    ports:
+      - 9898:9898
 
