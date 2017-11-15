@@ -77,7 +77,7 @@ public class LoginController implements Initializable {
     }
 
     public void loginFailure(String errorMessage) {
-        loginErrorMsg.setPrefWidth(errorMessage.length() * 30);
+        loginErrorMsg.setPrefWidth(errorMessage.length() * 7);
         loginErrorMsg.setText(errorMessage);
         System.err.println(errorMessage);
         loginFailure();

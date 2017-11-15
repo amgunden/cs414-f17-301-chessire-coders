@@ -166,21 +166,5 @@ public class TestGameBoard {
 		int[] valid = board.getValidMoves(0, 2);
 		assertArrayEquals(expected, valid);
 	}
-	
-	@Test
-	public void testGameIsWon() {
-		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_ONE, 3, 0);
-		board.getSquareAt(0, 3).setPiece(piece1);
-		
-		assertTrue(board.isGameOver());
-	}
-	
-	@Test
-	public void testPlayerOneWon() {
-		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_ONE, 3, 0);
-		board.getSquareAt(0, 3).setPiece(piece1);
-		
-		assertEquals(PlayerEnumType.PLAYER_ONE,board.getWinner());
-	}
 
 }
