@@ -2,7 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.CreateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.GetGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;

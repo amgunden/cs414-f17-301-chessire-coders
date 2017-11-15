@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.JungleGame;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game.PlayerColor;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.InvitePlayerHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -173,7 +173,7 @@ public class GameBoardController implements Initializable {
 	}
 
 	
-	private void showGameEnding(PlayerColor winner) {
+	private void showGameEnding(PlayerEnumType winner) {
 		gridPane.setEffect(new GaussianBlur());
 		lblWinner.setText(winner.toString() + " Wins!");
 		winnerPane.setVisible(true);

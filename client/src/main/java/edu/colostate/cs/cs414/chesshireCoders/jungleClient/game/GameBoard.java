@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
@@ -53,7 +53,7 @@ public class GameBoard {
 				
 		//if a player has no remaining pieces the game is over
 		if(toSquare.getPiece()!=null) {
-			if(toSquare.getPiece().getPlayerOwner().equals(PlayerColor.Red)){ // TODO fix
+			if(toSquare.getPiece().getPlayerOwner().equals(PlayerEnumType.PLAYER_ONE)){ // TODO fix
 				p1Pieces -= 1;
 			} else {
 				p2Pieces -= 1;
@@ -130,11 +130,11 @@ public class GameBoard {
 		return (hasP1Won() || hasP2Won());
 	}
 	
-	public PlayerColor getWinner() {
+	public PlayerEnumType getWinner() {
 		if(hasP1Won()) {
-			return PlayerColor.Red;
+			return PlayerEnumType.PLAYER_ONE;
 		} else if(hasP2Won()) {
-			return PlayerColor.Black;
+			return PlayerEnumType.PLAYER_TWO;
 		}
 		return null;
 	}

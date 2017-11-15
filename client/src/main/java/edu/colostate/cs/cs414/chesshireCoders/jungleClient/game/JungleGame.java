@@ -1,7 +1,8 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.game;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus;
 
 public class JungleGame extends Game {
 
@@ -28,6 +29,7 @@ public class JungleGame extends Game {
 		setPlayerOneID(game.getPlayerOneID());
 		setPlayerTwoID(game.getPlayerTwoID());
 		setTurnOfPlayer(game.getTurnOfPlayer());
+        board = new GameBoard(); // TODO initialize with pieces in game.
 	}
 
 	public boolean canMovePieceAt(int row, int column) {
@@ -62,7 +64,7 @@ public class JungleGame extends Game {
         return false;
     }
 
-    public PlayerColor getWinner() {
+    public PlayerEnumType getWinner() {
         return board.getWinner();
     }
 
@@ -74,7 +76,7 @@ public class JungleGame extends Game {
 		this.viewingPlayer = viewingPlayer;
 	}
 
-	public void quitGame(Player actingPlayer) {
+	public void quitGame() {
         //This method should remove the user requesting it, if the game is not over that user officially loses the game.
     }
 
