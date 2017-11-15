@@ -92,7 +92,13 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game fetchGame(long gameId) throws Exception {
-        return manager.execute(manager -> manager.getGameDAO().findByPrimaryKey(gameId));
+    	return manager.execute(manager -> {
+    		Game game = manager.getGameDAO().findByPrimaryKey(gameId);
+    		List<GamePiece> pieces = manager
+    			.getGamePieceDAO()
+    			.findByGameId(gameId);
+    		return game.setGamePieces(pieces);
+    	});
     }
 
     @Override

@@ -38,7 +38,7 @@ public class InviteReplyHandler extends Listener {
         Platform.runLater(()->{
         	
         	 if (response.isSuccess()) {
-             	GamesManager.getInstance().createGame(response.getGameID(), PlayerEnumType.PLAYER_TWO);
+             	GamesManager.getInstance().getAndShowGame(response.getGameID(), PlayerEnumType.PLAYER_TWO);
              } else {
                  System.err.println("[ERROR]: Server was unable to get game.");
              }

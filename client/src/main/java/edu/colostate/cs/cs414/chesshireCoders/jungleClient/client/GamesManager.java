@@ -5,6 +5,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.CreateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.GetGameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.UpdateGameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.collections.FXCollections;
@@ -33,6 +36,13 @@ public class GamesManager {
 		this.homeController = homeController;
 	}
 
+	public void handleBoardUpdateEvent(long gameID) {
+		JungleGame game = findById(gameID);
+		
+		if (game != null)
+			getAndShowGame(gameID, game.getViewingPlayer());
+	}
+
 	public void createGame(HomeController controller)
 	{
 		this.homeController = controller;
@@ -42,20 +52,37 @@ public class GamesManager {
 		handler.sendCreateGame();
 	}
 	
-	public void createGame(long gameID, PlayerEnumType viewingPlayer)
+	public void getAndShowGame(long gameID, PlayerEnumType viewingPlayer)
 	{
     	GetGameHandler handler = new GetGameHandler();
 		App.getJungleClient().addListener(handler);
 		handler.sendGetGame(gameID, viewingPlayer);
 	}
 	
-	public void createGame(Game game, PlayerEnumType viewingPlayer)
+	public void showGame(Game game, PlayerEnumType viewingPlayer)
 	{
 		// store game with GameID in this.games
 		JungleGame jGame = new JungleGame(game);
 		jGame.setViewingPlayer(viewingPlayer);
 		games.add(jGame);
 		homeController.initializeBoard(jGame);
+	}
+	
+	public void updateGame(JungleGame jungleGame)
+	{
+		Game game = new Game()
+				.setGameEnd(jungleGame.getGameEnd())
+				.setGameID(jungleGame.getGameID())
+				.setGamePieces(jungleGame.getGamePieces())
+				.setGameStart(jungleGame.getGameStart())
+				.setGameStatus(jungleGame.getGameStatus())
+				.setPlayerOneID(jungleGame.getPlayerOneID())
+				.setPlayerTwoID(jungleGame.getPlayerTwoID())
+				.setTurnOfPlayer(jungleGame.getTurnOfPlayer());
+		
+        UpdateGameHandler handler = new UpdateGameHandler();
+		App.getJungleClient().addListener(handler);
+		handler.sendUpdateGame(game);
 	}
 	
 	public void fetchGames()
@@ -72,6 +99,14 @@ public class GamesManager {
 	{
 		// if game is not finished, notify server of game end.
 		// remove game locally.
+	}
+	
+	private JungleGame findById(long gameID) {
+		for (JungleGame jungleGame : games) {
+			if (jungleGame.getGameID() == gameID)
+				return jungleGame;
+		}
+		return null;
 	}
 	
 }

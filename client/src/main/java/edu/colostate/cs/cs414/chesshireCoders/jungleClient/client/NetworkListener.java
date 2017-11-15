@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener.ThreadedListener;
 
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent;
@@ -39,6 +40,14 @@ public class NetworkListener {
             @Override
             public void run(Connection connection, InvitationEvent received) {
             	InviteManager.getInstance().addInvitationEvent(received);
+            }
+        }));
+        
+        // Board Update Event
+        client.addListener(new ThreadedListener(new FilteredListener<BoardUpdateEvent>(BoardUpdateEvent.class) {
+            @Override
+            public void run(Connection connection, BoardUpdateEvent received) {
+            	GamesManager.getInstance().handleBoardUpdateEvent(received.getGameId());
             }
         }));
     }
