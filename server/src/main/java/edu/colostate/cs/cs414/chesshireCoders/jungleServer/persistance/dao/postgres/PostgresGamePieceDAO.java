@@ -121,6 +121,6 @@ public class PostgresGamePieceDAO extends BaseDAO<GamePiece, Long> implements Ga
     public List<GamePiece> findByGameId(long gameId) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT * FROM game_piece WHERE game_id = ?";
-        return query(sql, GAME_PIECE_ROW_MAPPER, sql);
+        return query(sql, GAME_PIECE_ROW_MAPPER, gameId);
     }
 }

@@ -103,7 +103,18 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> fetchUserGames(long userId) throws Exception {
-        return manager.execute(manager -> manager.getGameDAO().findByUserId(userId));
+        return manager.execute(manager -> {
+    		List<Game> games = manager.getGameDAO().findByUserId(userId);
+    		
+    		for (Game game : games) {
+    			List<GamePiece> pieces = manager
+    	    			.getGamePieceDAO()
+    	    			.findByGameId(game.getGameID());
+    	    	game.setGamePieces(pieces);
+			}
+    		
+    		return games;
+    	});
     }
 
     @Override
