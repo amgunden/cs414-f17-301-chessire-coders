@@ -4,10 +4,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.ConnectionProvider;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl;
@@ -75,12 +71,15 @@ public class RegistrationHandler extends Listener {
 
     private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request, Connection connection) throws SQLException {
         try {
-            JungleConnection jungConn = JungleConnection.class.cast(connection);
-            registrationService.unregisterUser(request.getEmail());
-            sessionService.expireSession(jungConn
-                    .getAuthToken()
-                    .getToken());
-            return new UnRegisterResponse(); // Defaults to success
+            if (sessionService.validateSessionRequest(request, connection)) {
+                JungleConnection jungConn = JungleConnection.class.cast(connection);
+                registrationService.unregisterUser(jungConn.getUserId());
+                sessionService.expireSession(jungConn
+                        .getAuthToken()
+                        .getToken());
+                return new UnRegisterResponse(); // Defaults to success
+            } else
+                return new UnRegisterResponse(ResponseStatusCodes.UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {
             e.printStackTrace();
             return new UnRegisterResponse(ResponseStatusCodes.SERVER_ERROR, "Server Error: Unable to register user.");
