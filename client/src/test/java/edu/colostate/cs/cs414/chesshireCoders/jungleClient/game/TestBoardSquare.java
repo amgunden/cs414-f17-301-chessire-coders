@@ -61,5 +61,64 @@ public class TestBoardSquare {
 		
 		assertNull("The square should be empty.", square.getPiece());
 	}
+	
+	@Test
+	public void testGetPiece() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		BoardSquare square = new BoardSquare(0, 0, piece, PlayerEnumType.PLAYER_ONE);
+		square.setPiece(piece);
+		
+		assertEquals(piece, square.getPiece());	
+	}
+	
+	@Test
+	public void testGetPlayerOwner() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		BoardSquare square = new BoardSquare(0, 0, piece, PlayerEnumType.PLAYER_ONE);
+		square.setPiece(piece);
+		
+		assertEquals(PlayerEnumType.PLAYER_ONE, square.getPlayerOwner());	
+	}
+	
+	@Test
+	public void testGetPlayerOwner_null() {
+		JungleGamePiece piece = new RatPiece(null, 0, 0);
+		BoardSquare square = new BoardSquare(0, 0, piece);
+		square.setPiece(piece);
+		
+		assertEquals(null, square.getPlayerOwner());	
+	}
+	
+	@Test
+	public void testGetRow() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 5, 0);
+		BoardSquare square = new BoardSquare(5, 0, piece, PlayerEnumType.PLAYER_ONE);
+		square.setPiece(piece);
+		
+		assertEquals(5, square.getRow());
+	}
+	
+	@Test
+	public void testGetRow_null() {
+		BoardSquare square = new BoardSquare(5, 0, null);
+		
+		assertEquals(5, square.getRow());
+	}
+	
+	@Test
+	public void testGetColumn() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 5);
+		BoardSquare square = new BoardSquare(0, 0, piece, PlayerEnumType.PLAYER_ONE);
+		square.setPiece(piece);
+		
+		assertEquals(0, square.getColumn());
+	}
+	
+	@Test
+	public void testGetColumn_null() {
+		BoardSquare square = new BoardSquare(0, 5, null);
+		
+		assertEquals(5, square.getColumn());
+	}
 
 }
