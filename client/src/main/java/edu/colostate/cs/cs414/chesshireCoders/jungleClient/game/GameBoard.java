@@ -11,8 +11,6 @@ public class GameBoard {
 
 	//Set up Squares
 	BoardSquare[][] boardSquares = null;
-	int p1Pieces = 8;
-	int p2Pieces = 8;
 
 	public GameBoard() {
 		setUpBoard();
@@ -78,34 +76,10 @@ public class GameBoard {
 		return validMoves;
 	}
 	
-	public PlayerEnumType getWinner() {
-		if(hasP1Won()) {
-			return PlayerEnumType.PLAYER_ONE;
-		} else if(hasP2Won()) {
-			return PlayerEnumType.PLAYER_TWO;
-		}
-		return null;
-	}
-	
-	//These are holder functions until JungleGame.java is set up. 
-	public boolean isGameOver() {		
-		//if either player has one the game is over.
-		return (hasP1Won() || hasP2Won());
-	}
-	
 	
 	public void movePiece(int[] from, int[] to) {
 		BoardSquare fromSquare = getSquareAt(from[0],from[1]);
 		BoardSquare toSquare = getSquareAt(to[0],to[1]);
-				
-		//if a player has no remaining pieces the game is over
-		if(toSquare.getPiece()!=null) {
-			if(toSquare.getPiece().getPlayerOwner().equals(PlayerEnumType.PLAYER_ONE)){ // TODO fix
-				p1Pieces -= 1;
-			} else {
-				p2Pieces -= 1;
-			}
-		}
 		
 		toSquare.setPiece( fromSquare.clearPiece() );
 	}
@@ -177,16 +151,16 @@ public class GameBoard {
 		//row 1
 		boardSquares[0][0] = new BoardSquare(0, 0, null);
 		boardSquares[0][1] = new BoardSquare(0, 1, null);
-		boardSquares[0][2] = new TrapSquare(0, 2, null, PlayerEnumType.PLAYER_TWO);
-		boardSquares[0][3] = new DenSquare(0, 3, null, PlayerEnumType.PLAYER_TWO);
-		boardSquares[0][4] = new TrapSquare(0, 4, null, PlayerEnumType.PLAYER_TWO);
+		boardSquares[0][2] = new TrapSquare(0, 2, null, PlayerEnumType.PLAYER_ONE);
+		boardSquares[0][3] = new DenSquare(0, 3, null, PlayerEnumType.PLAYER_ONE);
+		boardSquares[0][4] = new TrapSquare(0, 4, null, PlayerEnumType.PLAYER_ONE);
 		boardSquares[0][5] = new BoardSquare(0, 5, null);
 		boardSquares[0][6] = new BoardSquare(0, 6, null);
 		//row 2
 		boardSquares[1][0] = new BoardSquare(1, 0, null);
 		boardSquares[1][1] = new BoardSquare(1, 1, null);
 		boardSquares[1][2] = new BoardSquare(1, 2, null);
-		boardSquares[1][3] = new TrapSquare(1, 3, null, PlayerEnumType.PLAYER_TWO);
+		boardSquares[1][3] = new TrapSquare(1, 3, null, PlayerEnumType.PLAYER_ONE);
 		boardSquares[1][4] = new BoardSquare(1, 4, null);
 		boardSquares[1][5] = new BoardSquare(1, 5, null);
 		boardSquares[1][6] = new BoardSquare(1, 6, null);
@@ -234,16 +208,16 @@ public class GameBoard {
 		boardSquares[7][0] = new BoardSquare(7, 0, null);
 		boardSquares[7][1] = new BoardSquare(7, 1, null);
 		boardSquares[7][2] = new BoardSquare(7, 2, null);
-		boardSquares[7][3] = new TrapSquare(7, 3, null, PlayerEnumType.PLAYER_ONE);
+		boardSquares[7][3] = new TrapSquare(7, 3, null, PlayerEnumType.PLAYER_TWO);
 		boardSquares[7][4] = new BoardSquare(7, 4, null);
 		boardSquares[7][5] = new BoardSquare(7, 5, null);
 		boardSquares[7][6] = new BoardSquare(7, 6, null);
 		//row 9
 		boardSquares[8][0] = new BoardSquare(8, 0, null);
 		boardSquares[8][1] = new BoardSquare(8, 1, null);
-		boardSquares[8][2] = new TrapSquare(8, 2, null, PlayerEnumType.PLAYER_ONE);
-		boardSquares[8][3] = new DenSquare(8, 3, null, PlayerEnumType.PLAYER_ONE);
-		boardSquares[8][4] = new TrapSquare(8, 4, null, PlayerEnumType.PLAYER_ONE);
+		boardSquares[8][2] = new TrapSquare(8, 2, null, PlayerEnumType.PLAYER_TWO);
+		boardSquares[8][3] = new DenSquare(8, 3, null, PlayerEnumType.PLAYER_TWO);
+		boardSquares[8][4] = new TrapSquare(8, 4, null, PlayerEnumType.PLAYER_TWO);
 		boardSquares[8][5] = new BoardSquare(8, 5, null);
 		boardSquares[8][6] = new BoardSquare(8, 6, null);
 
@@ -310,27 +284,4 @@ public class GameBoard {
 		return 0;
 	}
 	
-	private boolean hasP1Won() {
-		//if p2 is out of pieces p1 wins
-		if(p2Pieces == 0) {
-			return true;
-		}
-		//or if p1 is in p2's den p1 wins
-		if(getPieceAt(0, 3) != null) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean hasP2Won() {
-		//if p1 is out of pieces p2 wins
-		if(p1Pieces == 0) {
-			return true;
-		}
-		//or if p2 is in p1's den p2 wins
-		if(getPieceAt(7, 3) != null) {
-			return true;
-		}		
-		return false;
-	}
 }

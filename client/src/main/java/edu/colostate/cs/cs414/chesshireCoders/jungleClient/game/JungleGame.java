@@ -62,8 +62,29 @@ public class JungleGame extends Game {
 	}
 
     public PlayerEnumType getWinner() {
-        return board.getWinner();
-    }
+		List<GamePiece> pieces = getGamePieces();
+		int p1Pieces = 0;
+		int p2Pieces = 0;
+    	
+		for (int i = 0; i < pieces.size(); i++) {
+			if (pieces.get(i).getPlayerOwner() == PlayerEnumType.PLAYER_ONE) {
+				if (pieces.get(i).getRow() == 8 && pieces.get(i).getColumn()==3)
+					return PlayerEnumType.PLAYER_ONE;
+				p1Pieces++;
+			} else {
+				if (pieces.get(i).getRow() == 0 && pieces.get(i).getColumn()==3)
+					return PlayerEnumType.PLAYER_TWO;
+				p2Pieces++;
+			}
+		}
+		
+    	if(p2Pieces == 0) {
+			return PlayerEnumType.PLAYER_ONE;
+		} else if(p1Pieces == 0) {
+			return PlayerEnumType.PLAYER_TWO;
+		}
+		return null;
+	}
 
     public boolean hasWinner() {
         return false;
@@ -73,7 +94,13 @@ public class JungleGame extends Game {
         board.movePiece(from, to);
         setGamePieces(JungleGamePieceFactory.castPiecesUp(board.getPieces()));
         setTurnOfPlayer((getTurnOfPlayer()==PlayerEnumType.PLAYER_ONE) ? PlayerEnumType.PLAYER_TWO : PlayerEnumType.PLAYER_ONE);
-        // TODO check for win
+        
+        if (getWinner() == PlayerEnumType.PLAYER_ONE) {
+        	setGameStatus(GameStatus.WINNER_PLAYER_ONE);
+        } else if (getWinner() == PlayerEnumType.PLAYER_TWO) {
+        	setGameStatus(GameStatus.WINNER_PLAYER_TWO);
+        }
+        
         GamesManager.getInstance().updateGame(this);
     }
 
@@ -94,7 +121,6 @@ public class JungleGame extends Game {
     public String toString() {
         return Long.toString(getGameID());
     }
-    
     
     private void setBoard(List<GamePiece> pieces)
     {

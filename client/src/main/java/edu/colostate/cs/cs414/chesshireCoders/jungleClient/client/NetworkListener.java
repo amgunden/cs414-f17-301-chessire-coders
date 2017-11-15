@@ -28,14 +28,6 @@ public class NetworkListener {
             }
         }));
 
-        // Game Ended Event Listener
-        client.addListener(new ThreadedListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
-            @Override
-            public void run(Connection connection, GameEndedEvent received) {
-            		
-            }
-        }));
-
         // Invitation Event
         client.addListener(new ThreadedListener(new FilteredListener<InvitationEvent>(InvitationEvent.class) {
             @Override
@@ -57,6 +49,14 @@ public class NetworkListener {
             @Override
             public void run(Connection connection, BoardUpdateEvent received) {
             	GamesManager.getInstance().handleBoardUpdateEvent(received.getGameId());
+            }
+        }));
+        
+        // Game Ended Event
+        client.addListener(new ThreadedListener(new FilteredListener<GameEndedEvent>(GameEndedEvent.class) {
+            @Override
+            public void run(Connection connection, GameEndedEvent received) {
+            	GamesManager.getInstance().handleGameEndedEvent(received.getGameID());
             }
         }));
     }

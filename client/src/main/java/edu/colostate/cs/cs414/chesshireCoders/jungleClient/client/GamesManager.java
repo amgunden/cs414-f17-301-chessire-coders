@@ -43,6 +43,14 @@ public class GamesManager {
 		if (game != null)
 			getAndShowGame(gameID, game.getViewingPlayer());
 	}
+	
+	public void handleGameEndedEvent(long gameID) {
+		JungleGame game = findById(gameID);
+		
+		if (game != null)
+			getAndShowGame(gameID, game.getViewingPlayer());
+		//this.homeController.
+	}
 
 	public void createGame(HomeController controller)
 	{

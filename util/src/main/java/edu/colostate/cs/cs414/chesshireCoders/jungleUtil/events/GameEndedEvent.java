@@ -3,17 +3,20 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameOutcomeType;
 
 public class GameEndedEvent {
-    private int gameID;
+    private long gameID;
     private GameOutcomeType outcomeType;
 
     public GameEndedEvent() {
     }
+    
+    public GameEndedEvent(long gameID) {
+    }
 
-    public int getGameID() {
+    public long getGameID() {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public void setGameID(long gameID) {
         this.gameID = gameID;
     }
 

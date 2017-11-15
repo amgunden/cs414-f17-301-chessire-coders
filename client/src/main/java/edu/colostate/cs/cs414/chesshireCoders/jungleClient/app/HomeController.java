@@ -145,6 +145,12 @@ public class HomeController implements Initializable {
         }
     }
 
+    private void showGameEnding(PlayerEnumType winner) {
+		borderPane.getCenter().setEffect(new GaussianBlur());
+		//lblWinner.setText(winner.toString() + " Wins!");
+		//winnerPane.setVisible(true);
+	}
+    
     public void settingsClicked() {
         System.out.println("Settings Clicked.");
         // show context menu
