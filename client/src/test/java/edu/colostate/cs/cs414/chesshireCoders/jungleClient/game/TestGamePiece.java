@@ -11,6 +11,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
 
 import static org.junit.Assert.*;
 
@@ -142,6 +143,115 @@ public class TestGamePiece {
 		piece.setLocation(0, 0);
 		BoardSquare square = new BoardSquare(0, 2, null);
 		assertTrue("A leopard piece should be able to enter a square that is not right next to it.", piece.canOccupy(square));
+	}
+	
+	@Test
+	public void testGetRow() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		
+		assertEquals(0, piece.getRow());
+	}
+	
+	@Test
+	public void testGetRow5() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 5);
+		
+		assertEquals(5, piece.getRow());
+	}
+	
+	@Test
+	public void testGetColumn() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		
+		assertEquals(0, piece.getColumn());
+	}
+	
+	@Test
+	public void testGetColumn5() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 5, 0);
+
+		assertEquals(5, piece.getColumn());
+	}
+	
+	@Test
+	public void testGetPlayerOwner() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		
+		assertEquals(PlayerEnumType.PLAYER_ONE, piece.getPlayerOwner());
+	}
+	
+	@Test
+	public void testGetPlayerOwner1() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		
+		assertEquals(PlayerEnumType.PLAYER_TWO, piece.getPlayerOwner());
+	}
+	
+	@Test
+	public void testEquals() {
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		JungleGamePiece piece2 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		
+		assertTrue(piece1.equals(piece2));
+	}
+	
+	@Test
+	public void testEqualsDifferentType() {
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		JungleGamePiece piece2 = new LeopardPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		
+		assertFalse(piece1.equals(piece2));
+	}
+	
+	@Test
+	public void testEqualsDifferentPlayer() {
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		JungleGamePiece piece2 = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		
+		assertFalse(piece1.equals(piece2));
+	}
+	
+	@Test
+	public void testEqualsDifferentGameId() {
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		piece1.setGameId(0);
+		JungleGamePiece piece2 = new RatPiece(PlayerEnumType.PLAYER_ONE, 0, 0);
+		piece2.setGameId(1);
+		assertFalse(piece1.equals(piece2));
+	}
+	
+	@Test
+	public void testEqualsDifferentId() {
+		JungleGamePiece piece1 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		JungleGamePiece piece2 = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		assertTrue(piece1.equals(piece2));
+		
+		piece1.setPieceId(1);
+		piece2.setPieceId(2);
+		assertFalse(piece1.equals(piece2));
+	}
+	
+	@Test
+	public void testGetPieceType() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+
+		assertEquals(PieceType.RAT, piece.getPieceType());
+	}
+
+	@Test
+	public void testSetPlayerOwner() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		assertEquals(PlayerEnumType.PLAYER_TWO, piece.getPlayerOwner());
+		
+		piece.setPlayerOwner(PlayerEnumType.PLAYER_ONE);
+		assertEquals(PlayerEnumType.PLAYER_ONE, piece.getPlayerOwner());
+	}
+	
+	@Test
+	public void testSetGameId() {
+		JungleGamePiece piece = new RatPiece(PlayerEnumType.PLAYER_TWO, 0, 0);
+		piece.setGameId(1);
+		assertEquals(1, piece.getGameId());
 	}
 
 }
