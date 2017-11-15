@@ -37,9 +37,7 @@ public class InviteListCell extends ListCell<Invitation> {
         
         try {
 			File iconImage = new File("src/main/resources/images/green_check.png");
-			
 			acceptBtn = new ImageView(iconImage.toURI().toString());
-			//acceptBtn = new ImageView(new Image(new FileInputStream(fos)));
 			acceptBtn.setPickOnBounds(true);
 		} catch (Exception e) {
 			acceptBtn = new Button("Accept");
@@ -48,7 +46,6 @@ public class InviteListCell extends ListCell<Invitation> {
         try {
 			File iconImage = new File("src/main/resources/images/red_x.png");
 			rejectBtn = new ImageView(iconImage.toURI().toString());
-			//rejectBtn = new ImageView(new Image(new FileInputStream(fos)));
 			rejectBtn.setPickOnBounds(true);
 		} catch (Exception e) {
 			rejectBtn = new Button("Reject");

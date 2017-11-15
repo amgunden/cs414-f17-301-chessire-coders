@@ -65,7 +65,7 @@ public class GamesManager {
 		// store game with GameID in this.games
 		JungleGame jGame = new JungleGame(game);
 		jGame.setViewingPlayer(viewingPlayer);
-		games.add(jGame);
+		if (findById(jGame.getGameID())==null) games.add(jGame);
 		homeController.initializeBoard(jGame);
 	}
 	
