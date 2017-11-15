@@ -22,14 +22,17 @@ public class RegistrationServiceImpl implements RegistrationService {
             UserDAO userDAO = manager.getUserDAO();
             LoginDAO loginDAO = manager.getLoginDAO();
 
-            User user = new User()
-                    .setNickName(nickName);
-            long id = userDAO.create(user);
+            User user = userDAO.findByNickName(nickName);
+            if (user == null) {
+                user = new User()
+                        .setNickName(nickName);
+                user.setUserId(userDAO.create(user));
+            }
 
             Login login = new Login()
                     .setEmail(email)
                     .setHashedPass(hashedPassword)
-                    .setUserID(id);
+                    .setUserID(user.getUserId());
             loginDAO.create(login);
             return null;
         });
