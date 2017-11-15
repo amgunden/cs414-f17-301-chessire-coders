@@ -45,6 +45,7 @@ public abstract class DAOManager {
 
     private ConnectionProvider provider;
     private Connection connection;
+    private final Object connectionLock = new Object();
     private boolean autoCommit = true;
 
     public void setProvider(ConnectionProvider provider) {
@@ -73,10 +74,13 @@ public abstract class DAOManager {
      */
     public <T> T execute(DAOCommand<T> command) throws Exception {
         this.autoCommit = true;
-        try {
-            return command.execute(this);
-        } finally {
-            getConnection().close();
+        synchronized (connectionLock) {
+            getConnection();
+            try {
+                return command.execute(this);
+            } finally {
+                getConnection().close();
+            }
         }
     }
 
@@ -89,16 +93,19 @@ public abstract class DAOManager {
      */
     public <T> T executeAtomic(DAOCommand<T> command) throws Exception {
         this.autoCommit = false;
-        try {
-            T t = command.execute(this);
-            getConnection().commit();
-            return t;
-        } catch (Exception e) {
-            getConnection().rollback();
-            throw e;
-        } finally {
-            getConnection().setAutoCommit(true);
-            getConnection().close();
+        synchronized (connectionLock) {
+            getConnection();
+            try {
+                T t = command.execute(this);
+                getConnection().commit();
+                return t;
+            } catch (Exception e) {
+                getConnection().rollback();
+                throw e;
+            } finally {
+                getConnection().setAutoCommit(true);
+                getConnection().close();
+            }
         }
     }
 
