@@ -195,6 +195,10 @@ public class GameBoardController implements Initializable {
 		}
 		
 		imageViews.add(pieceImage);
+		
+		if (game.getWinner() != null) {
+			showGameEnding(game.getWinner());
+		}
 	}
 	
 	private String getImageForPiece(GamePiece piece) {
