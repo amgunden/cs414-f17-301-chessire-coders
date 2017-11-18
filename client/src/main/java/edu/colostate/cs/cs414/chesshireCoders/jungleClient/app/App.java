@@ -45,7 +45,7 @@ public class App extends Application {
         window.setScene(scene);
         window.show();
     }
-
+    
     public static void main(String args[]) {
         if (args.length == 0)
     	{
