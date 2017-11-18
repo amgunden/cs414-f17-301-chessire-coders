@@ -145,7 +145,7 @@ public class GameBoardController implements Initializable {
 	private void highlightStartSquare(StackPane square, int r, int c) {
 		start[0] = r; start[1] = c;
 		
-		Color yellow = Color.rgb(150, 150, 0, 0.65);
+		Color yellow = Color.rgb(255, 255, 0, 1);
 		setHighlight(square, yellow);
 	}
 
@@ -154,7 +154,7 @@ public class GameBoardController implements Initializable {
 	private void highlightMoves(int r, int c) {
 		int[] moves = game.getValidMoves(r, c);
 		
-		Color green = Color.rgb(0, 150, 0, 0.65);
+		Color green = Color.rgb(0, 255, 0, 1);
 		if (moves[0]!=0) setHighlight(getSquare(r, c+moves[0]), green);
 		if (moves[1]!=0) setHighlight(getSquare(r+moves[1], c), green);
 		if (moves[2]!=0) setHighlight(getSquare(r, c+moves[2]), green);
