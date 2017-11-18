@@ -35,12 +35,20 @@
          <children>
             <StackPane onMouseClicked="#squareClicked">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="2">
@@ -72,27 +80,47 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="5">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -106,57 +134,101 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="3">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -179,7 +251,11 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="3">
@@ -202,12 +278,20 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="4">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -230,7 +314,11 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="4">
@@ -253,12 +341,20 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="5">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -281,7 +377,11 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="5">
@@ -304,57 +404,101 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="3" GridPane.rowIndex="7">
@@ -368,27 +512,47 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="5" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="7">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.rowIndex="8">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="2" GridPane.rowIndex="8">
@@ -420,12 +584,20 @@
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="5" GridPane.rowIndex="8">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
             <StackPane onMouseClicked="#squareClicked" GridPane.columnIndex="6" GridPane.rowIndex="8">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/normal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
          </children>
