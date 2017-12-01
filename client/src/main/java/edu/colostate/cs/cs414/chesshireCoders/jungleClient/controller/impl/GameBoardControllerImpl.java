@@ -11,6 +11,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRe
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.QuitGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest;
 
+import java.io.IOException;
+
 public class GameBoardControllerImpl extends BaseController<GameBoardView> implements GameBoardController {
 
     private JungleClient client = JungleClient.getInstance();
@@ -21,17 +23,17 @@ public class GameBoardControllerImpl extends BaseController<GameBoardView> imple
     }
 
     @Override
-    public void sendQuitGame(long gameId) {
+    public void sendQuitGame(long gameId) throws IOException {
         client.sendMessage(new QuitGameRequest(accountModel.getToken(), gameId));
     }
 
     @Override
-    public void sendInvitePlayerRequest(String nickname, long gameID) {
+    public void sendInvitePlayerRequest(String nickname, long gameID) throws IOException {
         client.sendMessage(new InvitePlayerRequest(accountModel.getToken(), nickname, gameID));
     }
 
     @Override
-    public void sendUpdateGame(JungleGame jungleGame) {
+    public void sendUpdateGame(JungleGame jungleGame) throws IOException {
         client.sendMessage(new UpdateGameRequest(AccountModel.getInstance().getToken(), new Game(jungleGame)));
     }
 }

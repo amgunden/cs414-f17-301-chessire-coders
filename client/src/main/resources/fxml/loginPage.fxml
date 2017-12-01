@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141"
-      fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginViewImpl">
+      fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>

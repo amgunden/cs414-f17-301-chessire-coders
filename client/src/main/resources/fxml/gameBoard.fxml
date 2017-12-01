@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="615.0"
            style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/8.0.141"
-           fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.GameBoardViewImpl">
+           fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl">
    <children>
       <GridPane fx:id="gridPane" alignment="TOP_CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="560.0" style="-fx-background-color: #dddddd;">
         <columnConstraints>

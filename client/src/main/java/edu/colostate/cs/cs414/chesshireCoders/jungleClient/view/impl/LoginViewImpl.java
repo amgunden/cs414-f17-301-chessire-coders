@@ -1,7 +1,10 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,7 +15,6 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -36,7 +38,7 @@ public class LoginViewImpl extends BaseView implements LoginView {
     private TextField emailField;
 
     public void initialize(URL location, ResourceBundle resources) {
-        App.window.setResizable(false);
+        App.getWindow().setResizable(false);
     }
 
     @Override
@@ -77,15 +79,10 @@ public class LoginViewImpl extends BaseView implements LoginView {
                 String email = emailField.getText();
                 String password = Crypto.hashSHA256(passwordField.getText().getBytes());
                 controller.sendLogin(email, password);
-            } catch (NoSuchAlgorithmException e) {
-                System.err.println("Client does not have SHA-256 hashing.");
-                Platform.runLater(() -> {
-                    if (loginErrorMsg.getText().length() == 0) loginErrorMsg.setText("Login failed.");
-                    loginErrorMsg.setVisible(true);
-                    btnLogin.setDisable(false);
-                });
             } catch (Exception e) {
-                e.printStackTrace();
+                showError(e.getMessage());
+                if (loginErrorMsg.getText().length() == 0) loginErrorMsg.setText("Login failed.");
+                btnLogin.setDisable(false);
             }
         }
     }

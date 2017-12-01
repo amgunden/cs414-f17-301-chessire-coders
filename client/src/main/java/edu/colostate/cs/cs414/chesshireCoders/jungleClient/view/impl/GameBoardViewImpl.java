@@ -1,9 +1,11 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.GameBoardView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
@@ -25,7 +27,6 @@ import javafx.scene.paint.Paint;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -70,12 +71,16 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
             dialog.setHeaderText(null);
             Optional<String> opponentNickname = dialog.showAndWait();
             if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
-                sendInvite(opponentNickname.get());
+                sendInviteClicked(opponentNickname.get());
             }
         });
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {
-            controller.sendQuitGame(gamesModel.getActiveGameId());
+            try {
+                controller.sendQuitGame(gamesModel.getActiveGameId());
+            } catch (Exception e) {
+                showError(e.getMessage());
+            }
         });
 
         // TODO only add invitePlayer if game has < 2 players.
@@ -150,21 +155,24 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
 
 
     private void movePiece(int r, int c) {
-        StackPane fromSquare = getSquare(start[0], start[1]);
-        StackPane toSquare = getSquare(r, c);
-        ObservableList<Node> imageViews1 = fromSquare.getChildren();
-        ObservableList<Node> imageViews2 = toSquare.getChildren();
-        ImageView piece = (ImageView) imageViews1.remove(imageViews1.size() - 1);
+        try {
+            StackPane fromSquare = getSquare(start[0], start[1]);
+            StackPane toSquare = getSquare(r, c);
+            ObservableList<Node> imageViews1 = fromSquare.getChildren();
+            ObservableList<Node> imageViews2 = toSquare.getChildren();
+            ImageView piece = (ImageView) imageViews1.remove(imageViews1.size() - 1);
 
-        if (imageViews2.size() > 1) {
-            imageViews2.remove(imageViews2.size() - 1);
+            if (imageViews2.size() > 1) {
+                imageViews2.remove(imageViews2.size() - 1);
+            }
+
+            toSquare.getChildren().add(piece);
+            game.movePiece(start, new int[]{r, c});
+            controller.sendUpdateGame(game);
+            checkGameWon();
+        } catch (Exception e) {
+            showError(e.getMessage());
         }
-
-        toSquare.getChildren().add(piece);
-        game.movePiece(start, new int[]{r, c});
-        controller.sendUpdateGame(game);
-
-        checkGameWon();
     }
 
     private void placePieceAt(int row, int column, GamePiece piece) {
@@ -246,16 +254,18 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
         if (pieces == null || pieces.isEmpty())
             return;
 
-        for (Iterator<GamePiece> iterator = pieces.iterator(); iterator.hasNext(); ) {
-            GamePiece piece = iterator.next();
-
+        for (GamePiece piece : pieces) {
             placePieceAt(piece.getRow(), piece.getColumn(), piece);
         }
     }
 
 
-    private void sendInvite(String nickname) {
-        controller.sendInvitePlayerRequest(nickname, game.getGameID());
+    private void sendInviteClicked(String nickname) {
+        try {
+            controller.sendInvitePlayerRequest(nickname, game.getGameID());
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
 

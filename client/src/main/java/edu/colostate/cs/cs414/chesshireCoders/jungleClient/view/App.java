@@ -7,10 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Properties;
 
 public class App extends Application {
     static Stage window;
@@ -21,12 +18,22 @@ public class App extends Application {
     	return client;
     }
 
+    public static Stage getWindow() {
+        return window;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
         window.setTitle("Jungle");
 
         setScene("loginPage.fxml");
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        System.exit(0);
     }
 
     public static void setScene(Scene scene) {
@@ -43,42 +50,5 @@ public class App extends Application {
         Scene scene = new Scene(root);
         window.setScene(scene);
         window.show();
-    }
-
-    public static void main(String args[]) {
-        if (args.length == 0)
-    	{
-    		System.out.println("Launching in client only mode...");
-    		launch(args);
-    	} else {
-    	
-	        String propertiesFile = args[0];
-	        Properties properties;
-
-	        properties = new Properties();
-	        try {
-	            FileInputStream in = new FileInputStream(propertiesFile);
-	            properties.load(in);
-	
-	            String serverHostname = properties.getProperty("server-hostname", "localhost");
-	            int serverListenPort = Integer.parseInt(properties.getProperty("server-listenport", "9898"));
-
-                client = JungleClient.getInstance();
-				client.start();
-	            client.connect(5000, serverHostname, serverListenPort);
-	            
-
-	            launch(args);
-	
-	        } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } finally {
-	            if (client != null) {
-	                client.stop();
-	            }
-	        }
-    	}
     }
 }

@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.ui;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 
 import java.io.File;
+import java.io.IOException;
 
 public class InviteListCell extends ListCell<Invitation> {
 
@@ -44,15 +45,23 @@ public class InviteListCell extends ListCell<Invitation> {
         }
 
         acceptBtn.setOnMouseClicked(event -> {
-            Invitation invite = getListView().getSelectionModel().getSelectedItem();
-            controller.sendAcceptInvite(invite);
-            getListView().getItems().remove(getItem());
+            try {
+                Invitation invite = getListView().getSelectionModel().getSelectedItem();
+                controller.sendAcceptInvite(invite);
+                getListView().getItems().remove(getItem());
+            } catch (IOException e) {
+                e.printStackTrace(); // TODO: Show dialog instead of stack trace
+            }
         });
 
         rejectBtn.setOnMouseClicked(event -> {
-            Invitation invite = getListView().getSelectionModel().getSelectedItem();
-            controller.sendRejectInvite(invite);
-            getListView().getItems().remove(getItem());
+            try {
+                Invitation invite = getListView().getSelectionModel().getSelectedItem();
+                controller.sendRejectInvite(invite);
+                getListView().getItems().remove(getItem());
+            } catch (IOException e) {
+                e.printStackTrace(); // TODO: Show dialog instead of stack trace
+            }
         });
 
         lblText = new Label();

@@ -1,4 +1,4 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
@@ -6,7 +6,10 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.ui.InviteListCell;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.HomeView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -63,7 +66,7 @@ public class HomeViewImpl extends BaseView implements HomeView {
     private GamesModel gamesModel = GamesModel.getInstance();
 
     public void initialize(URL location, ResourceBundle resources) {
-        App.window.setResizable(false);
+        App.getWindow().setResizable(false);
 
         gamesList.itemsProperty().bind(gameListProperty);
         invitationList.itemsProperty().bind(inviteListProperty);
@@ -99,7 +102,7 @@ public class HomeViewImpl extends BaseView implements HomeView {
                 borderPane.setCenter(board);
                 gameBoardView.checkGameWon();
             } catch (IOException e) {
-                System.err.println("ERROR: Unable to load fxml file for Game Board.");
+                showError("ERROR: Unable to load fxml file for Game Board.");
             }
         });
     }
@@ -118,15 +121,19 @@ public class HomeViewImpl extends BaseView implements HomeView {
             // Don't wait for server to end session.
             controller.sendLogout();
             App.setScene("loginPage.fxml");
-        } catch (IOException e) {
-            System.err.println("ERROR: Unable to load fxml file for login page.");
+        } catch (Exception e) {
+            showError(e.getMessage());
         }
     }
 
     @FXML
     private void playClicked() {
-        System.out.println("Start New Game Clicked.");
-        controller.sendCreateGame();
+        try {
+            System.out.println("Start New Game Clicked.");
+            controller.sendCreateGame();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
     @FXML
@@ -145,18 +152,20 @@ public class HomeViewImpl extends BaseView implements HomeView {
     }
 
     private void unregisterClicked() {
-        System.out.println("Unregister Clicked.");
-        controller.sendUnregister();
-        mainVBox.setEffect(new GaussianBlur());
-        unregSuccess.setVisible(true);
+        try {
+            System.out.println("Unregister Clicked.");
+            controller.sendUnregister();
+            mainVBox.setEffect(new GaussianBlur());
+            unregSuccess.setVisible(true);
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
     @FXML
     private void unregSuccessReturnClicked() {
-
-        System.out.println("btnUnregSuccessReturn Clicked.");
-
         try {
+            System.out.println("btnUnregSuccessReturn Clicked.");
             App.setScene("loginPage.fxml");
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Home page.");

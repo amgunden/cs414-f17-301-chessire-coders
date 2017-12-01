@@ -10,6 +10,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
 
+import java.io.IOException;
+
 public class LoginControllerImpl extends BaseController<LoginView> implements LoginController {
 
     private final Listener loginListener = new Listener.ThreadedListener(new LoginListener());
@@ -27,7 +29,7 @@ public class LoginControllerImpl extends BaseController<LoginView> implements Lo
     }
 
     @Override
-    public void sendLogin(String email, String hashedPassword) {
+    public void sendLogin(String email, String hashedPassword) throws IOException {
         client.sendMessage(new LoginRequest(email, hashedPassword));
     }
 
@@ -47,8 +49,12 @@ public class LoginControllerImpl extends BaseController<LoginView> implements Lo
     private class LoginListener extends Listener {
         @Override
         public void received(Connection connection, Object received) {
-            if (received instanceof LoginResponse) {
-                handleLoginResponse((LoginResponse) received);
+            try {
+                if (received instanceof LoginResponse) {
+                    handleLoginResponse((LoginResponse) received);
+                }
+            } catch (Exception e) {
+                view.showError(e.getMessage());
             }
         }
     }

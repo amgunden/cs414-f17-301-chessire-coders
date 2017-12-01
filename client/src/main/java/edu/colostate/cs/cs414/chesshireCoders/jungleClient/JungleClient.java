@@ -22,6 +22,10 @@ public class JungleClient {
 
     private Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
+    private String hostName = "localhost";
+    private int listenPort = 9898;
+    private int timeout = 5000;
+
     /**
      * Constructs the client and registers all expected message types with the kryo serializer.
      */
@@ -29,6 +33,8 @@ public class JungleClient {
         client = new Client();
         KryoRegistrar.registerClasses(client);
         client.addListener(new Listener.ThreadedListener(new LogListener()));
+
+        Runtime.getRuntime().addShutdownHook(new Thread(this::disconnect));
     }
 
     public static JungleClient getInstance() {
@@ -44,26 +50,43 @@ public class JungleClient {
 
     /**
      * Connects the client to a server.
-     *
-     * @param timeoutMillis How long to wait for initial response before dropping connection.
-     * @param hostname      Server hostname/IP address
-     * @param tcpPort       TCP port that server is listening on.
-     * @throws IOException Thrown if connection cannot be established.
      */
-    public void connect(int timeoutMillis, String hostname, int tcpPort) throws IOException {
-        client.connect(timeoutMillis, hostname, tcpPort);
+    public void connect() throws IOException {
+        if (!isConnected()) {
+            new Thread(() -> {
+                try {
+                    client.start();
+                    client.connect(timeout, hostName, listenPort);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+            for (int i = 0; i < 10; ++i) {
+                try {
+                    if (isConnected()) return;
+                    else Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (!isConnected()) throw new IOException("Connection to server failed.");
+        }
+    }
+
+    public boolean isConnected() {
+        return client.isConnected();
     }
 
     /**
      * Stops the client send/receive thread
      */
-    public void stop() {
+    public void disconnect() {
+        client.close();
         client.stop();
     }
 
     public void reconnect() throws IOException {
         client.reconnect();
-
     }
 
     /**
@@ -71,7 +94,8 @@ public class JungleClient {
      *
      * @param o
      */
-    public void sendMessage(Object o) {
+    public void sendMessage(Object o) throws IOException {
+        if (!isConnected()) connect();
         client.sendTCP(o);
         logger.log(Level.INFO, "Sending {0} to server at {1}",
                 new Object[]{o.getClass().getSimpleName(), client.getRemoteAddressTCP()}
@@ -84,6 +108,30 @@ public class JungleClient {
 
     public void removeListener(Listener listener) {
         client.removeListener(listener);
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public int getListenPort() {
+        return listenPort;
+    }
+
+    public void setListenPort(int listenPort) {
+        this.listenPort = listenPort;
+    }
+
+    public long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
     private class LogListener extends Listener {

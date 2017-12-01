@@ -1,8 +1,10 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.RegisterView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -56,7 +58,6 @@ public class RegisterViewImpl extends BaseView implements RegisterView {
     private Label regFailed;
 
     private final RegisterController controller = ControllerFactory.getRegisterController(this);
-    private final AccountModel accountModel = AccountModel.getInstance();
 
     @FXML
     private void loginClicked() {

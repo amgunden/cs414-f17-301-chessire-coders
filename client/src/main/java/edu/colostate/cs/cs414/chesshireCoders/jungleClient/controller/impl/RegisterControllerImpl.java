@@ -6,10 +6,11 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.RegisterView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
+
+import java.io.IOException;
 
 public class RegisterControllerImpl extends BaseController<RegisterView> implements RegisterController {
 
@@ -31,12 +32,12 @@ public class RegisterControllerImpl extends BaseController<RegisterView> impleme
      * Sends a registration request to the server.
      */
     @Override
-    public void sendRegistration(String email, String nickname, String hashedPassword) {
+    public void sendRegistration(String email, String nickname, String hashedPassword) throws IOException {
         RegisterRequest request = new RegisterRequest();
         request.setEmail(email);
         request.setNickName(nickname);
         request.setPassword(hashedPassword);
-        App.getJungleClient().sendMessage(request);
+        client.sendMessage(request);
     }
 
     /**
@@ -55,8 +56,12 @@ public class RegisterControllerImpl extends BaseController<RegisterView> impleme
     private class RegistrationListener extends Listener {
         @Override
         public void received(Connection connection, Object received) {
-            if (received instanceof RegisterResponse) {
-                handleRegisterResponse((RegisterResponse) received);
+            try {
+                if (received instanceof RegisterResponse) {
+                    handleRegisterResponse((RegisterResponse) received);
+                }
+            } catch (Exception e) {
+                view.showError(e.getMessage());
             }
         }
     }
