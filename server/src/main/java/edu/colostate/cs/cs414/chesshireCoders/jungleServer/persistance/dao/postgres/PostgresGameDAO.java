@@ -15,8 +15,8 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
 
     private static RowMapper<Game> GAME_ROW_MAPPER = rs -> new Game()
             .setGameID(rs.getLong("game_id"))
-            .setPlayerOneID(rs.getLong("player_one_id"))
-            .setPlayerTwoID(rs.getLong("player_two_id"))
+            .setPlayerOneNickName(rs.getString("player_one_nick_name"))
+            .setPlayerTwoNickName(rs.getString("player_two_nick_name"))
             .setGameStatus(GameStatus.valueOf(rs.getString("game_state")))
             .setGameStart(rs.getTimestamp("start_date_time"))
             .setGameEnd(rs.getTimestamp("end_date_time"))
@@ -29,22 +29,24 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     }
 
     @Override
-    public List<Game> findByPlayerOneId(long userId) throws SQLException {
-        String sql = "SELECT * FROM game WHERE player_one_id = ?";
-        return query(sql, GAME_ROW_MAPPER, userId);
-    }
-
-    @Override
-    public List<Game> findByPlayerTwoId(long userId) throws SQLException {
-        String sql = "SELECT * FROM game WHERE player_two_id = ?";
-        return query(sql, GAME_ROW_MAPPER, userId);
-    }
-
-    @Override
-    public List<Game> findByUserId(long userId) throws SQLException {
+    public List<Game> findByPlayerOneNickName(String nickName) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM game WHERE player_one_id = ? OR player_two_id = ?";
-        return query(sql, GAME_ROW_MAPPER, userId, userId);
+        String sql = "SELECT * FROM game WHERE player_one_nick_name = ?";
+        return query(sql, GAME_ROW_MAPPER, nickName);
+    }
+
+    @Override
+    public List<Game> findByPlayerTwoNickName(String nickName) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM game WHERE player_two_nick_name = ?";
+        return query(sql, GAME_ROW_MAPPER, nickName);
+    }
+
+    @Override
+    public List<Game> findAllByNickName(String nickName) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM game WHERE player_one_nick_name = ? OR player_two_nick_name = ?";
+        return query(sql, GAME_ROW_MAPPER, nickName, nickName);
     }
 
     /**
@@ -58,16 +60,16 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     public Long create(Game game) throws SQLException {
         //language=PostgreSQL
         String sql = "INSERT INTO game (\n" +
-                "  player_one_id,\n" +
-                "  player_two_id,\n" +
+                "  player_one_nick_name,\n" +
+                "  player_two_nick_name,\n" +
                 "  game_state,\n" +
                 "  start_date_time,\n" +
                 "  end_date_time)\n" +
                 "VALUES (?, ?, ?, ?, ?)";
 
         return add(sql, Long.class,
-                game.getPlayerOneID(),
-                game.getPlayerTwoID() == -1 ? null : game.getPlayerTwoID(),
+                game.getPlayerOneNickName(),
+                game.getPlayerTwoNickName(),
                 game.getGameStatus().name(),
                 game.getGameStart(),
                 game.getGameEnd()
@@ -113,10 +115,10 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     public int update(Game game) throws SQLException {
         //language=PostgreSQL
         String sql = "UPDATE game\n" +
-                "SET player_two_id = ?, game_state = ?, start_date_time = ?, end_date_time = ?, turn_of_player = ?\n" +
+                "SET player_two_nick_name = ?, game_state = ?, start_date_time = ?, end_date_time = ?, turn_of_player = ?\n" +
                 "WHERE game_id = ?";
         return modify(sql,
-                game.getPlayerTwoID(),
+                game.getPlayerTwoNickName(),
                 game.getGameStatus(),
                 game.getGameStart(),
                 game.getGameEnd(),

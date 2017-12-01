@@ -6,7 +6,8 @@ import java.util.Date;
 public class LoginAttempt implements Serializable {
     private Date attemptTime;
     private boolean successful;
-    private long userId;
+    private long loginAttemptId;
+    private String nickName;
 
     public LoginAttempt() {
     }
@@ -29,12 +30,21 @@ public class LoginAttempt implements Serializable {
         return this;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getLoginAttemptId() {
+        return loginAttemptId;
     }
 
-    public LoginAttempt setUserId(long userId) {
-        this.userId = userId;
+    public LoginAttempt setLoginAttemptId(long loginAttemptId) {
+        this.loginAttemptId = loginAttemptId;
+        return this;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public LoginAttempt setNickName(String nickName) {
+        this.nickName = nickName;
         return this;
     }
 }

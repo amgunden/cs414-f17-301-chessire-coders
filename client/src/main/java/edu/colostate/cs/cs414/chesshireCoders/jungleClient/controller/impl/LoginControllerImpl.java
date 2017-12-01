@@ -1,0 +1,55 @@
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl;
+
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
+
+public class LoginControllerImpl extends BaseController<LoginView> implements LoginController {
+
+    private final Listener loginListener = new Listener.ThreadedListener(new LoginListener());
+    private JungleClient client = JungleClient.getInstance();
+    private AccountModel accountModel = AccountModel.getInstance();
+
+    public LoginControllerImpl(LoginView view) {
+        super(view);
+        client.addListener(loginListener);
+    }
+
+    @Override
+    public void dispose() {
+        client.removeListener(loginListener);
+    }
+
+    @Override
+    public void sendLogin(String email, String hashedPassword) {
+        client.sendMessage(new LoginRequest(email, hashedPassword));
+    }
+
+    /**
+     * Handle a response from the server for login
+     */
+    private void handleLoginResponse(LoginResponse response) {
+        accountModel.setLoginSuccess(response.isSuccess());
+        if (response.isSuccess()) {
+            accountModel.setLoginSuccess(response.isSuccess());
+            accountModel.setAuthToken(response.getAuthToken());
+            accountModel.setNickName(response.getNickName());
+            view.loginSuccess();
+        } else view.loginFailure(response.getErrMsg());
+    }
+
+    private class LoginListener extends Listener {
+        @Override
+        public void received(Connection connection, Object received) {
+            if (received instanceof LoginResponse) {
+                handleLoginResponse((LoginResponse) received);
+            }
+        }
+    }
+}

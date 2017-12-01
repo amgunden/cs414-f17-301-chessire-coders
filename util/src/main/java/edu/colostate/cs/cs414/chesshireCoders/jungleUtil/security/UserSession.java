@@ -5,7 +5,7 @@ public class UserSession {
     private long sessionNumber;
     private String ipAddress;
     private AuthToken authToken;
-    private long userId;
+    private String nickName;
 
     public UserSession() {
     }
@@ -37,27 +37,28 @@ public class UserSession {
         return this;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getNickName() {
+        return nickName;
     }
 
-    public UserSession setUserId(long userId) {
-        this.userId = userId;
+    public UserSession setNickName(String nickName) {
+        this.nickName = nickName;
         return this;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        UserSession that = (UserSession) object;
+        UserSession that = (UserSession) o;
 
         if (getSessionNumber() != that.getSessionNumber()) return false;
-        if (getUserId() != that.getUserId()) return false;
         if (getIpAddress() != null ? !getIpAddress().equals(that.getIpAddress()) : that.getIpAddress() != null)
             return false;
-        return getAuthToken() != null ? getAuthToken().equals(that.getAuthToken()) : that.getAuthToken() == null;
+        if (getAuthToken() != null ? !getAuthToken().equals(that.getAuthToken()) : that.getAuthToken() != null)
+            return false;
+        return getNickName() != null ? getNickName().equals(that.getNickName()) : that.getNickName() == null;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class UserSession {
         int result = (int) (getSessionNumber() ^ (getSessionNumber() >>> 32));
         result = 31 * result + (getIpAddress() != null ? getIpAddress().hashCode() : 0);
         result = 31 * result + (getAuthToken() != null ? getAuthToken().hashCode() : 0);
-        result = 31 * result + (int) (getUserId() ^ (getUserId() >>> 32));
+        result = 31 * result + (getNickName() != null ? getNickName().hashCode() : 0);
         return result;
     }
 }

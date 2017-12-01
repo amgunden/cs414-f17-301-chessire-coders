@@ -1,14 +1,11 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
-import java.util.List;
-
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.UpdateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+
+import java.util.List;
 
 public class JungleGame extends Game {
 
@@ -26,8 +23,8 @@ public class JungleGame extends Game {
 		setGamePieces(game.getGamePieces());
 		setGameStart(game.getGameStart());
 		setGameStatus(game.getGameStatus());
-		setPlayerOneID(game.getPlayerOneID());
-		setPlayerTwoID(game.getPlayerTwoID());
+        setPlayerOneNickName(game.getPlayerOneNickName());
+        setPlayerTwoNickName(game.getPlayerTwoNickName());
 		setTurnOfPlayer(game.getTurnOfPlayer());
         board = new GameBoard(getGamePieces()); // TODO initialize with pieces in game.
 	}
@@ -100,8 +97,6 @@ public class JungleGame extends Game {
         } else if (getWinner() == PlayerEnumType.PLAYER_TWO) {
         	setGameStatus(GameStatus.WINNER_PLAYER_TWO);
         }
-        
-        GamesManager.getInstance().updateGame(this);
     }
 
     public void quitGame() {
@@ -124,6 +119,6 @@ public class JungleGame extends Game {
     
     private void setBoard(List<GamePiece> pieces)
     {
-    	this.board.setUpBoard(pieces);;
+        this.board.setUpBoard(pieces);
     }
 }

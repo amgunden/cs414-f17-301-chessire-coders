@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<StackPane alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="615.0" style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.GameBoardController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="615.0"
+           style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/8.0.141"
+           fx:controller="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.GameBoardViewImpl">
    <children>
       <GridPane fx:id="gridPane" alignment="TOP_CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="560.0" style="-fx-background-color: #dddddd;">
         <columnConstraints>

@@ -7,7 +7,7 @@ import java.util.Date;
 
 public interface LoginAttemptDAO extends GenericDAO<LoginAttempt, Long> {
 
-    int getUnsuccessfulAttemptsSince(Date date) throws SQLException;
+    int getUnsuccessfulAttemptsSince(Date date, String nickName) throws SQLException;
 
-    int getSuccessfulAttemptsSince(Date date) throws SQLException;
+    int getSuccessfulAttemptsSince(Date date, String nickName) throws SQLException;
 }

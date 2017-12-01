@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface GameDAO extends GenericDAO<Game, Long> {
 
-    List<Game> findByPlayerOneId(long userId) throws SQLException;
+    List<Game> findByPlayerOneNickName(String nickName) throws SQLException;
 
-    List<Game> findByPlayerTwoId(long userId) throws SQLException;
+    List<Game> findByPlayerTwoNickName(String nickName) throws SQLException;
 
-    List<Game> findByUserId(long userId) throws SQLException;
+    List<Game> findAllByNickName(String nickName) throws SQLException;
 }

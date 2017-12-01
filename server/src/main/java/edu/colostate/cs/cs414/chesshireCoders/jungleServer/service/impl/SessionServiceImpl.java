@@ -7,7 +7,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManage
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
@@ -53,35 +52,35 @@ public class SessionServiceImpl implements SessionService {
         if (login == null) throw new AccountNotFoundException("Error fetching account, has it been created?");
         if (!passwordOkay(hashedPass, login))
             failAuthentication(login);
-        if (isAccountLocked(login))
+        if (login.isLocked())
             throw new AccountLockedException("This account has been locked.");
 
 
-        User user = fetchUserInfo(login.getUserID());
-        assert user != null;
+        User user = fetchUserInfo(login.getNickName());
+        if (user == null) throw new Exception("Error retrieving user information.");
 
         AuthToken token = Crypto.generateAuthToken();
         JungleConnection jungleConnection = JungleConnection.class.cast(connection);
         createUserSession(
-                user.getUserId(),
+                user.getNickName(),
                 token,
                 jungleConnection.getRemoteAddressTCP().toString()
         );
-        jungleConnection.authorize(user.getUserId(), user.getNickName(), token);
+        jungleConnection.authorize(user.getNickName(), token);
 
 
-        saveLoginAttempt(true, user.getUserId());
+        saveLoginAttempt(true, user.getNickName());
         return token;
     }
 
     /**
      * Creates and stores a new user session object.
      */
-    private void createUserSession(final long userId, final AuthToken token, final String ipAddress)
+    private void createUserSession(final String nickName, final AuthToken token, final String ipAddress)
             throws Exception {
         final UserSession userSession = new UserSession()
                 .setAuthToken(token)
-                .setUserId(userId)
+                .setNickName(nickName)
                 .setIpAddress(ipAddress);
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             manager.getUserSessionDAO().create(userSession);
@@ -93,8 +92,8 @@ public class SessionServiceImpl implements SessionService {
      * Creates failed login attempt row in the data base, and checks if the account should be locked
      */
     private void failAuthentication(Login login) throws Exception {
-        saveLoginAttempt(false, login.getUserID());
-        if (getInvalidAttempts(login) > 3)
+        saveLoginAttempt(false, login.getNickName());
+        if (getInvalidAttempts(login.getNickName()) > 3)
             lockAccount(login);
         throw new CredentialException("Bad password");
     }
@@ -114,14 +113,14 @@ public class SessionServiceImpl implements SessionService {
     /**
      * Creates a saves a login attempt object to the database.
      */
-    private void saveLoginAttempt(final boolean success, final long userId) throws Exception {
+    private void saveLoginAttempt(final boolean success, final String nickName) throws Exception {
         final Date now = new Date(System.currentTimeMillis());
         manager.execute((DAOCommand<Void>) manager -> {
             LoginAttemptDAO loginAttemptDAO = manager.getLoginAttemptDAO();
             loginAttemptDAO.create(new LoginAttempt()
                     .setAttemptTime(now)
                     .setSuccessful(success)
-                    .setUserId(userId));
+                    .setNickName(nickName));
             return null;
         });
     }
@@ -144,31 +143,14 @@ public class SessionServiceImpl implements SessionService {
     }
 
     /**
-     * Check if a given account is locked
-     */
-    @Override
-    public boolean isAccountLocked(String email) {
-        return false;
-    }
-
-    /**
-     * Check if a given account is locked
-     */
-    public boolean isAccountLocked(Login login) {
-        return login.isLocked();
-    }
-
-    /**
      * Returns whether or not a given connection is valid and authenticated.
      */
     @Override
     public boolean isConnectionAuthorized(Connection connection) throws Exception {
         final JungleConnection jungleConnection = JungleConnection.class.cast(connection);
-
-        if (jungleConnection.getAuthToken() == null) return false;
-        if (jungleConnection.getNickName() == null) return false;
-
-        return doesConnectionMatchStored(jungleConnection);
+        return jungleConnection.getAuthToken() != null
+                && jungleConnection.getNickName() != null
+                && doesConnectionMatchStored(jungleConnection);
     }
 
     /**
@@ -203,6 +185,11 @@ public class SessionServiceImpl implements SessionService {
         return doesConnectionMatchStored(jungleConnection) && requestToken.equals(connectionToken);
     }
 
+    @Override
+    public boolean isAccountLocked(String nickName) throws Exception {
+        return manager.execute(manager -> manager.getLoginDAO().findByNickName(nickName).isLocked());
+    }
+
     /**
      * Checks passwoard equality.
      */
@@ -217,7 +204,7 @@ public class SessionServiceImpl implements SessionService {
         try {
             return manager.execute(manager -> {
                 LoginDAO loginDAO = manager.getLoginDAO();
-                return loginDAO.findByEmail(email);
+                return loginDAO.findByPrimaryKey(email);
             });
         } catch (SQLException e) {
             e.printStackTrace();
@@ -228,12 +215,9 @@ public class SessionServiceImpl implements SessionService {
     /**
      * retrieves user information from the database
      */
-    private User fetchUserInfo(final long userId) throws Exception {
+    private User fetchUserInfo(final String nickName) throws Exception {
         try {
-            return manager.execute(manager -> {
-                UserDAO userDAO = manager.getUserDAO();
-                return userDAO.findByPrimaryKey(userId);
-            });
+            return manager.execute(manager -> manager.getUserDAO().findByPrimaryKey(nickName));
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -243,11 +227,11 @@ public class SessionServiceImpl implements SessionService {
     /**
      * Gets the number of invalid login attempts within the last $LOGIN_CHECK_PERIOD minutes
      */
-    private int getInvalidAttempts(Login login) throws Exception {
+    private int getInvalidAttempts(String nickName) throws Exception {
         final Date checkSince = new Date(System.currentTimeMillis() - LOGIN_CHECK_PERIOD);
         return manager.execute(manager -> {
             LoginAttemptDAO loginAttemptDAO = manager.getLoginAttemptDAO();
-            return loginAttemptDAO.getUnsuccessfulAttemptsSince(checkSince);
+            return loginAttemptDAO.getUnsuccessfulAttemptsSince(checkSince, nickName);
         });
     }
 

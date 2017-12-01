@@ -15,8 +15,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatu
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
-import java.sql.SQLException;
-
 public class RegistrationHandler extends Listener {
 
     private JungleServer server;
@@ -35,28 +33,13 @@ public class RegistrationHandler extends Listener {
     public void received(Connection connection, Object received) {
 
         if (received instanceof RegisterRequest) {
-            try {
-                connection.sendTCP(handleNewRegistration((RegisterRequest) received, connection));
-            } catch (SQLException e) {
-                connection.sendTCP(new RegisterResponse(
-                        ResponseStatusCodes.SERVER_ERROR,
-                        e.getMessage()
-                ));
-            }
+            connection.sendTCP(handleNewRegistration((RegisterRequest) received, connection));
         } else if (received instanceof UnRegisterRequest) {
-            try {
-                connection.sendTCP(
-                        handleUnregisterRequest((UnRegisterRequest) received, connection));
-            } catch (SQLException e) {
-                connection.sendTCP(new UnRegisterResponse(
-                        ResponseStatusCodes.SERVER_ERROR,
-                        e.getMessage()
-                ));
-            }
+            connection.sendTCP(handleUnregisterRequest((UnRegisterRequest) received, connection));
         }
     }
 
-    private RegisterResponse handleNewRegistration(RegisterRequest request, Connection connection) throws SQLException {
+    private RegisterResponse handleNewRegistration(RegisterRequest request, Connection connection) {
         try {
             registrationService.registerUser(request.getNickName(), request.getEmail(), request.getPassword());
             AuthToken authToken = sessionService.authenticate(request.getEmail(), request.getPassword(), connection);
@@ -69,11 +52,11 @@ public class RegistrationHandler extends Listener {
         }
     }
 
-    private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request, Connection connection) throws SQLException {
+    private UnRegisterResponse handleUnregisterRequest(UnRegisterRequest request, Connection connection) {
         try {
             if (sessionService.validateSessionRequest(request, connection)) {
                 JungleConnection jungConn = JungleConnection.class.cast(connection);
-                registrationService.unregisterUser(jungConn.getUserId());
+                registrationService.unregisterUser(jungConn.getNickName());
                 sessionService.expireSession(jungConn
                         .getAuthToken()
                         .getToken());

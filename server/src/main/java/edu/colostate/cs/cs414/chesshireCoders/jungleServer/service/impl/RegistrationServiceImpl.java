@@ -17,64 +17,68 @@ public class RegistrationServiceImpl implements RegistrationService {
             PostgresDAOManager.class);
 
     @Override
-    public void registerUser(String nickName, String email, String hashedPassword) throws Exception {
+    public void registerUser(final String nickName, final String email, final String hashedPassword) throws Exception {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
             UserDAO userDAO = manager.getUserDAO();
             LoginDAO loginDAO = manager.getLoginDAO();
 
+            // check if there is an existing user with this nickname
             User user = userDAO.findByNickName(nickName);
             if (user == null) {
-                user = new User()
-                        .setNickName(nickName);
-                user.setUserId(userDAO.create(user));
+                user = new User().setNickName(nickName);
+                userDAO.create(user);
+            }
+            // If the user row already exists, user may be re-registering.
+            // If there is already existing login info, the DB will throw an error below.
+            // Because this is an atomic transaction, all changes will be reverted on failure.
+            else {
+                user.setRegistered(true);
+                userDAO.update(user);
             }
 
             Login login = new Login()
                     .setEmail(email)
                     .setHashedPass(hashedPassword)
-                    .setUserID(user.getUserId());
+                    .setNickName(user.getNickName());
             loginDAO.create(login);
             return null;
         });
     }
 
     @Override
-    public void unregisterUser(long userId) throws Exception {
+    public void unregisterUser(String nickName) throws Exception {
         manager.executeAtomic((DAOCommand<Void>) manager -> {
-            Login login = manager
-                    .getLoginDAO()
-                    .findByPrimaryKey(userId);
-            User user = manager
-                    .getUserDAO()
-                    .findByPrimaryKey(userId)
-                    .setRegistered(false);
-            manager.getUserDAO()
-                    .update(user);
-            manager.getLoginDAO()
-                    .delete(login);
+            UserDAO userDAO = manager.getUserDAO();
+            LoginDAO loginDAO = manager.getLoginDAO();
+
+            User user = userDAO
+                    .findByPrimaryKey(nickName) // find user
+                    .setRegistered(false); // mark as unregistered
+            userDAO.update(user); // update DB
+
+            loginDAO.delete(loginDAO.findByNickName(nickName)); // delete login info
             return null;
         });
     }
 
-	@Override
+    @Override
     public User fetchUserByNickName(final String nickName) throws Exception {
         return manager.execute(manager -> manager.getUserDAO().findByNickName(nickName));
-	}
+    }
 
-	@Override
+    @Override
     public User fetchUserByEmail(final String email) throws Exception {
         return manager.execute(manager -> {
-			Login login = manager.getLoginDAO()
-					.findByEmail(email);
-			return manager.getUserDAO()
-					.findByPrimaryKey(login.getUserID());
-		});
-	}
-		
+            Login login = manager.getLoginDAO()
+                    .findByNickName(email);
+            return manager.getUserDAO()
+                    .findByPrimaryKey(login.getNickName());
+        });
+    }
 
     @Override
     public boolean isRegistered(final String email) throws Exception {
         return manager.execute(manager -> manager.getLoginDAO()
-                .findByEmail(email) != null);
+                .findByPrimaryKey(email) != null);
     }
 }

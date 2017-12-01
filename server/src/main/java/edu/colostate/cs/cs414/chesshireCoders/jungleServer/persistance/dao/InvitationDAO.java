@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface InvitationDAO extends GenericDAO<Invitation, Long> {
 
-    List<Invitation> findBySenderId(long senderId) throws SQLException;
+    List<Invitation> findBySenderNickName(String nickName) throws SQLException;
 
-    List<Invitation> findByRecipientId(long recipientId) throws SQLException;
+    List<Invitation> findByRecipientNIckName(String nickName) throws SQLException;
 
-    List<Invitation> findByRecipientId(long recipientId, InvitationStatusType statusType) throws SQLException;
+    List<Invitation> findByRecipientNickName(String nickName, InvitationStatusType statusType) throws SQLException;
 
     List<Invitation> findByGameId(long gameId) throws SQLException;
 }
