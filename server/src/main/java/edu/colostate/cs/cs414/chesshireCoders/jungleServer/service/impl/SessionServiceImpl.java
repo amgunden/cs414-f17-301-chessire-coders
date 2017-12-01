@@ -64,7 +64,7 @@ public class SessionServiceImpl implements SessionService {
         createUserSession(
                 user.getNickName(),
                 token,
-                jungleConnection.getRemoteAddressTCP().toString()
+                jungleConnection.getRemoteAddressTCP().getAddress().toString()
         );
         jungleConnection.authorize(user.getNickName(), token);
 
@@ -243,7 +243,9 @@ public class SessionServiceImpl implements SessionService {
             UserSession userSession = manager.getUserSessionDAO()
                     .findByAuthToken(jungleConnection.getAuthToken().getToken());
 
-            boolean ipMatches = userSession.getIpAddress().equals(jungleConnection.getRemoteAddressTCP().toString());
+            boolean ipMatches = userSession.getIpAddress().equals(
+                    jungleConnection.getRemoteAddressTCP().getAddress().toString()
+            );
             boolean tokenMatches = userSession.getAuthToken().equals(jungleConnection.getAuthToken());
             return ipMatches && tokenMatches;
         });

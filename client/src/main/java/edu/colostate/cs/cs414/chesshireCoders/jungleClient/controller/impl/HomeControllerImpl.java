@@ -79,13 +79,11 @@ public class HomeControllerImpl extends BaseController<HomeView> implements Home
         UnRegisterRequest request = new UnRegisterRequest();
         request.setAuthToken(AccountModel.getInstance().getToken());
         client.sendMessage(request);
-        client.disconnect();
     }
 
     @Override
     public void sendLogout() throws IOException {
         client.sendMessage(new LogoutRequest(accountModel.getToken()));
-        client.disconnect();
     }
 
     private void sendInviteResponse(Invitation invite, boolean accepted) throws IOException {
