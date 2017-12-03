@@ -4,26 +4,20 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
 
 import java.util.Objects;
 
-public class QuitGameRequest {
+public class QuitGameRequest extends SessionRequest {
 
-    private AuthToken token;
     private long gameId;
 
     public QuitGameRequest() {
     }
 
-    public QuitGameRequest(AuthToken token, long gameId) {
-        this.token = token;
+    public QuitGameRequest(long gameId) {
         this.gameId = gameId;
     }
 
-    public AuthToken getToken() {
-        return token;
-    }
-
-    public QuitGameRequest setToken(AuthToken token) {
-        this.token = token;
-        return this;
+    public QuitGameRequest(AuthToken authToken, long gameId) {
+        super(authToken);
+        this.gameId = gameId;
     }
 
     public long getGameId() {
@@ -40,12 +34,12 @@ public class QuitGameRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QuitGameRequest that = (QuitGameRequest) o;
-        return getGameId() == that.getGameId() &&
-                Objects.equals(getToken(), that.getToken());
+        return getGameId() == that.getGameId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getToken(), getGameId());
+
+        return Objects.hash(getGameId());
     }
 }

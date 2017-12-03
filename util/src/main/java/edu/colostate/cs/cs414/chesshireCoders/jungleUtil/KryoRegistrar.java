@@ -109,6 +109,7 @@ public class KryoRegistrar {
         kryo.register(GetGameResponse.class);
         kryo.register(UpdateGameResponse.class);
         kryo.register(CreateGameResponse.class);
+        kryo.register(QuitGameResponse.class);
 
         // Invitation Handling
         kryo.register(InvitePlayerResponse.class);

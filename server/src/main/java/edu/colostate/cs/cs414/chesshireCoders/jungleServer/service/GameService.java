@@ -16,6 +16,8 @@ public interface GameService {
 
     List<Game> fetchUserGames(String nickName) throws Exception;
 
+    String quitGame(String sendingNickName, long gameId) throws Exception;
+
     List<Invitation> getPlayerReceivedInvites(String nickName, InvitationStatusType statusType) throws Exception;
 
     void acceptInvitation(long invitationId) throws Exception;

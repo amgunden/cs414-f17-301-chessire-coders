@@ -29,7 +29,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_ONE;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_TWO;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
 public class GameBoardViewImpl extends BaseView {
 
@@ -94,12 +97,12 @@ public class GameBoardViewImpl extends BaseView {
 
         try {
             clickRow = GridPane.getRowIndex(square);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         try {
             clickColumn = GridPane.getColumnIndex(square);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         System.out.println("Square (" + clickRow + "," + clickColumn + ") Clicked.");
@@ -125,8 +128,9 @@ public class GameBoardViewImpl extends BaseView {
 
     public void checkGameWon() {
         Platform.runLater(() -> {
-            if (game.getWinner() != null) {
-                showGameEnding(game.getWinner());
+            if (game.hasWinner()) {
+                if (game.getGameStatus() == WINNER_PLAYER_ONE) showGameEnding(PLAYER_ONE);
+                else if (game.getGameStatus() == WINNER_PLAYER_TWO) showGameEnding(PLAYER_TWO);
             }
         });
     }

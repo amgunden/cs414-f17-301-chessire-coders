@@ -183,8 +183,10 @@ public class HomeViewImpl extends BaseView {
 
     private void listenForActiveGameChange() {
         gamesModel.getActiveGameProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
-            if (newValue != null) reloadActiveGame(newValue);
-            selectActiveGame();
+            if (newValue != null) {
+                reloadActiveGame(newValue);
+                selectActiveGame();
+            } else borderPane.setCenter(null);
         }));
     }
 

@@ -30,7 +30,7 @@ public class JungleGame extends Game {
         setPlayerOneNickName(game.getPlayerOneNickName());
         setPlayerTwoNickName(game.getPlayerTwoNickName());
 		setTurnOfPlayer(game.getTurnOfPlayer());
-        board = new GameBoard(getGamePieces()); // TODO initialize with pieces in game.
+        board = new GameBoard(getGamePieces());
 	}
 
     public JungleGame(int gameID) {
@@ -50,34 +50,30 @@ public class JungleGame extends Game {
         return result;
     }
 
-    public void endGame() {
-
-    }
-
     public int[] getValidMoves(int row, int column) {
         return board.getValidMoves(row, column);
     }
 
-    public PlayerEnumType getViewingPlayer() {
+    private PlayerEnumType getViewingPlayer() {
 		return viewingPlayer;
 	}
 
-    public PlayerEnumType getWinner() {
+    private PlayerEnumType getWinner() {
 		List<GamePiece> pieces = getGamePieces();
 		int p1Pieces = 0;
 		int p2Pieces = 0;
-    	
-		for (int i = 0; i < pieces.size(); i++) {
-            if (pieces.get(i).getPlayerOwner() == PLAYER_ONE) {
-				if (pieces.get(i).getRow() == 8 && pieces.get(i).getColumn()==3)
+
+        for (GamePiece piece : pieces) {
+            if (piece.getPlayerOwner() == PLAYER_ONE) {
+                if (piece.getRow() == 8 && piece.getColumn() == 3)
                     return PLAYER_ONE;
-				p1Pieces++;
-			} else {
-				if (pieces.get(i).getRow() == 0 && pieces.get(i).getColumn()==3)
+                p1Pieces++;
+            } else {
+                if (piece.getRow() == 0 && piece.getColumn() == 3)
                     return PLAYER_TWO;
-				p2Pieces++;
-			}
-		}
+                p2Pieces++;
+            }
+        }
 		
     	if(p2Pieces == 0) {
             return PLAYER_ONE;
@@ -88,7 +84,7 @@ public class JungleGame extends Game {
 	}
 
     public boolean hasWinner() {
-        return false;
+        return getGameStatus() == WINNER_PLAYER_ONE || getGameStatus() == WINNER_PLAYER_TWO;
     }
 
     public void movePiece(int[] from, int[] to) {
@@ -101,10 +97,6 @@ public class JungleGame extends Game {
         } else if (getWinner() == PLAYER_TWO) {
             setGameStatus(WINNER_PLAYER_TWO);
         }
-    }
-
-    public void quitGame() {
-        //This method should remove the user requesting it, if the game is not over that user officially loses the game.
     }
 
 	public void setViewingPlayer(PlayerEnumType viewingPlayer) {

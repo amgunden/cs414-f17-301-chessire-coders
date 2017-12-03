@@ -1,10 +1,10 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JungleGamePieceFactory {
 	

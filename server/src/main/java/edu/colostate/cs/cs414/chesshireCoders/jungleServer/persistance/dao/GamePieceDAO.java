@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface GamePieceDAO extends GenericDAO<GamePiece, Long> {
     List<GamePiece> findByGameId(long gameId) throws SQLException;
+
+    int deleteByGameId(long gameId) throws SQLException;
 }

@@ -20,6 +20,7 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
 
+
     public GameBoardControllerImpl(View view) {
         super(view);
     }

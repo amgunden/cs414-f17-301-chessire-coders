@@ -123,4 +123,11 @@ public class PostgresGamePieceDAO extends BaseDAO<GamePiece, Long> implements Ga
         String sql = "SELECT * FROM game_piece WHERE game_id = ?";
         return query(sql, GAME_PIECE_ROW_MAPPER, gameId);
     }
+
+    @Override
+    public int deleteByGameId(long gameId) throws SQLException {
+        //language=PostgreSQL
+        String sql = "DELETE FROM game_piece WHERE game_id = ?";
+        return modify(sql, gameId);
+    }
 }
