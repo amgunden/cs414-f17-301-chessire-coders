@@ -8,12 +8,15 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.HomeView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -33,10 +36,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeViewImpl extends BaseView implements HomeView {
+public class HomeViewImpl extends BaseView {
 
-    // Get controller instances
-    private final HomeController controller = ControllerFactory.getHomeController(this);
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -59,6 +60,9 @@ public class HomeViewImpl extends BaseView implements HomeView {
     private VBox mainVBox;
     @FXML
     private StackPane unregSuccess;
+
+    // Get controller instances
+    private final HomeController controller = ControllerFactory.getHomeController(this);
     private ListProperty<JungleGame> gameListProperty = new SimpleListProperty<>();
     private ListProperty<Invitation> inviteListProperty = new SimpleListProperty<>();
     // Get model instances
@@ -68,52 +72,17 @@ public class HomeViewImpl extends BaseView implements HomeView {
     public void initialize(URL location, ResourceBundle resources) {
         App.getWindow().setResizable(false);
 
-        gamesList.itemsProperty().bind(gameListProperty);
         invitationList.itemsProperty().bind(inviteListProperty);
         invitationList.setCellFactory(param -> new InviteListCell(controller));
         btnViewInvites.setVisible(false);
-
-        gameListProperty.set(GamesModel.getInstance().getCurrentGames());
         inviteListProperty.set(InvitesModel.getInstance().getPendingReceivedInvites());
 
         // Show the players nick name
         nickName.setText(accountModel.getNickName());
-    }
 
-    @Override
-    public void reloadActiveGame() {
-        Platform.runLater(() -> {
-            Node board;
-            try {
-                lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
-                lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
-
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/gameBoard.fxml"));
-                board = loader.load();
-
-                // Get the Controller from the FXMLLoader
-                GameBoardViewImpl gameBoardView = loader.getController();
-
-                // Set the game to load
-                JungleGame jGame = gamesModel.getActiveGame();
-                gameBoardView.setGame(jGame);
-
-                // Set data in the controller
-                borderPane.setCenter(board);
-                gameBoardView.checkGameWon();
-            } catch (IOException e) {
-                showError("ERROR: Unable to load fxml file for Game Board.");
-            }
-        });
-    }
-
-    private void showGameEnded(final String winner) {
-        StackPane stackPane = (StackPane) borderPane.getCenter();
-        stackPane.getChildren().get(0).setEffect(new GaussianBlur());
-        StackPane winnerPane = (StackPane) stackPane.getChildren().get(1);
-        Label lblWinner = (Label) winnerPane.getChildren().get(0);
-        lblWinner.setText(winner + " Wins!");
-        winnerPane.setVisible(true);
+        initGamesListView();
+        listenForActiveGameChange();
+        listenForGameSelectionChange();
     }
 
     private void logoutClicked() {
@@ -183,5 +152,70 @@ public class HomeViewImpl extends BaseView implements HomeView {
     @FXML
     private void viewInvitesClicked() {
         System.out.println("View Invites Clicked.");
+    }
+
+    private void listenForGameSelectionChange() {
+        gamesList.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) reloadActiveGame(newValue);
+                });
+    }
+
+    private void initGamesListView() {
+        // Some voodoo magic I don't fully understand, but it works!
+
+        ObservableList<JungleGame> games = FXCollections.observableArrayList();
+        // Wrap the list in a sorted list.
+        SortedList<JungleGame> sortedGames = new SortedList<>(games, (o1, o2) -> (int) (o1.getGameID() - o2.getGameID()));
+
+        // Add a listener to the list in gamesModel to change the list bound to the list view
+        // I couldn't update the gamesModel list directly at some point from a non-javafx thread.
+        gamesModel.getCurrentGames().addListener((ListChangeListener<JungleGame>) c -> Platform.runLater(() -> {
+            while (c.next()) {
+                if (c.wasRemoved()) games.removeAll(c.getRemoved());
+                if (c.wasAdded()) games.addAll(c.getAddedSubList());
+            }
+            selectActiveGame();
+        }));
+        gamesList.setItems(sortedGames);
+    }
+
+    private void listenForActiveGameChange() {
+        gamesModel.getActiveGameProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            if (newValue != null) reloadActiveGame(newValue);
+            selectActiveGame();
+        }));
+    }
+
+    private void selectActiveGame() {
+        int index = gamesList.getItems().indexOf(gamesModel.getActiveGame());
+        gamesList.requestFocus();
+        gamesList.getSelectionModel().select(index);
+        gamesList.getFocusModel().focus(index);
+    }
+
+    private void reloadActiveGame(final JungleGame game) {
+        Node board;
+        try {
+            lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
+            lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
+
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/gameBoard.fxml"));
+            board = loader.load();
+
+            // Get the Controller from the FXMLLoader
+            GameBoardViewImpl gameBoardView = loader.getController();
+
+            // Set the game to load
+            gameBoardView.setGame(game);
+
+            // Set data in the controller
+            borderPane.setCenter(board);
+            gameBoardView.checkGameWon();
+
+        } catch (IOException e) {
+            showError("ERROR: Unable to load fxml file for Game Board.");
+        }
     }
 }

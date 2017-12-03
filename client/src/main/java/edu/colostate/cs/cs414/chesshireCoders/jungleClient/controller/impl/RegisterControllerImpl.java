@@ -6,19 +6,19 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.RegisterView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse;
 
 import java.io.IOException;
 
-public class RegisterControllerImpl extends BaseController<RegisterView> implements RegisterController {
+public class RegisterControllerImpl extends BaseController implements RegisterController {
 
     private final Listener listener = new Listener.ThreadedListener(new RegistrationListener());
     private final AccountModel accountModel = AccountModel.getInstance();
     private final JungleClient client = JungleClient.getInstance();
 
-    public RegisterControllerImpl(RegisterView view) {
+    public RegisterControllerImpl(View view) {
         super(view);
         client.addListener(listener);
     }
@@ -49,8 +49,7 @@ public class RegisterControllerImpl extends BaseController<RegisterView> impleme
             accountModel.setLoginSuccess(response.isSuccess());
             accountModel.setNickName(response.getNickName());
             accountModel.setAuthToken(response.getAuthToken());
-            view.registrationSuccess();
-        } else view.registrationFailure(response.getErrMsg());
+        } else view.showError(response.getErrMsg());
     }
 
     private class RegistrationListener extends Listener {

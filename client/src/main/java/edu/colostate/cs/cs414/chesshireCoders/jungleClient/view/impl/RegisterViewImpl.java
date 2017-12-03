@@ -2,9 +2,9 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.RegisterView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class RegisterViewImpl extends BaseView implements RegisterView {
+public class RegisterViewImpl extends BaseView {
 
     private static final String COLOR_VALID = "#BAF5BA";
     private static final String COLOR_ERROR = "#F5C3BA";
@@ -57,7 +57,19 @@ public class RegisterViewImpl extends BaseView implements RegisterView {
     @FXML
     private Label regFailed;
 
+    private final AccountModel accountModel = AccountModel.getInstance();
     private final RegisterController controller = ControllerFactory.getRegisterController(this);
+
+    public void initialize(URL location, ResourceBundle resources) {
+        listenForRegisterSuccess();
+    }
+
+    private void listenForRegisterSuccess() {
+        accountModel.loginSuccessProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue) registrationSuccess();
+            else if (newValue != null) registrationFailure();
+        });
+    }
 
     @FXML
     private void loginClicked() {
@@ -93,8 +105,7 @@ public class RegisterViewImpl extends BaseView implements RegisterView {
         }
     }
 
-    @Override
-    public void registrationSuccess() {
+    private void registrationSuccess() {
         Platform.runLater(() -> {
             try {
                 controller.dispose();
@@ -108,12 +119,8 @@ public class RegisterViewImpl extends BaseView implements RegisterView {
         });
     }
 
-    @Override
-    public void registrationFailure(String errorMessage) {
-        final String msg = errorMessage.isEmpty() ? "Login Failed!" : errorMessage;
+    private void registrationFailure() {
         Platform.runLater(() -> {
-            showError(msg);
-            System.err.println(msg);
             flowPane.setDisable(false);
         });
     }
@@ -165,11 +172,5 @@ public class RegisterViewImpl extends BaseView implements RegisterView {
             passwordReenterField.setStyle("-fx-control-inner-background: " + COLOR_ERROR);
         }
         return isPasswordConfirmed;
-    }
-
-    public void initialize(URL location, ResourceBundle resources) {
-
-        // TODO Auto-generated method stub
-
     }
 }

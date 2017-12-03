@@ -2,11 +2,13 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,14 +20,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class LoginViewImpl extends BaseView implements LoginView {
+public class LoginViewImpl extends BaseView {
 
     private static final String COLOR_VALID = "#BAF5BA";
     private static final String COLOR_ERROR = "#F5C3BA";
 
     // matches valid email addresses
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private final LoginController controller = ControllerFactory.getLoginController(this);
     @FXML
     private Hyperlink hplRegister;
     @FXML
@@ -37,22 +38,35 @@ public class LoginViewImpl extends BaseView implements LoginView {
     @FXML
     private TextField emailField;
 
+    private final AccountModel accountModel = AccountModel.getInstance();
+    private final LoginController controller = ControllerFactory.getLoginController(this);
+
     public void initialize(URL location, ResourceBundle resources) {
         App.getWindow().setResizable(false);
+
+        listenForLoginSuccess();
     }
 
-    @Override
-    public void loginFailure(String errorMessage) {
-        final String msg = errorMessage.isEmpty() ? "Login Failed!" : errorMessage;
+    private void listenForLoginSuccess() {
+        accountModel.loginSuccessProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue != null && newValue) {
+                    loginSuccess();
+                } else if (newValue != null) {
+                    loginFailure();
+                }
+            }
+        });
+    }
+
+    private void loginFailure() {
         Platform.runLater(() -> {
-            showError(msg);
-            System.err.println(msg);
             btnLogin.setDisable(false);
         });
     }
 
-    @Override
-    public void loginSuccess() {
+    private void loginSuccess() {
         Platform.runLater(() -> {
             try {
                 controller.dispose();

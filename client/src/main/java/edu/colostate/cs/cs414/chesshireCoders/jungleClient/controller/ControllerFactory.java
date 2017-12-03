@@ -4,10 +4,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameB
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.GameBoardView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.HomeView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.RegisterView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
 
 /**
  * This class hides the implementation details of the Controller classes.
@@ -16,19 +13,19 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.RegisterView;
  */
 public class ControllerFactory {
 
-    public static GameBoardController getGameBoardController(GameBoardView view) {
+    public static GameBoardController getGameBoardController(View view) {
         return new GameBoardControllerImpl(view);
     }
 
-    public static HomeController getHomeController(HomeView view) {
+    public static HomeController getHomeController(View view) {
         return new HomeControllerImpl(view);
     }
 
-    public static LoginController getLoginController(LoginView view) {
+    public static LoginController getLoginController(View view) {
         return new LoginControllerImpl(view);
     }
 
-    public static RegisterController getRegisterController(RegisterView view) {
+    public static RegisterController getRegisterController(View view) {
         return new RegisterControllerImpl(view);
     }
 }

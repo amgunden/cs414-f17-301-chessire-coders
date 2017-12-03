@@ -3,9 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.GameBoardView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
@@ -33,7 +31,7 @@ import java.util.ResourceBundle;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
 
-public class GameBoardViewImpl extends BaseView implements GameBoardView {
+public class GameBoardViewImpl extends BaseView {
 
     private int[] start;
     private JungleGame game;
@@ -47,7 +45,6 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
     @FXML
     private Label lblWinner;
 
-    private GamesModel gamesModel = GamesModel.getInstance();
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,7 +74,7 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {
             try {
-                controller.sendQuitGame(gamesModel.getActiveGameId());
+                controller.quitGame(game.getGameID());
             } catch (Exception e) {
                 showError(e.getMessage());
             }
@@ -168,7 +165,7 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
 
             toSquare.getChildren().add(piece);
             game.movePiece(start, new int[]{r, c});
-            controller.sendUpdateGame(game);
+            controller.updateGame(game);
             checkGameWon();
         } catch (Exception e) {
             showError(e.getMessage());
@@ -262,7 +259,7 @@ public class GameBoardViewImpl extends BaseView implements GameBoardView {
 
     private void sendInviteClicked(String nickname) {
         try {
-            controller.sendInvitePlayerRequest(nickname, game.getGameID());
+            controller.invitePlayer(nickname, game.getGameID());
         } catch (Exception e) {
             showError(e.getMessage());
         }

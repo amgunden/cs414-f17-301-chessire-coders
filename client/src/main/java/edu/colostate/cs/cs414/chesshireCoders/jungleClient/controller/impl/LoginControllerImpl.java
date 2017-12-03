@@ -6,19 +6,19 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.LoginView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse;
 
 import java.io.IOException;
 
-public class LoginControllerImpl extends BaseController<LoginView> implements LoginController {
+public class LoginControllerImpl extends BaseController implements LoginController {
 
     private final Listener loginListener = new Listener.ThreadedListener(new LoginListener());
     private JungleClient client = JungleClient.getInstance();
     private AccountModel accountModel = AccountModel.getInstance();
 
-    public LoginControllerImpl(LoginView view) {
+    public LoginControllerImpl(View view) {
         super(view);
         client.addListener(loginListener);
     }
@@ -42,8 +42,7 @@ public class LoginControllerImpl extends BaseController<LoginView> implements Lo
             accountModel.setLoginSuccess(response.isSuccess());
             accountModel.setAuthToken(response.getAuthToken());
             accountModel.setNickName(response.getNickName());
-            view.loginSuccess();
-        } else view.loginFailure(response.getErrMsg());
+        } else view.showError(response.getErrMsg());
     }
 
     private class LoginListener extends Listener {

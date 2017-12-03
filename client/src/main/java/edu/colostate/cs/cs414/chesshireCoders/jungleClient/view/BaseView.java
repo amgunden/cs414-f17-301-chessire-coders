@@ -19,4 +19,13 @@ public abstract class BaseView implements Initializable, View {
             alert.showAndWait();
         });
     }
+
+    @Override
+    public void showWarning(String message) {
+
+    }
+
+    @Override
+    public void showInfo(String message) {
+    }
 }

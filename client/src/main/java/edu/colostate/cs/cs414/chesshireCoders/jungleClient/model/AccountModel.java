@@ -1,6 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.model;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 import java.io.*;
 
@@ -13,7 +15,9 @@ import java.io.*;
 public class AccountModel {
 
     private static AccountModel ourInstance = new AccountModel();
-    private boolean loginSuccess;
+
+    private ObjectProperty<Boolean> loginSuccess = new SimpleObjectProperty<>(null);
+
     private AuthToken authToken;
     private String nickName;
     private String email;
@@ -52,12 +56,16 @@ public class AccountModel {
     }
 
     public boolean isLoginSuccess() {
-        return loginSuccess;
+        return loginSuccess.getValue() != null && loginSuccess.getValue();
     }
 
     public AccountModel setLoginSuccess(boolean loginSuccess) {
-        this.loginSuccess = loginSuccess;
+        this.loginSuccess.setValue(loginSuccess);
         return this;
+    }
+
+    public ObjectProperty<Boolean> loginSuccessProperty() {
+        return loginSuccess;
     }
 
     public AccountModel setAuthToken(AuthToken authToken) {

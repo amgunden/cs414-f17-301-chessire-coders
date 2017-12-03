@@ -9,7 +9,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.HomeView;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
@@ -24,7 +24,7 @@ import java.io.IOException;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
-public class HomeControllerImpl extends BaseController<HomeView> implements HomeController {
+public class HomeControllerImpl extends BaseController implements HomeController {
 
     private final JungleClient client = JungleClient.getInstance();
     private final Listener listener = new Listener.ThreadedListener(new HomeListener());
@@ -36,7 +36,7 @@ public class HomeControllerImpl extends BaseController<HomeView> implements Home
     private boolean watchingForGame = false;
     private long watchForGameId;
 
-    public HomeControllerImpl(HomeView view) {
+    public HomeControllerImpl(View view) {
         super(view);
         client.addListener(listener);
     }
@@ -154,13 +154,9 @@ public class HomeControllerImpl extends BaseController<HomeView> implements Home
 
         // Check to see if we're watching for this game so we can change the active game if needed
         if (watchingForGame && watchForGameId == jGame.getGameID()) {
-            gamesModel.setActiveGameId(jGame.getGameID());
+            gamesModel.setActiveGame(jGame);
             watchingForGame = false;
         }
-
-        // Check if this is the active game so we can reload the gui
-        if (jGame.getGameID() == gamesModel.getActiveGameId())
-            view.reloadActiveGame();
     }
 
     private PlayerEnumType getViewingPlayer(JungleGame jGame) {

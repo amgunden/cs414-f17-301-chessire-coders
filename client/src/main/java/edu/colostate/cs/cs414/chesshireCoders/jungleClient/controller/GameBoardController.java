@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public interface GameBoardController extends Controller {
 
-    void sendQuitGame(long gameId) throws IOException;
+    void quitGame(long gameId) throws IOException;
 
-    void sendInvitePlayerRequest(String nickname, long gameID) throws IOException;
+    void invitePlayer(String nickname, long gameID) throws IOException;
 
-    void sendUpdateGame(JungleGame jungleGame) throws IOException;
+    void updateGame(JungleGame jungleGame) throws IOException;
 }
