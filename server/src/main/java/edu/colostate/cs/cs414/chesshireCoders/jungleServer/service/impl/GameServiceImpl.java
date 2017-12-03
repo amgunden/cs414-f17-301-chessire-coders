@@ -3,6 +3,8 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException;
@@ -10,14 +12,14 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.ONGOING;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.PENDING;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.ACCEPTED;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
@@ -136,6 +138,34 @@ public class GameServiceImpl implements GameService {
             }
 
             return games;
+        });
+    }
+
+    @Override
+    public String quitGame(String sendingNickName, long gameId) throws Exception {
+        return manager.execute(manager -> {
+
+            GameDAO gameDAO = manager.getGameDAO();
+            GamePieceDAO gamePieceDAO = manager.getGamePieceDAO();
+
+            // Get the relevant game
+            Game game = gameDAO.findByPrimaryKey(gameId);
+            if (game == null) throw new Exception("Could not find game.");
+
+            // Determine who should win (quitter loses)
+            GameStatus status = game.getPlayerOneNickName().equals(sendingNickName) ? WINNER_PLAYER_TWO : WINNER_PLAYER_ONE;
+
+            // Update and save the game
+            game.setGameStatus(status);
+            game.setGameEnd(new Date(System.currentTimeMillis()));
+            gameDAO.update(game);
+
+            // Delete all referencing pieces, they are not longer needed.
+            gamePieceDAO.deleteByGameId(gameId);
+
+            // Return the nickname of the player who needs to be notified of the game quit
+            return sendingNickName.equals(game.getPlayerOneNickName())
+                    ? game.getPlayerTwoNickName() : game.getPlayerOneNickName();
         });
     }
 

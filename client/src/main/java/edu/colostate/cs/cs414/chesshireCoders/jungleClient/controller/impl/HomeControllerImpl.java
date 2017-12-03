@@ -186,6 +186,10 @@ public class HomeControllerImpl extends BaseController implements HomeController
         }
     }
 
+    private void handleQuitGameResponse(QuitGameResponse response) {
+        gamesModel.removeGame(response.getGameId());
+    }
+
     private class HomeListener extends Listener {
         @Override
         public void received(Connection connection, Object received) {
@@ -225,6 +229,10 @@ public class HomeControllerImpl extends BaseController implements HomeController
                 // handle game ended event
                 else if (received instanceof GameEndedEvent) {
                     handleGameEndedEvent((GameEndedEvent) received);
+                }
+                // handle game quit response
+                else if (received instanceof QuitGameResponse) {
+                    handleQuitGameResponse((QuitGameResponse) received);
                 }
             } catch (Exception e) {
                 view.showError(e.getMessage());

@@ -34,10 +34,9 @@ public class GamesModel {
         activeGameProperty.setValue(game);
     }
 
-    public void removeGame(int gameID) {
-        // TODO: implement
-        // if game is not finished, notify server of game end.
-        // remove game locally.
+    public void removeGame(long gameID) {
+        if (getActiveGame().getGameID() == gameID) setActiveGame(null);
+        currentGames.remove(findById(gameID));
     }
 
     public void updateOrAddGame(JungleGame jGame) {
