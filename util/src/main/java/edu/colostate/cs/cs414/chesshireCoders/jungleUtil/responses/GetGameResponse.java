@@ -2,12 +2,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public class GetGameResponse extends Response {
 
     private Game game;
-    private PlayerEnumType viewingPlayer;
 
     public GetGameResponse() {
         super();
@@ -34,12 +32,4 @@ public class GetGameResponse extends Response {
         this.game = game;
         return this;
     }
-
-	public PlayerEnumType getViewingPlayer() {
-		return viewingPlayer;
-	}
-
-	public void setViewingPlayer(PlayerEnumType viewingPlayer) {
-		this.viewingPlayer = viewingPlayer;
-	}
 }

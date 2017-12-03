@@ -115,16 +115,6 @@ public class JungleServer extends Server {
         }
     }
 
-    public void sendToTCPWithUserId(Object o, long userId) {
-        Connection[] connections = this.getConnections();
-        for (Connection connection : connections) {
-            JungleConnection jungConn = JungleConnection.class.cast(connection);
-
-            if (jungConn.getUserId() == userId)
-                jungConn.sendTCP(o);
-        }
-    }
-
     @Override
     public void sendToTCP(int connectionID, Object o) {
         logger.log(

@@ -56,21 +56,29 @@ public class GameHandler extends Listener {
      * Update the stored game board
      */
     private UpdateGameResponse handleUpdateGame(UpdateGameRequest received, Connection connection) {
-        JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+        JungleConnection jConn = JungleConnection.class.cast(connection);
         try {
             if (sessionService.validateSessionRequest(received, connection)) {
 
                 Game game = received.getGame();
-                long sendingUserId = jungleConnection.getUserId();
-                gameService.updateGame(sendingUserId, game);
+                String sendingUser = jConn.getNickName();
+                gameService.updateGame(sendingUser, game);
 
-                // notify opposing player
-                long receivingUserId = (sendingUserId == received.getGame().getPlayerOneID()) ? received.getGame().getPlayerTwoID() : received.getGame().getPlayerOneID();
-                
+                // Opposing player nick name
+                String playerToUpdate;
+
+                // If sending player is p1, get nickname of p2
+                if (sendingUser.equals(game.getPlayerOneNickName()))
+                    playerToUpdate = game.getPlayerTwoNickName();
+
+                    // if sending player is p2, get nickname of p1
+                else playerToUpdate = game.getPlayerOneNickName();
+
                 if (game.getGameStatus() == GameStatus.ONGOING) {
-                	server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), receivingUserId);
-                } else {
-                	server.sendToTCPWithUserId(new GameEndedEvent(game.getGameID()), receivingUserId);
+                    server.sendToTCPWithNickName(new BoardUpdateEvent(game.getGameID()), playerToUpdate);
+                } else if (game.getGameStatus() == GameStatus.WINNER_PLAYER_ONE
+                        || game.getGameStatus() == GameStatus.WINNER_PLAYER_TWO) {
+                    server.sendToTCPWithNickName(new GameEndedEvent(game.getGameID()), playerToUpdate);
                 }
 
                 return new UpdateGameResponse(); // Defaults to success

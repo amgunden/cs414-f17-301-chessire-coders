@@ -10,11 +10,11 @@ public interface GameService {
 
     Game newGame(String playerOneNickName) throws Exception;
 
-    void updateGame(long updatingUserId, Game game) throws Exception;
+    void updateGame(String updatingNickName, Game game) throws Exception;
 
     Game fetchGame(long gameId) throws Exception;
 
-    List<Game> fetchUserGames(long userId) throws Exception;
+    List<Game> fetchUserGames(String nickName) throws Exception;
 
     List<Invitation> getPlayerReceivedInvites(String nickName, InvitationStatusType statusType) throws Exception;
 

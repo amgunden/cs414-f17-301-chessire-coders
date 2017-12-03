@@ -19,7 +19,6 @@ import java.util.List;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.ONGOING;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.PENDING;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.ACCEPTED;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType.REJECTED;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
@@ -47,7 +46,7 @@ public class GameServiceImpl implements GameService {
             List<GamePiece> gamePieces = createPieces();
             // setup the initial game, add the pieces
             Game game = new Game()
-                    .setPlayerOneID(user.getUserId())
+                    .setPlayerOneNickName(user.getNickName())
                     .setGamePieces(gamePieces)
                     .setGameStatus(PENDING);
             long gameId = manager.getGameDAO().create(game);
@@ -63,18 +62,18 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void updateGame(long updatingUserId, final Game game) throws Exception {
+    public void updateGame(String updatingNickName, final Game game) throws Exception {
         if (game == null) throw new IllegalArgumentException("Game cannot be NULL");
         if (game.getGameStatus() == PENDING)
             throw new IllegalStateException("Game has not been started, it cannot be update");
 
         manager.executeAtomic((DAOCommand<Void>) manager -> {
-            List<GamePiece> gamePieces = game.getGamePieces();
-            if (gamePieces == null) throw new NullPointerException("Game piece list is NULL");
+            List<GamePiece> updatedPieces = game.getGamePieces();
+            if (updatedPieces == null) throw new NullPointerException("Game piece list is NULL");
 
-            if (game.getTurnOfPlayer() == PLAYER_ONE && updatingUserId == game.getPlayerOneID())
+            if (game.getTurnOfPlayer() == PLAYER_ONE && updatingNickName.equals(game.getPlayerOneNickName()))
                 throw new GameStateException("It is not this player's turn");
-            if (game.getTurnOfPlayer() == PLAYER_TWO && updatingUserId == game.getPlayerTwoID())
+            if (game.getTurnOfPlayer() == PLAYER_TWO && updatingNickName.equals(game.getPlayerTwoNickName()))
                 throw new GameStateException("It is not this player's turn");
 
             // Update game
@@ -83,22 +82,20 @@ public class GameServiceImpl implements GameService {
             manager.getGameDAO().update(game);
 
             // delete any pieces missing from the game set
-            List<GamePiece> dbPieces = manager.getGamePieceDAO().findByGameId(game.getGameID());
+            List<GamePiece> storedPieces = manager.getGamePieceDAO().findByGameId(game.getGameID());
 
             List<Long> missingIds = new ArrayList<>();
 
             // find any pieces that are missing in the received List
-            for (int i = 0; i < dbPieces.size(); ++i) {
-                GamePiece iPiece = dbPieces.get(i);
+            for (GamePiece storedPiece : storedPieces) {
                 boolean found = false;
-                for (int j = 0; j < gamePieces.size(); ++j) {
-                    GamePiece jPiece = gamePieces.get(j);
-                    if (iPiece.getPieceId() == jPiece.getPieceId()) {
+                for (GamePiece updatedPiece : updatedPieces) {
+                    if (storedPiece.getPieceId() == updatedPiece.getPieceId()) {
                         found = true;
                         break;
                     }
                 }
-                if (!found) missingIds.add(iPiece.getPieceId());
+                if (!found) missingIds.add(storedPiece.getPieceId());
             }
 
             // delete any captured ID's
@@ -108,7 +105,7 @@ public class GameServiceImpl implements GameService {
 
 
             // Update pieces
-            for (GamePiece piece : gamePieces) {
+            for (GamePiece piece : updatedPieces) {
                 manager.getGamePieceDAO().update(piece);
             }
             return null;
@@ -117,29 +114,29 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game fetchGame(long gameId) throws Exception {
-    	return manager.execute(manager -> {
-    		Game game = manager.getGameDAO().findByPrimaryKey(gameId);
-    		List<GamePiece> pieces = manager
-    			.getGamePieceDAO()
-    			.findByGameId(gameId);
-    		return game.setGamePieces(pieces);
-    	});
+        return manager.execute(manager -> {
+            Game game = manager.getGameDAO().findByPrimaryKey(gameId);
+            List<GamePiece> pieces = manager
+                    .getGamePieceDAO()
+                    .findByGameId(gameId);
+            return game.setGamePieces(pieces);
+        });
     }
 
     @Override
-    public List<Game> fetchUserGames(long userId) throws Exception {
+    public List<Game> fetchUserGames(String nickName) throws Exception {
         return manager.execute(manager -> {
-    		List<Game> games = manager.getGameDAO().findByUserId(userId);
-    		
-    		for (Game game : games) {
-    			List<GamePiece> pieces = manager
-    	    			.getGamePieceDAO()
-    	    			.findByGameId(game.getGameID());
-    	    	game.setGamePieces(pieces);
-			}
-    		
-    		return games;
-    	});
+            List<Game> games = manager.getGameDAO().findAllByNickName(nickName);
+
+            for (Game game : games) {
+                List<GamePiece> pieces = manager
+                        .getGamePieceDAO()
+                        .findByGameId(game.getGameID());
+                game.setGamePieces(pieces);
+            }
+
+            return games;
+        });
     }
 
     @Override
@@ -150,7 +147,6 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void rejectInvitation(long invitationId) throws Exception {
-        Invitation invitation = updateInviteStatus(invitationId, REJECTED);
         deleteInvitation(invitationId);
     }
 
@@ -178,7 +174,7 @@ public class GameServiceImpl implements GameService {
 
             // Update game object with start time, player two ID and status
             game.setGameStart(new Date(System.currentTimeMillis()))
-                    .setPlayerTwoID(invite.getRecipientId())
+                    .setPlayerTwoNickName(invite.getRecipientNickName())
                     .setGameStatus(ONGOING);
 
             // save to DB
@@ -198,42 +194,28 @@ public class GameServiceImpl implements GameService {
             return invitation;
         });
     }
-    
+
     @Override
     public Invitation createInvitation(final String senderNickname, final String receiverNickName, long gameId) throws Exception {
         return manager.executeAtomic(manager -> {
-            // retrieve user ID's
-            long senderId = manager.getUserDAO()
-                    .findByNickName(senderNickname)
-                    .getUserId();
-            long recipientId = manager.getUserDAO()
-                    .findByNickName(receiverNickName)
-                    .getUserId();
-
-           // Create invitation and save.
-           Invitation invite = new Invitation()
-                    .setSenderId(senderId)
+            // Create invitation and save.
+            Invitation invite = new Invitation()
                     .setSenderNickname(senderNickname)
-                    .setRecipientId(recipientId)
+                    .setRecipientNickName(receiverNickName)
                     .setGameId(gameId)
                     .setInvitationStatus(InvitationStatusType.PENDING);
             long inviteId = manager.getInvitationDAO().create(invite);
-            
+
             invite.setInvitationId(inviteId);
-            
+
             return invite;
         });
     }
 
     @Override
     public List<Invitation> getPlayerReceivedInvites(String nickName, InvitationStatusType statusType) throws Exception {
-        return manager.execute(manager -> {
-            long userId = manager.getUserDAO()
-                    .findByNickName(nickName)
-                    .getUserId();
-            return manager.getInvitationDAO()
-                    .findByRecipientId(userId, statusType);
-        });
+        return manager.execute(manager -> manager.getInvitationDAO()
+                .findByRecipientNickName(nickName, statusType));
     }
 
     private List<GamePiece> createPieces() {

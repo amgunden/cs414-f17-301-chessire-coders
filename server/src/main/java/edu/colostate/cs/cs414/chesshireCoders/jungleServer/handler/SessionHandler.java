@@ -4,7 +4,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest;
@@ -20,7 +19,6 @@ import javax.security.auth.login.CredentialException;
 public class SessionHandler extends Listener {
 
     private JungleServer server;
-    private HikariConnectionProvider hikariConnectionProvider = HikariConnectionProvider.getInstance();
     private SessionService sessionService = new SessionServiceImpl();
 
     public SessionHandler(JungleServer server) {
@@ -37,11 +35,11 @@ public class SessionHandler extends Listener {
         if (received instanceof LoginRequest) {
             connection.sendTCP(handleLogin((LoginRequest) received, connection));
         } else if (received instanceof LogoutRequest) {
-            handleLogout((LogoutRequest) received, connection);
+            handleLogout(connection);
         }
     }
 
-    private void handleLogout(LogoutRequest received, Connection connection) {
+    private void handleLogout(Connection connection) {
         try {
             sessionService.expireSession(JungleConnection
                     .class
