@@ -65,6 +65,14 @@ public class GamesModel {
         }
         return null;
     }
+    
+    public boolean hasGame(long gameID) {
+        for (JungleGame jungleGame : currentGames) {
+            if (jungleGame.getGameID() == gameID)
+                return true;
+        }
+        return false;
+    }
 
     public ObservableList<JungleGame> getCurrentGames() {
         return currentGames;

@@ -172,16 +172,14 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     private void handleGameEndedEvent(GameEndedEvent gameEndedEvent) throws IOException {
         long gameID = gameEndedEvent.getGameID();
-        JungleGame game = gamesModel.findById(gameID);
-        if (game != null) {
+        if (gamesModel.hasGame(gameID)) {
             sendGetGame(gameID);
         }
     }
 
     private void handleBoardUpdateEvent(BoardUpdateEvent boardUpdateEvent) throws IOException {
         long gameID = boardUpdateEvent.getGameId();
-        JungleGame game = gamesModel.findById(gameID);
-        if (game != null) {
+         if (gamesModel.hasGame(gameID)) {
             sendGetGame(gameID);
         }
     }
