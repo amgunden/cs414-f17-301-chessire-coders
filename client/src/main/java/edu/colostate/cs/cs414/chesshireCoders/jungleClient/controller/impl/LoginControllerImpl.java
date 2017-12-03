@@ -30,6 +30,7 @@ public class LoginControllerImpl extends BaseController implements LoginControll
 
     @Override
     public void sendLogin(String email, String hashedPassword) throws IOException {
+        accountModel.setLoginSuccess(null);
         client.sendMessage(new LoginRequest(email, hashedPassword));
     }
 

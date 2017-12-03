@@ -59,7 +59,7 @@ public class AccountModel {
         return loginSuccess.getValue() != null && loginSuccess.getValue();
     }
 
-    public AccountModel setLoginSuccess(boolean loginSuccess) {
+    public AccountModel setLoginSuccess(Boolean loginSuccess) {
         this.loginSuccess.setValue(loginSuccess);
         return this;
     }

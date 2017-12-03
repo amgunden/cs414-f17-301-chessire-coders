@@ -33,6 +33,8 @@ public class RegisterControllerImpl extends BaseController implements RegisterCo
      */
     @Override
     public void sendRegistration(String email, String nickname, String hashedPassword) throws IOException {
+        // have to reset the BooleanProperty to null because it will only fire a notification on a change in value.
+        accountModel.setLoginSuccess(null);
         RegisterRequest request = new RegisterRequest();
         request.setEmail(email);
         request.setNickName(nickname);
