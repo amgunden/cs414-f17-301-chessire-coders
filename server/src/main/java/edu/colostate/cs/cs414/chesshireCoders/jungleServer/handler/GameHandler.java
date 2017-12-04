@@ -64,8 +64,9 @@ public class GameHandler extends Listener {
             if (sessionService.validateSessionRequest(received, connection)) {
                 // Quit the game.
                 String notifyUser = gameService.quitGame(jConn.getNickName(), received.getGameId());
-                // Notify the opposing player.
-                server.sendToTCPWithNickName(new GameEndedEvent(received.getGameId()), notifyUser);
+                // Notify the opposing player (if there was one).
+                if (notifyUser != null)
+                    server.sendToTCPWithNickName(new GameEndedEvent(received.getGameId()), notifyUser);
                 // Return a success response.
                 return new QuitGameResponse().setGameId(received.getGameId());
             } else return new QuitGameResponse(UNAUTHORIZED, "You are not authorized to perform this action");

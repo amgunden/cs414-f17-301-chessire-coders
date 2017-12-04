@@ -48,7 +48,7 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     @Override
     public void sendCreateGame() throws IOException {
-        CreateGameRequest request = new CreateGameRequest(AccountModel.getInstance().getToken());
+        CreateGameRequest request = new CreateGameRequest(accountModel.getToken());
         client.sendMessage(request);
     }
 
@@ -59,7 +59,7 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     @Override
     public void sendGetGame(long gameId) throws IOException {
-        GetGameRequest request = new GetGameRequest(AccountModel.getInstance().getToken(), gameId);
+        GetGameRequest request = new GetGameRequest(accountModel.getToken(), gameId);
         client.sendMessage(request);
     }
 
@@ -130,11 +130,9 @@ public class HomeControllerImpl extends BaseController implements HomeController
      */
     private void handleCreateGameResponse(CreateGameResponse response) throws IOException {
         if (response.isSuccess()) {
-            sendGetGame(response.getGameID());
             watchFor(response.getGameID());
-        } else {
-            view.showError("Server failed to create game.");
-        }
+            sendGetGame(response.getGameID());
+        } else view.showError("Server failed to create game.");
     }
 
     private void watchFor(long gameID) {

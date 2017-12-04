@@ -9,7 +9,8 @@ import static javafx.scene.control.Alert.AlertType.ERROR;
 public abstract class BaseView implements Initializable, View {
 
     @Override
-    public void showError(String message) {
+    public void showError(final String message) {
+        System.err.println("[ERROR]: " + message);
         Platform.runLater(() -> {
             Alert alert = new Alert(ERROR);
             alert.setTitle("Error");
