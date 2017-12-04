@@ -14,34 +14,34 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
 
     private RowMapper<Invitation> INVITATION_ROW_MAPPER = rs -> new Invitation()
     		.setInvitationId(rs.getLong("invitation_id"))
-    		.setSenderId(rs.getLong("user_sender_id"))
-            .setRecipientId(rs.getLong("user_recipient_id"))
+            .setSenderNickname(rs.getString("user_sender_nick_name"))
+            .setRecipientNickName(rs.getString("user_recipient_nick_name"))
             .setGameId(rs.getLong("game_id"))
             .setInvitationStatus(InvitationStatusType.valueOf(rs.getString("invite_status")));
 
-    public PostgresInvitationDAO(Connection connection) {
+    PostgresInvitationDAO(Connection connection) {
         super(connection);
     }
 
     @Override
-    public List<Invitation> findBySenderId(long senderId) throws SQLException {
+    public List<Invitation> findBySenderNickName(String nickName) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM invitation WHERE user_sender_id = ?";
-        return query(sql, INVITATION_ROW_MAPPER, senderId);
+        String sql = "SELECT * FROM invitation WHERE user_sender_nick_name = ?";
+        return query(sql, INVITATION_ROW_MAPPER, nickName);
     }
 
     @Override
-    public List<Invitation> findByRecipientId(long recipientId) throws SQLException {
+    public List<Invitation> findByRecipientNIckName(String nickName) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM invitation WHERE user_recipient_id = ?";
-        return query(sql, INVITATION_ROW_MAPPER, recipientId);
+        String sql = "SELECT * FROM invitation WHERE user_recipient_nick_name = ?";
+        return query(sql, INVITATION_ROW_MAPPER, nickName);
     }
 
     @Override
-    public List<Invitation> findByRecipientId(long recipientId, InvitationStatusType statusType) throws SQLException {
+    public List<Invitation> findByRecipientNickName(String nickName, InvitationStatusType statusType) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM invitation WHERE user_recipient_id = ? AND invite_status = ?";
-        return query(sql, INVITATION_ROW_MAPPER, recipientId, statusType.name());
+        String sql = "SELECT * FROM invitation WHERE user_recipient_nick_name = ? AND invite_status = ?";
+        return query(sql, INVITATION_ROW_MAPPER, nickName, statusType.name());
     }
 
     @Override
@@ -56,15 +56,14 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
      *
      * @param invitation The object to add
      * @return The primary key of the added object.
-     * @throws SQLException
      */
     @Override
     public Long create(Invitation invitation) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO invitation (user_sender_id, user_recipient_id, game_id, invite_status) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO invitation (user_sender_nick_name, user_recipient_nick_name, game_id, invite_status) VALUES (?,?,?,?)";
         return add(sql, Long.class,
-                invitation.getSenderId(),
-                invitation.getRecipientId(),
+                invitation.getSenderNickname(),
+                invitation.getRecipientNickName(),
                 invitation.getGameId(),
                 invitation.getInvitationStatus().name());
     }
@@ -74,7 +73,6 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
      *
      * @param invitationsId primary key of row to select
      * @return Object corresponding to the selected row, or null on no result.
-     * @throws SQLException
      */
     @Override
     public Invitation findByPrimaryKey(Long invitationsId) throws SQLException {
@@ -88,7 +86,6 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
      * Returns all rows in the table.
      *
      * @return A list of all rows (be careful!)
-     * @throws SQLException
      */
     @Override
     public List<Invitation> findAll() throws SQLException {
@@ -102,7 +99,6 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
      *
      * @param invitation object to update
      * @return rows affected (should only be 1)
-     * @throws SQLException
      */
     @Override
     public int update(Invitation invitation) throws SQLException {
@@ -116,7 +112,6 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
      *
      * @param invitationId Primary key
      * @return rows affected (should only be 1)
-     * @throws SQLException
      */
     @Override
     public int delete(Long invitationId) throws SQLException {
@@ -135,7 +130,7 @@ public class PostgresInvitationDAO extends BaseDAO<Invitation, Long> implements 
      * @return rows affected.
      */
     @Override
-    public int delete(Invitation invitation) throws SQLException {
+    public int delete(Invitation invitation) {
         throw new UnsupportedOperationException("Currently unimplemented");
     }
 }

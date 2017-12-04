@@ -2,20 +2,12 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game;
 
 public class User {
 
-    private long userId;
     private String nameFirst;
     private String nameLast;
     private String nickName;
-    private boolean registered;
+    private boolean registered = true;
 
     public User() {
-    }
-
-    public User(int userId, String nameFirst, String nameLast, String nickName) {
-        this.userId = userId;
-        this.nameFirst = nameFirst;
-        this.nameLast = nameLast;
-        this.nickName = nickName;
     }
 
     public User(String nameFirst, String nameLast, String nickName) {
@@ -33,16 +25,6 @@ public class User {
         this.nameFirst = user.nameFirst;
         this.nameLast = user.nameLast;
         this.nickName = user.nickName;
-        this.userId = user.userId;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public User setUserId(long userId) {
-        this.userId = userId;
-        return this;
     }
 
     public String getNameFirst() {

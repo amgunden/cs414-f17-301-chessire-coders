@@ -1,14 +1,8 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
-import org.junit.Test;
-
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerColor;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 

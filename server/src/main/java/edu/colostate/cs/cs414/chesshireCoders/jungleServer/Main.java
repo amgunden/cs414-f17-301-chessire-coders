@@ -1,8 +1,10 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 
-import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.*;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar;
 
@@ -45,6 +47,7 @@ public final class Main {
 
             // Initialize the database datasource object
             HikariConnectionProvider.initialize(getDataSourceProperties(properties));
+            Runtime.getRuntime().addShutdownHook(new Thread(HikariConnectionProvider::shutdown));
 
             // Create and start the server.
             server = new JungleServer();
@@ -132,7 +135,6 @@ public final class Main {
         server.addListener(new Listener.ThreadedListener(new GameHandler(server), executorService));
         server.addListener(new Listener.ThreadedListener(new RegistrationHandler(server), executorService));
         server.addListener(new Listener.ThreadedListener(new SessionHandler(server), executorService));
-//        server.addListener(new Listener.ThreadedListener(new UserHandler(server), executorService));
         server.addListener(new Listener.ThreadedListener(new InvitationHandler(server)));
 
         // Add a shutdown hook to allow any running threads to end gracefully.

@@ -1,7 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public abstract class JungleGamePiece extends GamePiece{
@@ -68,9 +67,7 @@ public abstract class JungleGamePiece extends GamePiece{
 			if (square.getPiece().getPowerLevel() > this.getPowerLevel()) {
 				return false;
 			}
-			if (square.getPiece().getPlayerOwner() == this.getPlayerOwner()) {
-				return false;
-			}
+            return square.getPiece().getPlayerOwner() != this.getPlayerOwner();
 		}
 		
 		return true;

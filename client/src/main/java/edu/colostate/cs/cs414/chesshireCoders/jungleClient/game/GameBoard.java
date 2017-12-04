@@ -1,11 +1,12 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class GameBoard {
 
@@ -283,5 +284,17 @@ public class GameBoard {
 			
 		return 0;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		GameBoard gameBoard = (GameBoard) o;
+		return Arrays.equals(boardSquares, gameBoard.boardSquares);
+	}
+
+	@Override
+	public int hashCode() {
+		return Arrays.hashCode(boardSquares);
+	}
 }

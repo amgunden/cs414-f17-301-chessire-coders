@@ -1,14 +1,15 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.game;
 
-import java.util.List;
-
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.app.App;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.client.GamesManager;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.network.UpdateGameHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
+
+import java.util.List;
+import java.util.Objects;
+
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.*;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
 public class JungleGame extends Game {
 
@@ -26,10 +27,10 @@ public class JungleGame extends Game {
 		setGamePieces(game.getGamePieces());
 		setGameStart(game.getGameStart());
 		setGameStatus(game.getGameStatus());
-		setPlayerOneID(game.getPlayerOneID());
-		setPlayerTwoID(game.getPlayerTwoID());
+        setPlayerOneNickName(game.getPlayerOneNickName());
+        setPlayerTwoNickName(game.getPlayerTwoNickName());
 		setTurnOfPlayer(game.getTurnOfPlayer());
-        board = new GameBoard(getGamePieces()); // TODO initialize with pieces in game.
+        board = new GameBoard(getGamePieces());
 	}
 
     public JungleGame(int gameID) {
@@ -40,7 +41,7 @@ public class JungleGame extends Game {
 	public boolean canMovePieceAt(int row, int column) {
         boolean result = false;
 
-        if (this.getGameStatus() == GameStatus.ONGOING && this.getTurnOfPlayer() == viewingPlayer && board.getPieceAt(row, column) != null) {
+        if (this.getGameStatus() == ONGOING && this.getTurnOfPlayer() == viewingPlayer && board.getPieceAt(row, column) != null) {
             if (board.getPieceAt(row, column).getPlayerOwner() == viewingPlayer) {
                 result = true;
             }
@@ -49,63 +50,53 @@ public class JungleGame extends Game {
         return result;
     }
 
-    public void endGame() {
-
-    }
-
     public int[] getValidMoves(int row, int column) {
         return board.getValidMoves(row, column);
     }
 
-    public PlayerEnumType getViewingPlayer() {
+    private PlayerEnumType getViewingPlayer() {
 		return viewingPlayer;
 	}
 
-    public PlayerEnumType getWinner() {
+    private PlayerEnumType getWinner() {
 		List<GamePiece> pieces = getGamePieces();
 		int p1Pieces = 0;
 		int p2Pieces = 0;
-    	
-		for (int i = 0; i < pieces.size(); i++) {
-			if (pieces.get(i).getPlayerOwner() == PlayerEnumType.PLAYER_ONE) {
-				if (pieces.get(i).getRow() == 8 && pieces.get(i).getColumn()==3)
-					return PlayerEnumType.PLAYER_ONE;
-				p1Pieces++;
-			} else {
-				if (pieces.get(i).getRow() == 0 && pieces.get(i).getColumn()==3)
-					return PlayerEnumType.PLAYER_TWO;
-				p2Pieces++;
-			}
-		}
+
+        for (GamePiece piece : pieces) {
+            if (piece.getPlayerOwner() == PLAYER_ONE) {
+                if (piece.getRow() == 8 && piece.getColumn() == 3)
+                    return PLAYER_ONE;
+                p1Pieces++;
+            } else {
+                if (piece.getRow() == 0 && piece.getColumn() == 3)
+                    return PLAYER_TWO;
+                p2Pieces++;
+            }
+        }
 		
     	if(p2Pieces == 0) {
-			return PlayerEnumType.PLAYER_ONE;
+            return PLAYER_ONE;
 		} else if(p1Pieces == 0) {
-			return PlayerEnumType.PLAYER_TWO;
+            return PLAYER_TWO;
 		}
 		return null;
 	}
 
     public boolean hasWinner() {
-        return false;
+        return getGameStatus() == WINNER_PLAYER_ONE || getGameStatus() == WINNER_PLAYER_TWO;
     }
 
     public void movePiece(int[] from, int[] to) {
         board.movePiece(from, to);
         setGamePieces(JungleGamePieceFactory.castPiecesUp(board.getPieces()));
-        setTurnOfPlayer((getTurnOfPlayer()==PlayerEnumType.PLAYER_ONE) ? PlayerEnumType.PLAYER_TWO : PlayerEnumType.PLAYER_ONE);
-        
-        if (getWinner() == PlayerEnumType.PLAYER_ONE) {
-        	setGameStatus(GameStatus.WINNER_PLAYER_ONE);
-        } else if (getWinner() == PlayerEnumType.PLAYER_TWO) {
-        	setGameStatus(GameStatus.WINNER_PLAYER_TWO);
-        }
-        
-        GamesManager.getInstance().updateGame(this);
-    }
+        setTurnOfPlayer((getTurnOfPlayer() == PLAYER_ONE) ? PLAYER_TWO : PLAYER_ONE);
 
-    public void quitGame() {
-        //This method should remove the user requesting it, if the game is not over that user officially loses the game.
+        if (getWinner() == PLAYER_ONE) {
+            setGameStatus(WINNER_PLAYER_ONE);
+        } else if (getWinner() == PLAYER_TWO) {
+            setGameStatus(WINNER_PLAYER_TWO);
+        }
     }
 
 	public void setViewingPlayer(PlayerEnumType viewingPlayer) {
@@ -119,11 +110,40 @@ public class JungleGame extends Game {
 	
     @Override
     public String toString() {
-        return Long.toString(getGameID());
+
+        String opposingPlayer = this.viewingPlayer == PLAYER_ONE ? getPlayerTwoNickName() : getPlayerOneNickName();
+
+        if (getGameStatus() == PENDING) {
+            return String.format("%d - PENDING", getGameID());
+        } else if (getGameStatus() == ONGOING) {
+            String turnString = String.format("(%s turn)", this.viewingPlayer == getTurnOfPlayer() ? "your" : "their");
+            return String.format("%d - VS. %s %s", getGameID(), opposingPlayer, turnString);
+        } else if (getGameStatus() == WINNER_PLAYER_ONE || getGameStatus() == WINNER_PLAYER_TWO) {
+            String winner = getGameStatus() == WINNER_PLAYER_ONE ? getPlayerOneNickName() : getPlayerTwoNickName();
+            return String.format("%d - VS. %s (WINNER: %s)", getGameID(), opposingPlayer, winner);
+        } else { // Draw
+            return String.format("%d - VS. %s (DRAW)", getGameID(), opposingPlayer);
+        }
     }
     
     private void setBoard(List<GamePiece> pieces)
     {
-    	this.board.setUpBoard(pieces);;
+        this.board.setUpBoard(pieces);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        JungleGame that = (JungleGame) o;
+        return Objects.equals(board, that.board) &&
+                getViewingPlayer() == that.getViewingPlayer();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), board, getViewingPlayer());
     }
 }

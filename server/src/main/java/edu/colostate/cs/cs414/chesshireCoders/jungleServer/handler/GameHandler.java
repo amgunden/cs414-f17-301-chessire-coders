@@ -14,9 +14,11 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.QuitGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 
@@ -29,7 +31,6 @@ public class GameHandler extends Listener {
     private SessionService sessionService = new SessionServiceImpl();
 
     public GameHandler() {
-
     }
 
     public GameHandler(JungleServer server) {
@@ -45,6 +46,8 @@ public class GameHandler extends Listener {
                 connection.sendTCP(handleGetGame((GetGameRequest) received, connection));
             } else if (received instanceof UpdateGameRequest) {
                 connection.sendTCP(handleUpdateGame((UpdateGameRequest) received, connection));
+            } else if (received instanceof QuitGameRequest) {
+                connection.sendTCP(handleQuitGameRequest((QuitGameRequest) received, connection));
             }
         } catch (Exception e) {
             connection.sendTCP(new CreateGameResponse(SERVER_ERROR, e.getMessage()));
@@ -53,24 +56,53 @@ public class GameHandler extends Listener {
     }
 
     /**
+     * Handle a request to quit a game.
+     */
+    private QuitGameResponse handleQuitGameRequest(QuitGameRequest received, Connection connection) {
+        JungleConnection jConn = JungleConnection.class.cast(connection);
+        try {
+            if (sessionService.validateSessionRequest(received, connection)) {
+                // Quit the game.
+                String notifyUser = gameService.quitGame(jConn.getNickName(), received.getGameId());
+                // Notify the opposing player (if there was one).
+                if (notifyUser != null)
+                    server.sendToTCPWithNickName(new GameEndedEvent(received.getGameId()), notifyUser);
+                // Return a success response.
+                return new QuitGameResponse().setGameId(received.getGameId());
+            } else return new QuitGameResponse(UNAUTHORIZED, "You are not authorized to perform this action");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new QuitGameResponse(SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    /**
      * Update the stored game board
      */
     private UpdateGameResponse handleUpdateGame(UpdateGameRequest received, Connection connection) {
-        JungleConnection jungleConnection = JungleConnection.class.cast(connection);
+        JungleConnection jConn = JungleConnection.class.cast(connection);
         try {
             if (sessionService.validateSessionRequest(received, connection)) {
 
                 Game game = received.getGame();
-                long sendingUserId = jungleConnection.getUserId();
-                gameService.updateGame(sendingUserId, game);
+                String sendingUser = jConn.getNickName();
+                gameService.updateGame(sendingUser, game);
 
-                // notify opposing player
-                long receivingUserId = (sendingUserId == received.getGame().getPlayerOneID()) ? received.getGame().getPlayerTwoID() : received.getGame().getPlayerOneID();
-                
+                // Opposing player nick name
+                String playerToUpdate;
+
+                // If sending player is p1, get nickname of p2
+                if (sendingUser.equals(game.getPlayerOneNickName()))
+                    playerToUpdate = game.getPlayerTwoNickName();
+
+                    // if sending player is p2, get nickname of p1
+                else playerToUpdate = game.getPlayerOneNickName();
+
                 if (game.getGameStatus() == GameStatus.ONGOING) {
-                	server.sendToTCPWithUserId(new BoardUpdateEvent(game.getGameID()), receivingUserId);
-                } else {
-                	server.sendToTCPWithUserId(new GameEndedEvent(game.getGameID()), receivingUserId);
+                    server.sendToTCPWithNickName(new BoardUpdateEvent(game.getGameID()), playerToUpdate);
+                } else if (game.getGameStatus() == GameStatus.WINNER_PLAYER_ONE
+                        || game.getGameStatus() == GameStatus.WINNER_PLAYER_TWO) {
+                    server.sendToTCPWithNickName(new GameEndedEvent(game.getGameID()), playerToUpdate);
                 }
 
                 return new UpdateGameResponse(); // Defaults to success

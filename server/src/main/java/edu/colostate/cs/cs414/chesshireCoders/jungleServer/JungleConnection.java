@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.FrameworkMessage;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +14,6 @@ public class JungleConnection extends Connection {
     private AuthToken authToken;
 
     private String nickName; // The nickname of the user this connection is associated with.
-    private long userId;
 
     public JungleConnection() {
         super();
@@ -24,8 +24,7 @@ public class JungleConnection extends Connection {
                 && (authToken != null);
     }
 
-    public void authorize(long userId, String nickName, AuthToken authToken) {
-        this.userId = userId;
+    public void authorize(String nickName, AuthToken authToken) {
         this.authToken = authToken;
         this.nickName = nickName;
     }
@@ -56,9 +55,5 @@ public class JungleConnection extends Connection {
     public JungleConnection setNickName(String nickName) {
         this.nickName = nickName;
         return this;
-    }
-
-    public long getUserId() {
-        return userId;
     }
 }

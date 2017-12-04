@@ -12,44 +12,46 @@ import java.util.List;
 /**
  * A class for pushing/pulling information about Login's from the database.
  */
-public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
+public class PostgresLoginDAO extends BaseDAO<Login, String> implements LoginDAO {
 
     private static final RowMapper<Login> LOGIN_ROW_MAPPER = rs -> {
         Login login = new Login();
-        login.setUserID(rs.getInt("user_id"));
+        login.setNickName(rs.getString("nick_name"));
         login.setEmail(rs.getString("email"));
         login.setHashedPass(rs.getString("hashed_pass"));
         login.setIsLocked(rs.getBoolean("account_locked"));
         return login;
     };
 
-    public PostgresLoginDAO(Connection connection) {
+    PostgresLoginDAO(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Login findByPrimaryKey(Long userId) throws SQLException {
+    public Login findByPrimaryKey(String email) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT *\n" +
                 "FROM login\n" +
-                "WHERE login.user_id = ?";
-        return query(sql, LOGIN_ROW_MAPPER, userId).get(0);
-    }
-
-    public Login findByEmail(String email) throws SQLException {
-        //language=PostgreSQL
-        String sql = "SELECT *\n" +
-                "FROM login\n" +
-                "WHERE login.email = ?";
+                "WHERE email = ?";
         List<Login> logins = query(sql, LOGIN_ROW_MAPPER, email);
         return logins.isEmpty() ? null : logins.get(0);
     }
 
     @Override
-    public Long create(Login login) throws SQLException {
+    public Login findByNickName(String nickName) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO login (user_id, email, hashed_pass) VALUES (?, ?, ?)";
-        return add(sql, Long.class, login.getUserID(), login.getEmail(), login.getHashedPass());
+        String sql = "SELECT *\n" +
+                "FROM login\n" +
+                "WHERE nick_name = ?";
+        List<Login> logins = query(sql, LOGIN_ROW_MAPPER, nickName);
+        return logins.isEmpty() ? null : logins.get(0);
+    }
+
+    @Override
+    public String create(Login login) throws SQLException {
+        //language=PostgreSQL
+        String sql = "INSERT INTO login (nick_name, email, hashed_pass) VALUES (?, ?, ?)";
+        return add(sql, String.class, login.getNickName(), login.getEmail(), login.getHashedPass());
     }
 
     @Override
@@ -69,15 +71,14 @@ public class PostgresLoginDAO extends BaseDAO<Login, Long> implements LoginDAO {
     /**
      * Deletes a single row from the database using the rows primary key.
      *
-     * @param aLong Primary key
+     * @param email Primary key
      * @return rows affected (should only be 1)
-     * @throws SQLException
      */
     @Override
-    public int delete(Long aLong) throws SQLException {
+    public int delete(String email) throws SQLException {
         //language=PostgreSQL
-        String sql = "DELETE FROM login WHERE user_id = ?";
-        return modify(sql, aLong);
+        String sql = "DELETE FROM login WHERE email = ?";
+        return modify(sql, email);
     }
 
 

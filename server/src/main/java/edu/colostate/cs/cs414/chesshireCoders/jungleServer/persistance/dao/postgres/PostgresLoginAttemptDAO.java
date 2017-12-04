@@ -15,14 +15,14 @@ public class PostgresLoginAttemptDAO extends BaseDAO<LoginAttempt, Long>
 
     private static RowMapper<LoginAttempt> LOGIN_ATTEMPT_ROW_MAPPER = rs -> null;
 
-    public PostgresLoginAttemptDAO(Connection connection) {
+    PostgresLoginAttemptDAO(Connection connection) {
         super(connection);
     }
 
     @Override
     public LoginAttempt findByPrimaryKey(Long pk) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM login_attempt WHERE user_id = ?";
+        String sql = "SELECT * FROM login_attempt WHERE login_attempt_id = ?";
         return query(sql, LOGIN_ATTEMPT_ROW_MAPPER, pk).get(0);
     }
 
@@ -35,8 +35,8 @@ public class PostgresLoginAttemptDAO extends BaseDAO<LoginAttempt, Long>
     @Override
     public Long create(LoginAttempt loginAttempt) throws SQLException {
         //language=PostgreSQL
-        String sql = "INSERT INTO login_attempt (login_attempt_time, login_successful, user_id) VALUES (?, ?, ?)";
-        return add(sql, Long.class, loginAttempt.getAttemptTime(), loginAttempt.isSuccessful(), loginAttempt.getUserId());
+        String sql = "INSERT INTO login_attempt (login_attempt_time, login_successful, nick_name) VALUES (?, ?, ?)";
+        return add(sql, Long.class, loginAttempt.getAttemptTime(), loginAttempt.isSuccessful(), loginAttempt.getNickName());
     }
 
     @Override
@@ -44,44 +44,45 @@ public class PostgresLoginAttemptDAO extends BaseDAO<LoginAttempt, Long>
         //language=PostgreSQL
         String sql = "UPDATE login_attempt\n" +
                 "SET login_attempt_time = ?, login_successful = ?\n" +
-                "WHERE user_id = ?";
-        return modify(sql, loginAttempt.getAttemptTime(), loginAttempt.isSuccessful());
+                "WHERE nick_name = ?";
+        return modify(sql, loginAttempt.getAttemptTime(), loginAttempt.isSuccessful(), loginAttempt.getNickName());
     }
 
     /**
      * Deletes a single row from the database using the rows primary key.
      *
-     * @param aLong Primary key
+     * @param loginAttemptId Primary key
      * @return rows affected (should only be 1)
-     * @throws SQLException
      */
     @Override
-    public int delete(Long aLong) throws SQLException {
-        throw new UnsupportedOperationException();
+    public int delete(Long loginAttemptId) throws SQLException {
+        //language=PostgreSQL
+        String sql = "DELETE FROM login_attempt WHERE login_attempt_id = ?";
+        return modify(sql, loginAttemptId);
     }
 
     @Override
     public int delete(LoginAttempt loginAttempt) throws SQLException {
         //language=PostgreSQL
-        String sql = "DELETE FROM \"user\" WHERE user_id = ?";
-        return modify(sql, loginAttempt.getUserId());
+        String sql = "DELETE FROM login_attempt WHERE login_attempt_id = ?";
+        return modify(sql, loginAttempt.getLoginAttemptId());
     }
 
     @Override
-    public int getUnsuccessfulAttemptsSince(Date date) throws SQLException {
+    public int getUnsuccessfulAttemptsSince(Date date, String nickName) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT COUNT(*) AS count\n" +
                 "FROM login_attempt\n" +
-                "WHERE login_attempt_time > ? AND login_successful = FALSE";
-        return count(sql, date);
+                "WHERE (login_attempt_time > ? AND login_successful = FALSE) AND nick_name = ?";
+        return count(sql, date, nickName);
     }
 
     @Override
-    public int getSuccessfulAttemptsSince(Date date) throws SQLException {
+    public int getSuccessfulAttemptsSince(Date date, String nickName) throws SQLException {
         //language=PostgreSQL
         String sql = "SELECT COUNT(*) AS count\n" +
                 "FROM login_attempt\n" +
-                "WHERE login_attempt_time > ? AND login_successful = TRUE";
-        return count(sql, date);
+                "WHERE (login_attempt_time > ? AND login_successful = TRUE) AND nick_name = ?";
+        return count(sql, date, nickName);
     }
 }

@@ -6,7 +6,7 @@ public interface RegistrationService {
 
     void registerUser(String nickName, String email, String hashedPassword) throws Exception;
 
-    void unregisterUser(long userId) throws Exception;
+    void unregisterUser(String nickName) throws Exception;
 
     boolean isRegistered(String email) throws Exception;
 

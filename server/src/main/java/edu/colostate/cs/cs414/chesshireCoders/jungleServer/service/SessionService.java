@@ -10,11 +10,11 @@ public interface SessionService {
 
     void expireSession(String token) throws Exception;
 
-    boolean isAccountLocked(String email);
-
     boolean isConnectionAuthorized(Connection connection) throws Exception;
 
     boolean isExpired(Connection connection) throws Exception;
 
     boolean validateSessionRequest(SessionRequest request, Connection connection) throws Exception;
+
+    boolean isAccountLocked(String nickName) throws Exception;
 }

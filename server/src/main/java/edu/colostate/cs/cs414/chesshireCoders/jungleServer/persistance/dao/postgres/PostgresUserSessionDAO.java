@@ -19,12 +19,12 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
                 .setExpiration(new Date(rs.getTimestamp("expires_on").getTime()));
         return new UserSession()
                 .setIpAddress(rs.getString("ip_address"))
-                .setUserId(rs.getLong("user_id"))
+                .setNickName(rs.getString("nick_name"))
                 .setSessionNumber(rs.getLong("session_id"))
                 .setAuthToken(token);
     };
 
-    public PostgresUserSessionDAO(Connection connection) {
+    PostgresUserSessionDAO(Connection connection) {
         super(connection);
     }
 
@@ -48,13 +48,13 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
                 "  ip_address,\n" +
                 "  auth_token,\n" +
                 "  expires_on,\n" +
-                "  user_id\n" +
+                "  nick_name\n" +
                 ") VALUES (?, ?, ?, ?)";
         return add(sql, Long.class,
                 userSession.getIpAddress(),
                 userSession.getAuthToken().getToken(),
                 userSession.getAuthToken().getExpiration(),
-                userSession.getUserId());
+                userSession.getNickName());
     }
 
     @Override
@@ -62,28 +62,31 @@ public class PostgresUserSessionDAO extends BaseDAO<UserSession, Long> implement
         //language=PostgreSQL
         String sql = "UPDATE user_session\n" +
                 "SET auth_token = ?, expires_on = ?\n" +
-                "WHERE user_id = ?";
+                "WHERE nick_name = ?";
         return modify(sql,
                 userSession.getAuthToken().getToken(),
                 userSession.getAuthToken().getExpiration(),
-                userSession.getUserId());
+                userSession.getNickName());
     }
 
     /**
      * Deletes a single row from the database using the rows primary key.
      *
-     * @param aLong Primary key
+     * @param pk Primary key
      * @return rows affected (should only be 1)
-     * @throws SQLException
      */
     @Override
-    public int delete(Long aLong) throws SQLException {
-        return 0;
+    public int delete(Long pk) throws SQLException {
+        //language=PostgreSQL
+        String sql = "DELETE FROM user_session WHERE session_id = ?";
+        return modify(sql, pk);
     }
 
     @Override
     public int delete(UserSession userSession) throws SQLException {
-        throw new UnsupportedOperationException();
+        //language=PostgreSQL
+        String sql = "DELETE FROM user_session WHERE session_id = ?";
+        return modify(sql, userSession.getSessionNumber());
     }
 
     @Override
