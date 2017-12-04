@@ -24,6 +24,14 @@ public class HikariConnectionProvider implements ConnectionProvider {
         return db;
     }
 
+    public static synchronized void shutdown() {
+        if (db != null) db.close();
+    }
+
+    private void close() {
+        dataSource.close();
+    }
+
     public static synchronized void initialize(Properties properties) {
         db = new HikariConnectionProvider(properties);
     }
