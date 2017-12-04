@@ -119,6 +119,12 @@ public abstract class BaseDAO<T, PK extends Serializable> {
                 statement.setString(parameterIndex, ((InvitationStatusType) parameter).name());
             } else if (parameter instanceof GameStatus) {
                 statement.setString(parameterIndex, ((GameStatus) parameter).name());
+            } else if (parameter instanceof GameStatus[]) {
+            	GameStatus[] statusArray = (GameStatus[]) parameter;
+            	for (int j = 0; j < statusArray.length; j++) {
+                    statement.setString(parameterIndex+j, (statusArray[i]).name());
+				}
+            	i += statusArray.length - 1;
             } else {
                 throw new IllegalArgumentException(String.format(
                         "Unknown type of the parameter is found. [param: %s, paramIndex: %s]",

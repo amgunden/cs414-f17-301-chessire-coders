@@ -13,16 +13,20 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetActiveGamesRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.QuitGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetActiveGamesResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.*;
+
+import java.util.List;
 
 public class GameHandler extends Listener {
 
@@ -133,7 +137,7 @@ public class GameHandler extends Listener {
     }
 
     /**
-     * facilitates the retrieval of the requested game
+     * Facilitates the retrieval of the requested game
      */
     private GetGameResponse handleGetGame(GetGameRequest received, Connection connection) {
         try {
@@ -144,6 +148,23 @@ public class GameHandler extends Listener {
         } catch (Exception e) {
             e.printStackTrace();
             return new GetGameResponse(SERVER_ERROR, e.getMessage());
+        }
+    }
+    
+    /**
+     * Facilitates the retrieval of the requested game
+     */
+    private GetActiveGamesResponse handleGetActiveGames(GetActiveGamesRequest received, Connection connection) {
+        JungleConnection jConn = JungleConnection.class.cast(connection);
+    	try {
+            if (sessionService.validateSessionRequest(received, connection)) {
+            	
+                List<Game> games = gameService.fetchUserGames(jConn.getNickName());
+                return new GetActiveGamesResponse().setGames(games);
+            } else return new GetActiveGamesResponse(UNAUTHORIZED, "You are not authorized to perform this action");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new GetActiveGamesResponse(SERVER_ERROR, e.getMessage());
         }
     }
 }
