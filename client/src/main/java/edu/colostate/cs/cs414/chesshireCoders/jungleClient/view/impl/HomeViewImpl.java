@@ -63,7 +63,6 @@ public class HomeViewImpl extends BaseView {
 
     // Get controller instances
     private final HomeController controller = ControllerFactory.getHomeController(this);
-    private ListProperty<JungleGame> gameListProperty = new SimpleListProperty<>();
     private ListProperty<Invitation> inviteListProperty = new SimpleListProperty<>();
     // Get model instances
     private AccountModel accountModel = AccountModel.getInstance();
@@ -158,7 +157,11 @@ public class HomeViewImpl extends BaseView {
         gamesList.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) reloadActiveGame(newValue);
+                    if (newValue != null) {
+                        gamesModel.setActiveGame(newValue);
+                        reloadActiveGame();
+                        selectActiveGame();
+                    }
                 });
     }
 
@@ -184,20 +187,23 @@ public class HomeViewImpl extends BaseView {
     private void listenForActiveGameChange() {
         gamesModel.getActiveGameProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
             if (newValue != null) {
-                reloadActiveGame(newValue);
+                reloadActiveGame();
                 selectActiveGame();
             } else borderPane.setCenter(null);
         }));
     }
 
     private void selectActiveGame() {
-        int index = gamesList.getItems().indexOf(gamesModel.getActiveGame());
-        gamesList.requestFocus();
-        gamesList.getSelectionModel().select(index);
-        gamesList.getFocusModel().focus(index);
+        JungleGame game = gamesModel.getActiveGame();
+        if (game != null) {
+            int index = gamesList.getItems().indexOf(game);
+            gamesList.requestFocus();
+            gamesList.getSelectionModel().select(index);
+            gamesList.getFocusModel().focus(index);
+        }
     }
 
-    private void reloadActiveGame(final JungleGame game) {
+    private void reloadActiveGame() {
         Node board;
         try {
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
@@ -210,7 +216,7 @@ public class HomeViewImpl extends BaseView {
             GameBoardViewImpl gameBoardView = loader.getController();
 
             // Set the game to load
-            gameBoardView.setGame(game);
+            gameBoardView.setGame(gamesModel.getActiveGame());
 
             // Set data in the controller
             borderPane.setCenter(board);

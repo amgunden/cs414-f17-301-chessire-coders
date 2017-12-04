@@ -7,6 +7,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,24 +61,32 @@ public class RegisterViewImpl extends BaseView {
     private final AccountModel accountModel = AccountModel.getInstance();
     private final RegisterController controller = ControllerFactory.getRegisterController(this);
 
+    private final ChangeListener<Boolean> loginSuccessListener = (observable, oldValue, newValue) -> {
+        if (newValue != null && newValue) registrationSuccess();
+        else if (newValue != null) registrationFailure();
+    };
+
     public void initialize(URL location, ResourceBundle resources) {
         listenForRegisterSuccess();
     }
 
     private void listenForRegisterSuccess() {
-        accountModel.loginSuccessProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && newValue) registrationSuccess();
-            else if (newValue != null) registrationFailure();
-        });
+        accountModel.loginSuccessProperty().addListener(loginSuccessListener);
     }
 
     @FXML
     private void loginClicked() {
         try {
+            cleanup();
             App.setScene("loginPage.fxml");
         } catch (IOException e) {
             showError("ERROR: Unable to load fxml file for Login page.");
         }
+    }
+
+    private void cleanup() {
+        accountModel.loginSuccessProperty().removeListener(loginSuccessListener);
+        controller.dispose();
     }
 
     @FXML
@@ -108,7 +117,7 @@ public class RegisterViewImpl extends BaseView {
     private void registrationSuccess() {
         Platform.runLater(() -> {
             try {
-                controller.dispose();
+                cleanup();
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/homePage.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
@@ -120,9 +129,7 @@ public class RegisterViewImpl extends BaseView {
     }
 
     private void registrationFailure() {
-        Platform.runLater(() -> {
-            flowPane.setDisable(false);
-        });
+        Platform.runLater(() -> flowPane.setDisable(false));
     }
 
     boolean validateRegistrationInfo() {

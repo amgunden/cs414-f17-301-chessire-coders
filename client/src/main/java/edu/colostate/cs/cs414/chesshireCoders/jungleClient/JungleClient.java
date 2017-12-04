@@ -52,25 +52,8 @@ public class JungleClient {
      * Connects the client to a server.
      */
     public void connect() throws IOException {
-        if (!isConnected()) {
-            new Thread(() -> {
-                try {
-                    client.start();
-                    client.connect(timeout, hostName, listenPort);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
-            for (int i = 0; i < 10; ++i) {
-                try {
-                    if (isConnected()) return;
-                    else Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (!isConnected()) throw new IOException("Connection to server failed.");
-        }
+        client.start();
+        client.connect(timeout, hostName, listenPort);
     }
 
     public boolean isConnected() {

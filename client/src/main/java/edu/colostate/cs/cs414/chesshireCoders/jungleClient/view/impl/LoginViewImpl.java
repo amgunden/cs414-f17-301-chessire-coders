@@ -8,7 +8,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,35 +40,28 @@ public class LoginViewImpl extends BaseView {
     private final AccountModel accountModel = AccountModel.getInstance();
     private final LoginController controller = ControllerFactory.getLoginController(this);
 
+    private final ChangeListener<Boolean> loginSuccessListener = (observable, oldValue, newValue) -> {
+        if (newValue != null && newValue) loginSuccess();
+        else if (newValue != null) loginFailure();
+    };
+
     public void initialize(URL location, ResourceBundle resources) {
         App.getWindow().setResizable(false);
-
         listenForLoginSuccess();
     }
 
     private void listenForLoginSuccess() {
-        accountModel.loginSuccessProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue != null && newValue) {
-                    loginSuccess();
-                } else if (newValue != null) {
-                    loginFailure();
-                }
-            }
-        });
+        accountModel.loginSuccessProperty().addListener(loginSuccessListener);
     }
 
     private void loginFailure() {
-        Platform.runLater(() -> {
-            btnLogin.setDisable(false);
-        });
+        Platform.runLater(() -> btnLogin.setDisable(false));
     }
 
     private void loginSuccess() {
         Platform.runLater(() -> {
             try {
-                controller.dispose();
+                cleanup();
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/homePage.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
@@ -104,10 +96,16 @@ public class LoginViewImpl extends BaseView {
     @FXML
     public void registerClicked() {
         try {
+            cleanup();
             App.setScene("registerPage.fxml");
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Register page.");
         }
+    }
+
+    private void cleanup() {
+        accountModel.loginSuccessProperty().removeListener(loginSuccessListener);
+        controller.dispose();
     }
 
     boolean validateEmailAddress() {

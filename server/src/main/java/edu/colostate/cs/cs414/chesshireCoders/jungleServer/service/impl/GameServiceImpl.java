@@ -152,16 +152,18 @@ public class GameServiceImpl implements GameService {
             Game game = gameDAO.findByPrimaryKey(gameId);
             if (game == null) throw new Exception("Could not find game.");
 
-            // Determine who should win (quitter loses)
-            GameStatus status = game.getPlayerOneNickName().equals(sendingNickName) ? WINNER_PLAYER_TWO : WINNER_PLAYER_ONE;
-
-            // Update and save the game
-            game.setGameStatus(status);
-            game.setGameEnd(new Date(System.currentTimeMillis()));
-            gameDAO.update(game);
-
             // Delete all referencing pieces, they are not longer needed.
             gamePieceDAO.deleteByGameId(gameId);
+
+            if (game.getGameStatus() != PENDING) {
+                // Determine who should win (quitter loses)
+                GameStatus status = game.getPlayerOneNickName().equals(sendingNickName) ? WINNER_PLAYER_TWO : WINNER_PLAYER_ONE;
+
+                // Update and save the game
+                game.setGameStatus(status);
+                game.setGameEnd(new Date(System.currentTimeMillis()));
+                gameDAO.update(game);
+            } else gameDAO.delete(gameId);
 
             // Return the nickname of the player who needs to be notified of the game quit
             return sendingNickName.equals(game.getPlayerOneNickName())
