@@ -46,6 +46,8 @@ public class GameHandler extends Listener {
         try {
             if (received instanceof CreateGameRequest) {
                 connection.sendTCP(handleCreateGame((CreateGameRequest) received, connection));
+            } else if (received instanceof GetActiveGamesRequest) {
+                connection.sendTCP(handleGetActiveGames((GetActiveGamesRequest) received, connection));
             } else if (received instanceof GetGameRequest) {
                 connection.sendTCP(handleGetGame((GetGameRequest) received, connection));
             } else if (received instanceof UpdateGameRequest) {
@@ -159,7 +161,7 @@ public class GameHandler extends Listener {
     	try {
             if (sessionService.validateSessionRequest(received, connection)) {
             	
-                List<Game> games = gameService.fetchUserGames(jConn.getNickName());
+                List<Game> games = gameService.fetchUserGames(jConn.getNickName(), GameStatus.ONGOING, GameStatus.PENDING);
                 return new GetActiveGamesResponse().setGames(games);
             } else return new GetActiveGamesResponse(UNAUTHORIZED, "You are not authorized to perform this action");
         } catch (Exception e) {
