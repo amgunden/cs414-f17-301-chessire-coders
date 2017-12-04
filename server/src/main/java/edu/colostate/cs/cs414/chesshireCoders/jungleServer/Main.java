@@ -47,6 +47,7 @@ public final class Main {
 
             // Initialize the database datasource object
             HikariConnectionProvider.initialize(getDataSourceProperties(properties));
+            Runtime.getRuntime().addShutdownHook(new Thread(HikariConnectionProvider::shutdown));
 
             // Create and start the server.
             server = new JungleServer();
