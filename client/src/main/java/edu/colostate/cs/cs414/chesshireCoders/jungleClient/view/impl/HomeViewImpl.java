@@ -166,9 +166,14 @@ public class HomeViewImpl extends BaseView {
     }
 
     private void initGamesListView() {
-        // Some voodoo magic I don't fully understand, but it works!
 
-        ObservableList<JungleGame> games = FXCollections.observableArrayList();
+        try {
+			controller.sendGetActiveGames();
+		} catch (IOException e) {
+            showError(e.getMessage());
+		}
+    	
+        ObservableList<JungleGame> games = FXCollections.observableArrayList(gamesModel.getCurrentGames());
         // Wrap the list in a sorted list.
         SortedList<JungleGame> sortedGames = new SortedList<>(games, (o1, o2) -> (int) (o1.getGameID() - o2.getGameID()));
 

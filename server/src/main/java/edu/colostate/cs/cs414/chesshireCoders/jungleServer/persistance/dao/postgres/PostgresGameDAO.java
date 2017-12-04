@@ -52,7 +52,7 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
     @Override
     public List<Game> findAllByNickName(String nickName, GameStatus... statuses) throws SQLException {
         //language=PostgreSQL
-        String sql = "SELECT * FROM game WHERE player_one_nick_name = ? OR player_two_nick_name = ?";
+        String sql = "SELECT * FROM game WHERE (player_one_nick_name = ? OR player_two_nick_name = ?)";
         
         if (statuses.length > 0) { 
         	sql += " AND (game_state = ?";

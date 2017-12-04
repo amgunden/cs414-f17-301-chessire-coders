@@ -122,7 +122,7 @@ public abstract class BaseDAO<T, PK extends Serializable> {
             } else if (parameter instanceof GameStatus[]) {
             	GameStatus[] statusArray = (GameStatus[]) parameter;
             	for (int j = 0; j < statusArray.length; j++) {
-                    statement.setString(parameterIndex+j, (statusArray[i]).name());
+                    statement.setString(parameterIndex+j, (statusArray[j]).name());
 				}
             	i += statusArray.length - 1;
             } else {
