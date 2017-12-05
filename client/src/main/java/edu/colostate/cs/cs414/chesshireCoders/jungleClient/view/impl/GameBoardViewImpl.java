@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -147,7 +148,7 @@ public class GameBoardViewImpl extends BaseView {
     private void highlightMoves(int r, int c) {
         int[] moves = game.getValidMoves(r, c);
 
-        Color green = Color.rgb(0, 150, 0, 0.65);
+        Color green = Color.rgb(0, 255, 0, 1);
         if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), green);
         if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), green);
         if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), green);
@@ -166,7 +167,14 @@ public class GameBoardViewImpl extends BaseView {
             if (imageViews2.size() > 1) {
                 imageViews2.remove(imageViews2.size() - 1);
             }
-
+            
+            if (game.isSquareATrap(r,c)) {
+            	reducePowerToOne(piece);
+            }
+            if (game.isSquareATrap(start[0], start[1])) {
+            	resetPower(piece);
+            }
+            
             toSquare.getChildren().add(piece);
             game.movePiece(start, new int[]{r, c});
             controller.updateGame(game);
@@ -174,6 +182,19 @@ public class GameBoardViewImpl extends BaseView {
         } catch (Exception e) {
             showError(e.getMessage());
         }
+    }
+    
+    private void reducePowerToOne(ImageView piece) {
+    	String imageName = getImageForPiece(game.getPieceAt(start[0], start[1]));
+    	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
+    	File iconImage = new File("src/main/resources/images/" + imageName);
+    	piece = new ImageView(iconImage.toURI().toString());
+    }
+    
+    private void resetPower(ImageView piece) {
+    	String imageName = getImageForPiece(game.getPieceAt(start[0], start[1]));
+    	File iconImage = new File("src/main/resources/images/" + imageName);
+    	piece = new ImageView(iconImage.toURI().toString());
     }
 
     private void placePieceAt(int row, int column, GamePiece piece) {
