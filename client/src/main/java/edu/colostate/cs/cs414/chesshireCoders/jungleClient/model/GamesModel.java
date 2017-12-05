@@ -19,7 +19,15 @@ public class GamesModel {
     }
 
     public static GamesModel getInstance() {
-        return instance;
+        if (instance == null) instance = new GamesModel();
+        
+    	return instance;
+    }
+    
+    public static void clearInstance() {
+        getInstance().activeGameProperty = null;
+        getInstance().currentGames = null;
+        instance = null;
     }
 
     public ObjectProperty<JungleGame> getActiveGameProperty() {
