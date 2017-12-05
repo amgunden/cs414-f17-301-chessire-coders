@@ -43,7 +43,6 @@ public class HomeControllerImpl extends BaseController implements HomeController
     private final JungleClient client = JungleClient.getInstance();
     private final Listener listener = new Listener.ThreadedListener(new HomeListener());
 
-    private final GamesModel gamesModel = GamesModel.getInstance();
     private final InvitesModel invitesModel = InvitesModel.getInstance();
     private final AccountModel accountModel = AccountModel.getInstance();
 
@@ -57,6 +56,7 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     @Override
     public void dispose() {
+        GamesModel.clearInstance();
         client.removeListener(listener);
     }
 
@@ -167,11 +167,11 @@ public class HomeControllerImpl extends BaseController implements HomeController
 	        JungleGame jGame = new JungleGame(game);
 	        PlayerEnumType viewingPlayer = getViewingPlayer(jGame);
 	        jGame.setViewingPlayer(viewingPlayer);
-	        gamesModel.updateOrAddGame(jGame);
+	        GamesModel.getInstance().updateOrAddGame(jGame);
 	
 	        // Check to see if we're watching for this game so we can change the active game if needed
 	        if (watchingForGame && watchForGameId == jGame.getGameID()) {
-	            gamesModel.setActiveGame(jGame);
+	        	GamesModel.getInstance().setActiveGame(jGame);
 	            watchingForGame = false;
 	        }
     	}
@@ -185,11 +185,11 @@ public class HomeControllerImpl extends BaseController implements HomeController
         JungleGame jGame = new JungleGame(response.getGame());
         PlayerEnumType viewingPlayer = getViewingPlayer(jGame);
         jGame.setViewingPlayer(viewingPlayer);
-        gamesModel.updateOrAddGame(jGame);
+        GamesModel.getInstance().updateOrAddGame(jGame);
 
         // Check to see if we're watching for this game so we can change the active game if needed
         if (watchingForGame && watchForGameId == jGame.getGameID()) {
-            gamesModel.setActiveGame(jGame);
+        	GamesModel.getInstance().setActiveGame(jGame);
             watchingForGame = false;
         }
     }
@@ -207,20 +207,20 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     private void handleGameEndedEvent(GameEndedEvent gameEndedEvent) throws IOException {
         long gameID = gameEndedEvent.getGameID();
-        if (gamesModel.hasGame(gameID)) {
+        if (GamesModel.getInstance().hasGame(gameID)) {
             sendGetGame(gameID);
         }
     }
 
     private void handleBoardUpdateEvent(BoardUpdateEvent boardUpdateEvent) throws IOException {
         long gameID = boardUpdateEvent.getGameId();
-         if (gamesModel.hasGame(gameID)) {
+         if (GamesModel.getInstance().hasGame(gameID)) {
             sendGetGame(gameID);
         }
     }
 
     private void handleQuitGameResponse(QuitGameResponse response) {
-        gamesModel.removeGame(response.getGameId());
+    	GamesModel.getInstance().removeGame(response.getGameId());
     }
 
     private class HomeListener extends Listener {

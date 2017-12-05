@@ -88,6 +88,7 @@ public class HomeViewImpl extends BaseView {
         try {
             // Don't wait for server to end session.
             controller.sendLogout();
+            controller.dispose();
             App.setScene("loginPage.fxml");
         } catch (Exception e) {
             showError(e.getMessage());
@@ -134,9 +135,10 @@ public class HomeViewImpl extends BaseView {
     private void unregSuccessReturnClicked() {
         try {
             System.out.println("btnUnregSuccessReturn Clicked.");
+            controller.dispose();
             App.setScene("loginPage.fxml");
         } catch (IOException e) {
-            System.err.println("ERROR: Unable to load fxml file for Home page.");
+            System.err.println("ERROR: Unable to load fxml file for Login page.");
         }
     }
 
