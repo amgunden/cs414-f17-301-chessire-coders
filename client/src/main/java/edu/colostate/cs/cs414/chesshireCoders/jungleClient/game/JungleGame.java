@@ -143,7 +143,16 @@ public class JungleGame extends Game {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(super.hashCode(), board, getViewingPlayer());
     }
+	
+	public boolean isSquareATrap(int r, int c) {
+		if(board.boardSquares[r][c] instanceof TrapSquare)
+			return true;
+		return false;
+	}
+	
+	public GamePiece getPieceAt(int r, int c) {
+		return board.getPieceAt(r, c);
+	}
 }
