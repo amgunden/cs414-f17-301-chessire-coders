@@ -139,7 +139,7 @@ public class GameBoardViewImpl extends BaseView {
         start[0] = r;
         start[1] = c;
 
-        Color yellow = Color.rgb(150, 150, 0, 0.65);
+        Color yellow = Color.rgb(255, 255, 0, 1);
         setHighlight(square, yellow);
     }
 
