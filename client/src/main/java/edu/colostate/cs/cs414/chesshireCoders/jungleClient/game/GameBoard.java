@@ -76,6 +76,7 @@ public class GameBoard {
 		
 		return validMoves;
 	}
+
 	
 	
 	public void movePiece(int[] from, int[] to) {
