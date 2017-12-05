@@ -168,13 +168,6 @@ public class GameBoardViewImpl extends BaseView {
                 imageViews2.remove(imageViews2.size() - 1);
             }
             
-            if (game.isSquareATrap(r,c)) {
-            	reducePowerToOne(piece);
-            }
-            if (game.isSquareATrap(start[0], start[1])) {
-            	resetPower(piece);
-            }
-            
             toSquare.getChildren().add(piece);
             game.movePiece(start, new int[]{r, c});
             controller.updateGame(game);
@@ -184,25 +177,22 @@ public class GameBoardViewImpl extends BaseView {
         }
     }
     
-    private void reducePowerToOne(ImageView piece) {
-    	String imageName = getImageForPiece(game.getPieceAt(start[0], start[1]));
+    private String reducePowerToOne(int row, int column) {
+    	String imageName = getImageForPiece(game.getPieceAt(row, column));
     	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
-    	File iconImage = new File("src/main/resources/images/" + imageName);
-    	piece = new ImageView(iconImage.toURI().toString());
-    }
-    
-    private void resetPower(ImageView piece) {
-    	String imageName = getImageForPiece(game.getPieceAt(start[0], start[1]));
-    	File iconImage = new File("src/main/resources/images/" + imageName);
-    	piece = new ImageView(iconImage.toURI().toString());
+    	return imageName;
     }
 
     private void placePieceAt(int row, int column, GamePiece piece) {
         StackPane square = getSquare(row, column);
 
         ObservableList<Node> imageViews = square.getChildren();
-        File iconImage = new File("src/main/resources/images/" + getImageForPiece(piece));
+        String imageName = getImageForPiece(piece);
+        if (game.isSquareATrap(row, column))
+        	imageName = reducePowerToOne(row, column);
+        File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
+        
         pieceImage.setMouseTransparent(true);
         pieceImage.setPreserveRatio(true);
 
