@@ -145,20 +145,24 @@ public class GameBoardViewImpl extends BaseView {
     private void highlightStartSquare(StackPane square, int r, int c) {
         start[0] = r;
         start[1] = c;
-
-        Color yellow = Color.rgb(255, 255, 0, 1);
-        setHighlight(square, yellow);
+        
+        Color highlight = Color.rgb(255, 255, 0, 1);
+        if(colorblind)
+        	highlight = Color.rgb(211, 211, 211, 1);
+        setHighlight(square, highlight);
     }
 
 
     private void highlightMoves(int r, int c) {
         int[] moves = game.getValidMoves(r, c);
 
-        Color green = Color.rgb(0, 255, 0, 1);
-        if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), green);
-        if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), green);
-        if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), green);
-        if (moves[3] != 0) setHighlight(getSquare(r + moves[3], c), green);
+        Color highlight = Color.rgb(0, 255, 0, 1);
+        if(colorblind)
+        	highlight = Color.rgb(0, 0, 0, 1);
+        if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), highlight);
+        if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), highlight);
+        if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), highlight);
+        if (moves[3] != 0) setHighlight(getSquare(r + moves[3], c), highlight);
     }
 
 
