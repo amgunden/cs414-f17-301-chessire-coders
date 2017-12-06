@@ -232,7 +232,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -241,7 +241,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -259,7 +259,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -268,7 +268,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -295,7 +295,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -304,7 +304,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -322,7 +322,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -331,7 +331,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -358,7 +358,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -367,7 +367,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -385,7 +385,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
@@ -394,7 +394,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="80.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/river.png" />
+                        <Image url="@../images/river_colorblind.png" />
                      </image>
                   </ImageView>
                </children>
