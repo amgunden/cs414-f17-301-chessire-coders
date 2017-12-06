@@ -1,5 +1,9 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
@@ -13,10 +17,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -31,10 +33,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class HomeViewImpl extends BaseView {
 
@@ -159,11 +157,9 @@ public class HomeViewImpl extends BaseView {
         gamesList.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        gamesModel.setActiveGame(newValue);
-                        reloadActiveGame();
-                        selectActiveGame();
-                    }
+		            if (newValue != null) {
+		                gamesModel.setActiveGame(newValue);
+		            }
                 });
     }
 
@@ -175,20 +171,31 @@ public class HomeViewImpl extends BaseView {
             showError(e.getMessage());
 		}
     	
-        ObservableList<JungleGame> games = FXCollections.observableArrayList(gamesModel.getCurrentGames());
-        // Wrap the list in a sorted list.
-        SortedList<JungleGame> sortedGames = new SortedList<>(games, (o1, o2) -> (int) (o1.getGameID() - o2.getGameID()));
-
+        ObservableList<JungleGame> games = gamesModel.getCurrentGames();
+        games.sort((o1, o2) -> (int) (o1.getGameID() - o2.getGameID()));
         // Add a listener to the list in gamesModel to change the list bound to the list view
         // I couldn't update the gamesModel list directly at some point from a non-javafx thread.
         gamesModel.getCurrentGames().addListener((ListChangeListener<JungleGame>) c -> Platform.runLater(() -> {
             while (c.next()) {
-                if (c.wasRemoved()) games.removeAll(c.getRemoved());
-                if (c.wasAdded()) games.addAll(c.getAddedSubList());
+            	boolean changed = true;
+            	if (c.getRemovedSize() == c.getAddedSize()){
+            		changed = false;
+            		for (int i = 0; i < c.getRemovedSize(); i++) {
+						if (c.getRemoved().get(i).getGameID() == c.getAddedSubList().get(i).getGameID())
+							games.set( games.indexOf(c.getRemoved().get(i)), c.getAddedSubList().get(i) );
+						else
+							changed = true;
+					}
+            	}
+            	
+            	if (changed == true) {
+            		if (c.wasRemoved()) games.removeAll(c.getRemoved());
+            		if (c.wasAdded()) games.addAll(c.getAddedSubList());
+            	}
             }
             selectActiveGame();
         }));
-        gamesList.setItems(sortedGames);
+        gamesList.setItems(games);
     }
 
     private void listenForActiveGameChange() {
