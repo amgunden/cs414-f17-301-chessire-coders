@@ -81,6 +81,7 @@ public class KryoRegistrar {
         // Invitation Handling
         kryo.register(InvitePlayerRequest.class);
         kryo.register(InviteReplyRequest.class);
+        kryo.register(GetAvailPlayersRequest.class);
 
         // Session Handling
         kryo.register(LoginRequest.class);
@@ -114,6 +115,7 @@ public class KryoRegistrar {
         // Invitation Handling
         kryo.register(InvitePlayerResponse.class);
         kryo.register(InviteReplyResponse.class);
+        kryo.register(GetAvailPlayersResponse.class);
 
         // Session Handling
         kryo.register(LoginResponse.class);

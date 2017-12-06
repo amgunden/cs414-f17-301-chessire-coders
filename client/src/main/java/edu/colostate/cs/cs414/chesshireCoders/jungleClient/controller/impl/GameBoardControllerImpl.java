@@ -15,6 +15,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequ
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetAvailPlayersResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -54,7 +55,7 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
         client.sendMessage(new UpdateGameRequest(accountModel.getToken(), new Game(jungleGame)));
     }
     
-    public void sendGetAvailPlayers( ) throws IOException {
+    public void getAvailPlayers( ) throws IOException {
     	client.sendMessage(new GetAvailPlayersRequest(accountModel.getToken(), accountModel.getNickName()));
     }
     
@@ -63,8 +64,12 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
      */
     private void handleGetAvailPlayersResponse(GetAvailPlayersResponse response) {
         if (response.isSuccess()) {
-            
+            gamesModel.setAvailPlayers(response.getAvailUsers());
         }
+    }
+    
+    public List<String> getAvail(){
+    	return gamesModel.getAvailPlayers();
     }
     
     private class GameBoardListener extends Listener {

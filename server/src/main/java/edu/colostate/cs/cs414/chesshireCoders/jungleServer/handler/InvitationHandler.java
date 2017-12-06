@@ -18,6 +18,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetAvailPlayersRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest;
@@ -25,7 +26,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetAvailPlaye
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class InvitationHandler extends Listener {
 
@@ -114,15 +117,21 @@ public class InvitationHandler extends Listener {
     	try {
     		if (sessionService.validateSessionRequest(request, connection)) {
     			
+    			List<User> users = gameService.getPlayersAvailForInvites(request.getRequestorNickname());
+    			List<String> nickNames = new ArrayList<String>();
     			
+    			for(int i=0; i<users.size(); i++) {
+    				nickNames.add(users.get(i).getNickName());
+    			}
     			
+    			GetAvailPlayersResponse response = new GetAvailPlayersResponse(nickNames);
     			
-    		}
-    		
+    			return response;
+    		} else return new GetAvailPlayersResponse(UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {
             e.printStackTrace();
             return new GetAvailPlayersResponse(SERVER_ERROR, "An error occurred checking session validity.");
         }
-		return null;
+
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class GetAvailPlayersResponse extends Response {
 
 	private List<String> availUsers;
-	
+
 	public GetAvailPlayersResponse() {
 		super();
 		availUsers = new ArrayList<String>();
@@ -17,8 +17,18 @@ public class GetAvailPlayersResponse extends Response {
 		availUsers = new ArrayList<String>();
 	}
 	
+	public GetAvailPlayersResponse(List<String> nickNames) {
+		super();
+		setAvailUsers(nickNames);
+	}
 	
-	
+	public List<String> getAvailUsers() {
+		return availUsers;
+	}
+
+	public void setAvailUsers(List<String> availUsers) {
+		this.availUsers = availUsers;
+	}
 	
 
 }

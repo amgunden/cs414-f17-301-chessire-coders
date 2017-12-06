@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
@@ -25,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,20 +71,27 @@ public class GameBoardViewImpl extends BaseView {
         MenuItem invitePlayer = new MenuItem("Invite Player...");
         invitePlayer.setOnAction(event -> {
         	
-        	List<String> availUsers = new ArrayList<>();
+        	try {
+				controller.getAvailPlayers();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	
-        	ChoiceDialog<String> inviteDialog = new ChoiceDialog<>("[select User]", availUsers);
+        	List<String> availUsers = controller.getAvail();
+        	
+        	ChoiceDialog<String> inviteDialog = new ChoiceDialog<>("[select User]", availUsers );
         	inviteDialog.setTitle("Send Invitation");
         	inviteDialog.setHeaderText(null);
         	inviteDialog.setContentText("Choose a user to invite: ");
         	
         	
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setContentText("Enter opponent's nickname.");
-            dialog.setHeaderText(null);
+//            TextInputDialog dialog = new TextInputDialog();
+//            dialog.setContentText("Enter opponent's nickname.");
+//            dialog.setHeaderText(null);
             
             
-            Optional<String> opponentNickname = dialog.showAndWait();
+            Optional<String> opponentNickname = inviteDialog.showAndWait();
             if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
                 sendInviteClicked(opponentNickname.get());
             }

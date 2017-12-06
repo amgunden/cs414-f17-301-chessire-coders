@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.service;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface GameService {
     void rejectInvitation(long invitationId) throws Exception;
 
     Invitation createInvitation(String senderNickname, String receiverNickName, long gameId) throws Exception;
+    
+    List<User> getPlayersAvailForInvites(String nickName) throws Exception;
 }
