@@ -109,7 +109,7 @@ public class HomeViewImpl extends BaseView {
     
     private void colorblindClicked() {
     	colorblind = !colorblind;
-    	//reloadActiveGame();
+    	reloadActiveGame();
     }
 
     @FXML
