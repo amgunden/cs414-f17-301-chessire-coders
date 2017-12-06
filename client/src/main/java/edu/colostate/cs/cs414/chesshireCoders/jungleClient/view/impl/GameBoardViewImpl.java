@@ -183,14 +183,14 @@ public class GameBoardViewImpl extends BaseView {
         }
     }
     
-    private String reducePowerToOne(int row, int column) {
-    	String imageName = getImageForPiece(game.getPieceAt(row, column));
+    private String reducePowerToOne(String name) {
+    	String imageName = name;
     	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
     	return imageName;
     }
     
-    private String useColorblind(int row, int column) {
-    	String imageName = getImageForPiece(game.getPieceAt(row, column));
+    private String useColorblind(String name) {
+    	String imageName = name;
     	imageName = imageName.substring(0, imageName.length()-4) + "_colorblind" + imageName.substring(imageName.length()-4);
     	return imageName;
     }
@@ -201,9 +201,9 @@ public class GameBoardViewImpl extends BaseView {
         ObservableList<Node> imageViews = square.getChildren();
         String imageName = getImageForPiece(piece);
         if (game.isSquareATrap(row, column))
-        	imageName = reducePowerToOne(row, column);
+        	imageName = reducePowerToOne(imageName);
         if (colorblind)
-        	imageName = useColorblind(row, column);
+        	imageName = useColorblind(imageName);
         File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
         
@@ -213,7 +213,7 @@ public class GameBoardViewImpl extends BaseView {
         if (imageViews.size() > 1) {
             imageViews.remove(imageViews.size() - 1);
         }
-
+        
         imageViews.add(pieceImage);
     }
 
