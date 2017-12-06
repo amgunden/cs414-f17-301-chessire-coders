@@ -209,51 +209,51 @@ public class GameBoardViewImpl extends BaseView {
         switch (piece.getPieceType()) {
             case CAT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_2_red.png";
+                    result = "/red/piece_2_red.png";
                 else
-                    result = "piece_2_black.png";
+                    result = "/black/piece_2_black.png";
                 break;
             case DOG:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_4_red.png";
+                    result = "/red/piece_4_red.png";
                 else
-                    result = "piece_4_black.png";
+                    result = "/black/piece_4_black.png";
                 break;
             case ELEPHANT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_8_red.png";
+                    result = "/red/piece_8_red.png";
                 else
-                    result = "piece_8_black.png";
+                    result = "/black/piece_8_black.png";
                 break;
             case FOX:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_3_red.png";
+                    result = "/red/piece_3_red.png";
                 else
-                    result = "piece_3_black.png";
+                    result = "/black/piece_3_black.png";
                 break;
             case LEOPARD:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_5_red.png";
+                    result = "/red/piece_5_red.png";
                 else
-                    result = "piece_5_black.png";
+                    result = "/black/piece_5_black.png";
                 break;
             case LION:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_7_red.png";
+                    result = "/red/piece_7_red.png";
                 else
-                    result = "piece_7_black.png";
+                    result = "/black/piece_7_black.png";
                 break;
             case RAT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_1_red.png";
+                    result = "/red/piece_1_red.png";
                 else
-                    result = "piece_1_black.png";
+                    result = "/black/piece_1_black.png";
                 break;
             case TIGER:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_6_red.png";
+                    result = "/red/piece_6_red.png";
                 else
-                    result = "piece_6_black.png";
+                    result = "/black/piece_6_black.png";
                 break;
             default:
                 break;
