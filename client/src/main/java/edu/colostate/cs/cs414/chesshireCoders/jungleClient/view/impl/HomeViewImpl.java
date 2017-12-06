@@ -67,6 +67,8 @@ public class HomeViewImpl extends BaseView {
     // Get model instances
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
+    
+    private boolean colorblind = false;
 
     public void initialize(URL location, ResourceBundle resources) {
         App.getWindow().setResizable(false);
@@ -104,6 +106,11 @@ public class HomeViewImpl extends BaseView {
             showError(e.getMessage());
         }
     }
+    
+    private void colorblindClicked() {
+    	colorblind = !colorblind;
+    	reloadActiveGame();
+    }
 
     @FXML
     private void settingsClicked() {
@@ -114,8 +121,10 @@ public class HomeViewImpl extends BaseView {
         logout.setOnAction(event -> logoutClicked());
         MenuItem unregister = new MenuItem("Unregister");
         unregister.setOnAction(event -> unregisterClicked());
+        MenuItem colorblind = new MenuItem("Toggle Colorblind Mode");
+        colorblind.setOnAction(event -> colorblindClicked());
 
-        ContextMenu settingsMenu = new ContextMenu(logout, unregister);
+        ContextMenu settingsMenu = new ContextMenu(logout, unregister, colorblind);
         Bounds boundsInScreen = btnSettings.localToScreen(btnSettings.getBoundsInLocal());
         settingsMenu.show(btnSettings, boundsInScreen.getMinX(), boundsInScreen.getMaxY());
     }
@@ -215,14 +224,19 @@ public class HomeViewImpl extends BaseView {
         try {
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
             lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
-
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/gameBoard.fxml"));
+            
+            String boardgameName = "/fxml/gameBoard.fxml";
+            if (colorblind)
+            	boardgameName = "/fxml/gameBoard_colorblind.fxml";
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(boardgameName));
             board = loader.load();
 
-            // Get the Controller from the FXMLLoader
+            //Get the Controller from the FXMLLoader
             GameBoardViewImpl gameBoardView = loader.getController();
 
             // Set the game to load
+            if (colorblind)
+            	gameBoardView.setColorblind();
             gameBoardView.setGame(gamesModel.getActiveGame());
 
             // Set data in the controller
