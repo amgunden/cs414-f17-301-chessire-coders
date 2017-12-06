@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -25,6 +26,7 @@ import javafx.scene.paint.Paint;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -66,13 +68,26 @@ public class GameBoardViewImpl extends BaseView {
 
         MenuItem invitePlayer = new MenuItem("Invite Player...");
         invitePlayer.setOnAction(event -> {
+        	
+        	List<String> availUsers = new ArrayList<>();
+        	
+        	ChoiceDialog<String> inviteDialog = new ChoiceDialog<>("[select User]", availUsers);
+        	inviteDialog.setTitle("Send Invitation");
+        	inviteDialog.setHeaderText(null);
+        	inviteDialog.setContentText("Choose a user to invite: ");
+        	
+        	
             TextInputDialog dialog = new TextInputDialog();
             dialog.setContentText("Enter opponent's nickname.");
             dialog.setHeaderText(null);
+            
+            
             Optional<String> opponentNickname = dialog.showAndWait();
             if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
                 sendInviteClicked(opponentNickname.get());
             }
+            
+            
         });
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {

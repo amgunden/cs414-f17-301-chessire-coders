@@ -8,21 +8,34 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetAvailPlayersRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.QuitGameRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetAvailPlayersResponse;
 
 import java.io.IOException;
+
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 
 public class GameBoardControllerImpl extends BaseController implements GameBoardController {
 
     private JungleClient client = JungleClient.getInstance();
+    private final Listener listener = new Listener.ThreadedListener(new GameBoardListener());
+    
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
 
 
     public GameBoardControllerImpl(View view) {
         super(view);
+        client.addListener(listener);
+    }
+    
+    @Override
+    public void dispose() {
+        client.removeListener(listener);
     }
 
     @Override
@@ -39,5 +52,32 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
     public void updateGame(JungleGame jungleGame) throws IOException {
         gamesModel.updateOrAddGame(jungleGame);
         client.sendMessage(new UpdateGameRequest(accountModel.getToken(), new Game(jungleGame)));
+    }
+    
+    public void sendGetAvailPlayers( ) throws IOException {
+    	client.sendMessage(new GetAvailPlayersRequest(accountModel.getToken(), accountModel.getNickName()));
+    }
+    
+    /**
+     * Update list of players available to receive invites
+     */
+    private void handleGetAvailPlayersResponse(GetAvailPlayersResponse response) {
+        if (response.isSuccess()) {
+            
+        }
+    }
+    
+    private class GameBoardListener extends Listener {
+        @Override
+        public void received(Connection connection, Object received) {
+            try {
+                // handle get avail players response
+                if (received instanceof GetAvailPlayersResponse) {
+                	handleGetAvailPlayersResponse((GetAvailPlayersResponse) received);
+                }            	
+            } catch (Exception e) {
+                view.showError(e.getMessage());
+            }
+        }
     }
 }

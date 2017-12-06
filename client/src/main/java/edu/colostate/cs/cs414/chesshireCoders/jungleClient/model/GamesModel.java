@@ -1,5 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.model;
 
+import java.util.List;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -12,10 +14,12 @@ public class GamesModel {
 
     private ObjectProperty<JungleGame> activeGameProperty;
     private ObservableList<JungleGame> currentGames;
+    private List<String> availPlayers; // Will hold a list of players who can receive an invitation to a game
 
     private GamesModel() {
         activeGameProperty = new SimpleObjectProperty<>(null);
         currentGames = FXCollections.observableArrayList();
+        
     }
 
     public static GamesModel getInstance() {
