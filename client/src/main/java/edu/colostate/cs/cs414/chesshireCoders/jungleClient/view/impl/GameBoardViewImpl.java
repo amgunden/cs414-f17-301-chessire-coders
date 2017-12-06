@@ -48,6 +48,8 @@ public class GameBoardViewImpl extends BaseView {
     private StackPane winnerPane;
     @FXML
     private Label lblWinner;
+    
+    private boolean colorblind = false;
 
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
 
@@ -58,6 +60,10 @@ public class GameBoardViewImpl extends BaseView {
     public void setGame(JungleGame game) {
         this.game = game;
         placePieces(game.getGamePieces());
+    }
+    
+    public void setColorblind() {
+    	colorblind = true;
     }
 
     @FXML
@@ -182,6 +188,12 @@ public class GameBoardViewImpl extends BaseView {
     	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
     	return imageName;
     }
+    
+    private String useColorblind(int row, int column) {
+    	String imageName = getImageForPiece(game.getPieceAt(row, column));
+    	imageName = imageName.substring(0, imageName.length()-4) + "_colorblind" + imageName.substring(imageName.length()-4);
+    	return imageName;
+    }
 
     private void placePieceAt(int row, int column, GamePiece piece) {
         StackPane square = getSquare(row, column);
@@ -190,6 +202,8 @@ public class GameBoardViewImpl extends BaseView {
         String imageName = getImageForPiece(piece);
         if (game.isSquareATrap(row, column))
         	imageName = reducePowerToOne(row, column);
+        if (colorblind)
+        	imageName = useColorblind(row, column);
         File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
         

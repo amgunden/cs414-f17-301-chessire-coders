@@ -231,10 +231,12 @@ public class HomeViewImpl extends BaseView {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(boardgameName));
             board = loader.load();
 
-            // Get the Controller from the FXMLLoader
+            //Get the Controller from the FXMLLoader
             GameBoardViewImpl gameBoardView = loader.getController();
 
             // Set the game to load
+            if (colorblind)
+            	gameBoardView.setColorblind();
             gameBoardView.setGame(gamesModel.getActiveGame());
 
             // Set data in the controller
