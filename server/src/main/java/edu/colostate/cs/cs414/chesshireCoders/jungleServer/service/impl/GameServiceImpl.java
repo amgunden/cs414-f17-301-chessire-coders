@@ -289,4 +289,10 @@ public class GameServiceImpl implements GameService {
 
         return pieces;
     }
+    
+    public List<Invitation> getPlayersAvailForInvites(String nickName, InvitationStatusType statusType) throws Exception {
+        return manager.execute(manager -> manager.getInvitationDAO()
+                .findByRecipientNickName(nickName, statusType));
+    }
+
 }

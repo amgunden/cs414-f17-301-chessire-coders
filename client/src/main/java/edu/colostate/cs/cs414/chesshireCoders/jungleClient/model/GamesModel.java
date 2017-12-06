@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
@@ -19,7 +20,7 @@ public class GamesModel {
     private GamesModel() {
         activeGameProperty = new SimpleObjectProperty<>(null);
         currentGames = FXCollections.observableArrayList();
-        
+        availPlayers = new ArrayList<String>();
     }
 
     public static GamesModel getInstance() {

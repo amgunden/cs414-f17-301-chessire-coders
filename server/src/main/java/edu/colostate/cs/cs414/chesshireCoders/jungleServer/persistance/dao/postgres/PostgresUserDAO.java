@@ -38,6 +38,13 @@ public class PostgresUserDAO extends BaseDAO<User, String> implements UserDAO {
     public List<User> findAll() throws SQLException {
         return query("SELECT * FROM jungle_user", USER_ROW_MAPPER);
     }
+    
+    public List<User> findEveryoneElse(String nickName) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM jungle_user WHERE nick_name != ?";
+        List<User> users = query(sql, USER_ROW_MAPPER, nickName);
+        return users;
+    }
 
     @Override
     public User findByNickName(String nickName) throws SQLException {

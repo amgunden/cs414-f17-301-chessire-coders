@@ -18,8 +18,10 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetAvailPlayersRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRequest;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetAvailPlayersResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
 
@@ -42,6 +44,8 @@ public class InvitationHandler extends Listener {
             connection.sendTCP(handlePlayerInviteRequest((InvitePlayerRequest) object, connection));
         } else if (object instanceof InviteReplyRequest) {
             connection.sendTCP(handleInvitationReply((InviteReplyRequest) object, connection));
+        } else if (object instanceof GetAvailPlayersRequest) {
+            connection.sendTCP(handleGetAvailPlayersRequest((GetAvailPlayersRequest) object, connection));
         }
     }
 
@@ -102,4 +106,23 @@ public class InvitationHandler extends Listener {
         }
     }
 
+    /**
+     * Handle a new request to invite a player to a game
+     */
+    private GetAvailPlayersResponse handleGetAvailPlayersRequest(GetAvailPlayersRequest request, Connection connection) {
+    	
+    	try {
+    		if (sessionService.validateSessionRequest(request, connection)) {
+    			
+    			
+    			
+    			
+    		}
+    		
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new GetAvailPlayersResponse(SERVER_ERROR, "An error occurred checking session validity.");
+        }
+		return null;
+    }
 }
