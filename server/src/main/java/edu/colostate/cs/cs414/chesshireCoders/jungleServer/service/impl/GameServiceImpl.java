@@ -66,7 +66,8 @@ public class GameServiceImpl implements GameService {
     @Override
     public void updateGame(String updatingNickName, final Game game) throws Exception {
         if (game == null) throw new IllegalArgumentException("Game cannot be NULL");
-        if (game.getGameStatus() == PENDING)
+        GameStatus status = game.getGameStatus();
+        if (status == PENDING)
             throw new IllegalStateException("Game has not been started, it cannot be update");
 
         manager.executeAtomic((DAOCommand<Void>) manager -> {
@@ -79,8 +80,9 @@ public class GameServiceImpl implements GameService {
                 throw new GameStateException("It is not this player's turn");
 
             // Update game
-            //PlayerEnumType player = game.getTurnOfPlayer() == PLAYER_ONE ? PLAYER_TWO : PLAYER_ONE;
-            //game.setTurnOfPlayer(player);
+            if (status == WINNER_PLAYER_ONE || status == WINNER_PLAYER_TWO || status == DRAW)
+                game.setGameEnd(new Date(System.currentTimeMillis()));
+
             manager.getGameDAO().update(game);
 
             // delete any pieces missing from the game set
