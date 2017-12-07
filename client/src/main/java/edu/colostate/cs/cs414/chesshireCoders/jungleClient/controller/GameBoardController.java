@@ -15,5 +15,4 @@ public interface GameBoardController extends Controller {
     
     void getAvailPlayers( ) throws IOException;
     
-    List<String> getAvail();
 }

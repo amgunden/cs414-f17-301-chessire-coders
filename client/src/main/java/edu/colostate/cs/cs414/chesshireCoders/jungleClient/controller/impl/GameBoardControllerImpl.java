@@ -6,6 +6,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardC
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetAvailPlayersRequest;
@@ -27,6 +28,7 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
     
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
+    private InvitesModel invitesModel = InvitesModel.getInstance();
 
 
     public GameBoardControllerImpl(View view) {
@@ -64,12 +66,8 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
      */
     private void handleGetAvailPlayersResponse(GetAvailPlayersResponse response) {
         if (response.isSuccess()) {
-            gamesModel.setAvailPlayers(response.getAvailUsers());
+            invitesModel.setAvailPlayers(response.getAvailUsers());
         }
-    }
-    
-    public List<String> getAvail(){
-    	return gamesModel.getAvailPlayers();
     }
     
     private class GameBoardListener extends Listener {

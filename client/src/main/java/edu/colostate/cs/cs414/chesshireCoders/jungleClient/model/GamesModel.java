@@ -15,12 +15,10 @@ public class GamesModel {
 
     private ObjectProperty<JungleGame> activeGameProperty;
     private ObservableList<JungleGame> currentGames;
-    private List<String> availPlayers; // Will hold a list of players who can receive an invitation to a game
 
 	private GamesModel() {
         activeGameProperty = new SimpleObjectProperty<>(null);
         currentGames = FXCollections.observableArrayList();
-        availPlayers = new ArrayList<String>();
     }
 
     public static GamesModel getInstance() {
@@ -82,12 +80,5 @@ public class GamesModel {
     public ObservableList<JungleGame> getCurrentGames() {
         return currentGames;
     }
-    
-    public List<String> getAvailPlayers() {
- 		return availPlayers;
- 	}
-
- 	public void setAvailPlayers(List<String> availPlayers) {
- 		this.availPlayers = availPlayers;
- 	}
+ 
 }

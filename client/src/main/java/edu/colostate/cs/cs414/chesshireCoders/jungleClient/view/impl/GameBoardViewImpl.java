@@ -4,10 +4,13 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
@@ -53,6 +56,8 @@ public class GameBoardViewImpl extends BaseView {
     private Label lblWinner;
 
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
+    
+    private InvitesModel invitesModel = InvitesModel.getInstance();
 
     public void initialize(URL location, ResourceBundle resources) {
         start = new int[2];
@@ -71,6 +76,28 @@ public class GameBoardViewImpl extends BaseView {
         MenuItem invitePlayer = new MenuItem("Invite Player...");
         invitePlayer.setOnAction(event -> {
         	
+        	ObservableList<String> availPlayers = FXCollections.observableArrayList();
+          		      
+        	invitesModel.getAvailPlayers().addListener((ListChangeListener<String>) c -> Platform.runLater(() -> {
+        		
+        		while(c.next()) {
+        			if( c.wasRemoved()) availPlayers.removeAll(c.getRemoved());
+        			if( c.wasAdded()) availPlayers.addAll(c.getAddedSubList());
+        		}
+        		
+        		ChoiceDialog<String> inviteDialog = new ChoiceDialog<>(availPlayers.get(0), availPlayers);
+            	inviteDialog.setTitle("Send Invitation");
+            	inviteDialog.setHeaderText(null);
+            	inviteDialog.setContentText("Choose a user to invite: "); 
+            	
+        		Optional<String> opponentNickname = inviteDialog.showAndWait();
+                if (opponentNickname.isPresent()) {
+                    sendInviteClicked(opponentNickname.get());
+                }
+        		        		
+        	}));
+        	
+       
         	try {
 				controller.getAvailPlayers();
 			} catch (IOException e) {
@@ -78,25 +105,6 @@ public class GameBoardViewImpl extends BaseView {
 				e.printStackTrace();
 			}
         	
-        	List<String> availUsers = controller.getAvail();
-        	
-        	ChoiceDialog<String> inviteDialog = new ChoiceDialog<>("[select User]", availUsers );
-        	inviteDialog.setTitle("Send Invitation");
-        	inviteDialog.setHeaderText(null);
-        	inviteDialog.setContentText("Choose a user to invite: ");
-        	
-        	
-//            TextInputDialog dialog = new TextInputDialog();
-//            dialog.setContentText("Enter opponent's nickname.");
-//            dialog.setHeaderText(null);
-            
-            
-            Optional<String> opponentNickname = inviteDialog.showAndWait();
-            if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
-                sendInviteClicked(opponentNickname.get());
-            }
-            
-            
         });
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {
