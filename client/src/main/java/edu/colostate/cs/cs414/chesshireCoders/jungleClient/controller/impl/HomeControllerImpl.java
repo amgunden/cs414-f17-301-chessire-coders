@@ -1,7 +1,14 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl;
 
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
+
+import java.io.IOException;
+import java.util.List;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
@@ -14,22 +21,28 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.*;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.*;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetActiveGamesRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LogoutRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetActiveGamesResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
-
-import java.io.IOException;
-
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
 public class HomeControllerImpl extends BaseController implements HomeController {
 
     private final JungleClient client = JungleClient.getInstance();
     private final Listener listener = new Listener.ThreadedListener(new HomeListener());
 
-    private final GamesModel gamesModel = GamesModel.getInstance();
     private final InvitesModel invitesModel = InvitesModel.getInstance();
     private final AccountModel accountModel = AccountModel.getInstance();
 
@@ -43,6 +56,7 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     @Override
     public void dispose() {
+        GamesModel.clearInstance();
         client.removeListener(listener);
     }
 
@@ -51,10 +65,11 @@ public class HomeControllerImpl extends BaseController implements HomeController
         CreateGameRequest request = new CreateGameRequest(accountModel.getToken());
         client.sendMessage(request);
     }
-
+    
     @Override
-    public void fetchPlayerGames() {
-        // TODO Fetch the user's games from the server.
+    public void sendGetActiveGames() throws IOException {
+        GetActiveGamesRequest request = new GetActiveGamesRequest(accountModel.getToken());
+        client.sendMessage(request);
     }
 
     @Override
@@ -143,16 +158,38 @@ public class HomeControllerImpl extends BaseController implements HomeController
     /**
      * Update the list of games in the background, do not change active game
      */
+    private void handleGetActiveGamesResponse(GetActiveGamesResponse response) {
+        // Add/Update the game in the model
+    	List<Game> games = response.getGames();
+    	
+    	for (Game game : games) {
+	
+	        JungleGame jGame = new JungleGame(game);
+	        PlayerEnumType viewingPlayer = getViewingPlayer(jGame);
+	        jGame.setViewingPlayer(viewingPlayer);
+	        GamesModel.getInstance().updateOrAddGame(jGame);
+	
+	        // Check to see if we're watching for this game so we can change the active game if needed
+	        if (watchingForGame && watchForGameId == jGame.getGameID()) {
+	        	GamesModel.getInstance().setActiveGame(jGame);
+	            watchingForGame = false;
+	        }
+    	}
+    }
+    
+    /**
+     * Update the list of games in the background, do not change active game
+     */
     private void handleGetGameResponse(GetGameResponse response) {
         // Add/Update the game in the model
         JungleGame jGame = new JungleGame(response.getGame());
         PlayerEnumType viewingPlayer = getViewingPlayer(jGame);
         jGame.setViewingPlayer(viewingPlayer);
-        gamesModel.updateOrAddGame(jGame);
+        GamesModel.getInstance().updateOrAddGame(jGame);
 
         // Check to see if we're watching for this game so we can change the active game if needed
         if (watchingForGame && watchForGameId == jGame.getGameID()) {
-            gamesModel.setActiveGame(jGame);
+        	GamesModel.getInstance().setActiveGame(jGame);
             watchingForGame = false;
         }
     }
@@ -170,20 +207,20 @@ public class HomeControllerImpl extends BaseController implements HomeController
 
     private void handleGameEndedEvent(GameEndedEvent gameEndedEvent) throws IOException {
         long gameID = gameEndedEvent.getGameID();
-        if (gamesModel.hasGame(gameID)) {
+        if (GamesModel.getInstance().hasGame(gameID)) {
             sendGetGame(gameID);
         }
     }
 
     private void handleBoardUpdateEvent(BoardUpdateEvent boardUpdateEvent) throws IOException {
         long gameID = boardUpdateEvent.getGameId();
-         if (gamesModel.hasGame(gameID)) {
+         if (GamesModel.getInstance().hasGame(gameID)) {
             sendGetGame(gameID);
         }
     }
 
     private void handleQuitGameResponse(QuitGameResponse response) {
-        gamesModel.removeGame(response.getGameId());
+    	GamesModel.getInstance().removeGame(response.getGameId());
     }
 
     private class HomeListener extends Listener {
@@ -209,6 +246,10 @@ public class HomeControllerImpl extends BaseController implements HomeController
                 // handle create game response
                 else if (received instanceof CreateGameResponse) {
                     handleCreateGameResponse((CreateGameResponse) received);
+                }
+                // handle get game response
+                else if (received instanceof GetActiveGamesResponse) {
+                    handleGetActiveGamesResponse((GetActiveGamesResponse) received);
                 }
                 // handle get game response
                 else if (received instanceof GetGameResponse) {

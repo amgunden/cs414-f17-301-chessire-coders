@@ -59,8 +59,8 @@ public class LoginViewImpl extends BaseView {
 
     private void loginSuccess() {
         Platform.runLater(() -> {
+            cleanup();
             try {
-                cleanup();
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/homePage.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);

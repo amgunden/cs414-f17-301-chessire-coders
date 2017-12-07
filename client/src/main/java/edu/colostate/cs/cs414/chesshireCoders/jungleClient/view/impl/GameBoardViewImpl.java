@@ -46,6 +46,8 @@ public class GameBoardViewImpl extends BaseView {
     @FXML
     private Label lblWinner;
 
+    private boolean colorblind = false;
+
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
 
     @FXML
@@ -56,6 +58,10 @@ public class GameBoardViewImpl extends BaseView {
     public void setGame(JungleGame game) {
         this.game = game;
         placePieces(game.getGamePieces());
+    }
+
+    public void setColorblind() {
+    	colorblind = true;
     }
 
     @FXML
@@ -138,19 +144,23 @@ public class GameBoardViewImpl extends BaseView {
         start[0] = r;
         start[1] = c;
 
-        Color yellow = Color.rgb(150, 150, 0, 0.65);
-        setHighlight(square, yellow);
+        Color highlight = Color.rgb(255, 255, 0, 1);
+        if(colorblind)
+        	highlight = Color.rgb(211, 211, 211, 1);
+        setHighlight(square, highlight);
     }
 
 
     private void highlightMoves(int r, int c) {
         int[] moves = game.getValidMoves(r, c);
 
-        Color green = Color.rgb(0, 150, 0, 0.65);
-        if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), green);
-        if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), green);
-        if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), green);
-        if (moves[3] != 0) setHighlight(getSquare(r + moves[3], c), green);
+        Color highlight = Color.rgb(0, 255, 0, 1);
+        if(colorblind)
+        	highlight = Color.rgb(0, 0, 0, 1);
+        if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), highlight);
+        if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), highlight);
+        if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), highlight);
+        if (moves[3] != 0) setHighlight(getSquare(r + moves[3], c), highlight);
     }
 
 
@@ -175,12 +185,30 @@ public class GameBoardViewImpl extends BaseView {
         }
     }
 
+    private String reducePowerToOne(String name) {
+    	String imageName = name;
+    	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
+    	return imageName;
+    }
+
+    private String useColorblind(String name) {
+    	String imageName = name;
+    	imageName = imageName.substring(0, imageName.length()-4) + "_colorblind" + imageName.substring(imageName.length()-4);
+    	return imageName;
+    }
+
     private void placePieceAt(int row, int column, GamePiece piece) {
         StackPane square = getSquare(row, column);
 
         ObservableList<Node> imageViews = square.getChildren();
-        File iconImage = new File("src/main/resources/images/" + getImageForPiece(piece));
+        String imageName = getImageForPiece(piece);
+        if (game.isSquareATrap(row, column))
+        	imageName = reducePowerToOne(imageName);
+        if (colorblind)
+        	imageName = useColorblind(imageName);
+        File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
+
         pieceImage.setMouseTransparent(true);
         pieceImage.setPreserveRatio(true);
 
@@ -197,51 +225,51 @@ public class GameBoardViewImpl extends BaseView {
         switch (piece.getPieceType()) {
             case CAT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_2_red.png";
+                    result = "/red/piece_2_red.png";
                 else
-                    result = "piece_2_black.png";
+                    result = "/black/piece_2_black.png";
                 break;
             case DOG:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_4_red.png";
+                    result = "/red/piece_4_red.png";
                 else
-                    result = "piece_4_black.png";
+                    result = "/black/piece_4_black.png";
                 break;
             case ELEPHANT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_8_red.png";
+                    result = "/red/piece_8_red.png";
                 else
-                    result = "piece_8_black.png";
+                    result = "/black/piece_8_black.png";
                 break;
             case FOX:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_3_red.png";
+                    result = "/red/piece_3_red.png";
                 else
-                    result = "piece_3_black.png";
+                    result = "/black/piece_3_black.png";
                 break;
             case LEOPARD:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_5_red.png";
+                    result = "/red/piece_5_red.png";
                 else
-                    result = "piece_5_black.png";
+                    result = "/black/piece_5_black.png";
                 break;
             case LION:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_7_red.png";
+                    result = "/red/piece_7_red.png";
                 else
-                    result = "piece_7_black.png";
+                    result = "/black/piece_7_black.png";
                 break;
             case RAT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_1_red.png";
+                    result = "/red/piece_1_red.png";
                 else
-                    result = "piece_1_black.png";
+                    result = "/black/piece_1_black.png";
                 break;
             case TIGER:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_6_red.png";
+                    result = "/red/piece_6_red.png";
                 else
-                    result = "piece_6_black.png";
+                    result = "/black/piece_6_black.png";
                 break;
             default:
                 break;
