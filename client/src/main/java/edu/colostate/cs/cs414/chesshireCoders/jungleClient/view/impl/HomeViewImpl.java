@@ -33,8 +33,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class HomeViewImpl extends BaseView {
 
@@ -68,7 +66,8 @@ public class HomeViewImpl extends BaseView {
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         App.getWindow().setResizable(false);
 
         invitationList.itemsProperty().bind(inviteListProperty);

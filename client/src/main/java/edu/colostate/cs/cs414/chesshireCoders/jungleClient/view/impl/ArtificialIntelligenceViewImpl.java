@@ -1,9 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
@@ -24,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 
+import java.io.IOException;
+
 
 
 public class ArtificialIntelligenceViewImpl extends BaseView {
@@ -41,11 +39,9 @@ public class ArtificialIntelligenceViewImpl extends BaseView {
         if (newValue != null && newValue) loginSuccess();
         else if (newValue != null) loginFailure();
     };
-    
-    
-    @Override
-	 public void initialize(URL location, ResourceBundle resources) {
-        App.getWindow().setResizable(false);
+
+
+    public void initialize() {
         listenForLoginSuccess();
     }
     

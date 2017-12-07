@@ -24,10 +24,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_TWO;
@@ -50,7 +48,8 @@ public class GameBoardViewImpl extends BaseView {
 
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         start = new int[2];
     }
 
