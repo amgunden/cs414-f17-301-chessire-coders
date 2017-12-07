@@ -1,9 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
@@ -17,8 +13,10 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -33,6 +31,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class HomeViewImpl extends BaseView {
 
@@ -65,7 +67,7 @@ public class HomeViewImpl extends BaseView {
     // Get model instances
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
-    
+
     private boolean colorblind = false;
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,8 +82,8 @@ public class HomeViewImpl extends BaseView {
         nickName.setText(accountModel.getNickName());
 
         initGamesListView();
-        listenForActiveGameChange();
         listenForGameSelectionChange();
+        getOngoingGames();
     }
 
     private void logoutClicked() {
@@ -104,12 +106,10 @@ public class HomeViewImpl extends BaseView {
             showError(e.getMessage());
         }
     }
-    
+
     private void colorblindClicked() {
-    	colorblind = !colorblind;
-    	JungleGame game = gamesModel.getActiveGame();
-        if (game != null)
-            	reloadActiveGame();
+        colorblind = !colorblind;
+        loadGame(getSelectedGame());
     }
 
     @FXML
@@ -168,75 +168,77 @@ public class HomeViewImpl extends BaseView {
         gamesList.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-		            if (newValue != null) {
-		                gamesModel.setActiveGame(newValue);
-		            }
+                    if (newValue != null) {
+                        loadGame(getSelectedGame());
+                    }
                 });
     }
 
     private void initGamesListView() {
 
-        try {
-			controller.sendGetActiveGames();
-		} catch (IOException e) {
-            showError(e.getMessage());
-		}
-    	
-        ObservableList<JungleGame> games = gamesModel.getCurrentGames();
-        games.sort((o1, o2) -> (int) (o1.getGameID() - o2.getGameID()));
+        ObservableList<JungleGame> games = FXCollections.observableArrayList();
+        // Wrap the list in a sorted list.
+        SortedList<JungleGame> sortedGames = new SortedList<>(games, (o1, o2) -> (int) (o1.getGameID() - o2.getGameID()));
+
         // Add a listener to the list in gamesModel to change the list bound to the list view
         // I couldn't update the gamesModel list directly at some point from a non-javafx thread.
         gamesModel.getCurrentGames().addListener((ListChangeListener<JungleGame>) c -> Platform.runLater(() -> {
             while (c.next()) {
-            	boolean changed = true;
-            	if (c.getRemovedSize() == c.getAddedSize()){
-            		changed = false;
-            		for (int i = 0; i < c.getRemovedSize(); i++) {
-						if (c.getRemoved().get(i).getGameID() == c.getAddedSubList().get(i).getGameID())
-							games.set( games.indexOf(c.getRemoved().get(i)), c.getAddedSubList().get(i) );
-						else
-							changed = true;
-					}
-            	}
-            	
-            	if (changed == true) {
-            		if (c.wasRemoved()) games.removeAll(c.getRemoved());
-            		if (c.wasAdded()) games.addAll(c.getAddedSubList());
-            	}
+                if (c.wasReplaced()) {
+                    int selectedIndex = gamesList.getSelectionModel().getSelectedIndex();
+                    games.removeAll(c.getRemoved());
+                    games.addAll(c.getAddedSubList());
+                    selectGame(selectedIndex);
+                } else if (c.wasAdded()) {
+                    games.addAll(c.getAddedSubList());
+                    if (c.getAddedSubList().size() == 1) selectGame(c.getAddedSubList().get(0));
+                } else if (c.wasRemoved()) {
+                    games.removeAll(c.getRemoved());
+                    loadGame(getSelectedGame());
+                }
             }
-            selectActiveGame();
         }));
-        gamesList.setItems(games);
+        gamesList.setItems(sortedGames);
     }
 
-    private void listenForActiveGameChange() {
-        gamesModel.getActiveGameProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
-            if (newValue != null) {
-                reloadActiveGame();
-                selectActiveGame();
-            } else borderPane.setCenter(null);
-        }));
-    }
-
-    private void selectActiveGame() {
-        JungleGame game = gamesModel.getActiveGame();
-        if (game != null) {
-            int index = gamesList.getItems().indexOf(game);
-            gamesList.requestFocus();
-            gamesList.getSelectionModel().select(index);
-            gamesList.getFocusModel().focus(index);
+    private void getOngoingGames() {
+        try {
+            controller.sendGetActiveGames();
+        } catch (IOException e) {
+            showError(e.getMessage());
         }
     }
 
-    private void reloadActiveGame() {
+    private JungleGame getSelectedGame() {
+        return gamesList.getSelectionModel().getSelectedItem();
+    }
+
+    private void selectGame(int selectedIndex) {
+        gamesList.requestFocus();
+        gamesList.getSelectionModel().select(selectedIndex);
+        gamesList.getFocusModel().focus(selectedIndex);
+    }
+
+    private void selectGame(JungleGame game) {
+        if (game != null) {
+            selectGame(gamesList.getItems().indexOf(game));
+        }
+    }
+
+    private void loadGame(JungleGame game) {
+        if (game == null) {
+            borderPane.setCenter(null);
+            return;
+        }
+
         Node board;
         try {
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
             lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
-            
+
             String boardgameName = "/fxml/gameBoard.fxml";
             if (colorblind)
-            	boardgameName = "/fxml/gameBoard_colorblind.fxml";
+                boardgameName = "/fxml/gameBoard_colorblind.fxml";
             FXMLLoader loader = new FXMLLoader(App.class.getResource(boardgameName));
             board = loader.load();
 
@@ -245,8 +247,8 @@ public class HomeViewImpl extends BaseView {
 
             // Set the game to load
             if (colorblind)
-            	gameBoardView.setColorblind();
-            gameBoardView.setGame(gamesModel.getActiveGame());
+                gameBoardView.setColorblind();
+            gameBoardView.setGame(game);
 
             // Set data in the controller
             borderPane.setCenter(board);
