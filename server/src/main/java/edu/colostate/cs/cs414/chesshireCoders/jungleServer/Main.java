@@ -89,8 +89,8 @@ public final class Main {
                 properties.getProperty("dataSourceClassName")
         );
         dataSourceProperties.setProperty(
-                "dataSource.databaseName",
-                properties.getProperty("dataSource.databaseName")
+                "dataSource.url",
+                properties.getProperty("dataSource.url")
         );
         dataSourceProperties.setProperty(
                 "dataSource.user",
@@ -99,14 +99,6 @@ public final class Main {
         dataSourceProperties.setProperty(
                 "dataSource.password",
                 properties.getProperty("dataSource.password")
-        );
-        dataSourceProperties.setProperty(
-                "dataSource.serverName",
-                properties.getProperty("dataSource.serverName")
-        );
-        dataSourceProperties.setProperty(
-                "dataSource.portNumber",
-                properties.getProperty("dataSource.portNumber")
         );
         return dataSourceProperties;
     }
