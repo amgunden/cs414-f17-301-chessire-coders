@@ -144,6 +144,15 @@ public class GameServiceImpl implements GameService {
     }
     
     @Override
+    public List<Game> fetchUserGamesWithoutPieces(String nickName) throws Exception {
+        return manager.execute(manager -> {
+            List<Game> games = manager.getGameDAO().findAllByNickName(nickName);
+
+            return games;
+        });
+    }
+    
+    @Override
     public List<Game> fetchUserGames(String nickName, GameStatus... statuses) throws Exception {
         return manager.execute(manager -> {
             List<Game> games = manager.getGameDAO().findAllByNickName(nickName, statuses);
@@ -154,6 +163,15 @@ public class GameServiceImpl implements GameService {
                         .findByGameId(game.getGameID());
                 game.setGamePieces(pieces);
             }
+
+            return games;
+        });
+    }
+    
+    @Override
+    public List<Game> fetchUserGamesWithoutPieces(String nickName, GameStatus... statuses) throws Exception {
+        return manager.execute(manager -> {
+            List<Game> games = manager.getGameDAO().findAllByNickName(nickName, statuses);
 
             return games;
         });
