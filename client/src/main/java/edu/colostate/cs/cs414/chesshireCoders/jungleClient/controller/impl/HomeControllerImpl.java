@@ -1,7 +1,15 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl;
 
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
@@ -16,16 +24,21 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAccept
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.*;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.*;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetActiveGamesRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserGameHistoryRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LogoutRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetActiveGamesResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
 public class HomeControllerImpl extends BaseController implements HomeController {
 
@@ -64,6 +77,12 @@ public class HomeControllerImpl extends BaseController implements HomeController
         GetGameRequest request = new GetGameRequest(accountModel.getToken(), gameId);
         client.sendMessage(request);
     }
+    
+    @Override
+    public void sendGetUserGameHistory(String nickname) throws IOException {
+        GetUserGameHistoryRequest request = new GetUserGameHistoryRequest(accountModel.getToken(), nickname);
+        client.sendMessage(request);
+    } 
 
     @Override
     public void sendAcceptInvite(Invitation invite) throws IOException {

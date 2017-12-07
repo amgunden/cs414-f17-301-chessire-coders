@@ -12,6 +12,8 @@ public interface HomeController extends Controller {
 
     void sendGetGame(long gameId) throws IOException;
 
+    void sendGetUserGameHistory(String nickname) throws IOException;
+    
     void sendAcceptInvite(Invitation invite) throws IOException;
 
     void sendRejectInvite(Invitation invite) throws IOException;
