@@ -41,7 +41,7 @@ public class ArtificialIntelligenceViewImpl extends BaseView {
     };
 
 
-    public void initialize() {
+    public void start() {
         listenForLoginSuccess();
     }
     
