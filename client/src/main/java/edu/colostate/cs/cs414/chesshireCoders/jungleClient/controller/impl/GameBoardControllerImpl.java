@@ -67,7 +67,7 @@ public class GameBoardControllerImpl extends BaseController implements GameBoard
     private void handleGetAvailPlayersResponse(GetAvailPlayersResponse response) {
         if (response.isSuccess()) {
             invitesModel.setAvailPlayers(response.getAvailUsers());
-        }
+        }else view.showError(response.getErrMsg());
     }
     
     private class GameBoardListener extends Listener {

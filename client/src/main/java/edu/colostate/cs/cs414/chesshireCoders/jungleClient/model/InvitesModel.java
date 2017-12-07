@@ -37,8 +37,6 @@ public class InvitesModel extends Observable {
     }
     
     public void setAvailPlayers(List<String> availPlayers) {
-    	System.out.println("availPlayers set");
-    	//System.out.println(availPlayers);
     	this.availPlayers.addAll(availPlayers);
     }
     

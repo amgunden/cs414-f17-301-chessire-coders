@@ -159,8 +159,6 @@ public class HomeViewImpl extends BaseView {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         gamesModel.setActiveGame(newValue);
-                        reloadActiveGame();
-                        selectActiveGame();
                     }
                 });
     }

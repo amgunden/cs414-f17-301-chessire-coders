@@ -76,7 +76,7 @@ public class GameBoardViewImpl extends BaseView {
         MenuItem invitePlayer = new MenuItem("Invite Player...");
         invitePlayer.setOnAction(event -> {
         	
-        	ObservableList<String> availPlayers = FXCollections.observableArrayList();
+        	ObservableList<String> avail = FXCollections.observableArrayList();
         	
         	ChoiceDialog<String> inviteDialog = new ChoiceDialog<>();	      
         	inviteDialog.setTitle("Send Invitation");
@@ -86,22 +86,11 @@ public class GameBoardViewImpl extends BaseView {
         	invitesModel.getAvailPlayers().addListener((ListChangeListener<String>) c -> Platform.runLater(() -> {
         		
         		while(c.next()) {
-        			if( c.wasRemoved()) availPlayers.removeAll(c.getRemoved());
-        			if( c.wasAdded()) availPlayers.addAll(c.getAddedSubList());
+        			if( c.wasRemoved()) avail.removeAll(c.getRemoved());
+        			if( c.wasAdded()) avail.addAll(c.getAddedSubList());
         		}
-        		System.out.println(availPlayers);
-        		inviteDialog.getItems().addAll(availPlayers);
-        		
-//        		ChoiceDialog<String> inviteDialog = new ChoiceDialog<>(availPlayers.get(0), availPlayers);
-//            	inviteDialog.setTitle("Send Invitation");
-//            	inviteDialog.setHeaderText(null);
-//            	inviteDialog.setContentText("Choose a user to invite: "); 
-//            	
-//        		Optional<String> opponentNickname = inviteDialog.showAndWait();
-//                if (opponentNickname.isPresent()) {
-//                    sendInviteClicked(opponentNickname.get());
-//                }
-        		        		
+
+        		inviteDialog.getItems().addAll(avail);       		        		
         	}));
         	
        
@@ -112,12 +101,11 @@ public class GameBoardViewImpl extends BaseView {
 				e.printStackTrace();
 			}
         	
-        	
-        	
     		Optional<String> opponentNickname = inviteDialog.showAndWait();
             if (opponentNickname.isPresent()) {
                 sendInviteClicked(opponentNickname.get());
             }
+            
         });
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {
