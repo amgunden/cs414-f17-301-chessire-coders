@@ -7,8 +7,8 @@ import java.io.IOException;
 public interface HomeController extends Controller {
 
     void sendCreateGame() throws IOException;
-
-    void fetchPlayerGames();
+    
+    void sendGetActiveGames() throws IOException;
 
     void sendGetGame(long gameId) throws IOException;
 

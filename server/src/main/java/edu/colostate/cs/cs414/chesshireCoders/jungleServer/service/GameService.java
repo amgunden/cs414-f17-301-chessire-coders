@@ -3,6 +3,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer.service;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public interface GameService {
     Game fetchGame(long gameId) throws Exception;
 
     List<Game> fetchUserGames(String nickName) throws Exception;
+    List<Game> fetchUserGames(String nickName, GameStatus... statuses) throws Exception;
 
     String quitGame(String sendingNickName, long gameId) throws Exception;
 

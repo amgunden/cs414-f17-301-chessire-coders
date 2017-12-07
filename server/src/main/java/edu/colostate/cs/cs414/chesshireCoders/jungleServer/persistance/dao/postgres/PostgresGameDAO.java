@@ -48,6 +48,21 @@ public class PostgresGameDAO extends BaseDAO<Game, Long> implements GameDAO {
         String sql = "SELECT * FROM game WHERE player_one_nick_name = ? OR player_two_nick_name = ?";
         return query(sql, GAME_ROW_MAPPER, nickName, nickName);
     }
+    
+    @Override
+    public List<Game> findAllByNickName(String nickName, GameStatus... statuses) throws SQLException {
+        //language=PostgreSQL
+        String sql = "SELECT * FROM game WHERE (player_one_nick_name = ? OR player_two_nick_name = ?)";
+        
+        if (statuses.length > 0) { 
+        	sql += " AND (game_state = ?";
+	        for (int i = 1; i < statuses.length; i++) {
+	        	sql += " OR game_state = ?";
+			}
+	        sql += " )";
+        }
+        return query(sql, GAME_ROW_MAPPER, nickName, nickName, statuses);
+    }
 
     /**
      * Add a new object to the table.
