@@ -19,9 +19,11 @@ public class RiverSquare extends BoardSquare {
 
 	@Override
 	public void setPiece(JungleGamePiece piece) {
-		piece.setRow(this.getRow());
-		piece.setColumn(this.getColumn());
-		piece.setPowerLevel(0);
-		this.piece = piece;
+        if (piece != null) {
+            piece.setRow(this.getRow());
+            piece.setColumn(this.getColumn());
+            piece.setPowerLevel(0);
+            this.piece = piece;
+        }
 	}
 }
