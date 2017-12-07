@@ -34,6 +34,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequ
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetActiveGamesResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserGameHistoryResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse;
@@ -179,6 +180,13 @@ public class HomeControllerImpl extends BaseController implements HomeController
         GamesModel.getInstance().updateOrAddGame(jGame);
     }
 
+    /**
+     * 
+     */
+    private void handleGetUserGameHistoryResponse(GetUserGameHistoryResponse response) {
+        // Have the view display the information.
+    }
+    
     private PlayerEnumType getViewingPlayer(JungleGame jGame) {
         return accountModel.getNickName().equals(jGame.getPlayerOneNickName()) ? PLAYER_ONE : PLAYER_TWO;
     }
@@ -232,13 +240,17 @@ public class HomeControllerImpl extends BaseController implements HomeController
                 else if (received instanceof CreateGameResponse) {
                     handleCreateGameResponse((CreateGameResponse) received);
                 }
-                // handle get game response
+                // handle get active games response
                 else if (received instanceof GetActiveGamesResponse) {
                     handleGetActiveGamesResponse((GetActiveGamesResponse) received);
                 }
                 // handle get game response
                 else if (received instanceof GetGameResponse) {
                     handleGetGameResponse((GetGameResponse) received);
+                }
+                // handle get user game history response
+                else if (received instanceof GetUserGameHistoryResponse) {
+                    handleGetUserGameHistoryResponse((GetUserGameHistoryResponse) received);
                 }
                 // handle update game response
                 else if (received instanceof UpdateGameResponse) {
