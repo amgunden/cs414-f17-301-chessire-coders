@@ -77,4 +77,9 @@ public class Move {
 
         return Objects.hash(getPieceId(), getFromCol(), getFromRow(), getToCol(), getToRow());
     }
+
+    @Override
+    public String toString() {
+        return String.format("From: (%d,%d) To: (%d,%d)", fromCol, fromRow, toCol, toRow);
+    }
 }

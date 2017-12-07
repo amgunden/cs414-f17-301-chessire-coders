@@ -70,6 +70,6 @@ public class NegaMax extends MoveFinder {
      */
     @Override
     protected void findBestMove() {
-        negaMax_AB(maxDepth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        negaMax_AB(0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
     }
 }

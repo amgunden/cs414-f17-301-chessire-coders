@@ -31,7 +31,7 @@ public abstract class MoveFinder implements Runnable {
         }
     }
 
-    static void makeMove(Move move, JungleGame game) {
+    public static void makeMove(Move move, JungleGame game) {
         int from[] = new int[2];
         int to[] = new int[2];
 
@@ -64,13 +64,15 @@ public abstract class MoveFinder implements Runnable {
             //columns
             for (int j = 0; j < 7; j++) {
                 int[] valid = game.getValidMoves(i, j);
-                Move move = new Move();
-                //m.setPieceId();
-                move.setFromRow(i);
-                move.setFromCol(j);
-                move.setToRow(valid[0] + valid[2] + i);
-                move.setToCol(valid[1] + valid[3] + j);
-                moves.add(move);
+                if (valid != null) {
+                    Move move = new Move();
+                    //m.setPieceId();
+                    move.setFromRow(i);
+                    move.setFromCol(j);
+                    move.setToRow(valid[0] + valid[2] + i);
+                    move.setToCol(valid[1] + valid[3] + j);
+                    moves.add(move);
+                }
             }
         }
         return moves;

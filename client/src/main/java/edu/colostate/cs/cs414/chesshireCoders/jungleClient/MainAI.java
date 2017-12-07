@@ -35,7 +35,7 @@ public class MainAI {
                 client.setTimeout(5000);
 
                 // Start the bot
-                new Thread(() -> new ArtificialIntelligenceViewImpl().start()).start();
+                new Thread(new ArtificialIntelligenceViewImpl()).start();
 
             } catch (IOException e) {
                 e.printStackTrace();
