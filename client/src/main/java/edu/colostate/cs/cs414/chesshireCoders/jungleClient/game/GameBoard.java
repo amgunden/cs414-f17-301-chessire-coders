@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class GameBoard {
+public class GameBoard implements Cloneable {
 
 	//Set up Squares
 	BoardSquare[][] boardSquares = null;

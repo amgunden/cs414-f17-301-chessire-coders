@@ -1,6 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,21 +59,44 @@ public abstract class MoveFinder implements Runnable {
     }
 
     static List<Move> getAvailableMoves(JungleGame game) {
+
         List<Move> moves = new ArrayList<>();
-        //rows
-        for (int i = 0; i < 9; i++) {
-            //columns
-            for (int j = 0; j < 7; j++) {
-                int[] valid = game.getValidMoves(i, j);
-                if (valid != null) {
-                    Move move = new Move();
-                    //m.setPieceId();
-                    move.setFromRow(i);
-                    move.setFromCol(j);
-                    move.setToRow(valid[0] + valid[2] + i);
-                    move.setToCol(valid[1] + valid[3] + j);
-                    moves.add(move);
+
+        for (GamePiece piece : game.getGamePieces()) {
+            if (piece.getPlayerOwner() != game.getTurnOfPlayer()) continue;
+
+            int[] valid = game.getValidMoves(piece.getRow(), piece.getColumn());
+            // 0 = LEFT, 1 = UP, 2 = RIGHT, 3 = DOWN
+            for (int i = 0; i < valid.length; i++) {
+                // set initial columns
+                int fromCol = piece.getColumn();
+                int toCol = piece.getColumn();
+
+                // set initial rows
+                int fromRow = piece.getRow();
+                int toRow = piece.getRow();
+
+                // apply direction
+                int directionDist = valid[i];
+                if (i == 0) {
+                    toCol += directionDist;
+                } else if (i == 1) {
+                    toRow += directionDist;
+                } else if (i == 2) {
+                    toCol += directionDist;
+                } else if (i == 3) {
+                    toRow += directionDist;
                 }
+
+                if (toCol == 0 && toRow == 0) continue;
+
+                // Create and populate the move object
+                Move move = new Move();
+                move.setFromCol(fromCol);
+                move.setToCol(toCol);
+                move.setFromRow(fromRow);
+                move.setToRow(toRow);
+                moves.add(move);
             }
         }
         return moves;

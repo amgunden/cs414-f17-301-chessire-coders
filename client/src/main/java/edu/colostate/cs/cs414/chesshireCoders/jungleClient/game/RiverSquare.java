@@ -4,6 +4,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public class RiverSquare extends BoardSquare {
 
+	public RiverSquare() {
+	}
+
 	public RiverSquare(int col, int row, JungleGamePiece piece) {
 		super(col, row, piece);
 		// TODO Auto-generated constructor stub

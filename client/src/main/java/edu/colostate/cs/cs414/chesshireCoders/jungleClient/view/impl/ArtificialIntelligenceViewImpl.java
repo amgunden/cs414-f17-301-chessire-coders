@@ -1,5 +1,6 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
+import com.esotericsoftware.kryo.Kryo;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.Move;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
@@ -38,7 +39,7 @@ public class ArtificialIntelligenceViewImpl extends BaseView implements Runnable
     // Number of available threads to use for the AI.
     private static final int AI_THREAD_COUNT = 10;
     // How hard the AI should look for an ideal move.
-    private static final int AI_DEPTH = 100;
+    private static final int AI_DEPTH = 25;
     // The max number of login to attempt before giving up.
     private static int loginRetries = 3;
     // our data models
@@ -115,19 +116,17 @@ public class ArtificialIntelligenceViewImpl extends BaseView implements Runnable
      * find and make a super smart move.
      */
     private void makeSmartMove(final JungleGame game) {
-        logger.log(INFO, String.format("Searching for best move in game '%s'", game));
-
         // start new thread to find best move
         executorService.submit(() -> {
             try {
                 logger.log(INFO, String.format("Starting search on game '%s' with depth '%d'", game, AI_DEPTH));
-                MoveFinder ai = MoveFinder.getMoveFinder(game, AI_DEPTH, NEGA_MAX);
+                Kryo kryo = new Kryo();
+                MoveFinder ai = MoveFinder.getMoveFinder(kryo.copy(game), AI_DEPTH, NEGA_MAX);
                 ai.run();
                 Move bestMove = ai.getBestMove();
                 if (bestMove == null) throw new RuntimeException("Could not find move.");
                 logger.log(INFO, String.format("Search ended on game '%s' with result '%s'", game, AI_DEPTH));
                 MoveFinder.makeMove(bestMove, game);
-
 
                 logger.log(FINE, String.format("Updating game: %s", game));
                 gameBoardController.updateGame(game);
