@@ -1,20 +1,20 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 
 public class GetUserGameHistoryResponse extends Response {
 
     private String nickname;
-    private ArrayList<Game> games;
+    private List<Game> games;
 
-    public GetUserGameHistoryResponse(String nickname, ArrayList<Game> games) {
+    public GetUserGameHistoryResponse(String nickname, List<Game> games) {
         this.nickname = nickname;
         this.games = games;
     }
 
-    public GetUserGameHistoryResponse(int statusCode, String errMsg, String nickname, ArrayList<Game> games) {
+    public GetUserGameHistoryResponse(int statusCode, String errMsg, String nickname, List<Game> games) {
         super(statusCode, errMsg);
         this.nickname = nickname;
         this.games = games;
@@ -31,15 +31,17 @@ public class GetUserGameHistoryResponse extends Response {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public GetUserGameHistoryResponse setNickname(String nickname) {
         this.nickname = nickname;
+        return this;
     }
 
-    public ArrayList<Game> getGames() {
+    public List<Game> getGames() {
         return games;
     }
 
-    public void setGames(ArrayList<Game> games) {
+    public GetUserGameHistoryResponse setGames(List<Game> games) {
         this.games = games;
+        return this;
     }
 }
