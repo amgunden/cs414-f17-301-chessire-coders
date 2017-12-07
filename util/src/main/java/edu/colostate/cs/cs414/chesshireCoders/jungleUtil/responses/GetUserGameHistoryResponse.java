@@ -1,23 +1,22 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses;
 
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User;
+import java.util.List;
 
-import java.util.ArrayList;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 
 public class GetUserGameHistoryResponse extends Response {
 
-    private User user;
-    private ArrayList<Game> games;
+    private String nickname;
+    private List<Game> games;
 
-    public GetUserGameHistoryResponse(User user, ArrayList<Game> games) {
-        this.user = user;
+    public GetUserGameHistoryResponse(String nickname, List<Game> games) {
+        this.nickname = nickname;
         this.games = games;
     }
 
-    public GetUserGameHistoryResponse(int statusCode, String errMsg, User user, ArrayList<Game> games) {
+    public GetUserGameHistoryResponse(int statusCode, String errMsg, String nickname, List<Game> games) {
         super(statusCode, errMsg);
-        this.user = user;
+        this.nickname = nickname;
         this.games = games;
     }
 
@@ -28,19 +27,21 @@ public class GetUserGameHistoryResponse extends Response {
         super(statusCode, errMsg);
     }
 
-    public User getUser() {
-        return user;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public GetUserGameHistoryResponse setNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
     }
 
-    public ArrayList<Game> getGames() {
+    public List<Game> getGames() {
         return games;
     }
 
-    public void setGames(ArrayList<Game> games) {
+    public GetUserGameHistoryResponse setGames(List<Game> games) {
         this.games = games;
+        return this;
     }
 }
