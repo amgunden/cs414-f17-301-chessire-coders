@@ -1,8 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -80,5 +77,4 @@ public class GamesModel {
     public ObservableList<JungleGame> getCurrentGames() {
         return currentGames;
     }
- 
 }
