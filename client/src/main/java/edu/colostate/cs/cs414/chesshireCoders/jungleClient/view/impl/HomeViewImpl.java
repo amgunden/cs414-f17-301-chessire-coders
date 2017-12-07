@@ -102,17 +102,6 @@ public class HomeViewImpl extends BaseView {
             showError(e.getMessage());
         }
     }
-    @FXML
-    private void playBotClicked() {
-        try {
-            System.out.println("Play the Bot Clicked.");
-            JungleGame jg=new JungleGame();
-            
-            controller.sendCreateGame();
-        } catch (Exception e) {
-            showError(e.getMessage());
-        }
-    }
 
     @FXML
     private void settingsClicked() {
