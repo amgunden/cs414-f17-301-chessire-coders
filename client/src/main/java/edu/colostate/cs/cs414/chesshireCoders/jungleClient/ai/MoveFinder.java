@@ -88,7 +88,8 @@ public abstract class MoveFinder implements Runnable {
                     toRow += directionDist;
                 }
 
-                if (toCol == 0 && toRow == 0) continue;
+                // Ignore "non-moves"
+                if (toCol == fromCol && toRow == fromRow) continue;
 
                 // Create and populate the move object
                 Move move = new Move();
