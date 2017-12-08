@@ -17,18 +17,28 @@ public class GameListCell extends ListCell<Game>{
 	}
 	
 	@Override
-    protected void updateItem(Game game, boolean b) {
-      super.updateItem(game, b);
+	protected void updateItem(Game game, boolean b) {
+		super.updateItem(game, b);
 
-      if (game != null) {
-    	String start = DateFormat.getInstance().format(game.getGameStart());
-    	String end = DateFormat.getInstance().format(game.getGameEnd());
+		if (game != null) {
+
+			String start = DateFormat.getInstance().format(game.getGameStart());
+			String end = findEndDate(game);
+			String result = findResult(game);
+			String opponent = findOpponentPlayer(game);
+
+			setText( opponent+"		"+start+"		"+end+"		"+result );
+		}
+	}
+      
+    public String findEndDate(Game game) {
     	
-    	String result = findResult(game);
-    	String opponent = findOpponentPlayer(game);
-    	  
-        setText( opponent+"   "+start+"    "+end+"    "+result );
-      }
+    	if( game.getGameEnd() != null) {
+    		return DateFormat.getInstance().format(game.getGameEnd());
+    	}
+    	else {
+    		return "Unknown";
+    	}
     }
 	
 	public String findResult(Game game) {
