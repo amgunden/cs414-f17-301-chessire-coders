@@ -15,6 +15,7 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseContro
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
@@ -46,6 +47,7 @@ public class HomeControllerImpl extends BaseController implements HomeController
     private final JungleClient client = JungleClient.getInstance();
     private final Listener listener = new Listener.ThreadedListener(new HomeListener());
 
+    private GameHistoryModel gameHistoryModel;
     private final GamesModel gamesModel = GamesModel.getInstance();
     private final InvitesModel invitesModel = InvitesModel.getInstance();
     private final AccountModel accountModel = AccountModel.getInstance();
@@ -80,8 +82,10 @@ public class HomeControllerImpl extends BaseController implements HomeController
     }
     
     @Override
-    public void sendGetUserGameHistory(String nickname) throws IOException {
+    public void sendGetUserGameHistory(String nickname, GameHistoryModel gameHistoryModel) throws IOException {
         GetUserGameHistoryRequest request = new GetUserGameHistoryRequest(accountModel.getToken(), nickname);
+        if (this.gameHistoryModel != null) this.gameHistoryModel.removeAllListeners();
+        this.gameHistoryModel = gameHistoryModel;
         client.sendMessage(request);
     } 
 
@@ -185,6 +189,8 @@ public class HomeControllerImpl extends BaseController implements HomeController
      */
     private void handleGetUserGameHistoryResponse(GetUserGameHistoryResponse response) {
         // Have the view display the information.
+    	if (gameHistoryModel != null)
+    		gameHistoryModel.setPastGames(response.getGames());
     }
     
     private PlayerEnumType getViewingPlayer(JungleGame jGame) {
