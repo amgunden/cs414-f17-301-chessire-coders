@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>edu.colostate.cs.cs414.chesshireCoders.jungleUtil</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece</node>
+    <node x="1890.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Login</node>
+    <node x="796.0" y="270.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.QuitGameRequest</node>
+    <node x="630.0" y="1422.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse</node>
+    <node x="1512.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.GameEndedEvent</node>
+    <node x="0.0" y="1375.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse</node>
+    <node x="416.0" y="2516.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerStatus</node>
+    <node x="930.0" y="2516.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ServerEventType</node>
+    <node x="3206.0" y="1363.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse</node>
+    <node x="0.0" y="556.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game</node>
+    <node x="2466.5" y="1095.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response</node>
+    <node x="1440.0" y="1352.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserGameHistoryResponse</node>
+    <node x="3921.0" y="305.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest</node>
+    <node x="1624.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.AuthToken</node>
+    <node x="2261.0" y="1386.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetActiveGamesResponse</node>
+    <node x="594.0" y="341.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetPlayerRequest</node>
+    <node x="245.0" y="225.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest</node>
+    <node x="901.0" y="1422.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse</node>
+    <node x="976.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LoginRequest</node>
+    <node x="3452.0" y="1422.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LogoutResponse</node>
+    <node x="1090.0" y="306.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRequest</node>
+    <node x="1185.0" y="1375.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse</node>
+    <node x="3115.0" y="329.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetActiveGamesRequest</node>
+    <node x="560.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.ServerEvent</node>
+    <node x="1437.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.ErrorType</node>
+    <node x="1882.0" y="1387.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateSessionExpirationResponse</node>
+    <node x="2871.0" y="329.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetPieceLocationRequest</node>
+    <node x="889.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.Crypto</node>
+    <node x="0.0" y="2516.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.InvitationStatusType</node>
+    <node x="209.0" y="2516.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameOutcomeType</node>
+    <node x="3656.0" y="341.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdatePieceLocationRequest</node>
+    <node x="542.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PieceType</node>
+    <node x="4547.0" y="1398.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse</node>
+    <node x="1432.0" y="305.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest</node>
+    <node x="4002.0" y="1398.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse</node>
+    <node x="1114.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.User</node>
+    <node x="3416.0" y="329.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateInvitationRequest</node>
+    <node x="2578.0" y="1387.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse</node>
+    <node x="2867.0" y="1398.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetInvitationResponse</node>
+    <node x="1191.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.LoginStatus</node>
+    <node x="770.0" y="2516.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerColor</node>
+    <node x="1616.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateSessionExpirationRequest</node>
+    <node x="303.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent</node>
+    <node x="1379.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.UserSession</node>
+    <node x="0.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.security.LoginAttempt</node>
+    <node x="694.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes</node>
+    <node x="1932.0" y="294.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest</node>
+    <node x="1641.0" y="305.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest</node>
+    <node x="2592.0" y="329.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest</node>
+    <node x="0.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.listeners.FilteredListener</node>
+    <node x="388.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation</node>
+    <node x="581.0" y="2516.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType</node>
+    <node x="4272.0" y="1422.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse</node>
+    <node x="1961.0" y="2346.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent</node>
+    <node x="1250.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent</node>
+    <node x="2225.0" y="294.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserGameHistoryRequest</node>
+    <node x="301.0" y="1398.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetPieceResponse</node>
+    <node x="226.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.KryoRegistrar</node>
+    <node x="1871.0" y="2061.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus</node>
+    <node x="707.0" y="1614.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.RegisterRequest</node>
+    <node x="1953.5" y="0.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest</node>
+    <node x="0.0" y="329.5">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LogoutRequest</node>
+    <node x="3699.0" y="1375.0">edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-74.0" />
+      <point x="0.0" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetPieceLocationRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-39.0" />
+      <point x="2983.0" y="185.0" />
+      <point x="2114.5" y="185.0" />
+      <point x="46.0" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.QuitGameRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-97.5" />
+      <point x="933.0" y="175.0" />
+      <point x="2007.1666666666667" y="175.0" />
+      <point x="-61.33333333333326" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.CreateGameResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-85.5" />
+      <point x="140.5" y="1262.0" />
+      <point x="2472.40625" y="1262.0" />
+      <point x="-88.59375" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetActiveGamesRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-38.5" />
+      <point x="3255.5" y="175.0" />
+      <point x="2129.8333333333335" y="175.0" />
+      <point x="61.333333333333485" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetUserGameHistoryRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-74.0" />
+      <point x="2398.5" y="205.0" />
+      <point x="2083.8333333333335" y="205.0" />
+      <point x="15.333333333333485" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetInvitationResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-62.0" />
+      <point x="3026.5" y="1322.0" />
+      <point x="2578.71875" y="1322.0" />
+      <point x="17.71875" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserGameHistoryResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-108.5" />
+      <point x="1651.0" y="1312.0" />
+      <point x="2531.46875" y="1312.0" />
+      <point x="-29.53125" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-62.0" />
+      <point x="4127.0" y="1282.0" />
+      <point x="2625.96875" y="1282.0" />
+      <point x="64.96875" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.RegisterResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-85.5" />
+      <point x="1302.5" y="1302.0" />
+      <point x="2519.65625" y="1302.0" />
+      <point x="-41.34375" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.CreateGameRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-38.5" />
+      <point x="2721.5" y="195.0" />
+      <point x="2099.1666666666665" y="195.0" />
+      <point x="30.666666666666515" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UnRegisterRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-62.5" />
+      <point x="1526.5" y="195.0" />
+      <point x="2037.8333333333333" y="195.0" />
+      <point x="-30.666666666666742" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateInvitationRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-39.0" />
+      <point x="3526.0" y="165.0" />
+      <point x="2145.1666666666665" y="165.0" />
+      <point x="76.66666666666652" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UnRegisterResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-38.5" />
+      <point x="755.5" y="1282.0" />
+      <point x="2496.03125" y="1282.0" />
+      <point x="-64.96875" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.LogoutRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-38.5" />
+      <point x="112.5" y="145.0" />
+      <point x="1961.1666666666667" y="145.0" />
+      <point x="-107.33333333333326" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InvitePlayerResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-38.5" />
+      <point x="4399.5" y="1272.0" />
+      <point x="2637.78125" y="1272.0" />
+      <point x="76.78125" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetPieceResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-62.0" />
+      <point x="455.5" y="1272.0" />
+      <point x="2484.21875" y="1272.0" />
+      <point x="-76.78125" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LogoutResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-38.5" />
+      <point x="3565.5" y="1302.0" />
+      <point x="2602.34375" y="1302.0" />
+      <point x="41.34375" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetUserResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-73.5" />
+      <point x="2712.5" y="1332.0" />
+      <point x="2566.90625" y="1332.0" />
+      <point x="5.90625" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdateGameRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-62.5" />
+      <point x="4072.0" y="145.0" />
+      <point x="2175.8333333333335" y="145.0" />
+      <point x="107.33333333333348" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateGameResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-38.5" />
+      <point x="1033.0" y="1292.0" />
+      <point x="2507.84375" y="1292.0" />
+      <point x="-53.15625" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetGameRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-62.5" />
+      <point x="1776.5" y="205.0" />
+      <point x="2053.1666666666665" y="205.0" />
+      <point x="-15.333333333333485" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.QuitGameResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-62.5" />
+      <point x="4670.0" y="1262.0" />
+      <point x="2649.59375" y="1262.0" />
+      <point x="88.59375" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.LoginResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-97.0" />
+      <point x="3319.0" y="1312.0" />
+      <point x="2590.53125" y="1312.0" />
+      <point x="29.53125" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InvitePlayerRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-62.0" />
+      <point x="1251.0" y="185.0" />
+      <point x="2022.5" y="185.0" />
+      <point x="-46.0" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetGameResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-85.5" />
+      <point x="3840.5" y="1292.0" />
+      <point x="2614.15625" y="1292.0" />
+      <point x="53.15625" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.UpdateSessionExpirationResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-73.5" />
+      <point x="2061.5" y="1322.0" />
+      <point x="2543.28125" y="1322.0" />
+      <point x="-17.71875" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.GetPlayerRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-27.0" />
+      <point x="685.0" y="165.0" />
+      <point x="1991.8333333333333" y="165.0" />
+      <point x="-76.66666666666674" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.InviteReplyRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-143.0" />
+      <point x="409.5" y="155.0" />
+      <point x="1976.5" y="155.0" />
+      <point x="-92.0" y="62.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.GetActiveGamesResponse" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.Response">
+      <point x="0.0" y="-74.0" />
+      <point x="2409.5" y="1332.0" />
+      <point x="2555.09375" y="1332.0" />
+      <point x="-5.90625" y="73.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.UpdatePieceLocationRequest" target="edu.colostate.cs.cs414.chesshireCoders.jungleUtil.requests.SessionRequest">
+      <point x="0.0" y="-27.0" />
+      <point x="3778.5" y="155.0" />
+      <point x="2160.5" y="155.0" />
+      <point x="92.0" y="62.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.2731411229135053" x="2396.5" y="1308.0000000000002" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
