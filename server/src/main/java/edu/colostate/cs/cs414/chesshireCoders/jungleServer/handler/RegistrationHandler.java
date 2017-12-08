@@ -48,7 +48,7 @@ public class RegistrationHandler extends Listener {
                     .setNickName(request.getNickName()); // Defaults to success
         } catch (Exception e) {
             e.printStackTrace();
-            return new RegisterResponse(ResponseStatusCodes.SERVER_ERROR, "Server Error: Unable to register user.");
+            return new RegisterResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class RegistrationHandler extends Listener {
                 return new UnRegisterResponse(ResponseStatusCodes.UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {
             e.printStackTrace();
-            return new UnRegisterResponse(ResponseStatusCodes.SERVER_ERROR, "Server Error: Unable to register user.");
+            return new UnRegisterResponse(ResponseStatusCodes.SERVER_ERROR, e.getMessage());
         }
     }
 }

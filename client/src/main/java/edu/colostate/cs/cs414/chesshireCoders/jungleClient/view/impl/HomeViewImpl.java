@@ -2,7 +2,6 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameHistoryController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel;
@@ -74,6 +73,9 @@ public class HomeViewImpl extends BaseView {
     // Get model instances
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
+
+    // GameBoard view
+    private GameBoardViewImpl gameBoardView;
 
     private boolean colorblind = false;
 
@@ -169,7 +171,7 @@ public class HomeViewImpl extends BaseView {
             controller.dispose();
             App.setScene("loginPage.fxml");
         } catch (IOException e) {
-            System.err.println("ERROR: Unable to load fxml file for Login page.");
+            System.err.println("ERROR: Unable to load fxml file for Home page.");
         }
     }
 
@@ -183,7 +185,7 @@ public class HomeViewImpl extends BaseView {
     }
 
     @FXML
-    private void viewOthersGameHistoryClicked() throws IOException {
+    private void viewOthersGameHistoryClicked() {
 
         System.out.println("View Others Game History Clicked.");
         TextInputDialog dialog = new TextInputDialog();
@@ -205,7 +207,7 @@ public class HomeViewImpl extends BaseView {
                 Platform.runLater(() -> {
 
                     final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profilePage.fxml"));
-                    GameHistoryController controller = new GameHistoryController(o);
+                    GameHistoryViewImpl controller = new GameHistoryViewImpl(o);
                     loader.setController(controller);
 
                     try {
@@ -321,8 +323,10 @@ public class HomeViewImpl extends BaseView {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(boardgameName));
             board = loader.load();
 
-            //Get the Controller from the FXMLLoader
-            GameBoardViewImpl gameBoardView = loader.getController();
+            // cleanup the old board view
+            if (gameBoardView != null) gameBoardView.dispose();
+            // Get the new Controller from the FXMLLoader
+            gameBoardView = loader.getController();
 
             // Set the game to load
             if (colorblind)

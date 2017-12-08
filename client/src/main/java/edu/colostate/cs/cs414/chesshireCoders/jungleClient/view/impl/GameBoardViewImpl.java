@@ -4,20 +4,22 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +54,10 @@ public class GameBoardViewImpl extends BaseView {
 
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
 
+    private InvitesModel invitesModel = InvitesModel.getInstance();
+
+    private ListChangeListener<String> usersListener = (ListChangeListener<String>) c -> showInvitesDialog();
+
     @FXML
     public void initialize() {
         start = new int[2];
@@ -65,6 +72,11 @@ public class GameBoardViewImpl extends BaseView {
         colorblind = true;
     }
 
+    public void dispose() {
+        invitesModel.getAvailPlayers().removeListener(usersListener);
+        controller.dispose();
+    }
+
     @FXML
     private void optionsClicked() {
         System.out.println("Options Clicked.");
@@ -72,12 +84,11 @@ public class GameBoardViewImpl extends BaseView {
 
         MenuItem invitePlayer = new MenuItem("Invite Player...");
         invitePlayer.setOnAction(event -> {
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setContentText("Enter opponent's nickname.");
-            dialog.setHeaderText(null);
-            Optional<String> opponentNickname = dialog.showAndWait();
-            if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
-                sendInviteClicked(opponentNickname.get());
+            try {
+                invitesModel.getAvailPlayers().addListener(usersListener);
+                controller.getAvailPlayers();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
         MenuItem quit = new MenuItem("Quit Game");
@@ -96,6 +107,22 @@ public class GameBoardViewImpl extends BaseView {
         ContextMenu optionsMenu = new ContextMenu(invitePlayer, quit);
         Bounds boundsInScreen = btnOptions.localToScreen(btnOptions.getBoundsInLocal());
         optionsMenu.show(btnOptions, boundsInScreen.getMinX(), boundsInScreen.getMaxY());
+    }
+
+    private void showInvitesDialog() {
+        invitesModel.getAvailPlayers().removeListener(usersListener);
+
+        Platform.runLater(() -> {
+            ChoiceDialog<String> inviteDialog = new ChoiceDialog<>();
+            inviteDialog.setTitle("Send Invitation");
+            inviteDialog.setHeaderText(null);
+            inviteDialog.setContentText("Choose a user to invite: ");
+
+            inviteDialog.getItems().addAll(invitesModel.getAvailPlayers());
+
+            Optional<String> opponentNickname = inviteDialog.showAndWait();
+            opponentNickname.ifPresent(this::sendInviteClicked);
+        });
     }
 
     @FXML

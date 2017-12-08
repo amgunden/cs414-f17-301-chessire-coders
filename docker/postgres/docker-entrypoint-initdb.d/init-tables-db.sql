@@ -126,7 +126,3 @@ CREATE TABLE invitation
   CHECK (invite_status IN ('PENDING', 'ACCEPTED', 'REJECTED')),
   invitation_created_time  TIMESTAMP DEFAULT now()        NOT NULL
 );
-
-ALTER TABLE invitation
-  ADD CONSTRAINT unq_invitation_sender_recipient_game
-UNIQUE (user_sender_nick_name, user_recipient_nick_name, game_id);

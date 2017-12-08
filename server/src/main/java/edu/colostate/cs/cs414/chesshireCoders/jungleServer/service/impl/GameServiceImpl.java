@@ -325,4 +325,12 @@ public class GameServiceImpl implements GameService {
 
         return pieces;
     }
+    
+    @Override    
+    public List<User> getPlayersAvailForInvites(String nickName) throws Exception {
+    	return manager.execute(manager -> manager.getUserDAO()
+                .findEveryoneElse(nickName));
+    	
+    }
+
 }

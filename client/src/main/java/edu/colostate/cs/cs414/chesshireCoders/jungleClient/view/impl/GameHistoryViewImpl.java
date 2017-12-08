@@ -1,29 +1,24 @@
-package edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl;
+package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
-import java.text.DateFormat;
-
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Game;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
+import java.text.DateFormat;
 
 
-public class GameHistoryController{
+public class GameHistoryViewImpl extends BaseView {
 	
 	@FXML
 	private Label profileNickName;
@@ -45,8 +40,8 @@ public class GameHistoryController{
 	private TableColumn result;
 	
 	GameHistoryModel history;
-	
-	public GameHistoryController(Observable o) {
+
+    public GameHistoryViewImpl(Observable o) {
 		// TODO Auto-generated constructor stub
 		history = (GameHistoryModel) o;
 	}
