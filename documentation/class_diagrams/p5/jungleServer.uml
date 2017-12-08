@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>edu.colostate.cs.cs414.chesshireCoders.jungleServer</OriginalElement>
+  <nodes>
+    <node x="5841.00988995255" y="330.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO</node>
+    <node x="2363.0" y="879.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGamePieceDAO</node>
+    <node x="730.0" y="891.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginDAO</node>
+    <node x="4929.556780805109" y="2673.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler</node>
+    <node x="1919.9851190476195" y="1453.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService</node>
+    <node x="2764.0543998527282" y="2707.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler</node>
+    <node x="5101.5578066192165" y="307.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO</node>
+    <node x="6807.315311528394" y="1499.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException</node>
+    <node x="5148.042197471776" y="1442.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService</node>
+    <node x="3305.7625000000007" y="330.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO</node>
+    <node x="5519.556780805109" y="2719.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler</node>
+    <node x="3605.7625000000007" y="330.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO</node>
+    <node x="3301.0543998527282" y="2719.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler</node>
+    <node x="1879.0" y="856.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresInvitationDAO</node>
+    <node x="4714.638525814108" y="342.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.ConnectionProvider</node>
+    <node x="4258.556780805109" y="2719.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler</node>
+    <node x="5033.2453066192165" y="799.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager</node>
+    <node x="3657.5869732858837" y="2086.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl</node>
+    <node x="4255.806780805109" y="1960.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl</node>
+    <node x="2624.625" y="342.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO</node>
+    <node x="2359.5892857142862" y="2005.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer</node>
+    <node x="3556.1843591474412" y="1430.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager</node>
+    <node x="6144.00988995255" y="342.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand</node>
+    <node x="4230.638525814108" y="307.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.InvitationDAO</node>
+    <node x="2493.0" y="1406.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection</node>
+    <node x="316.0" y="879.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserSessionDAO</node>
+    <node x="3086.3043998527282" y="3029.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main</node>
+    <node x="1086.5" y="249.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO</node>
+    <node x="1486.0" y="856.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGameDAO</node>
+    <node x="5504.058501063661" y="1960.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl</node>
+    <node x="1371.5697758141082" y="57.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper</node>
+    <node x="3047.7625000000007" y="342.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO</node>
+    <node x="3942.138525814108" y="0.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO</node>
+    <node x="0.0" y="891.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserDAO</node>
+    <node x="6327.315311528394" y="1373.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService</node>
+    <node x="3232.417676116842" y="1406.0">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider</node>
+    <node x="1056.0" y="879.5">edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginAttemptDAO</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO">
+      <point x="-53.8125" y="-85.0" />
+      <point x="3747.2744732858837" y="1880.0" />
+      <point x="3175.563047169042" y="1880.0" />
+      <point x="3175.563047169042" y="629.0" />
+      <point x="3119.1625000000004" y="629.0" />
+      <point x="-47.59999999999991" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler">
+      <point x="63.75" y="-119.5" />
+      <point x="3320.0543998527282" y="2989.0" />
+      <point x="4584.056780805109" y="2989.0" />
+      <point x="0.0" y="97.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.InvitationDAO">
+      <point x="-32.0" y="-212.0" />
+      <point x="5177.2453066192165" y="529.0" />
+      <point x="4617.305192480774" y="529.0" />
+      <point x="154.66666666666652" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService">
+      <point x="178.125" y="-143.0" />
+      <point x="5392.681780805109" y="2623.0" />
+      <point x="6562.815311528394" y="2623.0" />
+      <point x="6562.815311528394" y="1930.0" />
+      <point x="6614.815311528394" y="1930.0" />
+      <point x="57.5" y="153.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO">
+      <point x="98.66666666666652" y="-120.0" />
+      <point x="246.66666666666652" y="649.0" />
+      <point x="2654.0" y="649.0" />
+      <point x="-88.125" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand">
+      <point x="187.20000000000005" y="-211.5" />
+      <point x="4651.006780805109" y="1900.0" />
+      <point x="6039.00988995255" y="1900.0" />
+      <point x="6039.00988995255" y="1353.0" />
+      <point x="6260.00988995255" y="1353.0" />
+      <point x="6260.00988995255" y="769.0" />
+      <point x="6291.00988995255" y="769.0" />
+      <point x="42.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl">
+      <point x="33.1875" y="-97.0" />
+      <point x="5818.244280805109" y="2593.0" />
+      <point x="5887.391834396994" y="2593.0" />
+      <point x="153.33333333333348" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService">
+      <point x="35.625" y="-143.0" />
+      <point x="5250.181780805109" y="1890.0" />
+      <point x="5460.042197471776" y="1890.0" />
+      <point x="104.0" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO">
+      <point x="-64.0" y="-212.0" />
+      <point x="5145.2453066192165" y="539.0" />
+      <point x="3898.8875000000007" y="539.0" />
+      <point x="125.625" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO">
+      <point x="119.9333333333334" y="-96.0" />
+      <point x="3804.6176924807746" y="1333.0" />
+      <point x="6017.88488995255" y="1333.0" />
+      <point x="35.37500000000023" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserSessionDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="-131.33333333333348" y="-131.5" />
+      <point x="381.6666666666665" y="609.0" />
+      <point x="643.5697758141077" y="609.0" />
+      <point x="643.5697758141077" y="199.0" />
+      <point x="1402.6947758141082" y="199.0" />
+      <point x="-51.875" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO">
+      <point x="85.66666666666652" y="-96.0" />
+      <point x="3770.3510258141077" y="1263.0" />
+      <point x="4971.9953066192165" y="1263.0" />
+      <point x="4971.9953066192165" y="739.0" />
+      <point x="5241.4328066192165" y="739.0" />
+      <point x="-46.625" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserSessionDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="0.0" y="-131.5" />
+      <point x="513.0" y="629.0" />
+      <point x="1161.2857142857142" y="629.0" />
+      <point x="-99.71428571428578" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="0.0" y="-120.0" />
+      <point x="883.0" y="639.0" />
+      <point x="1211.1428571428573" y="639.0" />
+      <point x="-49.85714285714266" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl">
+      <point x="-54.25" y="-97.0" />
+      <point x="4529.806780805109" y="2553.0" />
+      <point x="4463.806780805109" y="2553.0" />
+      <point x="0.0" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl">
+      <point x="-33.1875" y="-97.0" />
+      <point x="5751.869280805109" y="2403.0" />
+      <point x="4630.206780805109" y="2403.0" />
+      <point x="166.39999999999986" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO">
+      <point x="96.0" y="-212.0" />
+      <point x="5305.2453066192165" y="759.0" />
+      <point x="5947.13488995255" y="759.0" />
+      <point x="-35.375" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection">
+      <point x="-106.875" y="-143.0" />
+      <point x="5107.681780805109" y="2453.0" />
+      <point x="3373.5543998527282" y="2453.0" />
+      <point x="3373.5543998527282" y="1930.0" />
+      <point x="2658.2142857142862" y="1930.0" />
+      <point x="36.71428571428578" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-61.5" />
+      <point x="5288.0578066192165" y="219.0" />
+      <point x="4100.852811528393" y="219.0" />
+      <point x="57.71428571428578" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand">
+      <point x="102.22222222222217" y="-211.5" />
+      <point x="5836.280723285883" y="1920.0" />
+      <point x="6276.50988995255" y="1920.0" />
+      <point x="6276.50988995255" y="779.0" />
+      <point x="6333.00988995255" y="779.0" />
+      <point x="84.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand">
+      <point x="125.5625" y="-85.0" />
+      <point x="3926.6494732858837" y="1810.0" />
+      <point x="4571.634342783508" y="1810.0" />
+      <point x="4571.634342783508" y="1343.0" />
+      <point x="6249.00988995255" y="1343.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler">
+      <point x="148.75" y="-119.5" />
+      <point x="3405.0543998527282" y="3009.0" />
+      <point x="5785.056780805109" y="3009.0" />
+      <point x="0.0" y="97.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException">
+      <point x="232.3125" y="-97.0" />
+      <point x="6017.369280805109" y="2653.0" />
+      <point x="7050.846975740471" y="2653.0" />
+      <point x="7050.846975740471" y="1940.0" />
+      <point x="7000.648644861727" y="1940.0" />
+      <point x="77.33333333333348" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO">
+      <point x="51.11111111111131" y="-211.5" />
+      <point x="5785.169612174773" y="1910.0" />
+      <point x="6197.811822942239" y="1910.0" />
+      <point x="6197.811822942239" y="1333.0" />
+      <point x="6028.88488995255" y="1333.0" />
+      <point x="6028.88488995255" y="759.0" />
+      <point x="6088.63488995255" y="759.0" />
+      <point x="106.12500000000023" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO">
+      <point x="34.26666666666665" y="-96.0" />
+      <point x="3718.951025814108" y="1253.0" />
+      <point x="3513.4026141384425" y="1253.0" />
+      <point x="3513.4026141384425" y="609.0" />
+      <point x="3410.7625000000007" y="609.0" />
+      <point x="-35.0" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-38.5" />
+      <point x="5982.50988995255" y="209.0" />
+      <point x="4129.709954385537" y="209.0" />
+      <point x="86.57142857142844" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO">
+      <point x="20.799999999999955" y="-211.5" />
+      <point x="4484.606780805108" y="1820.0" />
+      <point x="4582.634342783508" y="1820.0" />
+      <point x="4582.634342783508" y="579.0" />
+      <point x="3815.1375000000007" y="579.0" />
+      <point x="41.875" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager">
+      <point x="104.0" y="-211.5" />
+      <point x="4567.806780805109" y="1840.0" />
+      <point x="5126.542197471776" y="1840.0" />
+      <point x="5126.542197471776" y="1313.0" />
+      <point x="5259.531020904931" y="1313.0" />
+      <point x="50.28571428571445" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager">
+      <point x="102.80000000000018" y="-96.0" />
+      <point x="3787.4843591474414" y="1273.0" />
+      <point x="5058.388163762073" y="1273.0" />
+      <point x="-150.8571428571429" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl">
+      <point x="75.60000000000002" y="-97.0" />
+      <point x="3565.654399852728" y="2553.0" />
+      <point x="4380.606780805108" y="2553.0" />
+      <point x="-83.20000000000005" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.InvitationDAO">
+      <point x="68.5333333333333" y="-96.0" />
+      <point x="3753.2176924807745" y="1253.0" />
+      <point x="4127.544759450175" y="1253.0" />
+      <point x="4127.544759450175" y="709.0" />
+      <point x="4462.638525814108" y="709.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService">
+      <point x="-125.5625" y="-85.0" />
+      <point x="3675.5244732858837" y="1900.0" />
+      <point x="2135.2351190476193" y="1900.0" />
+      <point x="71.75" y="73.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService">
+      <point x="153.33333333333348" y="-211.5" />
+      <point x="5887.391834396994" y="1930.0" />
+      <point x="6384.815311528394" y="1930.0" />
+      <point x="-172.5" y="153.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGamePieceDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="-125.33333333333326" y="-131.5" />
+      <point x="2425.666666666667" y="619.0" />
+      <point x="1410.5714285714284" y="619.0" />
+      <point x="149.57142857142844" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO">
+      <point x="0.0" y="-211.5" />
+      <point x="5734.058501063661" y="1890.0" />
+      <point x="5888.867809073804" y="1890.0" />
+      <point x="5888.867809073804" y="739.0" />
+      <point x="5427.9328066192165" y="739.0" />
+      <point x="139.875" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO">
+      <point x="102.0" y="-120.0" />
+      <point x="985.0" y="659.0" />
+      <point x="3071.5625000000005" y="659.0" />
+      <point x="-95.20000000000005" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider">
+      <point x="-17.9375" y="-85.0" />
+      <point x="3783.1494732858837" y="1870.0" />
+      <point x="3341.542676116842" y="1870.0" />
+      <point x="-36.375" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="0.0" y="-120.0" />
+      <point x="148.0" y="619.0" />
+      <point x="1111.4285714285716" y="619.0" />
+      <point x="-149.57142857142844" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler">
+      <point x="21.25" y="-119.5" />
+      <point x="3277.5543998527282" y="2979.0" />
+      <point x="3490.0543998527282" y="2979.0" />
+      <point x="0.0" y="97.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider">
+      <point x="-148.75" y="-119.5" />
+      <point x="3107.5543998527282" y="3009.0" />
+      <point x="2039.4851190476195" y="3009.0" />
+      <point x="2039.4851190476195" y="1940.0" />
+      <point x="3268.792676116842" y="1940.0" />
+      <point x="-109.125" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService">
+      <point x="165.9375" y="-97.0" />
+      <point x="5950.994280805109" y="2633.0" />
+      <point x="6709.180309073804" y="2633.0" />
+      <point x="6709.180309073804" y="1930.0" />
+      <point x="6729.815311528394" y="1930.0" />
+      <point x="172.5" y="153.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserDAO">
+      <point x="-119.93333333333317" y="-96.0" />
+      <point x="3564.7510258141083" y="1343.0" />
+      <point x="148.0" y="1343.0" />
+      <point x="0.0" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException">
+      <point x="249.375" y="-143.0" />
+      <point x="5463.931780805109" y="2643.0" />
+      <point x="6923.315311528394" y="2643.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl">
+      <point x="147.71428571428572" y="-108.5" />
+      <point x="3170.2686855670136" y="2543.0" />
+      <point x="4297.406780805109" y="2543.0" />
+      <point x="-166.4000000000001" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginAttemptDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="-136.66666666666652" y="-131.5" />
+      <point x="1124.3333333333335" y="609.0" />
+      <point x="1076.0" y="609.0" />
+      <point x="1076.0" y="219.0" />
+      <point x="1444.1947758141082" y="219.0" />
+      <point x="-10.375" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO">
+      <point x="-96.0" y="-212.0" />
+      <point x="5113.2453066192165" y="549.0" />
+      <point x="3550.7625000000007" y="549.0" />
+      <point x="105.0" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer">
+      <point x="-178.125" y="-143.0" />
+      <point x="5036.431780805109" y="2463.0" />
+      <point x="2620.0476190476193" y="2463.0" />
+      <point x="95.95833333333348" y="166.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-38.5" />
+      <point x="3773.2625000000007" y="229.0" />
+      <point x="4043.138525814108" y="229.0" />
+      <point x="0.0" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.InvitationDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-61.5" />
+      <point x="4462.638525814108" y="229.0" />
+      <point x="4071.9956686712508" y="229.0" />
+      <point x="28.85714285714289" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl">
+      <point x="162.75" y="-97.0" />
+      <point x="4746.806780805109" y="2593.0" />
+      <point x="5580.7251677303275" y="2593.0" />
+      <point x="-153.33333333333348" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginAttemptDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO">
+      <point x="136.66666666666652" y="-131.5" />
+      <point x="1397.6666666666665" y="679.0" />
+      <point x="3647.6375000000007" y="679.0" />
+      <point x="-125.625" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.ConnectionProvider">
+      <point x="0.0" y="-212.0" />
+      <point x="5209.2453066192165" y="519.0" />
+      <point x="4805.638525814108" y="519.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO">
+      <point x="-89.6875" y="-85.0" />
+      <point x="3711.3994732858837" y="1890.0" />
+      <point x="3153.563047169042" y="1890.0" />
+      <point x="3153.563047169042" y="649.0" />
+      <point x="2712.75" y="649.0" />
+      <point x="-29.375" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService">
+      <point x="151.20000000000005" y="-97.0" />
+      <point x="3641.254399852728" y="2573.0" />
+      <point x="4757.1567808051095" y="2573.0" />
+      <point x="4757.1567808051095" y="1870.0" />
+      <point x="5321.3755308051095" y="1870.0" />
+      <point x="-34.666666666666515" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-38.5" />
+      <point x="3445.7625000000007" y="219.0" />
+      <point x="4014.281382956965" y="219.0" />
+      <point x="-28.85714285714289" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO">
+      <point x="-160.0" y="-212.0" />
+      <point x="5049.2453066192165" y="569.0" />
+      <point x="2830.25" y="569.0" />
+      <point x="88.125" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGameDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="-124.33333333333326" y="-154.5" />
+      <point x="1548.166666666667" y="639.0" />
+      <point x="1310.8571428571431" y="639.0" />
+      <point x="49.85714285714312" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO">
+      <point x="-128.0" y="-212.0" />
+      <point x="5081.2453066192165" y="559.0" />
+      <point x="3261.9625000000005" y="559.0" />
+      <point x="95.20000000000005" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGameDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="0.0" y="-154.5" />
+      <point x="1672.5" y="229.0" />
+      <point x="1485.6947758141082" y="229.0" />
+      <point x="31.125" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException">
+      <point x="204.44444444444434" y="-211.5" />
+      <point x="5938.502945508106" y="1940.0" />
+      <point x="6845.981978195061" y="1940.0" />
+      <point x="-77.33333333333326" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGamePieceDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GamePieceDAO">
+      <point x="125.33333333333326" y="-131.5" />
+      <point x="2676.3333333333335" y="749.0" />
+      <point x="5876.38488995255" y="749.0" />
+      <point x="-106.125" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider">
+      <point x="-204.44444444444434" y="-211.5" />
+      <point x="5529.614056619217" y="1740.0" />
+      <point x="3487.042676116842" y="1740.0" />
+      <point x="109.125" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer">
+      <point x="-106.25" y="-119.5" />
+      <point x="3150.0543998527282" y="2999.0" />
+      <point x="2742.5543998527282" y="2999.0" />
+      <point x="2742.5543998527282" y="2653.0" />
+      <point x="2373.2976190476193" y="2653.0" />
+      <point x="-150.79166666666674" y="166.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresInvitationDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="-154.66666666666652" y="-154.5" />
+      <point x="1956.3333333333335" y="629.0" />
+      <point x="1360.7142857142858" y="629.0" />
+      <point x="99.71428571428578" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.RegistrationService">
+      <point x="-221.57142857142844" y="-108.5" />
+      <point x="2800.9829712813" y="2633.0" />
+      <point x="1991.7351190476195" y="2633.0" />
+      <point x="-71.75" y="73.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager">
+      <point x="-42.0" y="27.0" />
+      <point x="6207.00988995255" y="779.0" />
+      <point x="5369.2453066192165" y="779.0" />
+      <point x="160.0" y="-212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler">
+      <point x="106.25" y="-119.5" />
+      <point x="3362.5543998527282" y="2999.0" />
+      <point x="5214.556780805109" y="2999.0" />
+      <point x="0.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGameDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO">
+      <point x="124.33333333333326" y="-154.5" />
+      <point x="1796.833333333333" y="729.0" />
+      <point x="5148.1828066192165" y="729.0" />
+      <point x="-139.875" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-27.0" />
+      <point x="2742.125" y="199.0" />
+      <point x="3956.567097242679" y="199.0" />
+      <point x="-86.57142857142867" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService">
+      <point x="54.25" y="-97.0" />
+      <point x="4638.306780805109" y="2583.0" />
+      <point x="4768.1567808051095" y="2583.0" />
+      <point x="4768.1567808051095" y="1880.0" />
+      <point x="5390.708864138443" y="1880.0" />
+      <point x="34.66666666666674" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager">
+      <point x="-153.33333333333303" y="-211.5" />
+      <point x="5580.725167730328" y="1730.0" />
+      <point x="3770.3510258141077" y="1730.0" />
+      <point x="85.66666666666652" y="96.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GenericDAO">
+      <point x="0.0" y="-27.0" />
+      <point x="3166.7625000000007" y="209.0" />
+      <point x="3985.424240099822" y="209.0" />
+      <point x="-57.71428571428578" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.ConnectionProvider">
+      <point x="0.0" y="-120.5" />
+      <point x="3377.917676116842" y="1353.0" />
+      <point x="3142.563047169042" y="1353.0" />
+      <point x="3142.563047169042" y="719.0" />
+      <point x="4744.971859147441" y="719.0" />
+      <point x="-60.66666666666674" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginAttemptDAO">
+      <point x="-68.5333333333333" y="-96.0" />
+      <point x="3616.151025814108" y="1313.0" />
+      <point x="1261.0" y="1313.0" />
+      <point x="0.0" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresInvitationDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="0.0" y="-154.5" />
+      <point x="2111.0" y="219.0" />
+      <point x="1506.4447758141082" y="219.0" />
+      <point x="51.875" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl">
+      <point x="106.875" y="-143.0" />
+      <point x="5321.431780805109" y="2603.0" />
+      <point x="5734.058501063661" y="2603.0" />
+      <point x="0.0" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection">
+      <point x="-151.20000000000005" y="-97.0" />
+      <point x="3338.854399852728" y="2523.0" />
+      <point x="2349.0892857142862" y="2523.0" />
+      <point x="2349.0892857142862" y="1920.0" />
+      <point x="2548.071428571429" y="1920.0" />
+      <point x="-73.42857142857133" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresInvitationDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.InvitationDAO">
+      <point x="154.66666666666652" y="-154.5" />
+      <point x="2265.6666666666665" y="699.0" />
+      <point x="4307.971859147441" y="699.0" />
+      <point x="-154.66666666666663" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserDAO">
+      <point x="0.0" y="-96.0" />
+      <point x="3684.6843591474412" y="1273.0" />
+      <point x="3164.563047169042" y="1273.0" />
+      <point x="3164.563047169042" y="639.0" />
+      <point x="2771.5" y="639.0" />
+      <point x="29.375" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer">
+      <point x="-232.3125" y="-97.0" />
+      <point x="5552.744280805109" y="2433.0" />
+      <point x="2647.4642857142862" y="2433.0" />
+      <point x="123.37500000000011" y="166.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginAttemptDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO">
+      <point x="0.0" y="-131.5" />
+      <point x="0.0" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService">
+      <point x="99.5625" y="-97.0" />
+      <point x="5884.619280805109" y="2603.0" />
+      <point x="5974.558501063661" y="2603.0" />
+      <point x="5974.558501063661" y="1700.0" />
+      <point x="5529.375530805109" y="1700.0" />
+      <point x="173.33333333333326" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager">
+      <point x="-102.22222222222217" y="-211.5" />
+      <point x="5631.836278841439" y="1720.0" />
+      <point x="5137.542197471776" y="1720.0" />
+      <point x="5137.542197471776" y="1323.0" />
+      <point x="5309.816735190645" y="1323.0" />
+      <point x="100.57142857142867" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginDAO">
+      <point x="-85.66666666666652" y="-96.0" />
+      <point x="3599.0176924807747" y="1323.0" />
+      <point x="883.0" y="1323.0" />
+      <point x="0.0" y="120.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager">
+      <point x="53.8125" y="-85.0" />
+      <point x="3854.8994732858837" y="1790.0" />
+      <point x="3999.5718591474415" y="1790.0" />
+      <point x="3999.5718591474415" y="1283.0" />
+      <point x="5108.673878047788" y="1283.0" />
+      <point x="-100.57142857142844" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager">
+      <point x="17.9375" y="-85.0" />
+      <point x="3819.0244732858837" y="1860.0" />
+      <point x="3599.0176924807747" y="1860.0" />
+      <point x="-85.66666666666674" y="96.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserSessionDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO">
+      <point x="131.33333333333348" y="-131.5" />
+      <point x="644.3333333333335" y="669.0" />
+      <point x="3340.7625000000007" y="669.0" />
+      <point x="-105.0" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl">
+      <point x="-35.625" y="-143.0" />
+      <point x="5178.931780805109" y="2443.0" />
+      <point x="4547.006780805109" y="2443.0" />
+      <point x="83.19999999999982" y="211.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="-98.66666666666652" y="-120.0" />
+      <point x="49.333333333333485" y="609.0" />
+      <point x="311.23644248077517" y="609.0" />
+      <point x="311.23644248077517" y="189.0" />
+      <point x="1381.9447758141082" y="189.0" />
+      <point x="-72.625" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGamePieceDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="0.0" y="-131.5" />
+      <point x="2551.0" y="209.0" />
+      <point x="1527.1947758141082" y="209.0" />
+      <point x="72.625" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer">
+      <point x="-271.25" y="-97.0" />
+      <point x="4312.806780805109" y="2493.0" />
+      <point x="2537.7976190476193" y="2493.0" />
+      <point x="13.708333333333371" y="166.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO">
+      <point x="17.13333333333344" y="-96.0" />
+      <point x="3701.817692480775" y="1263.0" />
+      <point x="3502.4026141384425" y="1263.0" />
+      <point x="3502.4026141384425" y="619.0" />
+      <point x="3166.7625000000007" y="619.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.UserSessionDAO">
+      <point x="-20.800000000000182" y="-211.5" />
+      <point x="4443.006780805109" y="1790.0" />
+      <point x="4549.634342783508" y="1790.0" />
+      <point x="4549.634342783508" y="589.0" />
+      <point x="3480.7625000000007" y="589.0" />
+      <point x="35.0" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginAttemptDAO">
+      <point x="51.40000000000009" y="-96.0" />
+      <point x="3736.0843591474413" y="1243.0" />
+      <point x="3524.4026141384425" y="1243.0" />
+      <point x="3524.4026141384425" y="689.0" />
+      <point x="3731.3875000000007" y="689.0" />
+      <point x="-41.875" y="38.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOCommand">
+      <point x="128.0" y="-212.0" />
+      <point x="5337.2453066192165" y="769.0" />
+      <point x="6165.00988995255" y="769.0" />
+      <point x="-84.0" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.RegistrationServiceImpl">
+      <point x="73.85714285714289" y="-108.5" />
+      <point x="3096.411542709871" y="2533.0" />
+      <point x="3801.0869732858837" y="2533.0" />
+      <point x="0.0" y="85.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer">
+      <point x="-73.85714285714278" y="-108.5" />
+      <point x="2948.697256995585" y="2613.0" />
+      <point x="2428.1309523809527" y="2613.0" />
+      <point x="-95.95833333333337" y="166.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection">
+      <point x="-147.71428571428555" y="-108.5" />
+      <point x="2874.8401141384425" y="2623.0" />
+      <point x="2338.0892857142862" y="2623.0" />
+      <point x="2338.0892857142862" y="1910.0" />
+      <point x="2511.357142857143" y="1910.0" />
+      <point x="-110.14285714285711" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection">
+      <point x="-99.5625" y="-97.0" />
+      <point x="5685.494280805109" y="2413.0" />
+      <point x="3647.0869732858837" y="2413.0" />
+      <point x="3647.0869732858837" y="1920.0" />
+      <point x="2694.9285714285716" y="1920.0" />
+      <point x="73.42857142857156" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGamePieceDAO">
+      <point x="-17.133333333333212" y="-96.0" />
+      <point x="3667.551025814108" y="1283.0" />
+      <point x="2551.0" y="1283.0" />
+      <point x="0.0" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager">
+      <point x="-104.0" y="-211.5" />
+      <point x="4359.806780805109" y="1760.0" />
+      <point x="3684.6843591474412" y="1760.0" />
+      <point x="0.0" y="96.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler">
+      <point x="-21.25" y="-119.5" />
+      <point x="3235.0543998527282" y="2979.0" />
+      <point x="3022.5543998527282" y="2979.0" />
+      <point x="0.0" y="108.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresUserSessionDAO">
+      <point x="-102.79999999999995" y="-96.0" />
+      <point x="3581.8843591474415" y="1333.0" />
+      <point x="513.0" y="1333.0" />
+      <point x="0.0" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection">
+      <point x="-187.20000000000027" y="-211.5" />
+      <point x="4276.606780805108" y="1780.0" />
+      <point x="2731.6428571428573" y="1780.0" />
+      <point x="110.14285714285711" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.HikariConnectionProvider">
+      <point x="-145.60000000000014" y="-211.5" />
+      <point x="4318.206780805109" y="1770.0" />
+      <point x="3414.292676116842" y="1770.0" />
+      <point x="36.375" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer">
+      <point x="0.0" y="-97.0" />
+      <point x="3490.0543998527282" y="2503.0" />
+      <point x="2510.3809523809527" y="2503.0" />
+      <point x="-13.708333333333258" y="166.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.DAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.GameDAO">
+      <point x="64.0" y="-212.0" />
+      <point x="5273.2453066192165" y="739.0" />
+      <point x="5334.6828066192165" y="739.0" />
+      <point x="46.625" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService">
+      <point x="271.25" y="-97.0" />
+      <point x="4855.306780805109" y="2613.0" />
+      <point x="6459.50988995255" y="2613.0" />
+      <point x="6459.50988995255" y="1930.0" />
+      <point x="6499.815311528394" y="1930.0" />
+      <point x="-57.5" y="153.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService">
+      <point x="145.5999999999999" y="-211.5" />
+      <point x="4609.406780805109" y="1850.0" />
+      <point x="5182.708864138443" y="1850.0" />
+      <point x="-173.33333333333326" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection">
+      <point x="-82.25" y="-166.5" />
+      <point x="2441.8392857142862" y="1930.0" />
+      <point x="2584.7857142857147" y="1930.0" />
+      <point x="-36.714285714285666" y="120.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresLoginDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="-102.0" y="-120.0" />
+      <point x="781.0" y="609.0" />
+      <point x="923.0" y="609.0" />
+      <point x="923.0" y="209.0" />
+      <point x="1423.4447758141082" y="209.0" />
+      <point x="-31.125" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionService">
+      <point x="221.57142857142856" y="-108.5" />
+      <point x="3244.1258284241567" y="2563.0" />
+      <point x="4746.1567808051095" y="2563.0" />
+      <point x="4746.1567808051095" y="1860.0" />
+      <point x="5252.042197471776" y="1860.0" />
+      <point x="-104.0" y="84.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.BaseDAO" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.RowMapper">
+      <point x="0.0" y="-120.0" />
+      <point x="1261.0" y="229.0" />
+      <point x="1464.9447758141082" y="229.0" />
+      <point x="10.375" y="27.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresInvitationDAO">
+      <point x="-34.26666666666665" y="-96.0" />
+      <point x="3650.4176924807743" y="1293.0" />
+      <point x="2111.0" y="1293.0" />
+      <point x="0.0" y="154.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresDAOManager" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.postgres.PostgresGameDAO">
+      <point x="-51.399999999999864" y="-96.0" />
+      <point x="3633.284359147441" y="1303.0" />
+      <point x="1672.5" y="1303.0" />
+      <point x="0.0" y="154.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleServer.persistance.dao.LoginDAO">
+      <point x="-62.40000000000009" y="-211.5" />
+      <point x="4401.406780805109" y="1750.0" />
+      <point x="4116.544759450175" y="1750.0" />
+      <point x="4116.544759450175" y="599.0" />
+      <point x="3214.3625" y="599.0" />
+      <point x="47.59999999999991" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.21897810218978103" x="3525.5" y="1634.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

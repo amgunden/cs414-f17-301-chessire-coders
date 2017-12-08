@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>edu.colostate.cs.cs414.chesshireCoders.jungleClient</OriginalElement>
+  <nodes>
+    <node x="1985.349126338567" y="1450.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard</node>
+    <node x="1815.7839743589743" y="2527.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder</node>
+    <node x="2864.4959401709402" y="2596.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel</node>
+    <node x="3088.333974358974" y="1006.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.FoxPiece</node>
+    <node x="4980.342443066969" y="2481.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient</node>
+    <node x="94.30000000000018" y="2574.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController</node>
+    <node x="5461.595940170941" y="0.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.Move</node>
+    <node x="2609.9228632478635" y="4276.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl</node>
+    <node x="3898.397203261644" y="2109.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View</node>
+    <node x="634.7839743589743" y="2655.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController</node>
+    <node x="1626.7608910444496" y="12.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DenSquare</node>
+    <node x="1884.7839743589743" y="3516.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder.AlgorithmType</node>
+    <node x="948.5839743589745" y="995.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece</node>
+    <node x="3283.34594017094" y="3182.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl</node>
+    <node x="5244.595940170941" y="5584.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.Main</node>
+    <node x="0.0" y="3458.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell</node>
+    <node x="1583.2608910444496" y="203.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece</node>
+    <node x="4937.845940170941" y="4529.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App</node>
+    <node x="4510.550776400303" y="5376.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl</node>
+    <node x="3909.397203261644" y="2631.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController</node>
+    <node x="841.7238553113552" y="0.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare</node>
+    <node x="886.7839743589743" y="2655.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController</node>
+    <node x="1094.250641025641" y="609.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare</node>
+    <node x="2235.8424430669693" y="5227.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl</node>
+    <node x="2201.3339743589745" y="1006.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LionPiece</node>
+    <node x="1241.5839743589745" y="995.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece</node>
+    <node x="4148.345940170941" y="3446.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl</node>
+    <node x="5704.595940170941" y="0.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel</node>
+    <node x="3464.84594017094" y="4008.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl.HomeListener</node>
+    <node x="2801.333974358974" y="1006.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DogPiece</node>
+    <node x="559.9535541780806" y="2132.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller</node>
+    <node x="4583.845940170941" y="4008.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl.RegistrationListener</node>
+    <node x="2488.333974358974" y="1006.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.ElephantPiece</node>
+    <node x="4477.345940170941" y="3446.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl</node>
+    <node x="1919.3339743589745" y="995.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece</node>
+    <node x="2032.349126338567" y="1947.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame</node>
+    <node x="4521.783795424151" y="2492.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel</node>
+    <node x="4006.84594017094" y="3985.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView</node>
+    <node x="3794.34594017094" y="3446.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl</node>
+    <node x="5052.595940170941" y="5584.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.MainAI</node>
+    <node x="4970.342443066969" y="2109.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient.LogListener</node>
+    <node x="3372.333974358974" y="1006.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.CatPiece</node>
+    <node x="3072.84594017094" y="3974.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory</node>
+    <node x="4238.845940170941" y="4008.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl.LoginListener</node>
+    <node x="4153.550776400303" y="5261.5">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.RegisterViewImpl</node>
+    <node x="2613.4450854700854" y="1208.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory</node>
+    <node x="1490.7839743589743" y="2620.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.NegaMax</node>
+    <node x="2272.9228632478635" y="4310.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl</node>
+    <node x="1515.3339743589745" y="995.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TrapSquare</node>
+    <node x="1214.7839743589743" y="2632.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController</node>
+    <node x="2437.957051282051" y="2550.0">edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece">
+      <point x="-155.11111111111086" y="-61.0" />
+      <point x="2632.8339743589745" y="1178.0" />
+      <point x="1153.3339743589745" y="1178.0" />
+      <point x="68.25" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl.LoginListener" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl">
+      <point x="-64.0" y="-26.5" />
+      <point x="0.0" y="96.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory">
+      <point x="-84.25" y="-234.0" />
+      <point x="4594.800776400303" y="5027.0" />
+      <point x="3280.84594017094" y="5027.0" />
+      <point x="3280.84594017094" y="4216.0" />
+      <point x="3407.6459401709403" y="4216.0" />
+      <point x="148.80000000000018" y="61.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece">
+      <point x="-40.70588235294122" y="-223.5" />
+      <point x="2117.6432439856258" y="1370.0" />
+      <point x="1314.0839743589745" y="1370.0" />
+      <point x="-72.5" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl">
+      <point x="41.333333333333485" y="-61.0" />
+      <point x="3300.1792735042736" y="3924.0" />
+      <point x="3365.1792735042736" y="3924.0" />
+      <point x="-163.66666666666663" y="361.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App">
+      <point x="139.38461538461547" y="-383.5" />
+      <point x="2526.227058451585" y="5187.0" />
+      <point x="4960.845940170941" y="5187.0" />
+      <point x="-92.0" y="107.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl.HomeListener">
+      <point x="163.66666666666652" y="361.0" />
+      <point x="3692.5126068376067" y="3924.0" />
+      <point x="3656.84594017094" y="3924.0" />
+      <point x="64.0" y="-26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App">
+      <point x="140.41666666666663" y="-234.0" />
+      <point x="4819.467443066969" y="5207.0" />
+      <point x="5052.845940170941" y="5207.0" />
+      <point x="0.0" y="107.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="43.0" y="-26.5" />
+      <point x="5373.595940170941" y="3162.0" />
+      <point x="5206.509109733636" y="3162.0" />
+      <point x="108.16666666666652" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView">
+      <point x="-28.083333333333258" y="-234.0" />
+      <point x="4650.96744306697" y="5017.0" />
+      <point x="4307.845940170941" y="5017.0" />
+      <point x="4307.845940170941" y="4236.0" />
+      <point x="4197.64594017094" y="4236.0" />
+      <point x="84.80000000000018" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="-26.333333333333258" y="-326.5" />
+      <point x="2404.58952991453" y="4236.0" />
+      <point x="1805.2839743589743" y="4236.0" />
+      <point x="1805.2839743589743" y="2441.0" />
+      <point x="2124.7491263385673" y="2441.0" />
+      <point x="-33.59999999999991" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory">
+      <point x="46.46153846153857" y="-383.5" />
+      <point x="2433.3039815285083" y="5107.0" />
+      <point x="3258.84594017094" y="5107.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="142.47058823529414" y="-223.5" />
+      <point x="2300.8197145738613" y="1420.0" />
+      <point x="3645.833974358974" y="1420.0" />
+      <point x="3645.833974358974" y="509.0" />
+      <point x="1884.1180339015925" y="509.0" />
+      <point x="144.8571428571429" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="0.0" y="-143.0" />
+      <point x="1290.250641025641" y="559.0" />
+      <point x="1616.689462473021" y="559.0" />
+      <point x="-122.57142857142867" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder.AlgorithmType">
+      <point x="101.5" y="154.5" />
+      <point x="2120.2839743589743" y="3162.0" />
+      <point x="1982.2839743589743" y="3162.0" />
+      <point x="32.5" y="-26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="-48.71428571428555" y="-96.5" />
+      <point x="4599.131654456654" y="2902.0" />
+      <point x="4482.301652567009" y="2902.0" />
+      <point x="4482.301652567009" y="2431.0" />
+      <point x="4097.147203261644" y="2431.0" />
+      <point x="92.75" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="37.76923076923072" y="-361.0" />
+      <point x="3566.615170940171" y="3062.0" />
+      <point x="3418.2305555555554" y="3062.0" />
+      <point x="3418.2305555555554" y="2441.0" />
+      <point x="3938.147203261644" y="2441.0" />
+      <point x="-66.25" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="91.0" y="-61.5" />
+      <point x="1176.0839743589745" y="975.0" />
+      <point x="1290.250641025641" y="975.0" />
+      <point x="0.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl">
+      <point x="82.66666666666652" y="-61.0" />
+      <point x="3341.5126068376067" y="3934.0" />
+      <point x="3921.84594017094" y="3934.0" />
+      <point x="0.0" y="96.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.ElephantPiece">
+      <point x="40.70588235294122" y="-223.5" />
+      <point x="2199.055008691508" y="1370.0" />
+      <point x="2561.583974358974" y="1370.0" />
+      <point x="-73.25" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl.LoginListener">
+      <point x="103.0" y="96.5" />
+      <point x="4405.845940170941" y="3944.0" />
+      <point x="4430.845940170941" y="3944.0" />
+      <point x="64.0" y="-26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="75.5" y="-131.5" />
+      <point x="2664.457051282051" y="2431.0" />
+      <point x="2225.549126338567" y="2431.0" />
+      <point x="67.20000000000005" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare">
+      <point x="-142.47058823529414" y="-223.5" />
+      <point x="2015.8785381032728" y="1420.0" />
+      <point x="765.0929029304029" y="1420.0" />
+      <point x="765.0929029304029" y="153.0" />
+      <point x="924.438141025641" y="153.0" />
+      <point x="-110.28571428571422" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="0.0" y="-49.5" />
+      <point x="4112.845940170941" y="2451.0" />
+      <point x="4044.147203261644" y="2451.0" />
+      <point x="39.75" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DogPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="0.0" y="-50.0" />
+      <point x="2934.833974358974" y="549.0" />
+      <point x="1794.9751767587354" y="549.0" />
+      <point x="55.71428571428578" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="-44.14285714285711" y="-96.5" />
+      <point x="4258.703083028083" y="3002.0" />
+      <point x="4342.384109733636" y="3002.0" />
+      <point x="4342.384109733636" y="2441.0" />
+      <point x="4070.647203261644" y="2441.0" />
+      <point x="66.25" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.CatPiece">
+      <point x="155.1111111111113" y="-61.0" />
+      <point x="2943.0561965811967" y="1188.0" />
+      <point x="3438.083974358974" y="1188.0" />
+      <point x="-65.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare">
+      <point x="-91.0" y="-61.5" />
+      <point x="994.0839743589745" y="935.0" />
+      <point x="815.0929029304029" y="935.0" />
+      <point x="815.0929029304029" y="163.0" />
+      <point x="979.5809981684981" y="163.0" />
+      <point x="-55.14285714285711" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="-47.5" y="-50.5" />
+      <point x="3956.897203261644" y="2461.0" />
+      <point x="3991.147203261644" y="2461.0" />
+      <point x="-13.25" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.NegaMax" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="0.0" y="-61.5" />
+      <point x="1637.2839743589743" y="2421.0" />
+      <point x="2091.149126338567" y="2421.0" />
+      <point x="-67.20000000000005" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController">
+      <point x="-146.1428571428571" y="-96.5" />
+      <point x="4501.703083028084" y="2922.0" />
+      <point x="1143.450641025641" y="2922.0" />
+      <point x="102.66666666666674" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="0.0" y="-61.5" />
+      <point x="1386.5839743589745" y="975.0" />
+      <point x="1346.250641025641" y="975.0" />
+      <point x="56.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="92.9230769230769" y="-383.5" />
+      <point x="2479.7655199900464" y="5127.0" />
+      <point x="4872.345940170941" y="5127.0" />
+      <point x="4872.345940170941" y="3042.0" />
+      <point x="4747.533795424151" y="3042.0" />
+      <point x="53.74999999999977" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl.HomeListener" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl">
+      <point x="-64.0" y="-26.5" />
+      <point x="0.0" y="361.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DenSquare">
+      <point x="39.0" y="-143.0" />
+      <point x="1778.2608910444496" y="183.0" />
+      <point x="1769.6358910444496" y="183.0" />
+      <point x="-47.625" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController">
+      <point x="-140.41666666666652" y="-234.0" />
+      <point x="4538.634109733637" y="5037.0" />
+      <point x="687.2839743589743" y="5037.0" />
+      <point x="687.2839743589743" y="3162.0" />
+      <point x="663.7839743589743" y="3162.0" />
+      <point x="-87.0" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="-101.5" y="-154.5" />
+      <point x="1917.2839743589743" y="2451.0" />
+      <point x="2141.549126338567" y="2451.0" />
+      <point x="-16.799999999999955" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.ElephantPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="-1.1368683772161603E-13" y="-50.0" />
+      <point x="2634.833974358974" y="559.0" />
+      <point x="1772.6894624730212" y="559.0" />
+      <point x="33.42857142857156" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="174.9230769230769" y="-360.5" />
+      <point x="2974.34594017094" y="4256.0" />
+      <point x="4861.345940170941" y="4256.0" />
+      <point x="4861.345940170941" y="3052.0" />
+      <point x="4726.033795424151" y="3052.0" />
+      <point x="32.24999999999977" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TrapSquare">
+      <point x="-94.5" y="-212.0" />
+      <point x="2063.8491263385667" y="1922.0" />
+      <point x="1611.3339743589745" y="1922.0" />
+      <point x="-96.0" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.RegisterViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory">
+      <point x="-84.25" y="-349.0" />
+      <point x="4237.800776400303" y="5057.0" />
+      <point x="3269.84594017094" y="5057.0" />
+      <point x="3269.84594017094" y="4206.0" />
+      <point x="3333.2459401709402" y="4206.0" />
+      <point x="74.40000000000009" y="61.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DenSquare">
+      <point x="162.82352941176464" y="-223.5" />
+      <point x="2321.1726557503316" y="1430.0" />
+      <point x="3656.833974358974" y="1430.0" />
+      <point x="3656.833974358974" y="183.0" />
+      <point x="1960.1358910444496" y="183.0" />
+      <point x="142.875" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TrapSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="-96.0" y="-61.5" />
+      <point x="1611.3339743589745" y="965.0" />
+      <point x="1402.250641025641" y="965.0" />
+      <point x="112.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController">
+      <point x="12.75" y="-96.5" />
+      <point x="3934.59594017094" y="3002.0" />
+      <point x="3980.647203261644" y="3002.0" />
+      <point x="-23.75" y="50.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.FoxPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="0.0" y="-50.0" />
+      <point x="3219.833974358974" y="539.0" />
+      <point x="1817.2608910444496" y="539.0" />
+      <point x="78.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController">
+      <point x="-82.66666666666697" y="-61.0" />
+      <point x="3176.179273504273" y="3934.0" />
+      <point x="1000.4506410256411" y="3934.0" />
+      <point x="1000.4506410256411" y="3162.0" />
+      <point x="1040.7839743589743" y="3162.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel">
+      <point x="-151.0769230769231" y="-361.0" />
+      <point x="3377.769017094017" y="3112.0" />
+      <point x="2656.0681623931623" y="3112.0" />
+      <point x="67.11111111111109" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController">
+      <point x="-116.15384615384619" y="-383.5" />
+      <point x="2270.6885969131235" y="5197.0" />
+      <point x="281.5" y="5197.0" />
+      <point x="281.5" y="3162.0" />
+      <point x="214.0" y="3162.0" />
+      <point x="-79.80000000000018" y="107.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece">
+      <point x="-116.33333333333303" y="-61.0" />
+      <point x="2671.6117521367523" y="1168.0" />
+      <point x="1459.0839743589745" y="1168.0" />
+      <point x="72.5" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="65.5" y="-61.5" />
+      <point x="2115.8339743589745" y="579.0" />
+      <point x="1728.1180339015925" y="579.0" />
+      <point x="-11.14285714285711" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory">
+      <point x="87.46153846153845" y="-360.5" />
+      <point x="2886.8844017094016" y="4216.0" />
+      <point x="3184.44594017094" y="4216.0" />
+      <point x="-74.40000000000009" y="61.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.RegisterViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="28.083333333333258" y="-349.0" />
+      <point x="4350.134109733636" y="5147.0" />
+      <point x="4894.345940170941" y="5147.0" />
+      <point x="4894.345940170941" y="3022.0" />
+      <point x="4790.533795424151" y="3022.0" />
+      <point x="96.74999999999977" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel">
+      <point x="-75.53846153846155" y="-361.0" />
+      <point x="3453.3074786324787" y="3092.0" />
+      <point x="3167.79594017094" y="3092.0" />
+      <point x="134.79999999999995" y="85.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory">
+      <point x="61.05882352941171" y="-223.5" />
+      <point x="2219.4079498679785" y="1380.0" />
+      <point x="2700.6950854700854" y="1380.0" />
+      <point x="-87.25" y="61.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="-78.0" y="143.0" />
+      <point x="1661.2608910444496" y="579.0" />
+      <point x="1447.050641025641" y="579.0" />
+      <point x="156.79999999999995" y="-143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="0.0" y="-361.0" />
+      <point x="3528.84594017094" y="3072.0" />
+      <point x="3222.9959401709402" y="3072.0" />
+      <point x="3222.9959401709402" y="2411.0" />
+      <point x="2259.149126338567" y="2411.0" />
+      <point x="100.80000000000018" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.CatPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="0.0" y="-50.0" />
+      <point x="3503.833974358974" y="519.0" />
+      <point x="1861.832319615878" y="519.0" />
+      <point x="122.57142857142844" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController">
+      <point x="-165.33333333333348" y="-61.0" />
+      <point x="3093.5126068376067" y="3954.0" />
+      <point x="709.2839743589743" y="3954.0" />
+      <point x="709.2839743589743" y="3152.0" />
+      <point x="373.60000000000036" y="3152.0" />
+      <point x="79.80000000000018" y="107.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController">
+      <point x="-174.92307692307685" y="-360.5" />
+      <point x="2624.4997863247863" y="4196.0" />
+      <point x="292.5" y="4196.0" />
+      <point x="292.5" y="3162.0" />
+      <point x="293.8000000000002" y="3162.0" />
+      <point x="0.0" y="107.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient.LogListener" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="64.0" y="49.5" />
+      <point x="5162.342443066969" y="2461.0" />
+      <point x="5157.342443066969" y="2461.0" />
+      <point x="59.0" y="-200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="114.75" y="-96.5" />
+      <point x="4036.59594017094" y="3102.0" />
+      <point x="5049.175776400303" y="3102.0" />
+      <point x="-49.16666666666674" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="63.75" y="-96.5" />
+      <point x="3985.59594017094" y="3042.0" />
+      <point x="4597.033795424151" y="3042.0" />
+      <point x="-96.75" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece">
+      <point x="-77.55555555555566" y="-61.0" />
+      <point x="2710.3895299145297" y="1158.0" />
+      <point x="2115.8339743589745" y="1158.0" />
+      <point x="65.5" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController">
+      <point x="-132.4285714285714" y="-96.5" />
+      <point x="4170.417368742369" y="2942.0" />
+      <point x="837.7839743589743" y="2942.0" />
+      <point x="87.0" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="96.66666666666674" y="-61.5" />
+      <point x="1483.2506410256412" y="975.0" />
+      <point x="1496.750641025641" y="975.0" />
+      <point x="1496.750641025641" y="589.0" />
+      <point x="1683.5466053301639" y="589.0" />
+      <point x="-55.71428571428578" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.Main" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App">
+      <point x="-43.0" y="-26.5" />
+      <point x="5287.595940170941" y="5197.0" />
+      <point x="5144.845940170941" y="5197.0" />
+      <point x="92.0" y="107.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.MainAI" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App">
+      <point x="-43.0" y="-26.5" />
+      <point x="5095.595940170941" y="5207.0" />
+      <point x="5098.845940170941" y="5207.0" />
+      <point x="46.0" y="107.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="116.33333333333348" y="-61.0" />
+      <point x="2904.278418803419" y="1178.0" />
+      <point x="3361.833974358974" y="1178.0" />
+      <point x="3361.833974358974" y="529.0" />
+      <point x="1839.5466053301639" y="529.0" />
+      <point x="100.28571428571422" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel">
+      <point x="26.33333333333337" y="-326.5" />
+      <point x="2457.2561965811965" y="3162.0" />
+      <point x="2488.2903846153845" y="3162.0" />
+      <point x="-100.66666666666669" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller">
+      <point x="-61.0" y="-49.5" />
+      <point x="1275.7839743589743" y="2441.0" />
+      <point x="687.7035541780806" y="2441.0" />
+      <point x="54.75" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController">
+      <point x="-131.66666666666663" y="-326.5" />
+      <point x="2299.2561965811965" y="4256.0" />
+      <point x="1148.5339743589743" y="4256.0" />
+      <point x="1148.5339743589743" y="3162.0" />
+      <point x="1245.2839743589743" y="3162.0" />
+      <point x="-91.5" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="61.0" y="-49.5" />
+      <point x="1397.7839743589743" y="2391.0" />
+      <point x="2040.749126338567" y="2391.0" />
+      <point x="-117.59999999999991" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard">
+      <point x="-31.5" y="-212.0" />
+      <point x="2126.8491263385667" y="1922.0" />
+      <point x="2071.8491263385667" y="1922.0" />
+      <point x="-86.5" y="223.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller">
+      <point x="0.0" y="-26.5" />
+      <point x="1040.7839743589743" y="2451.0" />
+      <point x="651.2035541780806" y="2451.0" />
+      <point x="18.25" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DenSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="-142.875" y="49.5" />
+      <point x="1674.3858910444496" y="183.0" />
+      <point x="1195.3863553113554" y="183.0" />
+      <point x="1195.3863553113554" y="539.0" />
+      <point x="1211.850641025641" y="539.0" />
+      <point x="-78.40000000000009" y="-143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="97.42857142857156" y="-96.5" />
+      <point x="4745.274511599512" y="3132.0" />
+      <point x="5108.175776400303" y="3132.0" />
+      <point x="9.833333333333258" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="132.42857142857144" y="-96.5" />
+      <point x="4435.274511599511" y="3122.0" />
+      <point x="5088.509109733636" y="3122.0" />
+      <point x="-9.833333333333258" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LeopardPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare">
+      <point x="-96.66666666666674" y="-61.5" />
+      <point x="1289.9173076923078" y="915.0" />
+      <point x="974.0095695970695" y="915.0" />
+      <point x="974.0095695970695" y="173.0" />
+      <point x="1034.7238553113552" y="173.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare">
+      <point x="-117.0" y="-143.0" />
+      <point x="1622.2608910444496" y="173.0" />
+      <point x="1145.0095695970695" y="173.0" />
+      <point x="110.28571428571422" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView">
+      <point x="131.66666666666674" y="-326.5" />
+      <point x="2562.58952991453" y="4226.0" />
+      <point x="4028.0459401709404" y="4226.0" />
+      <point x="-84.79999999999995" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece">
+      <point x="0.0" y="-223.5" />
+      <point x="2158.3491263385667" y="1350.0" />
+      <point x="1984.8339743589745" y="1350.0" />
+      <point x="-65.5" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="113.30769230769226" y="-361.0" />
+      <point x="3642.1536324786325" y="3012.0" />
+      <point x="4532.533795424151" y="3012.0" />
+      <point x="-161.25" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient.LogListener">
+      <point x="-59.0" y="-200.5" />
+      <point x="5039.342443066969" y="2461.0" />
+      <point x="5034.342443066969" y="2461.0" />
+      <point x="-64.0" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="226.61538461538453" y="-361.0" />
+      <point x="3755.4613247863244" y="3082.0" />
+      <point x="5009.842443066969" y="3082.0" />
+      <point x="-88.5" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RatPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="-65.5" y="-61.5" />
+      <point x="1984.8339743589745" y="955.0" />
+      <point x="1458.250641025641" y="955.0" />
+      <point x="168.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TrapSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="96.0" y="-61.5" />
+      <point x="1803.3339743589745" y="589.0" />
+      <point x="1705.8323196158783" y="589.0" />
+      <point x="-33.42857142857133" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController">
+      <point x="-41.333333333333485" y="-61.0" />
+      <point x="3217.5126068376067" y="3924.0" />
+      <point x="1292.2839743589743" y="3924.0" />
+      <point x="1292.2839743589743" y="3162.0" />
+      <point x="1367.2839743589743" y="3162.0" />
+      <point x="30.5" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl">
+      <point x="124.0" y="-61.0" />
+      <point x="3382.84594017094" y="3944.0" />
+      <point x="4199.845940170941" y="3944.0" />
+      <point x="-103.0" y="96.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="-101.76470588235293" y="-223.5" />
+      <point x="2056.584420456214" y="1400.0" />
+      <point x="927.0839743589745" y="1400.0" />
+      <point x="927.0839743589745" y="955.0" />
+      <point x="1178.250641025641" y="955.0" />
+      <point x="-112.0" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="2.8421709430404007E-14" y="-96.5" />
+      <point x="4302.845940170941" y="3052.0" />
+      <point x="4618.533795424151" y="3052.0" />
+      <point x="-75.25" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.LoginControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController">
+      <point x="-88.28571428571425" y="-96.5" />
+      <point x="4214.560225885226" y="2932.0" />
+      <point x="4028.147203261644" y="2932.0" />
+      <point x="23.75" y="50.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="0.0" y="-96.5" />
+      <point x="4647.845940170941" y="3062.0" />
+      <point x="4661.533795424151" y="3062.0" />
+      <point x="-32.25" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.RegisterViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App">
+      <point x="140.41666666666674" y="-349.0" />
+      <point x="4462.46744306697" y="5197.0" />
+      <point x="5006.845940170941" y="5197.0" />
+      <point x="-46.0" y="107.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LionPiece">
+      <point x="20.352941176470722" y="-223.5" />
+      <point x="2178.702067515038" y="1360.0" />
+      <point x="2268.0839743589745" y="1360.0" />
+      <point x="-66.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl.RegistrationListener" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl">
+      <point x="-64.0" y="-26.5" />
+      <point x="0.0" y="96.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="-38.25" y="-96.5" />
+      <point x="3883.59594017094" y="2952.0" />
+      <point x="3582.22094017094" y="2952.0" />
+      <point x="3582.22094017094" y="2401.0" />
+      <point x="2275.949126338567" y="2401.0" />
+      <point x="117.60000000000014" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller">
+      <point x="0.0" y="-107.0" />
+      <point x="293.8000000000002" y="2461.0" />
+      <point x="578.2035541780806" y="2461.0" />
+      <point x="-54.75" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController">
+      <point x="75.53846153846155" y="-361.0" />
+      <point x="3604.3844017094016" y="2992.0" />
+      <point x="3933.147203261644" y="2992.0" />
+      <point x="-71.25" y="50.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.BaseController">
+      <point x="-97.42857142857133" y="-96.5" />
+      <point x="4550.417368742369" y="2912.0" />
+      <point x="4075.647203261644" y="2912.0" />
+      <point x="71.25" y="50.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="0.0" y="-61.0" />
+      <point x="3258.84594017094" y="2431.0" />
+      <point x="3911.647203261644" y="2431.0" />
+      <point x="-92.75" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.Controller">
+      <point x="0.0" y="-26.5" />
+      <point x="750.7839743589743" y="2461.0" />
+      <point x="614.7035541780806" y="2461.0" />
+      <point x="-18.25" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell">
+      <point x="-139.38461538461524" y="-383.5" />
+      <point x="2247.457827682354" y="5207.0" />
+      <point x="135.5" y="5207.0" />
+      <point x="0.0" y="85.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel">
+      <point x="0.0" y="-360.5" />
+      <point x="2799.4228632478635" y="4136.0" />
+      <point x="2750.522203261644" y="4136.0" />
+      <point x="2750.522203261644" y="3142.0" />
+      <point x="2588.957051282051" y="3142.0" />
+      <point x="0.0" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.RegisterViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.RegisterController">
+      <point x="-140.41666666666652" y="-349.0" />
+      <point x="4181.634109733637" y="5067.0" />
+      <point x="794.349126338567" y="5067.0" />
+      <point x="794.349126338567" y="3162.0" />
+      <point x="938.1173076923076" y="3162.0" />
+      <point x="-102.66666666666674" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController">
+      <point x="-114.75" y="-96.5" />
+      <point x="3807.09594017094" y="2982.0" />
+      <point x="1428.2839743589743" y="2982.0" />
+      <point x="91.5" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl">
+      <point x="165.33333333333348" y="-61.0" />
+      <point x="3424.1792735042736" y="3954.0" />
+      <point x="4534.179273504274" y="3954.0" />
+      <point x="-113.66666666666663" y="96.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DogPiece">
+      <point x="81.41176470588243" y="-223.5" />
+      <point x="2239.7608910444496" y="1390.0" />
+      <point x="3007.9450854700854" y="1390.0" />
+      <point x="3007.9450854700854" y="1158.0" />
+      <point x="3001.583974358974" y="1158.0" />
+      <point x="66.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.BoardSquare">
+      <point x="55.14285714285711" y="61.5" />
+      <point x="1089.8667124542123" y="183.0" />
+      <point x="1004.3595695970696" y="183.0" />
+      <point x="1004.3595695970696" y="539.0" />
+      <point x="1133.450641025641" y="539.0" />
+      <point x="-156.79999999999995" y="-143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="-87.46153846153845" y="-360.5" />
+      <point x="2711.961324786325" y="4166.0" />
+      <point x="2232.2839743589743" y="4166.0" />
+      <point x="2232.2839743589743" y="2461.0" />
+      <point x="2175.149126338567" y="2461.0" />
+      <point x="16.799999999999955" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.ElephantPiece">
+      <point x="0.0" y="-61.0" />
+      <point x="2787.9450854700854" y="1138.0" />
+      <point x="2708.083974358974" y="1138.0" />
+      <point x="73.24999999999989" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.MainAI" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="43.0" y="-26.5" />
+      <point x="5181.595940170941" y="5207.0" />
+      <point x="5178.345940170941" y="5207.0" />
+      <point x="5178.345940170941" y="3162.0" />
+      <point x="5186.842443066969" y="3162.0" />
+      <point x="88.5" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory">
+      <point x="94.5" y="-212.0" />
+      <point x="2252.8491263385667" y="1922.0" />
+      <point x="2875.1950854700854" y="1922.0" />
+      <point x="87.25" y="61.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.LoginViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel">
+      <point x="28.083333333333485" y="-234.0" />
+      <point x="4707.134109733637" y="5167.0" />
+      <point x="4916.345940170941" y="5167.0" />
+      <point x="4916.345940170941" y="3002.0" />
+      <point x="4833.533795424151" y="3002.0" />
+      <point x="139.74999999999977" y="189.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.CatPiece">
+      <point x="122.11764705882342" y="-223.5" />
+      <point x="2280.46677339739" y="1410.0" />
+      <point x="3569.583974358974" y="1410.0" />
+      <point x="65.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DenSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="47.625" y="49.5" />
+      <point x="1864.8858910444496" y="183.0" />
+      <point x="1856.2608910444496" y="183.0" />
+      <point x="117.0" y="-143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.RegisterViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView">
+      <point x="-28.083333333333258" y="-349.0" />
+      <point x="4293.96744306697" y="5047.0" />
+      <point x="4123.845940170941" y="5047.0" />
+      <point x="4123.845940170941" y="4236.0" />
+      <point x="4155.24594017094" y="4236.0" />
+      <point x="42.40000000000009" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.RegisterControllerImpl.RegistrationListener">
+      <point x="113.66666666666674" y="96.5" />
+      <point x="4761.512606837607" y="3954.0" />
+      <point x="4775.845940170941" y="3954.0" />
+      <point x="64.0" y="-26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.FoxPiece">
+      <point x="101.76470588235293" y="-223.5" />
+      <point x="2260.11383222092" y="1400.0" />
+      <point x="3285.583974358974" y="1400.0" />
+      <point x="65.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel">
+      <point x="0.0" y="-383.5" />
+      <point x="2386.8424430669693" y="5087.0" />
+      <point x="2599.4228632478635" y="5087.0" />
+      <point x="2599.4228632478635" y="3162.0" />
+      <point x="2521.84594017094" y="3162.0" />
+      <point x="-67.11111111111109" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl">
+      <point x="-23.230769230769283" y="-383.5" />
+      <point x="2363.6116738362" y="5077.0" />
+      <point x="2430.9228632478635" y="5077.0" />
+      <point x="0.0" y="326.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="0.0" y="-61.5" />
+      <point x="1085.0839743589745" y="925.0" />
+      <point x="826.0929029304029" y="925.0" />
+      <point x="826.0929029304029" y="549.0" />
+      <point x="1594.4037481873067" y="549.0" />
+      <point x="-144.8571428571429" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.DogPiece">
+      <point x="38.77777777777783" y="-61.0" />
+      <point x="2826.722863247863" y="1158.0" />
+      <point x="2868.083974358974" y="1158.0" />
+      <point x="-66.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TigerPiece">
+      <point x="-61.05882352941171" y="-223.5" />
+      <point x="2097.290302809155" y="1380.0" />
+      <point x="1016.8339743589745" y="1380.0" />
+      <point x="-68.25" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController">
+      <point x="-124.0" y="-61.0" />
+      <point x="3134.84594017094" y="3944.0" />
+      <point x="805.349126338567" y="3944.0" />
+      <point x="805.349126338567" y="3152.0" />
+      <point x="779.7839743589743" y="3152.0" />
+      <point x="29.0" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.GameBoard" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.TrapSquare">
+      <point x="-20.352941176470495" y="-223.5" />
+      <point x="2137.9961851620965" y="1360.0" />
+      <point x="1698.4075037707391" y="1360.0" />
+      <point x="1698.4075037707391" y="1188.0" />
+      <point x="1803.3339743589745" y="1188.0" />
+      <point x="96.0" y="61.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController">
+      <point x="-116.61538461538458" y="-360.5" />
+      <point x="2682.8074786324787" y="4176.0" />
+      <point x="1281.2839743589743" y="4176.0" />
+      <point x="1281.2839743589743" y="3152.0" />
+      <point x="1306.2839743589743" y="3152.0" />
+      <point x="-30.5" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.RiverSquare" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="165.42857142857156" y="61.5" />
+      <point x="1200.1524267399268" y="163.0" />
+      <point x="1700.2608910444496" y="163.0" />
+      <point x="-39.0" y="-143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel">
+      <point x="-63.75" y="-96.5" />
+      <point x="3858.09594017094" y="2962.0" />
+      <point x="2723.1792735042736" y="2962.0" />
+      <point x="134.22222222222217" y="131.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.HomeControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController">
+      <point x="-226.61538461538464" y="-361.0" />
+      <point x="3302.2305555555554" y="3132.0" />
+      <point x="453.40000000000055" y="3132.0" />
+      <point x="159.60000000000014" y="107.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.View">
+      <point x="-12.75" y="-96.5" />
+      <point x="3909.09594017094" y="2982.0" />
+      <point x="3898.897203261644" y="2982.0" />
+      <point x="3898.897203261644" y="2451.0" />
+      <point x="3964.647203261644" y="2451.0" />
+      <point x="-39.75" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder.AlgorithmType" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.ai.MoveFinder">
+      <point x="-32.5" y="-26.5" />
+      <point x="-101.5" y="154.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController">
+      <point x="0.0" y="-85.0" />
+      <point x="135.5" y="3162.0" />
+      <point x="134.20000000000027" y="3162.0" />
+      <point x="-159.60000000000002" y="107.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame">
+      <point x="-69.69230769230762" y="-383.5" />
+      <point x="2317.1501353746617" y="5177.0" />
+      <point x="1480.2839743589743" y="5177.0" />
+      <point x="1480.2839743589743" y="2411.0" />
+      <point x="2074.3491263385667" y="2411.0" />
+      <point x="-84.0" y="212.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LionPiece">
+      <point x="-38.77777777777783" y="-61.0" />
+      <point x="2749.1673076923075" y="1148.0" />
+      <point x="2401.5839743589745" y="1148.0" />
+      <point x="66.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView">
+      <point x="116.61538461538464" y="-360.5" />
+      <point x="2916.0382478632478" y="4236.0" />
+      <point x="4070.44594017094" y="4236.0" />
+      <point x="-42.39999999999998" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView">
+      <point x="69.69230769230762" y="-383.5" />
+      <point x="2456.534750759277" y="5117.0" />
+      <point x="4112.845940170941" y="5117.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel">
+      <point x="29.15384615384616" y="-360.5" />
+      <point x="2828.576709401709" y="4126.0" />
+      <point x="2801.3459401709397" y="4126.0" />
+      <point x="2801.3459401709397" y="3152.0" />
+      <point x="2898.19594017094" y="3152.0" />
+      <point x="-134.79999999999995" y="85.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.LionPiece" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePiece">
+      <point x="0.0" y="-50.0" />
+      <point x="2334.8339743589745" y="569.0" />
+      <point x="1750.4037481873067" y="569.0" />
+      <point x="11.14285714285711" y="143.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.HomeViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel">
+      <point x="23.230769230769283" y="-383.5" />
+      <point x="2410.073212297739" y="5097.0" />
+      <point x="3060.09594017094" y="5097.0" />
+      <point x="3060.09594017094" y="3162.0" />
+      <point x="3032.9959401709402" y="3162.0" />
+      <point x="0.0" y="85.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ArtificialIntelligenceViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.LoginController">
+      <point x="-145.76923076923072" y="-360.5" />
+      <point x="2653.6536324786325" y="4186.0" />
+      <point x="698.2839743589743" y="4186.0" />
+      <point x="698.2839743589743" y="3162.0" />
+      <point x="721.7839743589743" y="3162.0" />
+      <point x="-29.0" y="26.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.JungleClient">
+      <point x="57.5" y="-107.5" />
+      <point x="5110.345940170941" y="4256.0" />
+      <point x="5052.509109733637" y="4256.0" />
+      <point x="5052.509109733637" y="3162.0" />
+      <point x="5167.175776400303" y="3162.0" />
+      <point x="68.83333333333348" y="200.5" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGamePieceFactory" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.FoxPiece">
+      <point x="77.55555555555566" y="-61.0" />
+      <point x="2865.500641025641" y="1168.0" />
+      <point x="3154.083974358974" y="1168.0" />
+      <point x="-65.75" y="50.0" />
+    </edge>
+    <edge source="edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.GameBoardViewImpl" target="edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory">
+      <point x="79.0" y="-326.5" />
+      <point x="2509.9228632478635" y="4206.0" />
+      <point x="3110.0459401709404" y="4206.0" />
+      <point x="-148.79999999999995" y="61.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.30000000000000016" x="2102.9999999999986" y="933.9999999999993" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

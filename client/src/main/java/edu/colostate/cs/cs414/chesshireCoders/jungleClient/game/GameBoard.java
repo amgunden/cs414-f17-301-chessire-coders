@@ -135,8 +135,10 @@ public class GameBoard implements Cloneable {
 	 * @param pieces
 	 */
 	public void setUpBoard(List<GamePiece> pieces) {
-		if (pieces == null || pieces.isEmpty())
+		if (pieces == null || pieces.isEmpty()) {
 			setUpBoard();
+			return;
+		}
 		
 		if (boardSquares == null) {
 			createBoard();

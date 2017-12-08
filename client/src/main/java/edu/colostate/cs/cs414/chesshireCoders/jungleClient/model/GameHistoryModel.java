@@ -38,6 +38,10 @@ public class GameHistoryModel implements Observable{
     	return losses;
     }
     
+    public String getNickname() {
+    	return nickname;
+    }
+    
     public ObservableList<Game> getGames() {
     	return pastGames;
     }
