@@ -51,6 +51,8 @@ public class HomeViewImpl extends BaseView {
     @FXML
     private ImageView btnViewGameHistory;
     @FXML
+    private ImageView btnViewOthersGameHistory;
+    @FXML
     private Label nickName;
     @FXML
     private ListView<JungleGame> gamesList;
