@@ -1,9 +1,14 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
@@ -11,6 +16,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -31,10 +38,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class HomeViewImpl extends BaseView {
 
@@ -154,9 +157,20 @@ public class HomeViewImpl extends BaseView {
     @FXML
     private void viewGameHistoryClicked() {
         System.out.println("View Game History Clicked.");
-        Invitation invite = new Invitation();
-        invite.setSenderNickname("Test Sender");
-        InvitesModel.getInstance().addInvitation(invite);
+        GameHistoryModel historyModel = new GameHistoryModel(this.nickName.getText());
+        historyModel.addListener(new InvalidationListener() {
+        	@Override
+            public void invalidated(Observable o) {
+                    // TODO Display pop up;
+        			System.out.println("Show game history");
+                }
+            });
+        
+        try {
+        	controller.sendGetUserGameHistory(this.nickName.getText(), historyModel);
+	    } catch (Exception e) {
+	        showError(e.getMessage());
+	    }
     }
 
     @FXML
