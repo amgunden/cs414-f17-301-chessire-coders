@@ -115,6 +115,18 @@ public class HomeViewImpl extends BaseView {
         loadGame(getSelectedGame());
     }
 
+    private void showInstructions() {
+        Node board;
+        try {
+        	FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/instructions.fxml"));
+			board = loader.load();
+	        borderPane.setCenter(board);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
     @FXML
     private void settingsClicked() {
         System.out.println("Settings Clicked.");
@@ -126,13 +138,15 @@ public class HomeViewImpl extends BaseView {
         unregister.setOnAction(event -> unregisterClicked());
         MenuItem colorblind = new MenuItem("Toggle Colorblind Mode");
         colorblind.setOnAction(event -> colorblindClicked());
+        MenuItem instructions = new MenuItem("Show Instructions");
+        instructions.setOnAction(event -> showInstructions());
 
-        ContextMenu settingsMenu = new ContextMenu(logout, unregister, colorblind);
+        ContextMenu settingsMenu = new ContextMenu(logout, unregister, colorblind, instructions);
         Bounds boundsInScreen = btnSettings.localToScreen(btnSettings.getBoundsInLocal());
         settingsMenu.show(btnSettings, boundsInScreen.getMinX(), boundsInScreen.getMaxY());
     }
 
-    private void unregisterClicked() {
+	private void unregisterClicked() {
         try {
             System.out.println("Unregister Clicked.");
             controller.sendUnregister();
