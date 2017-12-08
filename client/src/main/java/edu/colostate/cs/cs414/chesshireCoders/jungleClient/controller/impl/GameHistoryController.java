@@ -85,13 +85,13 @@ class opponentTableCell implements Callback<TableColumn.CellDataFeatures<Game, S
 			// Winner & Opponent is Player Two
 			if (game.getValue().getPlayerOneNickName().equals(accountModel.getNickName())) return new ReadOnlyStringWrapper( game.getValue().getPlayerTwoNickName());
 			// Loser & Opponent is Player One
-			else return new ReadOnlyStringWrapper(game.getValue().getPlayerTwoNickName());
+			else return new ReadOnlyStringWrapper(game.getValue().getPlayerOneNickName());
     		
 		} else if (game.getValue().getGameStatus() == GameStatus.WINNER_PLAYER_ONE) {
 			// Winner & Opponent is Player Two
 			if (game.getValue().getPlayerOneNickName().equals(accountModel.getNickName())) return new ReadOnlyStringWrapper( game.getValue().getPlayerTwoNickName());
 			// Loser & Opponent is Player One
-			else return new ReadOnlyStringWrapper( game.getValue().getPlayerTwoNickName());
+			else return new ReadOnlyStringWrapper( game.getValue().getPlayerOneNickName());
 
 		} else if (game.getValue().getGameStatus() == GameStatus.WINNER_PLAYER_TWO) {
 			// Winner & Opponent is Player One
