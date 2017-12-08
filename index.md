@@ -2,15 +2,13 @@
 # You don't need to edit this file, it's empty on purpose.
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-title: About
+title: Home
 layout: default
 ---
 
 ## CSU CS414 - Chessire Coders
 
 This is the project page for the ChesshireCoders, the best group in CSU's Fall 2017 CS414 class!
-
-Our GitHub repo may be found [here](https://github.com/tking2096/cs414-f17-301-chessire-coders).
 
 ## The Project
 
