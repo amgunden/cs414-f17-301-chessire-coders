@@ -39,6 +39,6 @@ Our team was tasked with creating an implementation of [Jungle](https://en.wikip
 Jungle also has a number of different tiles that a piece may occupy:
 
 - A normal tile: No special rules, any piece may move onto a normal tile.
-- A river tile: Only the Rat piece can occupy the river tiles. However, the Leopard piece may jump over the river tiles.
+- A river tile: Only the Rat piece can occupy the river tiles. However, the Leopard and Tiget pieces may jump over the river tiles.
 - A trap tile: Any piece that occupies a trap tile has its power level decrease to 1, meaning it can be captured by any piece.
 - The den tiles: Each player owns a den tile. One player may win by moving one of his/her pieces onto the opponents den tile.
