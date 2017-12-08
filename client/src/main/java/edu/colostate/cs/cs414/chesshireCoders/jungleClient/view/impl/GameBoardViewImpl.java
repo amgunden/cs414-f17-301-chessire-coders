@@ -2,15 +2,14 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameBoardControllerImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
@@ -20,7 +19,6 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,15 +27,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_ONE;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_TWO;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
@@ -55,17 +48,24 @@ public class GameBoardViewImpl extends BaseView {
     @FXML
     private Label lblWinner;
 
+    private boolean colorblind = false;
+
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
-    
+
     private InvitesModel invitesModel = InvitesModel.getInstance();
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         start = new int[2];
     }
 
     public void setGame(JungleGame game) {
         this.game = game;
         placePieces(game.getGamePieces());
+    }
+
+    public void setColorblind() {
+        colorblind = true;
     }
 
     @FXML
@@ -75,42 +75,45 @@ public class GameBoardViewImpl extends BaseView {
 
         MenuItem invitePlayer = new MenuItem("Invite Player...");
         invitePlayer.setOnAction(event -> {
-        	
-        	ObservableList<String> avail = FXCollections.observableArrayList();
-        	
-        	ChoiceDialog<String> inviteDialog = new ChoiceDialog<>();	      
-        	inviteDialog.setTitle("Send Invitation");
-        	inviteDialog.setHeaderText(null);
-        	inviteDialog.setContentText("Choose a user to invite: "); 
-        	
-        	invitesModel.getAvailPlayers().addListener((ListChangeListener<String>) c -> Platform.runLater(() -> {
-        		
-        		while(c.next()) {
-        			if( c.wasRemoved()) avail.removeAll(c.getRemoved());
-        			if( c.wasAdded()) avail.addAll(c.getAddedSubList());
-        		}
 
-        		inviteDialog.getItems().addAll(avail);       		        		
-        	}));
-        	
-       
-        	try {
-				controller.getAvailPlayers();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	
-    		Optional<String> opponentNickname = inviteDialog.showAndWait();
+            ObservableList<String> avail = FXCollections.observableArrayList();
+
+            ChoiceDialog<String> inviteDialog = new ChoiceDialog<>();
+            inviteDialog.setTitle("Send Invitation");
+            inviteDialog.setHeaderText(null);
+            inviteDialog.setContentText("Choose a user to invite: ");
+
+            invitesModel.getAvailPlayers().addListener((ListChangeListener<String>) c -> Platform.runLater(() -> {
+
+                while (c.next()) {
+                    if (c.wasRemoved()) avail.removeAll(c.getRemoved());
+                    if (c.wasAdded()) avail.addAll(c.getAddedSubList());
+                }
+
+                inviteDialog.getItems().addAll(avail);
+            }));
+
+
+            try {
+                controller.getAvailPlayers();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            Optional<String> opponentNickname = inviteDialog.showAndWait();
             if (opponentNickname.isPresent()) {
                 sendInviteClicked(opponentNickname.get());
             }
-            
+
         });
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {
             try {
-                controller.quitGame(game.getGameID());
+                GameStatus status = game.getGameStatus();
+                if (status == WINNER_PLAYER_ONE || status == WINNER_PLAYER_TWO || status == DRAW)
+                    GamesModel.getInstance().removeGame(game.getGameID());
+                else controller.quitGame(game.getGameID());
             } catch (Exception e) {
                 showError(e.getMessage());
             }
@@ -172,19 +175,23 @@ public class GameBoardViewImpl extends BaseView {
         start[0] = r;
         start[1] = c;
 
-        Color yellow = Color.rgb(150, 150, 0, 0.65);
-        setHighlight(square, yellow);
+        Color highlight = Color.rgb(255, 255, 0, 1);
+        if (colorblind)
+            highlight = Color.rgb(211, 211, 211, 1);
+        setHighlight(square, highlight);
     }
 
 
     private void highlightMoves(int r, int c) {
         int[] moves = game.getValidMoves(r, c);
 
-        Color green = Color.rgb(0, 150, 0, 0.65);
-        if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), green);
-        if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), green);
-        if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), green);
-        if (moves[3] != 0) setHighlight(getSquare(r + moves[3], c), green);
+        Color highlight = Color.rgb(0, 255, 0, 1);
+        if (colorblind)
+            highlight = Color.rgb(0, 0, 0, 1);
+        if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), highlight);
+        if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), highlight);
+        if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), highlight);
+        if (moves[3] != 0) setHighlight(getSquare(r + moves[3], c), highlight);
     }
 
 
@@ -209,12 +216,30 @@ public class GameBoardViewImpl extends BaseView {
         }
     }
 
+    private String reducePowerToOne(String name) {
+        String imageName = name;
+        imageName = imageName.substring(0, imageName.length() - 4) + "_1" + imageName.substring(imageName.length() - 4);
+        return imageName;
+    }
+
+    private String useColorblind(String name) {
+        String imageName = name;
+        imageName = imageName.substring(0, imageName.length() - 4) + "_colorblind" + imageName.substring(imageName.length() - 4);
+        return imageName;
+    }
+
     private void placePieceAt(int row, int column, GamePiece piece) {
         StackPane square = getSquare(row, column);
 
         ObservableList<Node> imageViews = square.getChildren();
-        File iconImage = new File("src/main/resources/images/" + getImageForPiece(piece));
+        String imageName = getImageForPiece(piece);
+        if (game.isSquareATrap(row, column))
+            imageName = reducePowerToOne(imageName);
+        if (colorblind)
+            imageName = useColorblind(imageName);
+        File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
+
         pieceImage.setMouseTransparent(true);
         pieceImage.setPreserveRatio(true);
 
@@ -231,51 +256,51 @@ public class GameBoardViewImpl extends BaseView {
         switch (piece.getPieceType()) {
             case CAT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_2_red.png";
+                    result = "/red/piece_2_red.png";
                 else
-                    result = "piece_2_black.png";
+                    result = "/black/piece_2_black.png";
                 break;
             case DOG:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_4_red.png";
+                    result = "/red/piece_4_red.png";
                 else
-                    result = "piece_4_black.png";
+                    result = "/black/piece_4_black.png";
                 break;
             case ELEPHANT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_8_red.png";
+                    result = "/red/piece_8_red.png";
                 else
-                    result = "piece_8_black.png";
+                    result = "/black/piece_8_black.png";
                 break;
             case FOX:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_3_red.png";
+                    result = "/red/piece_3_red.png";
                 else
-                    result = "piece_3_black.png";
+                    result = "/black/piece_3_black.png";
                 break;
             case LEOPARD:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_5_red.png";
+                    result = "/red/piece_5_red.png";
                 else
-                    result = "piece_5_black.png";
+                    result = "/black/piece_5_black.png";
                 break;
             case LION:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_7_red.png";
+                    result = "/red/piece_7_red.png";
                 else
-                    result = "piece_7_black.png";
+                    result = "/black/piece_7_black.png";
                 break;
             case RAT:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_1_red.png";
+                    result = "/red/piece_1_red.png";
                 else
-                    result = "piece_1_black.png";
+                    result = "/black/piece_1_black.png";
                 break;
             case TIGER:
                 if (piece.getPlayerOwner() == PLAYER_ONE)
-                    result = "piece_6_red.png";
+                    result = "/red/piece_6_red.png";
                 else
-                    result = "piece_6_black.png";
+                    result = "/black/piece_6_black.png";
                 break;
             default:
                 break;

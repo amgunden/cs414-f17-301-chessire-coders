@@ -15,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class LoginViewImpl extends BaseView {
@@ -45,7 +43,8 @@ public class LoginViewImpl extends BaseView {
         else if (newValue != null) loginFailure();
     };
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         App.getWindow().setResizable(false);
         listenForLoginSuccess();
     }

@@ -2,8 +2,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameHistoryController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.InvitesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.App;
@@ -11,6 +13,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl.ui.InviteListCell;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -22,19 +26,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Optional;
 
 public class HomeViewImpl extends BaseView {
 
@@ -50,6 +55,8 @@ public class HomeViewImpl extends BaseView {
     private ImageView btnViewInvites;
     @FXML
     private ImageView btnViewGameHistory;
+    @FXML
+    private ImageView btnViewOthersGameHistory;
     @FXML
     private Label nickName;
     @FXML
@@ -68,7 +75,10 @@ public class HomeViewImpl extends BaseView {
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
 
-    public void initialize(URL location, ResourceBundle resources) {
+    private boolean colorblind = false;
+
+    @FXML
+    public void initialize() {
         App.getWindow().setResizable(false);
 
         invitationList.itemsProperty().bind(inviteListProperty);
@@ -80,14 +90,15 @@ public class HomeViewImpl extends BaseView {
         nickName.setText(accountModel.getNickName());
 
         initGamesListView();
-        listenForActiveGameChange();
         listenForGameSelectionChange();
+        getOngoingGames();
     }
 
     private void logoutClicked() {
         try {
             // Don't wait for server to end session.
             controller.sendLogout();
+            controller.dispose();
             App.setScene("loginPage.fxml");
         } catch (Exception e) {
             showError(e.getMessage());
@@ -104,6 +115,23 @@ public class HomeViewImpl extends BaseView {
         }
     }
 
+    private void colorblindClicked() {
+        colorblind = !colorblind;
+        loadGame(getSelectedGame());
+    }
+
+    private void showInstructions() {
+        Node board;
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/instructions.fxml"));
+            board = loader.load();
+            borderPane.setCenter(board);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void settingsClicked() {
         System.out.println("Settings Clicked.");
@@ -113,8 +141,12 @@ public class HomeViewImpl extends BaseView {
         logout.setOnAction(event -> logoutClicked());
         MenuItem unregister = new MenuItem("Unregister");
         unregister.setOnAction(event -> unregisterClicked());
+        MenuItem colorblind = new MenuItem("Toggle Colorblind Mode");
+        colorblind.setOnAction(event -> colorblindClicked());
+        MenuItem instructions = new MenuItem("Show Instructions");
+        instructions.setOnAction(event -> showInstructions());
 
-        ContextMenu settingsMenu = new ContextMenu(logout, unregister);
+        ContextMenu settingsMenu = new ContextMenu(logout, unregister, colorblind, instructions);
         Bounds boundsInScreen = btnSettings.localToScreen(btnSettings.getBoundsInLocal());
         settingsMenu.show(btnSettings, boundsInScreen.getMinX(), boundsInScreen.getMaxY());
     }
@@ -134,6 +166,7 @@ public class HomeViewImpl extends BaseView {
     private void unregSuccessReturnClicked() {
         try {
             System.out.println("btnUnregSuccessReturn Clicked.");
+            controller.dispose();
             App.setScene("loginPage.fxml");
         } catch (IOException e) {
             System.err.println("ERROR: Unable to load fxml file for Home page.");
@@ -143,9 +176,66 @@ public class HomeViewImpl extends BaseView {
     @FXML
     private void viewGameHistoryClicked() {
         System.out.println("View Game History Clicked.");
-        Invitation invite = new Invitation();
-        invite.setSenderNickname("Test Sender");
-        InvitesModel.getInstance().addInvitation(invite);
+        GameHistoryModel historyModel = new GameHistoryModel(this.nickName.getText());
+        getGameHistory(this.nickName.getText(), historyModel);
+
+
+    }
+
+    @FXML
+    private void viewOthersGameHistoryClicked() throws IOException {
+
+        System.out.println("View Others Game History Clicked.");
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setContentText("Enter players nickname:");
+        dialog.setHeaderText("View Player Profile");
+        Optional<String> opponentNickname = dialog.showAndWait();
+        if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
+            GameHistoryModel historyModel = new GameHistoryModel(opponentNickname.get());
+            getGameHistory(opponentNickname.get(), historyModel);
+        }
+
+    }
+
+    private void getGameHistory(String nickName, GameHistoryModel historyModel) {
+        historyModel.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable o) {
+                // TODO Display pop up;
+                Platform.runLater(() -> {
+
+                    final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profilePage.fxml"));
+                    GameHistoryController controller = new GameHistoryController(o);
+                    loader.setController(controller);
+
+                    try {
+                        Parent root;
+                        root = loader.load();
+                        final Scene scene = new Scene(root, 566, 413);
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.initStyle(StageStyle.DECORATED);
+                        //stage.initOwner(emailField.getScene().getWindow());
+                        stage.setScene(scene);
+                        stage.show();
+                        controller.setLabels();
+
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+
+                });
+                System.out.println("Show game history");
+            }
+        });
+
+        try {
+            controller.sendGetUserGameHistory(nickName, historyModel);
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
     @FXML
@@ -158,13 +248,12 @@ public class HomeViewImpl extends BaseView {
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        gamesModel.setActiveGame(newValue);
+                        loadGame(getSelectedGame());
                     }
                 });
     }
 
     private void initGamesListView() {
-        // Some voodoo magic I don't fully understand, but it works!
 
         ObservableList<JungleGame> games = FXCollections.observableArrayList();
         // Wrap the list in a sorted list.
@@ -174,47 +263,71 @@ public class HomeViewImpl extends BaseView {
         // I couldn't update the gamesModel list directly at some point from a non-javafx thread.
         gamesModel.getCurrentGames().addListener((ListChangeListener<JungleGame>) c -> Platform.runLater(() -> {
             while (c.next()) {
-                if (c.wasRemoved()) games.removeAll(c.getRemoved());
-                if (c.wasAdded()) games.addAll(c.getAddedSubList());
+                if (c.wasReplaced()) {
+                    int selectedIndex = gamesList.getSelectionModel().getSelectedIndex();
+                    games.removeAll(c.getRemoved());
+                    games.addAll(c.getAddedSubList());
+                    selectGame(selectedIndex);
+                } else if (c.wasAdded()) {
+                    games.addAll(c.getAddedSubList());
+                    if (c.getAddedSubList().size() == 1) selectGame(c.getAddedSubList().get(0));
+                } else if (c.wasRemoved()) {
+                    games.removeAll(c.getRemoved());
+                    loadGame(getSelectedGame());
+                }
             }
-            selectActiveGame();
         }));
         gamesList.setItems(sortedGames);
     }
 
-    private void listenForActiveGameChange() {
-        gamesModel.getActiveGameProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
-            if (newValue != null) {
-                reloadActiveGame();
-                selectActiveGame();
-            } else borderPane.setCenter(null);
-        }));
-    }
-
-    private void selectActiveGame() {
-        JungleGame game = gamesModel.getActiveGame();
-        if (game != null) {
-            int index = gamesList.getItems().indexOf(game);
-            gamesList.requestFocus();
-            gamesList.getSelectionModel().select(index);
-            gamesList.getFocusModel().focus(index);
+    private void getOngoingGames() {
+        try {
+            controller.sendGetActiveGames();
+        } catch (IOException e) {
+            showError(e.getMessage());
         }
     }
 
-    private void reloadActiveGame() {
+    private JungleGame getSelectedGame() {
+        return gamesList.getSelectionModel().getSelectedItem();
+    }
+
+    private void selectGame(int selectedIndex) {
+        gamesList.requestFocus();
+        gamesList.getSelectionModel().select(selectedIndex);
+        gamesList.getFocusModel().focus(selectedIndex);
+    }
+
+    private void selectGame(JungleGame game) {
+        if (game != null) {
+            selectGame(gamesList.getItems().indexOf(game));
+        }
+    }
+
+    private void loadGame(JungleGame game) {
+        if (game == null) {
+            borderPane.setCenter(null);
+            return;
+        }
+
         Node board;
         try {
             lblActiveGames.setPadding(new Insets(0, 0, 0, 20));
             lblGameInvites.setPadding(new Insets(0, 0, 0, 20));
 
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/gameBoard.fxml"));
+            String boardgameName = "/fxml/gameBoard.fxml";
+            if (colorblind)
+                boardgameName = "/fxml/gameBoard_colorblind.fxml";
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(boardgameName));
             board = loader.load();
 
             // Get the Controller from the FXMLLoader
             GameBoardViewImpl gameBoardView = loader.getController();
 
             // Set the game to load
-            gameBoardView.setGame(gamesModel.getActiveGame());
+            if (colorblind)
+                gameBoardView.setColorblind();
+            gameBoardView.setGame(game);
 
             // Set data in the controller
             borderPane.setCenter(board);

@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class GameBoard {
+public class GameBoard implements Cloneable {
 
 	//Set up Squares
 	BoardSquare[][] boardSquares = null;
@@ -68,17 +68,22 @@ public class GameBoard {
 		int[] validMoves = new int[4];
 		
 		JungleGamePiece piece = getPieceAt(row, column);
-		
-		validMoves[0] = getValidMoveHorizontal(piece, -1); // left
-		validMoves[1] = getValidMoveVertical(piece, -1); // up
-		validMoves[2] = getValidMoveHorizontal(piece, 1); // right
-		validMoves[3] = getValidMoveVertical(piece, 1); // down
-		
-		return validMoves;
+
+		if (piece != null) {
+			validMoves[0] = getValidMoveHorizontal(piece, -1); // left
+			validMoves[1] = getValidMoveVertical(piece, -1); // up
+			validMoves[2] = getValidMoveHorizontal(piece, 1); // right
+			validMoves[3] = getValidMoveVertical(piece, 1); // down
+
+			return validMoves;
+		} else return null;
 	}
+
 	
 	
 	public void movePiece(int[] from, int[] to) {
+		if (from == null || to == null) throw new IllegalArgumentException("Input cannot be null.");
+
 		BoardSquare fromSquare = getSquareAt(from[0],from[1]);
 		BoardSquare toSquare = getSquareAt(to[0],to[1]);
 		
@@ -130,8 +135,10 @@ public class GameBoard {
 	 * @param pieces
 	 */
 	public void setUpBoard(List<GamePiece> pieces) {
-		if (pieces == null || pieces.isEmpty())
+		if (pieces == null || pieces.isEmpty()) {
 			setUpBoard();
+			return;
+		}
 		
 		if (boardSquares == null) {
 			createBoard();

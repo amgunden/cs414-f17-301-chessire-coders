@@ -17,7 +17,12 @@ public interface GameService {
     Game fetchGame(long gameId) throws Exception;
 
     List<Game> fetchUserGames(String nickName) throws Exception;
+
+    List<Game> fetchUserGamesWithoutPieces(String nickName) throws Exception;
+
     List<Game> fetchUserGames(String nickName, GameStatus... statuses) throws Exception;
+
+    List<Game> fetchUserGamesWithoutPieces(String nickName, GameStatus... statuses) throws Exception;
 
     String quitGame(String sendingNickName, long gameId) throws Exception;
 
@@ -28,6 +33,6 @@ public interface GameService {
     void rejectInvitation(long invitationId) throws Exception;
 
     Invitation createInvitation(String senderNickname, String receiverNickName, long gameId) throws Exception;
-    
+
     List<User> getPlayersAvailForInvites(String nickName) throws Exception;
 }

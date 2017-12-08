@@ -73,6 +73,7 @@ public class KryoRegistrar {
      */
     private static void registerRequestClasses(Kryo kryo) {
         // Game Handling
+    	kryo.register(GetActiveGamesRequest.class);
         kryo.register(GetGameRequest.class);
         kryo.register(UpdateGameRequest.class);
         kryo.register(CreateGameRequest.class);
@@ -90,6 +91,7 @@ public class KryoRegistrar {
         // Account requests
         kryo.register(RegisterRequest.class);
         kryo.register(UnRegisterRequest.class);
+        kryo.register(GetUserGameHistoryRequest.class);
     }
     
     /**
@@ -107,6 +109,7 @@ public class KryoRegistrar {
         kryo.register(Response.class);
 
         // Game Handling
+        kryo.register(GetActiveGamesResponse.class);
         kryo.register(GetGameResponse.class);
         kryo.register(UpdateGameResponse.class);
         kryo.register(CreateGameResponse.class);
@@ -124,6 +127,7 @@ public class KryoRegistrar {
         // Account Handling
         kryo.register(RegisterResponse.class);
         kryo.register(UnRegisterResponse.class);
+        kryo.register(GetUserGameHistoryResponse.class);
     }
 
     /**

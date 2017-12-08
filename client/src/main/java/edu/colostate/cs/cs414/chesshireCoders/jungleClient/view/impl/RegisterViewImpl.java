@@ -16,8 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class RegisterViewImpl extends BaseView {
@@ -66,7 +64,8 @@ public class RegisterViewImpl extends BaseView {
         else if (newValue != null) registrationFailure();
     };
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         listenForRegisterSuccess();
     }
 

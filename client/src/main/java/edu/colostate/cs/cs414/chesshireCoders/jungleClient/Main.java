@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class Main {
     public static void main(String args[]) {
-        JungleClient client = null;
+        JungleClient client;
 
         if (args.length == 0) {
             System.out.println("Launching in client only mode...");
