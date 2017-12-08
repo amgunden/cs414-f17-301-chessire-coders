@@ -1,12 +1,7 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.GAME_ALREADY_STARTED;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.SERVER_ERROR;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.UNAUTHORIZED;
-
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleConnection;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.JungleServer;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.GameService;
@@ -14,7 +9,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.SessionServic
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.GameServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.impl.SessionServiceImpl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.service.util.GameStateException;
-import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.BoardUpdateEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationAcceptedEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.events.InvitationEvent;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
@@ -29,6 +23,8 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.InviteReplyRe
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.responses.ResponseStatusCodes.*;
 
 public class InvitationHandler extends Listener {
 
@@ -79,7 +75,7 @@ public class InvitationHandler extends Listener {
             return new InviteReplyResponse(GAME_ALREADY_STARTED, "This game has already been started.");
         } catch (Exception e) {
             e.printStackTrace();
-            return new InviteReplyResponse(SERVER_ERROR, "An error occurred checking session validity.");
+            return new InviteReplyResponse(SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -105,7 +101,7 @@ public class InvitationHandler extends Listener {
             } else return new InvitePlayerResponse(UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {
             e.printStackTrace();
-            return new InvitePlayerResponse(SERVER_ERROR, "An error occurred checking session validity.");
+            return new InvitePlayerResponse(SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -119,18 +115,16 @@ public class InvitationHandler extends Listener {
     			
     			List<User> users = gameService.getPlayersAvailForInvites(request.getRequestorNickname());
     			List<String> nickNames = new ArrayList<String>();
-    			
-    			for(int i=0; i<users.size(); i++) {
-    				nickNames.add(users.get(i).getNickName());
-    			}
-    			
-    			GetAvailPlayersResponse response = new GetAvailPlayersResponse(nickNames);
-    			
-    			return response;
+
+                for (User user : users) {
+                    nickNames.add(user.getNickName());
+                }
+
+                return new GetAvailPlayersResponse(nickNames);
     		} else return new GetAvailPlayersResponse(UNAUTHORIZED, "You are not authorized to perform this action.");
         } catch (Exception e) {
             e.printStackTrace();
-            return new GetAvailPlayersResponse(SERVER_ERROR, "An error occurred checking session validity.");
+            return new GetAvailPlayersResponse(SERVER_ERROR, e.getMessage());
         }
 
     }
