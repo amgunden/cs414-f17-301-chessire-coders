@@ -2,7 +2,6 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
-import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameHistoryController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.AccountModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GameHistoryModel;
@@ -183,7 +182,7 @@ public class HomeViewImpl extends BaseView {
     }
 
     @FXML
-    private void viewOthersGameHistoryClicked() throws IOException {
+    private void viewOthersGameHistoryClicked() {
 
         System.out.println("View Others Game History Clicked.");
         TextInputDialog dialog = new TextInputDialog();
@@ -205,7 +204,7 @@ public class HomeViewImpl extends BaseView {
                 Platform.runLater(() -> {
 
                     final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profilePage.fxml"));
-                    GameHistoryController controller = new GameHistoryController(o);
+                    GameHistoryViewImpl controller = new GameHistoryViewImpl(o);
                     loader.setController(controller);
 
                     try {
