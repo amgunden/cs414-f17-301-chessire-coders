@@ -74,6 +74,9 @@ public class HomeViewImpl extends BaseView {
     private AccountModel accountModel = AccountModel.getInstance();
     private GamesModel gamesModel = GamesModel.getInstance();
 
+    // GameBoard view
+    private GameBoardViewImpl gameBoardView;
+
     private boolean colorblind = false;
 
     @FXML
@@ -320,8 +323,10 @@ public class HomeViewImpl extends BaseView {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(boardgameName));
             board = loader.load();
 
-            // Get the Controller from the FXMLLoader
-            GameBoardViewImpl gameBoardView = loader.getController();
+            // cleanup the old board view
+            if (gameBoardView != null) gameBoardView.dispose();
+            // Get the new Controller from the FXMLLoader
+            gameBoardView = loader.getController();
 
             // Set the game to load
             if (colorblind)

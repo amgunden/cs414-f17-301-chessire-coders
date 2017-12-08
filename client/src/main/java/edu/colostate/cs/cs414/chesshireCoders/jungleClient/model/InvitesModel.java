@@ -4,7 +4,6 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.Invitation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -35,14 +34,13 @@ public class InvitesModel extends Observable {
     public void addInvitation(Invitation invite) {
         pendingReceivedInvites.add(invite);
     }
-    
+
+    public ObservableList<String> getAvailPlayers() {
+        return availPlayers;
+    }
+
     public void setAvailPlayers(List<String> availPlayers) {
-    	this.availPlayers.addAll(availPlayers);
+        this.availPlayers.setAll(availPlayers);
     }
-    
-    public ObservableList<String> getAvailPlayers(){
-		return availPlayers;
-    	
-    }
-    
+
 }
