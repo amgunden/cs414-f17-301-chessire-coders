@@ -26,10 +26,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
@@ -48,12 +46,13 @@ public class GameBoardViewImpl extends BaseView {
     private StackPane winnerPane;
     @FXML
     private Label lblWinner;
-    
+
     private boolean colorblind = false;
 
     private GameBoardController controller = ControllerFactory.getGameBoardController(this);
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         start = new int[2];
     }
 
@@ -61,9 +60,9 @@ public class GameBoardViewImpl extends BaseView {
         this.game = game;
         placePieces(game.getGamePieces());
     }
-    
+
     public void setColorblind() {
-    	colorblind = true;
+        colorblind = true;
     }
 
     @FXML
@@ -148,10 +147,10 @@ public class GameBoardViewImpl extends BaseView {
     private void highlightStartSquare(StackPane square, int r, int c) {
         start[0] = r;
         start[1] = c;
-        
+
         Color highlight = Color.rgb(255, 255, 0, 1);
-        if(colorblind)
-        	highlight = Color.rgb(211, 211, 211, 1);
+        if (colorblind)
+            highlight = Color.rgb(211, 211, 211, 1);
         setHighlight(square, highlight);
     }
 
@@ -160,8 +159,8 @@ public class GameBoardViewImpl extends BaseView {
         int[] moves = game.getValidMoves(r, c);
 
         Color highlight = Color.rgb(0, 255, 0, 1);
-        if(colorblind)
-        	highlight = Color.rgb(0, 0, 0, 1);
+        if (colorblind)
+            highlight = Color.rgb(0, 0, 0, 1);
         if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), highlight);
         if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), highlight);
         if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), highlight);
@@ -180,7 +179,7 @@ public class GameBoardViewImpl extends BaseView {
             if (imageViews2.size() > 1) {
                 imageViews2.remove(imageViews2.size() - 1);
             }
-            
+
             toSquare.getChildren().add(piece);
             game.movePiece(start, new int[]{r, c});
             controller.updateGame(game);
@@ -189,17 +188,17 @@ public class GameBoardViewImpl extends BaseView {
             showError(e.getMessage());
         }
     }
-    
+
     private String reducePowerToOne(String name) {
-    	String imageName = name;
-    	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
-    	return imageName;
+        String imageName = name;
+        imageName = imageName.substring(0, imageName.length() - 4) + "_1" + imageName.substring(imageName.length() - 4);
+        return imageName;
     }
-    
+
     private String useColorblind(String name) {
-    	String imageName = name;
-    	imageName = imageName.substring(0, imageName.length()-4) + "_colorblind" + imageName.substring(imageName.length()-4);
-    	return imageName;
+        String imageName = name;
+        imageName = imageName.substring(0, imageName.length() - 4) + "_colorblind" + imageName.substring(imageName.length() - 4);
+        return imageName;
     }
 
     private void placePieceAt(int row, int column, GamePiece piece) {
@@ -208,19 +207,19 @@ public class GameBoardViewImpl extends BaseView {
         ObservableList<Node> imageViews = square.getChildren();
         String imageName = getImageForPiece(piece);
         if (game.isSquareATrap(row, column))
-        	imageName = reducePowerToOne(imageName);
+            imageName = reducePowerToOne(imageName);
         if (colorblind)
-        	imageName = useColorblind(imageName);
+            imageName = useColorblind(imageName);
         File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
-        
+
         pieceImage.setMouseTransparent(true);
         pieceImage.setPreserveRatio(true);
 
         if (imageViews.size() > 1) {
             imageViews.remove(imageViews.size() - 1);
         }
-        
+
         imageViews.add(pieceImage);
     }
 

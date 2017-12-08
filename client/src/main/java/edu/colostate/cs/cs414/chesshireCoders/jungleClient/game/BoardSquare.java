@@ -7,6 +7,9 @@ public class BoardSquare {
 	PlayerEnumType playerOwner;
 	protected JungleGamePiece piece;
 
+	public BoardSquare() {
+	}
+
 	public BoardSquare(int row, int col, JungleGamePiece piece) {
 		location = new int[]{row, col};
 		if (piece != null)

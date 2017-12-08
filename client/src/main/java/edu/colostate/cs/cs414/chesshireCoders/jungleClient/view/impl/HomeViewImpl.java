@@ -1,10 +1,5 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
-
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.HomeController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.impl.GameHistoryController;
@@ -33,11 +28,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -46,6 +37,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
+import java.util.Optional;
 
 public class HomeViewImpl extends BaseView {
 
@@ -83,7 +77,8 @@ public class HomeViewImpl extends BaseView {
 
     private boolean colorblind = false;
 
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         App.getWindow().setResizable(false);
 
         invitationList.itemsProperty().bind(inviteListProperty);
@@ -128,14 +123,14 @@ public class HomeViewImpl extends BaseView {
     private void showInstructions() {
         Node board;
         try {
-        	FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/instructions.fxml"));
-			board = loader.load();
-	        borderPane.setCenter(board);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/instructions.fxml"));
+            board = loader.load();
+            borderPane.setCenter(board);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void settingsClicked() {
@@ -156,7 +151,7 @@ public class HomeViewImpl extends BaseView {
         settingsMenu.show(btnSettings, boundsInScreen.getMinX(), boundsInScreen.getMaxY());
     }
 
-	private void unregisterClicked() {
+    private void unregisterClicked() {
         try {
             System.out.println("Unregister Clicked.");
             controller.sendUnregister();
@@ -183,67 +178,66 @@ public class HomeViewImpl extends BaseView {
         System.out.println("View Game History Clicked.");
         GameHistoryModel historyModel = new GameHistoryModel(this.nickName.getText());
         getGameHistory(this.nickName.getText(), historyModel);
-        
+
 
     }
-    
+
     @FXML
     private void viewOthersGameHistoryClicked() throws IOException {
-    	
+
         System.out.println("View Others Game History Clicked.");
         TextInputDialog dialog = new TextInputDialog();
         dialog.setContentText("Enter players nickname:");
         dialog.setHeaderText("View Player Profile");
         Optional<String> opponentNickname = dialog.showAndWait();
         if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
-        	GameHistoryModel historyModel = new GameHistoryModel(opponentNickname.get());
-        	getGameHistory(opponentNickname.get(), historyModel);
+            GameHistoryModel historyModel = new GameHistoryModel(opponentNickname.get());
+            getGameHistory(opponentNickname.get(), historyModel);
         }
-        
+
     }
-    
+
     private void getGameHistory(String nickName, GameHistoryModel historyModel) {
         historyModel.addListener(new InvalidationListener() {
-        	@Override
+            @Override
             public void invalidated(Observable o) {
-                    // TODO Display pop up;
-        		Platform.runLater(() -> {
+                // TODO Display pop up;
+                Platform.runLater(() -> {
 
-        	        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profilePage.fxml"));
-        	        GameHistoryController controller = new GameHistoryController(o);
-        	        loader.setController(controller);
-        	        
-					try {
-						Parent root;
-						root = loader.load();
-						final Scene scene = new Scene(root, 566, 413);
-						Stage stage = new Stage();
-	        	        stage.initModality(Modality.APPLICATION_MODAL);
-	        	        stage.initStyle(StageStyle.DECORATED);
-	        	        //stage.initOwner(emailField.getScene().getWindow());
-	        	        stage.setScene(scene);
-	        	        stage.show();
-	        	        controller.setLabels();
-	        	        
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-        	        
-        	        
-        			
-        		});
-        			System.out.println("Show game history");
-                }
-            });
-        
+                    final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profilePage.fxml"));
+                    GameHistoryController controller = new GameHistoryController(o);
+                    loader.setController(controller);
+
+                    try {
+                        Parent root;
+                        root = loader.load();
+                        final Scene scene = new Scene(root, 566, 413);
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.initStyle(StageStyle.DECORATED);
+                        //stage.initOwner(emailField.getScene().getWindow());
+                        stage.setScene(scene);
+                        stage.show();
+                        controller.setLabels();
+
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+
+                });
+                System.out.println("Show game history");
+            }
+        });
+
         try {
-        	controller.sendGetUserGameHistory(nickName, historyModel);
-	    } catch (Exception e) {
-	        showError(e.getMessage());
-	    }
+            controller.sendGetUserGameHistory(nickName, historyModel);
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
-    
+
     @FXML
     private void viewInvitesClicked() {
         System.out.println("View Invites Clicked.");

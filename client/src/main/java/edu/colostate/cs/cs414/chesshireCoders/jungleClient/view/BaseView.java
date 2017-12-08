@@ -1,12 +1,11 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view;
 
 import javafx.application.Platform;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
-public abstract class BaseView implements Initializable, View {
+public abstract class BaseView implements View {
 
     @Override
     public void showError(final String message) {

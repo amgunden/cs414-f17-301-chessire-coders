@@ -5,6 +5,9 @@ import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 
 public class RatPiece extends JungleGamePiece {
 
+	public RatPiece() {
+	}
+
 	public RatPiece(PlayerEnumType ownerType, int column, int row) {
         super(ownerType,  column, row);
 		setPowerDefault();
