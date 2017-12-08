@@ -26,6 +26,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -34,6 +35,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomeViewImpl extends BaseView {
@@ -159,6 +161,20 @@ public class HomeViewImpl extends BaseView {
         Invitation invite = new Invitation();
         invite.setSenderNickname("Test Sender");
         InvitesModel.getInstance().addInvitation(invite);
+    }
+    
+    @FXML
+    private void viewOthersGameHistoryClicked() throws IOException {
+    	
+        System.out.println("View Others Game History Clicked.");
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setContentText("Enter players nickname:");
+        dialog.setHeaderText("View Player Profile");
+        Optional<String> opponentNickname = dialog.showAndWait();
+        if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
+        	
+        }
+        
     }
 
     @FXML

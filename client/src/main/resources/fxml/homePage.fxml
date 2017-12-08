@@ -80,7 +80,7 @@
                                     <Image url="@../images/envelope_badged.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="btnViewOthersGameHistory" fitHeight="65.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btnViewOthersGameHistory" fitHeight="65.0" fitWidth="67.0" onMouseClicked="#viewOthersGameHistoryClicked" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/3-users.png" />
                                  </image>
