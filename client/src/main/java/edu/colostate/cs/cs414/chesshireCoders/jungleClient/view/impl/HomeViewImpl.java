@@ -168,6 +168,27 @@ public class HomeViewImpl extends BaseView {
     private void viewGameHistoryClicked() {
         System.out.println("View Game History Clicked.");
         GameHistoryModel historyModel = new GameHistoryModel(this.nickName.getText());
+        getGameHistory(this.nickName.getText(), historyModel);
+        
+
+    }
+    
+    @FXML
+    private void viewOthersGameHistoryClicked() throws IOException {
+    	
+        System.out.println("View Others Game History Clicked.");
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setContentText("Enter players nickname:");
+        dialog.setHeaderText("View Player Profile");
+        Optional<String> opponentNickname = dialog.showAndWait();
+        if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
+        	GameHistoryModel historyModel = new GameHistoryModel(opponentNickname.get());
+        	getGameHistory(opponentNickname.get(), historyModel);
+        }
+        
+    }
+    
+    private void getGameHistory(String nickName, GameHistoryModel historyModel) {
         historyModel.addListener(new InvalidationListener() {
         	@Override
             public void invalidated(Observable o) {
@@ -203,26 +224,12 @@ public class HomeViewImpl extends BaseView {
             });
         
         try {
-        	controller.sendGetUserGameHistory(this.nickName.getText(), historyModel);
+        	controller.sendGetUserGameHistory(nickName, historyModel);
 	    } catch (Exception e) {
 	        showError(e.getMessage());
 	    }
     }
     
-    @FXML
-    private void viewOthersGameHistoryClicked() throws IOException {
-    	
-        System.out.println("View Others Game History Clicked.");
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setContentText("Enter players nickname:");
-        dialog.setHeaderText("View Player Profile");
-        Optional<String> opponentNickname = dialog.showAndWait();
-        if (opponentNickname.isPresent() && !opponentNickname.get().isEmpty()) {
-        	
-        }
-        
-    }
-
     @FXML
     private void viewInvitesClicked() {
         System.out.println("View Invites Clicked.");
