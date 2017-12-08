@@ -10,6 +10,8 @@ layout: default
 
 This is the project page for the ChesshireCoders, the best group in CSU's Fall 2017 CS414 class!
 
+[Developer Documentation](https://github.com/tking2096/cs414-f17-301-chessire-coders/wiki)
+
 ## The Project
 
 For this class, we were tasked with creating a Chess-based board game entirely in Java, and entirely from scratch. We were given the following requirments that our game system must fulfill:
@@ -28,7 +30,18 @@ Our team has also chosen to implement a basic AI feature so that any player may 
 
 ## Jungle
 
-Our team was tasked with creating an implementation of [Jungle](https://en.wikipedia.org/wiki/Jungle_(board_game)), a chess variant in which there are two players, each owning 8 pieces which have different power levels and special rules. Jungle also has a number of different tiles that a piece may occupy:
+Our team was tasked with creating an implementation of [Jungle](https://en.wikipedia.org/wiki/Jungle_(board_game)), a chess variant in which there are two players, each owning 8 pieces which have different power levels and special rules:
+
+- Rat
+- Cat
+- Fox
+- Dog
+- Leopard
+- Tiger
+- Lion
+- Elephant
+
+Jungle also has a number of different tiles that a piece may occupy:
 
 - A normal tile: No special rules, any piece may move onto a normal tile.
 - A river tile: Only the Rat piece can occupy the river tiles. However, the Leopard piece may jump over the river tiles.
