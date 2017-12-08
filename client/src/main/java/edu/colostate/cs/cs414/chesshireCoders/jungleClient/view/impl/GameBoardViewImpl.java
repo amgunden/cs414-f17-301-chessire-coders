@@ -3,8 +3,10 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.impl;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.ControllerFactory;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.controller.GameBoardController;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
+import edu.colostate.cs.cs414.chesshireCoders.jungleClient.model.GamesModel;
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.view.BaseView;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.game.GamePiece;
+import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus;
 import edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -27,8 +29,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_ONE;
-import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.WINNER_PLAYER_TWO;
+import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.GameStatus.*;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_ONE;
 import static edu.colostate.cs.cs414.chesshireCoders.jungleUtil.types.PlayerEnumType.PLAYER_TWO;
 
@@ -61,7 +62,7 @@ public class GameBoardViewImpl extends BaseView {
     }
 
     public void setColorblind() {
-    	colorblind = true;
+        colorblind = true;
     }
 
     @FXML
@@ -82,7 +83,10 @@ public class GameBoardViewImpl extends BaseView {
         MenuItem quit = new MenuItem("Quit Game");
         quit.setOnAction(event -> {
             try {
-                controller.quitGame(game.getGameID());
+                GameStatus status = game.getGameStatus();
+                if (status == WINNER_PLAYER_ONE || status == WINNER_PLAYER_TWO || status == DRAW)
+                    GamesModel.getInstance().removeGame(game.getGameID());
+                else controller.quitGame(game.getGameID());
             } catch (Exception e) {
                 showError(e.getMessage());
             }
@@ -145,8 +149,8 @@ public class GameBoardViewImpl extends BaseView {
         start[1] = c;
 
         Color highlight = Color.rgb(255, 255, 0, 1);
-        if(colorblind)
-        	highlight = Color.rgb(211, 211, 211, 1);
+        if (colorblind)
+            highlight = Color.rgb(211, 211, 211, 1);
         setHighlight(square, highlight);
     }
 
@@ -155,8 +159,8 @@ public class GameBoardViewImpl extends BaseView {
         int[] moves = game.getValidMoves(r, c);
 
         Color highlight = Color.rgb(0, 255, 0, 1);
-        if(colorblind)
-        	highlight = Color.rgb(0, 0, 0, 1);
+        if (colorblind)
+            highlight = Color.rgb(0, 0, 0, 1);
         if (moves[0] != 0) setHighlight(getSquare(r, c + moves[0]), highlight);
         if (moves[1] != 0) setHighlight(getSquare(r + moves[1], c), highlight);
         if (moves[2] != 0) setHighlight(getSquare(r, c + moves[2]), highlight);
@@ -186,15 +190,15 @@ public class GameBoardViewImpl extends BaseView {
     }
 
     private String reducePowerToOne(String name) {
-    	String imageName = name;
-    	imageName = imageName.substring(0, imageName.length()-4) + "_1" + imageName.substring(imageName.length()-4);
-    	return imageName;
+        String imageName = name;
+        imageName = imageName.substring(0, imageName.length() - 4) + "_1" + imageName.substring(imageName.length() - 4);
+        return imageName;
     }
 
     private String useColorblind(String name) {
-    	String imageName = name;
-    	imageName = imageName.substring(0, imageName.length()-4) + "_colorblind" + imageName.substring(imageName.length()-4);
-    	return imageName;
+        String imageName = name;
+        imageName = imageName.substring(0, imageName.length() - 4) + "_colorblind" + imageName.substring(imageName.length() - 4);
+        return imageName;
     }
 
     private void placePieceAt(int row, int column, GamePiece piece) {
@@ -203,9 +207,9 @@ public class GameBoardViewImpl extends BaseView {
         ObservableList<Node> imageViews = square.getChildren();
         String imageName = getImageForPiece(piece);
         if (game.isSquareATrap(row, column))
-        	imageName = reducePowerToOne(imageName);
+            imageName = reducePowerToOne(imageName);
         if (colorblind)
-        	imageName = useColorblind(imageName);
+            imageName = useColorblind(imageName);
         File iconImage = new File("src/main/resources/images/" + imageName);
         ImageView pieceImage = new ImageView(iconImage.toURI().toString());
 

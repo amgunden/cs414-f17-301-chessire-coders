@@ -2,6 +2,7 @@ package edu.colostate.cs.cs414.chesshireCoders.jungleServer;
 
 import com.esotericsoftware.kryonet.Listener;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHandler;
+import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.GameHistoryHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.InvitationHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.RegistrationHandler;
 import edu.colostate.cs.cs414.chesshireCoders.jungleServer.handler.SessionHandler;
@@ -89,8 +90,8 @@ public final class Main {
                 properties.getProperty("dataSourceClassName")
         );
         dataSourceProperties.setProperty(
-                "dataSource.databaseName",
-                properties.getProperty("dataSource.databaseName")
+                "dataSource.url",
+                properties.getProperty("dataSource.url")
         );
         dataSourceProperties.setProperty(
                 "dataSource.user",
@@ -99,14 +100,6 @@ public final class Main {
         dataSourceProperties.setProperty(
                 "dataSource.password",
                 properties.getProperty("dataSource.password")
-        );
-        dataSourceProperties.setProperty(
-                "dataSource.serverName",
-                properties.getProperty("dataSource.serverName")
-        );
-        dataSourceProperties.setProperty(
-                "dataSource.portNumber",
-                properties.getProperty("dataSource.portNumber")
         );
         return dataSourceProperties;
     }
@@ -136,6 +129,7 @@ public final class Main {
         server.addListener(new Listener.ThreadedListener(new RegistrationHandler(server), executorService));
         server.addListener(new Listener.ThreadedListener(new SessionHandler(server), executorService));
         server.addListener(new Listener.ThreadedListener(new InvitationHandler(server)));
+        server.addListener(new Listener.ThreadedListener(new GameHistoryHandler(server)));
 
         // Add a shutdown hook to allow any running threads to end gracefully.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

@@ -90,6 +90,7 @@ public class KryoRegistrar {
         // Account requests
         kryo.register(RegisterRequest.class);
         kryo.register(UnRegisterRequest.class);
+        kryo.register(GetUserGameHistoryRequest.class);
     }
     
     /**
@@ -124,6 +125,7 @@ public class KryoRegistrar {
         // Account Handling
         kryo.register(RegisterResponse.class);
         kryo.register(UnRegisterResponse.class);
+        kryo.register(GetUserGameHistoryResponse.class);
     }
 
     /**

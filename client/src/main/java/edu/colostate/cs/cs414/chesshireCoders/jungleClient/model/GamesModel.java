@@ -1,20 +1,18 @@
 package edu.colostate.cs.cs414.chesshireCoders.jungleClient.model;
 
 import edu.colostate.cs.cs414.chesshireCoders.jungleClient.game.JungleGame;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.Collection;
 
 public class GamesModel {
 
     private static GamesModel instance = new GamesModel();
 
-    private ObjectProperty<JungleGame> activeGameProperty;
     private ObservableList<JungleGame> currentGames;
 
     private GamesModel() {
-        activeGameProperty = new SimpleObjectProperty<>(null);
         currentGames = FXCollections.observableArrayList();
     }
 
@@ -25,25 +23,11 @@ public class GamesModel {
     }
 
     public static void clearInstance() {
-        getInstance().activeGameProperty = null;
-        getInstance().currentGames = null;
+        instance.currentGames = null;
         instance = null;
     }
 
-    public ObjectProperty<JungleGame> getActiveGameProperty() {
-        return activeGameProperty;
-    }
-
-    public JungleGame getActiveGame() {
-        return activeGameProperty.getValue();
-    }
-
-    public void setActiveGame(JungleGame game) {
-        activeGameProperty.setValue(game);
-    }
-
     public void removeGame(long gameID) {
-        if (getActiveGame().getGameID() == gameID) setActiveGame(null);
         currentGames.remove(findById(gameID));
     }
 
@@ -59,11 +43,6 @@ public class GamesModel {
         }
         // If game was not found, add it.
         if (!found) currentGames.add(jGame);
-
-        // Update the active game reference if necessary
-        JungleGame activeGame = activeGameProperty.get();
-        if (activeGame != null && jGame.getGameID() == activeGame.getGameID())
-            setActiveGame(jGame);
     }
 
     public JungleGame findById(long gameID) {
@@ -84,5 +63,9 @@ public class GamesModel {
 
     public ObservableList<JungleGame> getCurrentGames() {
         return currentGames;
+    }
+
+    public void addAll(Collection<JungleGame> games) {
+        currentGames.addAll(games);
     }
 }
