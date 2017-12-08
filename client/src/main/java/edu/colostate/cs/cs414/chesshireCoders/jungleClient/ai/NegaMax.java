@@ -21,7 +21,7 @@ public class NegaMax extends MoveFinder {
 
         GameStatus status = game.getGameStatus();
         // Base case: a player has won, or maximum depth reached. Return it's score.
-        if (status == WINNER_PLAYER_ONE || status == WINNER_PLAYER_TWO || depth == maxDepth) {
+        if (status == WINNER_PLAYER_ONE || status == WINNER_PLAYER_TWO || depth == 0) {
             return getUtility(depth);
         }
         // Otherwise select best possible move
@@ -34,12 +34,13 @@ public class NegaMax extends MoveFinder {
                 // make the selected move
                 makeMove(move, game);
                 // get the score from making this move
-                double score = -negaMax_AB(depth + 1, -beta, -alpha);
+                double score = negaMax_AB(depth - 1, -beta, -alpha);
                 // revert the board to it's original state
                 unMakeMove(move, game);
 
-                if (score == 0.0) continue;
-
+                if (score == -999999999) continue;
+                score=-score;
+                
                 // get the best move of the best move so far, and the current move
                 if (score > currentBestScore) {
                     currentBestScore = score;
@@ -60,9 +61,9 @@ public class NegaMax extends MoveFinder {
      */
     private double getUtility(int depth) {
         GameStatus status = game.getGameStatus();
-        if (status == WINNER_PLAYER_ONE) return (-1.0 / depth);
-        else if (status == WINNER_PLAYER_TWO) return (1.0 / depth);
-        else return 0.0; // No winner
+        if (status == WINNER_PLAYER_ONE) return (-1.0);
+        else if (status == WINNER_PLAYER_TWO) return (1.0);
+        else return -999999999; // No winner
     }
 
     /**
@@ -70,6 +71,9 @@ public class NegaMax extends MoveFinder {
      */
     @Override
     protected void findBestMove() {
-        negaMax_AB(0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+    	for (int i=0; i<100;i++) {
+    		negaMax_AB(i, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);	
+    	}
+        
     }
 }
