@@ -21,18 +21,20 @@ public class Main {
 
             properties = new Properties();
             try {
+
                 client = JungleClient.getInstance();
-                Application.launch(App.class, args);
 
                 FileInputStream in = new FileInputStream(propertiesFile);
                 properties.load(in);
 
-                String serverHostname = properties.getProperty("server-hostname", "localhost");
+                String serverHostname = properties.getProperty("server-hostname", "165.227.9.116");
                 int serverListenPort = Integer.parseInt(properties.getProperty("server-listenport", "9898"));
 
                 client.setHostName(serverHostname);
                 client.setListenPort(serverListenPort);
                 client.setTimeout(5000);
+
+                Application.launch(App.class, args);
 
             } catch (IOException e) {
                 e.printStackTrace();
